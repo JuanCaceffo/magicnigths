@@ -2,18 +2,31 @@ import { FC } from 'react'
 import './CardShowBase.css'
 import StarIcon from '@mui/icons-material/Star'
 
+const pathPrefix = '/mock-imgs/user-imgs'
+
 const CardShowBase: FC = () => {
+  const userImgPaths = [
+    `${pathPrefix}/juan.jpeg`,
+    `${pathPrefix}/pablito.jpeg`,
+    `${pathPrefix}/denise.jpeg`,
+    'dsa',
+    'dsa',
+  ]
+  const LIMIT_FRIENDS = 3
+
+  const pasedLimitFriends = () => userImgPaths.length > LIMIT_FRIENDS
+  const restFriends = () => pasedLimitFriends() && userImgPaths.length - LIMIT_FRIENDS
   return (
     <>
       <main className="card-show">
         <header className="card-show__header">
-          <img className="card-show__img" src="/public/mock-imgs/velapuerca.jpg" alt="" />
+          <img className="card-show__img" src="/mock-imgs/card-show-imgs/velapuerca.jpg" alt="" />
         </header>
         <section className="card-show__cont card-show--flex">
           <header className="card-show--flex">
             <span className="card-show__fileld">la vela puerca</span>
             <article className="card-show__fileld">
-              <StarIcon fontSize="0.4em"></StarIcon>
+              <StarIcon fontSize="small"></StarIcon>
               <b>4,5</b>
               <span>(150)</span>
             </article>
@@ -28,9 +41,12 @@ const CardShowBase: FC = () => {
           <div className="card-show--flex">
             <article className="card-show__friends card-show--flex">
               <span>Tambien van a asistir</span>
-              <div>user imgs</div>
-              {/* if it have more that 3 users then put*/}
-              <span>+ 3 amigos</span>
+              <div className="card-show__user-img-cnt">
+                {userImgPaths.slice(0, LIMIT_FRIENDS).map((path) => (
+                  <img className="card-show__user-img" src={path}></img>
+                ))}
+              </div>
+              {pasedLimitFriends() && <span>+ {restFriends()} amigos</span>}
             </article>
           </div>
           <footer className="card-show--flex">

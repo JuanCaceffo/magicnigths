@@ -29,8 +29,20 @@
 .card-show__friends {
   width: 100%;
   justify-content: center;
+  align-items: center;
+  gap: 1em;
 }
 .card-show__fileld {
   display: flex;
   align-items: center;
+}
+.card-show__user-img {
+  width: 2.5em;
+  border-radius: 50%;
+  object-fit: fill;
+  border: solid 0.2em violet;
+}
+.card-show__user-img-cnt {
+  display: flex;
+  gap: 0.5em;
 }
