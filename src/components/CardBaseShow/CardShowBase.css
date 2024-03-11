@@ -1,0 +1,36 @@
+.card-show {
+  display: flex;
+  flex-direction: column;
+  width: 20em;
+  height: 23em;
+  border-radius: 1em;
+  background-color: white;
+}
+.card-show--flex {
+  display: flex;
+  justify-content: space-between;
+}
+.card-show__header {
+  height: 50%;
+}
+.card-show__img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.8em;
+  object-fit: cover;
+}
+.card-show__cont {
+  flex-direction: column;
+  padding: 1em;
+  font-size: 0.8em;
+  color: black;
+  height: 100%;
+}
+.card-show__friends {
+  width: 100%;
+  justify-content: center;
+}
+.card-show__fileld {
+  display: flex;
+  align-items: center;
+}
