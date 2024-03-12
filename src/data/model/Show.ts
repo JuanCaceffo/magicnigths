@@ -19,5 +19,5 @@ export class Show {
 
   restFriends = () => this.pasedLimitFriends() && this.userImgs.length - this.LIMIT_FRIENDS
 
-  wasPricePaid = () => !!this.price && !!this.pricePaid
+  wasPricePaid = () => !!this.price
 }

@@ -6,7 +6,7 @@ export const showBase: Show = new Show(
   4,
   150,
   'Buenos Aires',
-  [new Date('14/06/2024'), new Date('18/06/2024')],
+  [new Date('Jul 12 2024'), new Date('Jul 16 2024')],
   ['/mock-imgs/user-imgs/pablito.jpeg', '/mock-imgs/user-imgs/juan.jpeg', '/mock-imgs/user-imgs/denise.jpeg'],
   23000,
 )
