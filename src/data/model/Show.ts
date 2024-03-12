@@ -13,6 +13,8 @@ export class Show {
   ) {}
   LIMIT_FRIENDS = 3
 
+  getLimitedUserImgs = () => this.userImgs.slice(0, this.LIMIT_FRIENDS)
+
   pasedLimitFriends = () => this.userImgs.length > this.LIMIT_FRIENDS
 
   restFriends = () => this.pasedLimitFriends() && this.userImgs.length - this.LIMIT_FRIENDS

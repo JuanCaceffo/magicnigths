@@ -4,10 +4,10 @@ import StarIcon from '@mui/icons-material/Star'
 import { Show } from 'src/data/model/Show'
 
 interface CardShowBaseProps {
-  data: Show
+  show: Show
 }
 
-const CardShowBase: FC<CardShowBaseProps> = ({ data: show }) => {
+const CardShowBase: FC<CardShowBaseProps> = ({ show }) => {
   return (
     <>
       <main className="card-show">
@@ -40,7 +40,7 @@ const CardShowBase: FC<CardShowBaseProps> = ({ data: show }) => {
               <article className="card-show__friends card-show--flex">
                 <span>Tambien van a asistir</span>
                 <div className="card-show__user-img-cnt">
-                  {show.userImgs.slice(0, show.LIMIT_FRIENDS).map((path) => (
+                  {show.getLimitedUserImgs().map((path) => (
                     <img className="card-show__user-img" src={path}></img>
                   ))}
                 </div>
