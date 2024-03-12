@@ -11,7 +11,7 @@
   justify-content: space-between;
 }
 .card-show__header {
-  height: 50%;
+  height: 55%;
 }
 .card-show__img {
   width: 100%;
@@ -22,7 +22,7 @@
 .card-show__cont {
   flex-direction: column;
   padding: 1em;
-  font-size: 0.8em;
+  font-size: 0.7em;
   color: black;
   height: 100%;
 }

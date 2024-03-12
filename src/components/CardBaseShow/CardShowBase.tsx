@@ -8,6 +8,11 @@ interface CardShowBaseProps {
 }
 
 const CardShowBase: FC<CardShowBaseProps> = ({ show }) => {
+  const fomratedDates = () =>
+    show.dates
+      .map((date) => new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'numeric' }).format(date))
+      .join(' - ')
+
   return (
     <>
       <main className="card-show">
@@ -25,15 +30,12 @@ const CardShowBase: FC<CardShowBaseProps> = ({ show }) => {
           </header>
           <div className="card-show--flex">
             <article className="card-show__fileld">
-              <b>Ubicacion:</b>
-              <span>{show.ubication}</span>
+              <span>
+                <b>Ubicacion: </b>
+                {show.ubication}
+              </span>
             </article>
-            <span className="card-show__fileld">
-              fechas
-              {show.dates
-                .map((date) => new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'numeric' }).format(date))
-                .join(' - ')}
-            </span>
+            <span className="card-show__fileld">{`fechas ${fomratedDates()}`}</span>
           </div>
           <div className="card-show--flex">
             {!!show.userImgs.length && (
@@ -51,7 +53,7 @@ const CardShowBase: FC<CardShowBaseProps> = ({ show }) => {
           <footer className="card-show--flex">
             <span className="card-show__fileld">
               {show.wasPricePaid()
-                ? `Precio pagado ${show.price}`
+                ? `Precio pagado  $${show.price}`
                 : show.pricePaid && `Desde ${show.pricePaid.join(' a ')}`}
             </span>
           </footer>
