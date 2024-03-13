@@ -1,13 +1,14 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import './CardShowBase.css'
 import StarIcon from '@mui/icons-material/Star'
 import { Show } from 'src/data/model/Show'
 
 interface CardShowBaseProps {
   show: Show
+  button?: ReactNode
 }
 
-const CardShowBase: FC<CardShowBaseProps> = ({ show }) => {
+const CardShowBase: FC<CardShowBaseProps> = ({ show, button }) => {
   const fomratedDates = () =>
     show.dates
       .map((date) => new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'numeric' }).format(date))
@@ -56,6 +57,7 @@ const CardShowBase: FC<CardShowBaseProps> = ({ show }) => {
                 ? `Precio pagado  $${show.price}`
                 : show.pricePaid && `Desde ${show.pricePaid.join(' a ')}`}
             </span>
+            {button && button}
           </footer>
         </section>
       </main>

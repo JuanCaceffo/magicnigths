@@ -1,8 +1,8 @@
 .card-show {
   display: flex;
   flex-direction: column;
-  width: 20em;
-  height: 23em;
+  width: 18em;
+  height: 20em;
   border-radius: 1em;
   background-color: white;
 }
