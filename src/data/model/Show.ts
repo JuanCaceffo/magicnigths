@@ -15,7 +15,10 @@ export class Show {
 
   getLimitedUserImgs = () => this.userImgs.slice(0, this.LIMIT_FRIENDS)
 
-  pasedLimitFriends = () => this.userImgs.length > this.LIMIT_FRIENDS
+  pasedLimitFriends = () => {
+    console.log(this.userImgs)
+    return this.userImgs.length > this.LIMIT_FRIENDS
+  }
 
   restFriends = () => this.pasedLimitFriends() && this.userImgs.length - this.LIMIT_FRIENDS
 
