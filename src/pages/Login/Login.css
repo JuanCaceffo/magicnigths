@@ -1,0 +1,9 @@
+.textoLabel {
+  text-align: left;
+}
+.login-input {
+  background-color: white;
+}
+.login-error {
+  color: red;
+}
