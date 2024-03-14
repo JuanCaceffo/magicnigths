@@ -5,7 +5,16 @@ import { showBase } from './data/mocks/showMocks'
 function App() {
   return (
     <>
-      <CardShow show={showBase} />
+      <CardShow
+        show={showBase}
+        button={{
+          content: 'comprar',
+          whenclick: () => {
+            console.log('jijija')
+          },
+        }}
+        amount={3}
+      />
     </>
   )
 }

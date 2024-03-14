@@ -1,14 +1,23 @@
-import { FC, ReactNode } from 'react'
+import { FC, MouseEvent } from 'react'
 import './CardShow.css'
 import StarIcon from '@mui/icons-material/Star'
 import { Show } from 'src/data/model/Show'
+import { Button, ButtonProps } from '@mui/material'
+
+interface extButtonProps {
+  content: string
+  whenclick: (event?: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => void
+  //DOCU https://mui.com/material-ui/api/button/
+  muiBtnProps?: ButtonProps
+}
 
 interface CardShowProps {
   show: Show
-  button?: ReactNode
+  button?: extButtonProps
+  amount?: number
 }
 
-const CardShow: FC<CardShowProps> = ({ show, button }) => {
+const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
   const fomratedDates = () =>
     show.dates
       .map((date) => new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'numeric' }).format(date))
@@ -19,6 +28,7 @@ const CardShow: FC<CardShowProps> = ({ show, button }) => {
       <main className="card-show">
         <header className="card-show__header">
           <img className="card-show__img" src="/mock-imgs/card-show-imgs/velapuerca.jpg" alt="" />
+          {amount && <span className="card-show__amount">X{amount}</span>}
         </header>
         <section className="card-show__cont card-show--flex">
           <header className="card-show--flex">
@@ -44,7 +54,7 @@ const CardShow: FC<CardShowProps> = ({ show, button }) => {
                 <span>Tambien van a asistir</span>
                 <div className="card-show__user-img-cnt">
                   {show.getLimitedUserImgs().map((path) => (
-                    <img className="card-show__user-img" src={path}></img>
+                    <img key={path} className="card-show__user-img" src={path}></img>
                   ))}
                 </div>
                 {show.pasedLimitFriends() && <span data-testid="more-friends">+ {show.restFriends()} amigos</span>}
@@ -57,7 +67,18 @@ const CardShow: FC<CardShowProps> = ({ show, button }) => {
                 ? `Precio pagado  $${show.price}`
                 : show.pricePaid && `Desde ${show.pricePaid.join(' a ')}`}
             </span>
-            {button && button}
+            {button && (
+              <Button
+                children={button.content}
+                onClick={(event) => {
+                  button.whenclick(event)
+                }}
+                {...button}
+                color="primary"
+                variant="contained"
+                size="small"
+              />
+            )}
           </footer>
         </section>
       </main>
