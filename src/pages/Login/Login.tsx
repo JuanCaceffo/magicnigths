@@ -1,11 +1,15 @@
-import { Button, CardContent, DialogActions, DialogContent, Input } from '@mui/material'
+import { Button, CardContent, DialogActions, DialogContent } from '@mui/material'
 import './Login.css' // Importa el archivo de estilos CSS
+import { useState } from 'react'
+import { CustomInput } from 'src/components/CustomInput/CustomInput'
 
-interface CardShowBaseProps {
-  title: string
-}
 
-const Login: React.FC<CardShowBaseProps> = () => {
+
+export const Login = () => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  // const [errorMessage, setError] = useState('')
+
   return (
     <>
       <CardContent>
@@ -13,11 +17,11 @@ const Login: React.FC<CardShowBaseProps> = () => {
         <DialogContent className="login-content">
           <div className="login-input">
             <h3 className="subtitle2">Usuario</h3>
-            <Input id="user" className="login-input-field" placeholder="Usuario" type="username" />
+            <CustomInput id="user" className="login-input-field" placeholder="Usuario" value={username} setValue={setUsername} />
           </div>
           <div className="login-input">
             <h3 className="subtitle2">Contraseña</h3>
-            <Input id="pass" className="login-input-field" placeholder="Password" type="password" />
+            <CustomInput id="pass" className="login-input-field" placeholder="Password" value={password} setValue={setPassword}/>
           </div>
         </DialogContent>
         <p className="login-error"></p>
@@ -29,4 +33,3 @@ const Login: React.FC<CardShowBaseProps> = () => {
   )
 }
 
-export default Login

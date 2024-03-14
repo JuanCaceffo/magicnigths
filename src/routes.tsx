@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { Home } from './pages/Home/Home'
 import { Admin } from './pages/Admin/Admin'
-import Login from './pages/Login/Login'
+import { Login } from './pages/Login/Login'
 import { Profile } from './pages/Profile/Profile'
 import { Shop } from './pages/Shop/Shop'
 import { NotFoundPage } from './pages/NotFound/NotFound'
