@@ -1,11 +1,11 @@
 import './App.css'
-import CardShowBase from './components/CardBaseShow/CardShowBase'
+import CardShow from './components/CardShow/CardShow'
 import { showBase } from './data/mocks/showMocks'
 
 function App() {
   return (
     <>
-      <CardShowBase show={showBase}></CardShowBase>
+      <CardShow show={showBase} />
     </>
   )
 }

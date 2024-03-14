@@ -1,14 +1,14 @@
 import { FC, ReactNode } from 'react'
-import './CardShowBase.css'
+import './CardShow.css'
 import StarIcon from '@mui/icons-material/Star'
 import { Show } from 'src/data/model/Show'
 
-interface CardShowBaseProps {
+interface CardShowProps {
   show: Show
   button?: ReactNode
 }
 
-const CardShowBase: FC<CardShowBaseProps> = ({ show, button }) => {
+const CardShow: FC<CardShowProps> = ({ show, button }) => {
   const fomratedDates = () =>
     show.dates
       .map((date) => new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'numeric' }).format(date))
@@ -47,7 +47,7 @@ const CardShowBase: FC<CardShowBaseProps> = ({ show, button }) => {
                     <img className="card-show__user-img" src={path}></img>
                   ))}
                 </div>
-                {show.pasedLimitFriends() && <span>+ {show.restFriends()} amigos</span>}
+                {show.pasedLimitFriends() && <span data-testid="more-friends">+ {show.restFriends()} amigos</span>}
               </article>
             )}
           </div>
@@ -65,4 +65,4 @@ const CardShowBase: FC<CardShowBaseProps> = ({ show, button }) => {
   )
 }
 
-export default CardShowBase
+export default CardShow
