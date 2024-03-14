@@ -10,6 +10,10 @@ export const Login = () => {
   const [password, setPassword] = useState('')
   // const [errorMessage, setError] = useState('')
 
+  const handleClick = () => {
+    console.log('Se clickeo el boton. Usuario: ' + username + ', Contraseña: ' + password)
+  }
+
   return (
     <>
       <CardContent>
@@ -26,7 +30,7 @@ export const Login = () => {
         </DialogContent>
         <p className="login-error"></p>
         <DialogActions className="login-button" sx={{ justifyContent: 'space-around' }}>
-          <Button id="ingresar" variant="contained">Ingresar</Button>
+          <Button id="ingresar" variant="contained" onClick={handleClick}>Ingresar</Button>
         </DialogActions>
       </CardContent>
     </>
