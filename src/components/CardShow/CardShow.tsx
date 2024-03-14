@@ -52,7 +52,7 @@ const CardShow: FC<CardShowProps> = ({ show, button }) => {
             )}
           </div>
           <footer className="card-show--flex">
-            <span className="card-show__fileld">
+            <span data-testid="price" className="card-show__fileld">
               {show.wasPricePaid()
                 ? `Precio pagado  $${show.price}`
                 : show.pricePaid && `Desde ${show.pricePaid.join(' a ')}`}
