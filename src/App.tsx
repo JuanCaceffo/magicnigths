@@ -10,7 +10,7 @@ function App() {
         button={{
           content: 'comprar',
           whenclick: () => {
-            console.log('jijija')
+            console.log(showBase)
           },
         }}
         amount={3}

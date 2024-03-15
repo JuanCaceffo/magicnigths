@@ -1,5 +1,6 @@
 //TODO: when the imgs managment will finished in the backend change here if is necesary
 export class Show {
+  //TODO: warining with this params (see another wey to do this)
   constructor(
     public showImg: string,
     public name: string,
@@ -13,7 +14,10 @@ export class Show {
   ) {}
   LIMIT_FRIENDS = 3
 
-  getLimitedUserImgs = () => this.userImgs.slice(0, this.LIMIT_FRIENDS)
+  getLimitedUserImgs = () => {
+    console.log(this)
+    return this.userImgs.slice(0, this.LIMIT_FRIENDS)
+  }
 
   pasedLimitFriends = () => this.userImgs.length > this.LIMIT_FRIENDS
 

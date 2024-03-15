@@ -28,7 +28,11 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
       <main className="card-show">
         <header className="card-show__header">
           <img className="card-show__img" src="/mock-imgs/card-show-imgs/velapuerca.jpg" alt="" />
-          {amount && <span className="card-show__amount">X{amount}</span>}
+          {amount && (
+            <span data-testid="show-amount" className="card-show__amount">
+              X{amount}
+            </span>
+          )}
         </header>
         <section className="card-show__cont card-show--flex">
           <header className="card-show--flex">
@@ -62,21 +66,22 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
             )}
           </div>
           <footer className="card-show--flex">
-            <span data-testid="price" className="card-show__fileld">
+            <span data-testid="show-price" className="card-show__fileld">
               {show.wasPricePaid()
                 ? `Precio pagado  $${show.price}`
                 : show.pricePaid && `Desde ${show.pricePaid.join(' a ')}`}
             </span>
             {button && (
               <Button
+                color="primary"
+                variant="contained"
+                size="small"
+                {...button.muiBtnProps}
+                data-testid="show-button"
                 children={button.content}
                 onClick={(event) => {
                   button.whenclick(event)
                 }}
-                {...button}
-                color="primary"
-                variant="contained"
-                size="small"
               />
             )}
           </footer>
