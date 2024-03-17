@@ -27,15 +27,15 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
     <>
       <main className="card-show">
         <header className="card-show__header">
-          <img className="card-show__img" src="/mock-imgs/card-show-imgs/velapuerca.jpg" alt="" />
+          <img className="card-show__img" src="/mock-imgs/card-show-imgs/velapuerca.jpg" />
           {amount && (
-            <span data-testid="show-amount" className="card-show__amount">
+            <strong data-testid="show-amount" className="card-show__amount body">
               X{amount}
-            </span>
+            </strong>
           )}
         </header>
         <section className="card-show__cont card-show--flex">
-          <header className="card-show--flex">
+          <header className="card-show--flex subtitle2">
             <span className="card-show__fileld">{show.props.name}</span>
             <article className="card-show__fileld">
               <StarIcon fontSize="small"></StarIcon>
@@ -43,7 +43,7 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
               <span>({show.props.valorationSize})</span>
             </article>
           </header>
-          <div className="card-show--flex">
+          <div className="card-show--flex body">
             <article className="card-show__fileld">
               <span>
                 <b>Ubicacion: </b>
@@ -52,7 +52,7 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
             </article>
             <span className="card-show__fileld">{`fechas ${fomratedDates()}`}</span>
           </div>
-          <div className="card-show--flex">
+          <div className="card-show--flex body">
             {!!show.props.userImgs.length && (
               <article className="card-show__friends card-show--flex">
                 <span>Tambien van a asistir</span>
@@ -65,18 +65,19 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
               </article>
             )}
           </div>
-          <footer className="card-show--flex">
-            <span data-testid="show-price" className="card-show__fileld">
+          <footer className="card-show--flex body">
+            <strong data-testid="show-price" className="card-show__fileld">
               {show.wasPricePaid()
                 ? `Precio pagado  $${show.props.price}`
                 : show.props.pricePaid && `Desde ${show.props.pricePaid.join(' a ')}`}
-            </span>
+            </strong>
             {button && (
               <Button
                 color="primary"
                 variant="contained"
                 size="small"
                 {...button.muiBtnProps}
+                className={`card-show__button button-primary ${button.muiBtnProps?.className}`}
                 data-testid="show-button"
                 children={button.content}
                 onClick={(event) => {
