@@ -1,3 +1,13 @@
+.login-container {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  height: 100vh;
+}
+.title {
+  color: var(--color-primary);
+  margin: 0 1em 0 1em;
+}
 .textoLabel {
   text-align: left;
 }
@@ -6,4 +16,11 @@
 }
 .login-error {
   color: red;
+}
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.css-bhp9pd-MuiPaper-root-MuiCard-root {
+  border-radius: var(--border-radius-md);
+}
+
+.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-colorPrimary.login-input-field.css-bz5ng3-MuiInputBase-root-MuiInput-root {
+  width: 100%;
 }
