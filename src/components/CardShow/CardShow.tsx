@@ -19,7 +19,7 @@ interface CardShowProps {
 
 const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
   const fomratedDates = () =>
-    show.dates
+    show.props.dates
       .map((date) => new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'numeric' }).format(date))
       .join(' - ')
 
@@ -36,24 +36,24 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
         </header>
         <section className="card-show__cont card-show--flex">
           <header className="card-show--flex">
-            <span className="card-show__fileld">{show.name}</span>
+            <span className="card-show__fileld">{show.props.name}</span>
             <article className="card-show__fileld">
               <StarIcon fontSize="small"></StarIcon>
-              <b>{show.valoration}</b>
-              <span>({show.valorationSize})</span>
+              <b>{show.props.valoration}</b>
+              <span>({show.props.valorationSize})</span>
             </article>
           </header>
           <div className="card-show--flex">
             <article className="card-show__fileld">
               <span>
                 <b>Ubicacion: </b>
-                {show.ubication}
+                {show.props.ubication}
               </span>
             </article>
             <span className="card-show__fileld">{`fechas ${fomratedDates()}`}</span>
           </div>
           <div className="card-show--flex">
-            {!!show.userImgs.length && (
+            {!!show.props.userImgs.length && (
               <article className="card-show__friends card-show--flex">
                 <span>Tambien van a asistir</span>
                 <div className="card-show__user-img-cnt">
@@ -68,8 +68,8 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
           <footer className="card-show--flex">
             <span data-testid="show-price" className="card-show__fileld">
               {show.wasPricePaid()
-                ? `Precio pagado  $${show.price}`
-                : show.pricePaid && `Desde ${show.pricePaid.join(' a ')}`}
+                ? `Precio pagado  $${show.props.price}`
+                : show.props.pricePaid && `Desde ${show.props.pricePaid.join(' a ')}`}
             </span>
             {button && (
               <Button
