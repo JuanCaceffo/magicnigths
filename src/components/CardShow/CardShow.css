@@ -24,6 +24,8 @@
 .card-show__amount {
   color: white;
   position: absolute;
+  font-weight: 600;
+  font-size: 1.2em;
   top: 0.8em;
   right: 0.8em;
 }
