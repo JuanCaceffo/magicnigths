@@ -2,7 +2,6 @@
 @import url('./styles/typography.css');
 
 :root {
-  --maxWidth: 450px;
   /* Colors */
   --color-primary: hsla(207, 100%, 25%, 1);
   --color-secondary: hsla(207, 66%, 43%, 1);
@@ -60,10 +59,6 @@ html {
   font-style: normal;
   font-size: 10px;
   color: var(--text-color);
-}
-
-body {
-  max-width: var(--maxWidth);
 }
 
 .fa-lp {
