@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom'
+import { Container } from '@mui/material'
+import { Header } from 'src/components/Header/Header'
+import { Search } from 'src/components/Search/Search'
+import { Page } from 'src/pages/Page/Page'
 
 export const Home = () => {
-  const shows = [1, 2, 3, 4, 5]
   return (
-    <>
-      {shows.map((show) => (
-        <Link key={show} to={`/shows/${show}`}>
-          Show {show}
-        </Link>
-      ))}
-    </>
+    <Page
+      header={<Header />}
+      search={<Search />}
+      content={<Container className="main__content">Contenido</Container>}
+    />
   )
 }

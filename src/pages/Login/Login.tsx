@@ -1,7 +1,6 @@
+import { Container } from '@mui/material'
+import { Page } from '../Page/Page'
+
 export const Login = () => {
-  return (
-    <>
-      <h1>Login Page</h1>
-    </>
-  )
+  return <Page content={<Container className="main__content">Contenido Login</Container>} />
 }
