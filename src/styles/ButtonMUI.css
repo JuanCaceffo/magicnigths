@@ -1,0 +1,13 @@
+.MuiButtonBase-root.MuiButton-colorPrimary {
+  background-color: var(--color-highligthed);
+}
+.MuiButtonBase-root.MuiButton-colorPrimary:hover {
+  background-color: var(--color-highligthed);
+}
+
+.MuiButtonBase-root.MuiButton-colorSecondary {
+  background-color: var(--color-secondary);
+}
+.MuiButtonBase-root.MuiButton-colorSecondary:hover {
+  background-color: var(--color-secondary);
+}

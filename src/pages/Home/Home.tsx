@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom'
+import CardShow from 'src/components/CardShow/CardShow'
+import { showBase } from 'src/data/mocks/showMocks'
 
 export const Home = () => {
-  const shows = [1, 2, 3, 4, 5]
   return (
     <>
-      {shows.map((show) => (
-        <Link key={show} to={`/shows/${show}`}>
-          Show {show}
-        </Link>
-      ))}
+      <CardShow
+        show={showBase}
+        button={{ content: 'holaa', whenclick: () => {}, muiBtnProps: { color: 'secondary' } }}
+        amount={3}
+      ></CardShow>
     </>
   )
 }
