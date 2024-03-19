@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;700;800;900&family=Roboto:wght@300;400;500;600;700;900&display=swap');
 @import url('./styles/typography.css');
 @import url('./styles/layout.scss');
+@import url('./styles/ButtonMUI.css');
 
 :root {
-  --maxWidth: 450px;
   /* Colors */
   --color-primary: hsla(207, 100%, 25%, 1);
   --color-secondary: hsla(207, 66%, 43%, 1);
@@ -26,7 +26,7 @@
   --text-color-medium: hsla(207, 25%, 35%, 1);
   /* Card Background Color */
   --gradient-primary: linear-gradient(to right, var(--color-secondary) 20%, var(--color-primary) 80%);
-  --card-bg-gradient: linear-gradient(to bottom, var(--color-clear), rgba(0, 0, 0, 0.05));
+  --card-bg-gradient: linear-gradient(to top, var(--color-clear) 15%, rgba(0, 0, 0, 0.05));
   --user-info-background: linear-gradient(to bottom, var(--color-clear-medium), var(--color-clear));
   /* Fonts */
   --typeface-primary: 'Mulish', 'Open Sans', 'Verdana', 'sans-serif';
