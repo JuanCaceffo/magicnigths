@@ -1,3 +1,5 @@
+$item-separation: 0.3em;
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -10,7 +12,7 @@
   padding: var(--box-padding);
 
   color: var(--color-clear);
-  font-size: 2.2em;
+  font-size: 2em;
   font-weight: 800;
 
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.4));
@@ -23,7 +25,7 @@
   }
 
   &__hamburger {
-    padding: 0.2em;
+    padding: $item-separation;
   }
 
   &__menu {
@@ -45,16 +47,18 @@
     opacity: 0;
     background-color: var(--text-color);
 
-    transition: opacity var(--transition-time) ease;
-
     &--open {
       opacity: 0.85;
       visibility: visible;
     }
+
+    transition:
+      opacity var(--transition-time) ease,
+      visibility var(--transition-time) ease;
   }
 
   &__item {
-    padding: 0.2em;
+    padding: $item-separation;
 
     letter-spacing: 1.25px;
 
@@ -91,7 +95,7 @@
     }
 
     &__item {
-      margin: 0 0.3em;
+      margin: 0 $item-separation;
       &--close {
         display: none;
       }
