@@ -1,5 +1,3 @@
-$navbar-height: calc(var(--header-height) - 2 * var(--box-padding));
-
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -24,48 +22,48 @@ $navbar-height: calc(var(--header-height) - 2 * var(--box-padding));
     }
   }
 
+  &__hamburger {
+    padding: 0.2em;
+  }
+
   &__menu {
-    display: none;
+    display: flex;
     flex-direction: column;
-    row-gap: 2em;
     align-items: end;
+    row-gap: 1.2em;
+
     position: absolute;
-    min-height: 100vh;
-    min-width: 35vw;
-    padding: 1em;
-    opacity: 0.85;
-    z-index: 99;
     top: 0;
     right: 0;
+    z-index: 99;
+    min-height: 100vh;
+    min-width: 35vw;
+
+    padding: 1em;
+
+    visibility: hidden;
+    opacity: 0;
     background-color: var(--text-color);
 
+    transition: opacity var(--transition-time) ease;
+
     &--open {
-      display: flex;
+      opacity: 0.85;
+      visibility: visible;
     }
   }
 
   &__item {
+    padding: 0.2em;
+
+    letter-spacing: 1.25px;
+
     list-style: none;
     cursor: pointer;
   }
 
   &__link {
-    display: block;
     text-decoration: none;
-
-    letter-spacing: 1.25px;
-    padding: 0.3em;
-    margin: 0 0.3em;
-
-    &--hamburger {
-      display: flex;
-      align-items: center;
-      position: absolute;
-      height: 100%;
-      top: 0;
-      right: 0;
-      border: 1px solid red;
-    }
   }
 
   &__icon {
@@ -73,26 +71,35 @@ $navbar-height: calc(var(--header-height) - 2 * var(--box-padding));
   }
 
   .active {
-    color: var(--color-focus-lighter);
+    color: var(--color-tertiary);
   }
 
   @media (min-width: 480px) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-
-    &--horizontal {
-      display: flex;
+    &__menu {
+      flex-direction: row;
       align-items: center;
+
+      padding: 0;
+
+      min-width: unset;
+
+      position: unset;
+
+      visibility: visible;
+      opacity: 1;
+      background: none;
+    }
+
+    &__item {
+      margin: 0 0.3em;
+      &--close {
+        display: none;
+      }
     }
 
     &__hamburger {
       display: none;
     }
-    //transition: opacity var(--transition-time) ease;
-    //opacity: 1;
-    //pointer-events: auto;
   }
 }
 
