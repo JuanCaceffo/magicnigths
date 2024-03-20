@@ -12,7 +12,7 @@
   /* Poin of Interest Color */
   --color-highligthed: hsla(32, 100%, 50%, 1);
   --color-focus: hsla(32, 100%, 65%, 1);
-  --color-focus-lighter: hsla(32, 100%, 92%, 1);
+  --color-focus-lighter: hsla(36, 100%, 90%, 1);  
   --color-hot: hsla(0, 80%, 50%, 1);
   /* Brigth Colors */
   --color-clear: hsla(0, 0%, 99%, 1);
@@ -54,11 +54,11 @@
   box-sizing: border-box;
 }
 
-html {   
+html {
   font-family: var(--typeface-primary);
   font-style: normal;
   font-size: 10px;
-  color: var(--text-color);   
+  color: var(--text-color);
 }
 
 .fa-lp {

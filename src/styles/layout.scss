@@ -1,4 +1,4 @@
-$header-height: 7rem;
+$header-height: 8rem;
 $search-height: 5rem;
 $footer-height: 5rem;
 
@@ -12,6 +12,8 @@ $footer-height: 5rem;
     'footer';
 
   &__header {
+    display: flex;
+    align-items: center;
     padding: inherit;
     grid-area: header;
     background-image: var(--gradient-primary);
