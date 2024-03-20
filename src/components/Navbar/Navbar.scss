@@ -52,9 +52,7 @@ $item-separation: 0.3em;
       visibility: visible;
     }
 
-    transition:
-      opacity var(--transition-time) ease,
-      visibility var(--transition-time) ease;
+    transition: opacity var(--transition-time) ease;
   }
 
   &__item {
