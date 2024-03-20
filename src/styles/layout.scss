@@ -1,24 +1,19 @@
-$header-height: 8rem;
-$search-height: 5rem;
-$footer-height: 5rem;
-
 .main {
   display: grid;
   padding: 0;
   min-height: 100vh;
-  grid-template-rows: auto $footer-height;
+  grid-template-rows: auto var(--footer-height);
   grid-template-areas:
     'content'
     'footer';
 
   &__header {
-    display: flex;
-    align-items: center;
     padding: inherit;
     grid-area: header;
     background-image: var(--gradient-primary);
     position: sticky;
     top: 0;
+    z-index: 2;
   }
 
   &__search {
@@ -26,7 +21,8 @@ $footer-height: 5rem;
     grid-area: search;
     background-color: var(--color-tertiary);
     position: sticky;
-    top: $header-height;
+    top: var(--header-height);
+    z-index: 1;
   }
 
   &__content {
@@ -42,7 +38,7 @@ $footer-height: 5rem;
   }
 
   &--header {
-    grid-template-rows: $header-height auto $footer-height;
+    grid-template-rows: var(--header-height) auto var(--footer-height);
     grid-template-areas:
       'header'
       'content'
@@ -50,7 +46,7 @@ $footer-height: 5rem;
   }
 
   &--search {
-    grid-template-rows: $header-height $search-height auto $footer-height;
+    grid-template-rows: var(--header-height) var(--search-height) auto var(--footer-height);
     grid-template-areas:
       'header'
       'search'

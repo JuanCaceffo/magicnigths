@@ -4,6 +4,11 @@
 @import url('./styles/ButtonMUI.css');
 
 :root {
+  /* Default Heights*/
+  --header-height: 8rem;
+  --search-height: 5rem;
+  --footer-height: 5rem;
+
   /* Colors */
   --color-primary: hsla(207, 100%, 25%, 1);
   --color-secondary: hsla(207, 66%, 43%, 1);
@@ -12,7 +17,7 @@
   /* Poin of Interest Color */
   --color-highligthed: hsla(32, 100%, 50%, 1);
   --color-focus: hsla(32, 100%, 65%, 1);
-  --color-focus-lighter: hsla(36, 100%, 90%, 1);  
+  --color-focus-lighter: hsla(36, 100%, 90%, 1);
   --color-hot: hsla(0, 80%, 50%, 1);
   /* Brigth Colors */
   --color-clear: hsla(0, 0%, 99%, 1);
