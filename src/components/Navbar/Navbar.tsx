@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './Navbar.scss'
 import { Link, NavLink } from 'react-router-dom'
-import { Container } from '@mui/material'
+import { Box } from '@mui/material'
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -10,9 +10,9 @@ export const Navbar = () => {
       <Link to="/" className="navbar__title">
         <img src="src/assets/images/logo/logo_minimal.png" alt="Noches Mágicas" />
       </Link>
-      <Container className="navbar__hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+      <Box className="navbar__hamburger" onClick={() => setMenuOpen(!menuOpen)}>
         <i className="navbar__icon fas fa-bars" />
-      </Container>
+      </Box>
       <ul className={menuOpen ? 'navbar--hamburger' : 'navbar--horizontal'}>
         <li className="navbar__item">
           <NavLink className="navbar__link" to="/">

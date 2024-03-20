@@ -17,12 +17,16 @@ $footer-height: 5rem;
     padding: inherit;
     grid-area: header;
     background-image: var(--gradient-primary);
+    position: sticky;
+    top: 0;
   }
 
   &__search {
     padding: inherit;
     grid-area: search;
     background-color: var(--color-tertiary);
+    position: sticky;
+    top: $header-height;
   }
 
   &__content {
