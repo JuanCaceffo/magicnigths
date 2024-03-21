@@ -26,7 +26,7 @@ const navbar = {
 
 export const Header = () => {
   return (
-    <Container className="main__header">
+    <Container className="main__header shadow">
       <Logo className="shadow--item" imgUrl={'src/assets/images/logo/logo_minimal.png'} alt={'Noches Mágicas'} />
       <Navbar className={navbar.className} nodes={navbar.nodes} />
     </Container>
