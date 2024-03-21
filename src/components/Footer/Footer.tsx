@@ -17,7 +17,7 @@ export const Footer = () => {
   return (
     <Container className="main__footer">
       {footerLinks.map((link) => (
-        <NodeItem key={link.link} node={link.node} link={link.link} className={textClass} />
+        <NodeItem key={link.link} node={link.node} link={link.link} className={textClass} newTab={true} />
       ))}
       <Logo className="shadow--item" imgUrl={'src/assets/images/logo/logo_minimal.png'} alt={'Noches Mágicas'} />
       <span className={textClass}>/</span>
