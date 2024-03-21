@@ -1,14 +1,14 @@
-import CardShow from 'src/components/CardShow/CardShow'
-import { showBase } from 'src/data/mocks/showMocks'
+import { Container } from '@mui/material'
+import { Header } from 'src/components/Header/Header'
+import { Search } from 'src/components/Search/Search'
+import { Page } from 'src/pages/Page/Page'
 
 export const Home = () => {
   return (
-    <>
-      <CardShow
-        show={showBase}
-        button={{ content: 'holaa', whenclick: () => {}, muiBtnProps: { color: 'secondary' } }}
-        amount={3}
-      ></CardShow>
-    </>
+    <Page
+      header={<Header />}
+      search={<Search />}
+      content={<Container className="main__content">Contenido</Container>}
+    />
   )
 }

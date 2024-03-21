@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;700;800;900&family=Roboto:wght@300;400;500;600;700;900&display=swap');
 @import url('./styles/typography.css');
+@import url('./styles/layout.scss');
 @import url('./styles/ButtonMUI.css');
 
 :root {
@@ -53,20 +54,11 @@
   box-sizing: border-box;
 }
 
-html {
-  display: flex;
-  justify-content: center;
+html {   
   font-family: var(--typeface-primary);
   font-style: normal;
   font-size: 10px;
-  color: var(--text-color);
-}
-
-body {
-  margin: 0;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  color: var(--text-color);   
 }
 
 .fa-lp {
