@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;700;800;900&family=Roboto:wght@300;400;500;600;700;900&display=swap');
-@import url('./styles/typography.css');
+@import url('./styles/typography.scss');
 @import url('./styles/layout.scss');
-@import url('./styles/ButtonMUI.css');
+@import url('./styles/shadow.scss');
+@import url('./styles/icon.scss');
+@import url('./styles/button.scss');
 
 :root {
   /* Default Heights*/
@@ -29,6 +31,7 @@
   --text-color-lighter: hsla(207, 20%, 55%, 1);
   --text-color: hsla(207, 30%, 10%, 1);
   --text-color-medium: hsla(207, 25%, 35%, 1);
+  
   /* Card Background Color */
   --gradient-primary: linear-gradient(to right, var(--color-secondary) 20%, var(--color-primary) 80%);
   --card-bg-gradient: linear-gradient(to top, var(--color-clear) 15%, rgba(0, 0, 0, 0.05));
@@ -40,6 +43,8 @@
   --border-radius: 0.5rem;
   --border-radius-md: 1rem;
   --border-radius-xl: 1.5rem;
+  
+  
   /* Box Shadow */
   --box-shadow-xs: 0rem 0.1rem 0.4rem rgba(0, 0, 0, 0.2);
   --box-shadow: 0rem 0.4rem 1rem -0.2rem rgba(0, 0, 0, 0.2);
@@ -47,8 +52,13 @@
   --box-shadow-xl: 0.5rem 0.5rem 2rem rgba(0, 0, 0, 0.3);
   --box-shadow-line: 0rem 0.4rem 0.6rem -0.5rem rgba(0, 70, 128, 0.3);
   --box-shadow-hover: 0rem 2rem 2rem -1.5rem rgba(0, 0, 0, 0.3);
+  
+
   /* Box Padding */
   --box-padding: 1.6rem;
+  --padding-xs: 0.8rem;
+  --padding: 1.6rem;
+  
   /* Animations */
   --transition-time: 0.5s;
 }

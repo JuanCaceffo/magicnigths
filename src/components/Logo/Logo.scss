@@ -1,0 +1,6 @@
+.logo {
+  & img {
+    max-height: 100%;
+    filter: var(--shadow-item);
+  }
+}

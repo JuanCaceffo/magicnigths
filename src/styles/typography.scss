@@ -1,0 +1,36 @@
+.text {
+  font-family: 'Mulish', 'Open Sans', 'Verdana', 'sans-serif';
+  color: hsla(207, 30%, 10%, 1);
+  font-size: 1.2em;
+  font-weight: 400;
+
+  &--xxl {
+    font-size: 2.8em;
+    font-weight: 800;
+  }
+
+  &--xl {
+    font-size: 2em;
+    font-weight: 600;
+  }
+
+  &--md {
+    font-size: 1.5em;
+  }
+
+  &--xs {
+    font-size: 0.9em;
+  }
+
+  &--strong {
+    font-weight: 600;
+  }
+
+  &--spaced {
+    letter-spacing: 1.25px;
+  }
+
+  &--clear {
+    color: hsla(0, 0%, 99%, 1);
+  }
+}
