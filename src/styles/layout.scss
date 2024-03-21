@@ -37,8 +37,12 @@
   }
 
   &__footer {
-    padding: inherit;
     grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--padding);
+    padding: var(--padding);
     background-color: var(--color-primary);
   }
 

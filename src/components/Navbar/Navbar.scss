@@ -1,15 +1,9 @@
-$item-separation: 0.6em;
-
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   height: 100%;
-
-  &__hamburger {
-    padding: $item-separation;
-  }
 
   &__menu {
     display: flex;
