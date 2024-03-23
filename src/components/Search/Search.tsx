@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 type Inputs = {
@@ -8,11 +7,7 @@ type Inputs = {
 }
 
 export const Search = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>()
+  const { register, handleSubmit } = useForm<Inputs>()
 
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
 
