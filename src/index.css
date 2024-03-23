@@ -28,6 +28,8 @@
   --color-clear-medium: hsla(0, 0%, 96%, 1);
   --color-clear-dark: hsla(0, 0%, 94%, 1);
   --color-clear-2dark: hsla(0, 0%, 84%, 1);
+  --color-clear-variant: hsla(32, 100%, 97%, 1);
+
   /* Text & Typeface */
   --text-color-2lighter: hsla(207, 20%, 75%, 1);
   --text-color-lighter: hsla(207, 20%, 55%, 1);
