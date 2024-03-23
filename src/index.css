@@ -4,12 +4,14 @@
 @import url('./styles/shadow.scss');
 @import url('./styles/icon.scss');
 @import url('./styles/button.scss');
+@import url('./styles/input.scss');
 
 :root {
   /* Default Heights*/
   --header-height: 8rem;
   --search-height: 5rem;
   --footer-height: 5rem;
+  --element-height: 2.8rem;
 
   /* Colors */
   --color-primary: hsla(207, 100%, 25%, 1);
@@ -39,7 +41,9 @@
   /* Fonts */
   --typeface-primary: 'Mulish', 'Open Sans', 'Verdana', 'sans-serif';
   --typeface-secondary: 'Roboto', 'Open Sans', 'Verdana', 'sans-serif';
+  
   /* Border Radius */
+  --border-radius-sm: 0.3rem;
   --border-radius: 0.5rem;
   --border-radius-md: 1rem;
   --border-radius-xl: 1.5rem;
