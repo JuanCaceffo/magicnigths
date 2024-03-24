@@ -8,12 +8,17 @@
     'footer';
 
   &__header {
-    padding: inherit;
     grid-area: header;
-    background-image: var(--gradient-primary);
+    display: flex;
+    justify-content: space-between;
+
     position: sticky;
     top: 0;
     z-index: 2;
+
+    padding: var(--padding);
+
+    background-image: var(--gradient-primary);
   }
 
   &__search {
@@ -32,8 +37,12 @@
   }
 
   &__footer {
-    padding: inherit;
     grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--padding);
+    padding: var(--padding);
     background-color: var(--color-primary);
   }
 
