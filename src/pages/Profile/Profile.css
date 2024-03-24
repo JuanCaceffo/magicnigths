@@ -16,9 +16,9 @@
 .selection_panel {
     display: flex;
     width: 100%;
-    padding: 2em 1em 2em 1em;
+    padding: 2em 0 2em 0;
     font-weight: bold;
 }
-.MuiButtonBase-root.MuiButton-colorPrimary.selection_button {
- background-color: transparent;
+.selection_button {
+ margin: 0 2em 0 0;
 }

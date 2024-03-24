@@ -1,9 +1,8 @@
-import { Avatar, Button, Container, Divider } from '@mui/material'
+import { Avatar, Container, Divider } from '@mui/material'
 import { Header } from 'src/components/Header/Header'
 import { Page } from 'src/pages/Page/Page'
 import '../../index.css'
-import '../../styles/typography.css'
-import '../../styles/ButtonMUI.css' 
+import '../../styles/typography.scss'
 import './Profile.css'
 import { CustomInput } from 'src/components/CustomInput/CustomInput'
 import { PurchasedTicketContent } from 'src/components/TicketsContent/PurchasedTicketContent'
@@ -60,9 +59,9 @@ export const Profile = () => {
             ></CustomInput>
             <h3 className='subtitle2'>Edad</h3>
             <p>x años</p>
-            <Button className='save-user-data-button' variant='contained' onClick={handleSaveClick}>
+            <button className='button save-user-data-button' onClick={handleSaveClick}>
                 Guardar
-            </Button>
+            </button>
             <h3 className='subtitle2'>DNI</h3>
             <CustomInput 
               id='user_dni'
@@ -72,15 +71,15 @@ export const Profile = () => {
               setValue={setDni}
             ></CustomInput>
             <h3 className='subtitle2'>Crédito ${credit}</h3>
-            <Button className='add_credit-user-button' variant='contained' onClick={handleAddCreditClick}>
+            <button className='button add_credit-user-button' onClick={handleAddCreditClick}>
                 Sumar crédito
-            </Button>
+            </button>
           </div>
           <div className='user_display_container'>
             <div className='selection_panel'>
-              <Button className='subtitle2 selection_button' onClick={ () => setContent(SelectionContent.PURCHASED_TICKET) }>Entradas compradas</Button>
-              <Button className='subtitle2 selection_button' onClick={ () => setContent(SelectionContent.FRIENDS) }>Amigos</Button>
-              <Button className='subtitle2 selection_button' onClick={ () => setContent(SelectionContent.COMMENTS) }>Comentario</Button>
+              <p className='subtitle selection_button' onClick={ () => setContent(SelectionContent.PURCHASED_TICKET) }>Entradas compradas</p>
+              <p className='subtitle2 selection_button' onClick={ () => setContent(SelectionContent.FRIENDS) }>Amigos</p>
+              <p className='subtitle2 selection_button' onClick={ () => setContent(SelectionContent.COMMENTS) }>Comentario</p>
             </div>
             <Divider></Divider>
             {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
