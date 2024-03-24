@@ -82,9 +82,11 @@ export const Profile = () => {
               <p className='subtitle2 selection_button' onClick={ () => setContent(SelectionContent.COMMENTS) }>Comentario</p>
             </div>
             <Divider></Divider>
-            {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
-            {content === SelectionContent.FRIENDS && <FriendsContent />}
-            {content === SelectionContent.COMMENTS && <CommentsContent />}
+            <div className='content_container'>
+              {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
+              {content === SelectionContent.FRIENDS && <FriendsContent />}
+              {content === SelectionContent.COMMENTS && <CommentsContent />}
+            </div>
           </div>
         </Container>} />
     </>

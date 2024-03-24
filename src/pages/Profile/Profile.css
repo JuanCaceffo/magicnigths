@@ -22,3 +22,11 @@
 .selection_button {
  margin: 0 2em 0 0;
 }
+
+.content_container {
+    padding: 3em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+    justify-content: space-around;
+}
