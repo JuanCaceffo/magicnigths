@@ -1,12 +1,8 @@
-$header-height: 7rem;
-$search-height: 5rem;
-$footer-height: 5rem;
-
 .main {
   display: grid;
   padding: 0;
   min-height: 100vh;
-  grid-template-rows: auto $footer-height;
+  grid-template-rows: auto var(--footer-height);
   grid-template-areas:
     'content'
     'footer';
@@ -15,12 +11,18 @@ $footer-height: 5rem;
     padding: inherit;
     grid-area: header;
     background-image: var(--gradient-primary);
+    position: sticky;
+    top: 0;
+    z-index: 2;
   }
 
   &__search {
     padding: inherit;
     grid-area: search;
     background-color: var(--color-tertiary);
+    position: sticky;
+    top: var(--header-height);
+    z-index: 1;
   }
 
   &__content {
@@ -36,7 +38,7 @@ $footer-height: 5rem;
   }
 
   &--header {
-    grid-template-rows: $header-height auto $footer-height;
+    grid-template-rows: var(--header-height) auto var(--footer-height);
     grid-template-areas:
       'header'
       'content'
@@ -44,7 +46,7 @@ $footer-height: 5rem;
   }
 
   &--search {
-    grid-template-rows: $header-height $search-height auto $footer-height;
+    grid-template-rows: var(--header-height) var(--search-height) auto var(--footer-height);
     grid-template-areas:
       'header'
       'search'
