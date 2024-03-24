@@ -5,7 +5,7 @@ import { CustomInput } from 'src/components/CustomInput/CustomInput'
 import { UserLogin } from 'src/data/model/UserLogin'
 import { loginService } from 'src/services/LoginService'
 import { useNavigate } from 'react-router-dom'
-import { AxiosError } from 'axios'
+import { isAxiosError } from 'axios'
 
 export const Login = () => {
   const [username, setUsername] = useState('')
@@ -20,8 +20,10 @@ export const Login = () => {
     try {
       await loginService.postUserLogin(userLogin)
       navigate('/user_profile')
-    } catch (e: unknown) {
-      setError((e as AxiosError).response.data.message)
+    } catch (e) {
+      if(isAxiosError(e)) {
+        setError(e.response?.data.message)
+      }
     }
   }
 
