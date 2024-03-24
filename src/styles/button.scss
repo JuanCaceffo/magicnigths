@@ -11,3 +11,31 @@
 .MuiButtonBase-root.MuiButton-colorSecondary:hover {
   background-color: var(--color-secondary);
 }
+
+.button {
+  height: var(--element-height);
+  width: 100%;
+  color: var(--color-clear);
+  border: 1px solid var(--color-secondary);
+  background-color: var(--color-secondary);
+  border-radius: var(--border-radius-sm);
+
+  &__small {
+    width: 5em;
+  }
+
+  &__secondary {
+    color: initial;
+    border: 1px solid var(--color-secondary);
+    background-color: var(--color-clear);
+
+    &:hover {
+      color: var(--color-clear);
+      background-color: var(--color-secondary);
+    }
+  }
+
+  transition:
+    color var(--transition-time) ease,
+    background-color var(--transition-time) ease;
+}

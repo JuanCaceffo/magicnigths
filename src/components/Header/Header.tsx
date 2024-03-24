@@ -3,7 +3,7 @@ import { Navbar } from 'src/components/Navbar/Navbar'
 import { Logo } from 'src/components/Logo/Logo'
 
 const navbar = {
-  className: 'text text--md text--clear text--strong text--spaced shadow--item',
+  className: 'text text--xl text--clear text--strong text--spaced shadow--item',
   nodes: [
     {
       node: <>Home</>,

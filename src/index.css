@@ -4,17 +4,19 @@
 @import url('./styles/shadow.scss');
 @import url('./styles/icon.scss');
 @import url('./styles/button.scss');
+@import url('./styles/input.scss');
 
 :root {
   /* Default Heights*/
   --header-height: 8rem;
   --search-height: 5rem;
   --footer-height: 5rem;
+  --element-height: 2.8rem;
 
   /* Colors */
-  --color-primary: hsla(207, 100%, 25%, 1);
-  --color-secondary: hsla(207, 66%, 43%, 1);
-  --color-tertiary: hsla(197, 96%, 46%, 1);
+  --color-primary: hsla(344, 66%, 25%, 1);
+  --color-secondary: hsla(344, 90%, 39%, 1);
+  --color-tertiary: hsla(344, 80%, 65%, 1);
   --color-tertiary-lighter: hsla(197, 96%, 65%, 1);
   /* Poin of Interest Color */
   --color-highligthed: hsla(32, 100%, 50%, 1);
@@ -26,6 +28,8 @@
   --color-clear-medium: hsla(0, 0%, 96%, 1);
   --color-clear-dark: hsla(0, 0%, 94%, 1);
   --color-clear-2dark: hsla(0, 0%, 84%, 1);
+  --color-clear-variant: hsla(32, 100%, 97%, 1);
+
   /* Text & Typeface */
   --text-color-2lighter: hsla(207, 20%, 75%, 1);
   --text-color-lighter: hsla(207, 20%, 55%, 1);
@@ -39,7 +43,9 @@
   /* Fonts */
   --typeface-primary: 'Mulish', 'Open Sans', 'Verdana', 'sans-serif';
   --typeface-secondary: 'Roboto', 'Open Sans', 'Verdana', 'sans-serif';
+  
   /* Border Radius */
+  --border-radius-sm: 0.3rem;
   --border-radius: 0.5rem;
   --border-radius-md: 1rem;
   --border-radius-xl: 1.5rem;
