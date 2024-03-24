@@ -1,42 +1,58 @@
-$header-height: 7rem;
-$search-height: 5rem;
-$footer-height: 5rem;
-
 .main {
   display: grid;
   padding: 0;
   min-height: 100vh;
-  grid-template-rows: auto $footer-height;
+  grid-template-rows: auto var(--footer-height);
   grid-template-areas:
     'content'
     'footer';
 
   &__header {
-    padding: inherit;
     grid-area: header;
+    display: flex;
+    justify-content: space-between;
+
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+    padding: var(--padding) 3rem;
+
     background-image: var(--gradient-primary);
   }
 
   &__search {
-    padding: inherit;
     grid-area: search;
-    background-color: var(--color-tertiary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: sticky;
+    top: var(--header-height);
+    z-index: 1;
+
+    gap: var(--padding);
+    background-color: var(--color-clear);
   }
 
   &__content {
     padding: inherit;
     grid-area: content;
-    background-color: blanchedalmond;
+    background-color: var(--color-clear-variant);
   }
 
   &__footer {
-    padding: inherit;
     grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--padding);
+    padding: var(--padding);
     background-color: var(--color-primary);
   }
 
   &--header {
-    grid-template-rows: $header-height auto $footer-height;
+    grid-template-rows: var(--header-height) auto var(--footer-height);
     grid-template-areas:
       'header'
       'content'
@@ -44,7 +60,7 @@ $footer-height: 5rem;
   }
 
   &--search {
-    grid-template-rows: $header-height $search-height auto $footer-height;
+    grid-template-rows: var(--header-height) var(--search-height) auto var(--footer-height);
     grid-template-areas:
       'header'
       'search'
