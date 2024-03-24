@@ -1,0 +1,24 @@
+.main__content_user {
+    display: flex;
+    padding: var(--box-padding);
+}
+
+.user_data_container {
+    width: 25%;
+}
+.user_display_container {
+    width: 75%;
+}
+.user_profile_photo {
+    width: 15rem;
+    height: 15rem;
+}
+.selection_panel {
+    display: flex;
+    width: 100%;
+    padding: 2em 1em 2em 1em;
+    font-weight: bold;
+}
+.MuiButtonBase-root.MuiButton-colorPrimary.selection_button {
+ background-color: transparent;
+}
