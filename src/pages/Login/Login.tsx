@@ -5,6 +5,7 @@ import { CustomInput } from 'src/components/CustomInput/CustomInput'
 import { UserLogin } from 'src/data/model/UserLogin'
 import { loginService } from 'src/services/LoginService'
 import { useNavigate } from 'react-router-dom'
+import { AxiosError } from 'axios'
 
 export const Login = () => {
   const [username, setUsername] = useState('')
@@ -20,7 +21,7 @@ export const Login = () => {
       await loginService.postUserLogin(userLogin)
       navigate('/user_profile')
     } catch (e: unknown) {
-      setError((e as Error).message)
+      setError((e as AxiosError).response.data.message)
     }
   }
 
@@ -30,7 +31,7 @@ export const Login = () => {
         <Card>
           <CardContent>
             <h1 className="title">Noches Mágicas</h1>
-            <form onSubmit={HandleLoginClick}> 
+            <form onSubmit={HandleLoginClick} onChange={() => setError('')}> 
               <DialogContent className="login-content">
                 <div className="login-input">
                   <h3 className="subtitle2">Usuario</h3>
