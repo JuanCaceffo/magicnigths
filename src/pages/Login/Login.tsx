@@ -18,7 +18,7 @@ export const Login = () => {
 
     try {
       await loginService.postUserLogin(userLogin)
-      navigate('/login/')
+      navigate('/user_profile')
     } catch (e: unknown) {
       setError((e as Error).message)
     }
@@ -30,32 +30,35 @@ export const Login = () => {
         <Card>
           <CardContent>
             <h1 className="title">Noches Mágicas</h1>
-            <DialogContent className="login-content">
-              <div className="login-input">
-                <h3 className="subtitle2">Usuario</h3>
-                <CustomInput
-                  id="user"
-                  className="login-input-field"
-                  placeholder="Usuario"
-                  value={username}
-                  setValue={setUsername}
-                />
-              </div>
-              <div className="login-input">
-                <h3 className="subtitle2">Contraseña</h3>
-                <CustomInput
-                  id="pass"
-                  className="login-input-field"
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  setValue={setPassword}
-                />
-              </div>
-            </DialogContent>
+            <form onSubmit={HandleLoginClick}> 
+              <DialogContent className="login-content">
+                <div className="login-input">
+                  <h3 className="subtitle2">Usuario</h3>
+                  <CustomInput
+                    id="user"
+                    className="login-input-field"
+                    placeholder="Usuario"
+                    value={username}
+                    setValue={setUsername}
+                  />
+                </div>
+                <div className="login-input">
+                  <h3 className="subtitle2">Contraseña</h3>
+                  <CustomInput
+                    id="pass"
+                    className="login-input-field"
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    setValue={setPassword}
+                  />
+                </div>
+              </DialogContent>
+            </form>
+            
             <p className="login-error">{errorMessage}</p>
             <DialogActions sx={{ justifyContent: 'space-around' }}>
-              <Button className="login-button" variant="contained" onClick={HandleLoginClick}>
+              <Button className="login-button" variant="contained" type='submit' onClick={HandleLoginClick}>
                 Ingresar
               </Button>
             </DialogActions>
