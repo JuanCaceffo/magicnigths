@@ -11,7 +11,7 @@ export const SeatBox = ({ location }) => {
         {location}
       </Box>
       <Box className="seat-box__price">
-        {location}
+        $ {location}
       </Box>
       <Box>
         <CounterInput />

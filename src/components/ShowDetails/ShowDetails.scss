@@ -1,21 +1,32 @@
 .show-details {
   display: flex;
   flex-direction: column;
-  background-color: red;
-  min-height: calc(100vh - 21rem);
+  background-color: var(--color-clear-medium);
   width: 100vw;
+  min-height: calc(100vh - 21rem);
+  color: var(--color-clear);
 
   &__header {
-    background-color: blue;
+    background-color: var(--color-primary);
     width: 100%;
-    height: 7rem;
+    height: 8rem;
+    padding: 1em 2em;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &__info-item {
+    flex-grow: 1;
   }
 
   &__body {
-    background-color: green;
     display: flex;
+    // background-color: green; 
+    max-height: calc(100vh - 29rem);
     gap: 1em;
-    max-height: calc(100vh - 28rem);
   }
 
   &__img {
@@ -28,66 +39,78 @@
   &__timetable {
     display: flex;
     flex-direction: column;
-    background-color: purple;
+    // background-color: purple;
+    padding: 2em;
     width: 100%;
   }
 
   &__dates {
     display: flex;
     justify-content: center;
-    gap: 1em;
-    padding: 1em;
-    height: 12em;
-    background-color: aqua;
+    // background-color: aqua;
+    height: 15em;
     width: 100%;
+    gap: 1em;
+    padding: 1em 0 ;
   }
 
   &__seats {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    padding: 1em;
-    height: 100%;
-    background-color: lightcoral;
+    justify-content: center;
+    // background-color: lightcoral;
+    gap: 2em;
     width: 100%;
+    height: 100%;
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__button {
+    font-size: 1em;
+    color: var(--color-clear);
+    background-color: var(--color-highligthed);
+    border-radius: var(--border-radius);
   }
 }
 
 .date-box {
   display: flex;
   flex-direction: column;
-  background-color: blue;
+  background-color: var(--color-secondary);
   gap: 1em;
   padding: 1em;
+  width: 10em;
+  border-radius: var(--border-radius);
 
   &__day {
-    background-color: grey;
     height: 50%;
   }
 
   &__time {
-    background-color: bisque;
     height: 50%;
   }
 }
 
 .seat-box {
   display: flex;
-  background-color: blue;
   justify-content: space-between;
-  padding: 1em;
   align-items: center;
+  font-size: 1.5em;
+  background-color: var(--color-tertiary);
+  border-radius: var(--border-radius);
+  padding: 1em;
 
   &__seatType {
-    background-color: grey;
   }
 
   &__price {
-    background-color: grey;
   }
 
   &__number {
-    background-color: bisque;
   }
 }
 

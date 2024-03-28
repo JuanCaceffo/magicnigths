@@ -35,7 +35,7 @@ const NumberInput = React.forwardRef(function CustomNumberInput(
 })
 
 export default function CounterInput() {
-  return <NumberInput aria-label="Quantity Input" min={0} max={99} />
+  return <NumberInput aria-label="Quantity Input" min={0} max={99} defaultValue={0} />
 }
 
 const blue = {
@@ -76,10 +76,9 @@ const StyledInputRoot = styled('div')(
 
 const StyledInput = styled('input')(
   ({ theme }) => `
-  font-size: 0.875rem;
+  font-size: 1em;
   font-family: inherit;
   font-weight: 400;
-  line-height: 1.375;
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
   background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
@@ -89,7 +88,7 @@ const StyledInput = styled('input')(
   padding: 10px 12px;
   outline: 0;
   min-width: 0;
-  width: 4rem;
+  width: 3em;
   text-align: center;
 
   &:hover {
@@ -110,7 +109,7 @@ const StyledInput = styled('input')(
 const StyledButton = styled('button')(
   ({ theme }) => `
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 0.875rem;
+  font-size: 1em;
   box-sizing: border-box;
   line-height: 1.5;
   border: 1px solid;
