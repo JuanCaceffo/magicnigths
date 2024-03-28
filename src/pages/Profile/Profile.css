@@ -1,0 +1,32 @@
+.main__content_user {
+    display: flex;
+    padding: var(--box-padding);
+}
+
+.user_data_container {
+    width: 25%;
+}
+.user_display_container {
+    width: 75%;
+}
+.user_profile_photo {
+    width: 15rem;
+    height: 15rem;
+}
+.selection_panel {
+    display: flex;
+    width: 100%;
+    padding: 2em 0 2em 0;
+    font-weight: bold;
+}
+.selection_button {
+ margin: 0 2em 0 0;
+}
+
+.content_container {
+    padding: 3em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+    justify-content: space-around;
+}
