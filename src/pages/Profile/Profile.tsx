@@ -1,22 +1,29 @@
-import { Avatar, Container, Divider } from '@mui/material'
+import { Avatar, Container, Divider, Input } from '@mui/material'
 import { Header } from 'src/components/Header/Header'
 import { Page } from 'src/pages/Page/Page'
 import '../../index.css'
 import '../../styles/typography.scss'
 import './Profile.css'
-import { CustomInput } from 'src/components/CustomInput/CustomInput'
 import { PurchasedTicketContent } from 'src/components/TicketsContent/PurchasedTicketContent'
 import { useState } from 'react'
 import { FriendsContent } from 'src/components/TicketsContent/FriendsContent'
 import { CommentsContent } from 'src/components/TicketsContent/CommentsContent'
+import { User } from 'src/data/model/User'
 
 export const Profile = () => {
-  const [name, setName] = useState('Nombre de usuario')
-  const [surname, setSurname] = useState('Apellido de usuario')
-  const [birthday, setBirthday] = useState('01/01/1900')
-  const  [dni, setDni] = useState('dni')
-  const [credit, setCredit] = useState(0)
+  const [user, setUser] = useState(new User('Nombre', 'Apellido', new Date(), 0, 1000))
   const [content, setContent] = useState(SelectionContent.PURCHASED_TICKET)
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+
+    console.log(user)
+    // Se crea un nuevo objeto igual al anterior pero con el nuevo valor del input
+    setUser(prevUser => ({
+      ...prevUser,
+      [name]: value
+    }))
+  }
 
   const handleSaveClick = async () => {
     // TO DO: Implementar 
@@ -24,7 +31,7 @@ export const Profile = () => {
 
   const handleAddCreditClick = async () => {
     // TO DO: Implementar
-    setCredit(0)
+    setUser({ ...user, credit: 0 })
   }
 
   return (
@@ -34,43 +41,43 @@ export const Profile = () => {
           <div className='user_data_container'>
             <Avatar className='user_profile_photo' src='/mock-imgs/user-imgs/denise.jpeg' />
             <h3 className='subtitle2'>Nombre</h3>
-            <CustomInput 
-              id='user_name'
+            <Input 
               className='login-input-field'
+              name='name'
               placeholder='Nombre'
-              value={name}
-              setValue={setName}
-            ></CustomInput>
+              value={user.name}
+              onChange={handleInputChange}
+            ></Input>
             <h3 className='subtitle2'>Apellidos</h3>
-            <CustomInput 
-              id='user_surname'
+            <Input 
               className='login-input-field'
+              name='surname'
               placeholder='Apellidos'
-              value={surname}
-              setValue={setSurname}
-            ></CustomInput>
+              value={user.surname}
+              onChange={handleInputChange}
+            ></Input>
             <h3 className='subtitle2'>Fecha de nacimiento</h3>
-            <CustomInput 
-              id='user_birthday'
+            <Input 
               className='login-input-field'
               placeholder='Fecha de nacimiento'
-              value={birthday}
-              setValue={setBirthday}
-            ></CustomInput>
+              name='birthday'
+              value={user.birthday.toISOString().split('T')[0]}
+              onChange={handleInputChange}
+            ></Input>
             <h3 className='subtitle2'>Edad</h3>
             <p>x años</p>
             <button className='button save-user-data-button' onClick={handleSaveClick}>
                 Guardar
             </button>
             <h3 className='subtitle2'>DNI</h3>
-            <CustomInput 
-              id='user_dni'
+            <Input 
               className='login-input-field'
               placeholder='DNI'
-              value={dni}
-              setValue={setDni}
-            ></CustomInput>
-            <h3 className='subtitle2'>Crédito ${credit}</h3>
+              name='dni'
+              value={user.dni}
+              onChange={handleInputChange}
+            ></Input>
+            <h3 className='subtitle2'>Crédito ${user.credit}</h3>
             <button className='button add_credit-user-button' onClick={handleAddCreditClick}>
                 Sumar crédito
             </button>
@@ -91,7 +98,6 @@ export const Profile = () => {
         </Container>} />
     </>
   )
-  
 }
 
 // Enum para los tipos de contenidos a mostrar
