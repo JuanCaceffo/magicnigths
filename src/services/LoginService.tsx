@@ -12,7 +12,7 @@ class LoginService {
   }
 
   async postUserLogin(userLogin: UserLogin) {
-    const idUsuario = axios.post(`${REST_SERVER_URL}/userLogin`,userLogin.toJSON()).then()      
+    const idUsuario = axios.post(`${REST_SERVER_URL}/login`,userLogin).then()      
     this.id = (await idUsuario).data
   }
 
