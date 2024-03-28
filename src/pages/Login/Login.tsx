@@ -1,27 +1,38 @@
-import { Button, Card, CardContent, DialogActions, DialogContent } from '@mui/material'
+import { Card, CardContent, DialogActions, DialogContent } from '@mui/material'
+import'../../styles/button.scss'
 import './Login.css' // Importa el archivo de estilos CSS
 import { useState } from 'react'
-import { CustomInput } from 'src/components/CustomInput/CustomInput'
 import { UserLogin } from 'src/data/model/UserLogin'
 import { loginService } from 'src/services/LoginService'
 import { useNavigate } from 'react-router-dom'
+import { isAxiosError } from 'axios'
+import { Input } from '@mui/material'
 
 export const Login = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [userLogin, setUser] = useState(new UserLogin('', ''))
   const [errorMessage, setError] = useState('')
 
   const navigate = useNavigate()
 
   const HandleLoginClick = async () => {
-    const userLogin = new UserLogin(username, password)
-
     try {
       await loginService.postUserLogin(userLogin)
-      navigate('/login/')
-    } catch (e: unknown) {
-      setError((e as Error).message)
+      navigate('/user_profile')
+    } catch (e) {
+      if(isAxiosError(e)) {
+        setError(e.response?.data.message)
+      }
     }
+  }
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+
+    // Se crea un nuevo objeto igual al anterior pero con el nuevo valor del input
+    setUser(prevUser => ({
+      ...prevUser,
+      [name]: value
+    }))
   }
 
   return (
@@ -30,34 +41,39 @@ export const Login = () => {
         <Card>
           <CardContent>
             <h1 className="title">Noches Mágicas</h1>
-            <DialogContent className="login-content">
-              <div className="login-input">
-                <h3 className="subtitle2">Usuario</h3>
-                <CustomInput
-                  id="user"
-                  className="login-input-field"
-                  placeholder="Usuario"
-                  value={username}
-                  setValue={setUsername}
-                />
-              </div>
-              <div className="login-input">
-                <h3 className="subtitle2">Contraseña</h3>
-                <CustomInput
-                  id="pass"
-                  className="login-input-field"
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  setValue={setPassword}
-                />
-              </div>
-            </DialogContent>
+            <form onSubmit={HandleLoginClick} onChange={() => setError('')}> 
+              <DialogContent className="login-content">
+                <div className="login-input">
+                  <h3 className="subtitle2">Usuario</h3>
+                  <Input
+                    id="user"
+                    className="login-input-field"
+                    placeholder="Usuario"
+                    name="username"
+                    value={userLogin.username}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="login-input">
+                  <h3 className="subtitle2">Contraseña</h3>
+                  <Input
+                    id="pass"
+                    className="login-input-field"
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    value={userLogin.password}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </DialogContent>
+            </form>
+            
             <p className="login-error">{errorMessage}</p>
             <DialogActions sx={{ justifyContent: 'space-around' }}>
-              <Button className="login-button" variant="contained" onClick={HandleLoginClick}>
+              <button className="login-button button" type='submit' onClick={HandleLoginClick}>
                 Ingresar
-              </Button>
+              </button>
             </DialogActions>
           </CardContent>
         </Card>
