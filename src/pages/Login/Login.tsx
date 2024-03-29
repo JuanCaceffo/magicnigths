@@ -3,7 +3,7 @@ import'../../styles/button.scss'
 import './Login.css' // Importa el archivo de estilos CSS
 import { useState } from 'react'
 import { UserLogin } from 'src/data/model/UserLogin'
-import { loginService } from 'src/services/LoginService'
+import { loginService } from 'src/services/UserService'
 import { useNavigate } from 'react-router-dom'
 import { isAxiosError } from 'axios'
 import { Input } from '@mui/material'
