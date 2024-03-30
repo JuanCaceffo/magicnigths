@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 import { FriendsContent } from 'src/components/TicketsContent/FriendsContent'
 import { CommentsContent } from 'src/components/TicketsContent/CommentsContent'
 import { User } from 'src/data/model/User'
-import { loginService } from 'src/services/UserService'
+import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
 import { differenceInYears } from 'date-fns'
 
@@ -23,7 +23,7 @@ export const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userData = await loginService.getUser() //Datos del usuario del backend
+        const userData = await .getUser() //Datos del usuario del backend
         setUser(userData)
 
       } catch (e) {

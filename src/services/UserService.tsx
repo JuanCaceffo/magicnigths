@@ -24,4 +24,4 @@ class UserService {
 
 }
 
-export const loginService = new UserService()
+export const userService = new UserService()
