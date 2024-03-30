@@ -23,7 +23,7 @@ export const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userData = await .getUser() //Datos del usuario del backend
+        const userData = await userService.getUser() //Datos del usuario del backend
         setUser(userData)
 
       } catch (e) {
