@@ -36,14 +36,13 @@ export const FriendsContent = () => {
 
   // Método para manejar la eliminacion de un amigo //////////////////
   const handleDeleteFriend = async (friendId: number) => {
-    console.log(friendId)
-    // try {
-    //   await userService.deleteFriend(friendId) // Llamada al método deleteFriend del userService con el ID del amigo
-    //   // Actualización la lista de amigos después de eliminar
-    //   setFriends(prevFriends => prevFriends.filter(friend => friend.id !== friendId))
-    // } catch (e) {
-    //   console.error("Error al eliminar amigo:", e)
-    // }
+    try {
+      await userService.deleteFriend(friendId) // Llamada al método deleteFriend del userService con el ID del amigo
+      // Actualización la lista de amigos después de eliminar
+      setFriends(prevFriends => prevFriends.filter(friend => friend.id !== friendId))
+    } catch (e) {
+      console.error("Error al eliminar amigo:", e)
+    }
   }
 
   return (

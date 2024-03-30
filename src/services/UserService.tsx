@@ -23,15 +23,20 @@ class UserService {
     return new User(userData.name, userData.surname, new Date(userData.birthday), userData.dni, userData.img, userData.credit)
   }
 
-  async getFriends() {
+  async getFriends(userId: number): Promise<Friend[]> {
+    const response = await axios.get(`${REST_SERVER_URL}/users/${userId}/friends`)
+    const friendsData = response.data
+
+    const friends: Friend[] = friendsData.map((friendData: Friend) => {
+      new Friend(friendData.name, friendData.surname, friendData.img, friendData.id)
+    })
+
+    return friends
+  }
+
+  async deleteFriend(friendId:number) {
     //TODO: Pegarle al back
-    return [new Friend("Amigo1", "Apellido1", '/public/mock-imgs/user-imgs/juan.jpeg', 0), 
-      new Friend("Amigo1", "Apellido1", '/public/mock-imgs/user-imgs/juan.jpeg', 1), 
-      new Friend("Amigo1", "Apellido1", '/public/mock-imgs/user-imgs/juan.jpeg', 2),
-      new Friend("Amigo1", "Apellido1", '/public/mock-imgs/user-imgs/juan.jpeg', 3),
-      new Friend("Amigo1", "Apellido1", '/public/mock-imgs/user-imgs/juan.jpeg', 4),
-      new Friend("Amigo1", "Apellido1", '/public/mock-imgs/user-imgs/juan.jpeg', 5),
-      new Friend("Amigo1", "Apellido1", '/public/mock-imgs/user-imgs/juan.jpeg', 6)]
+   
   }
 }
 
