@@ -16,3 +16,8 @@
 .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-i4bv87-MuiSvgIcon-root:active {
     color: var(--text-color-medium)
 }
+.delete_button {
+    border: none;
+    background: none;
+    cursor:pointer
+}
