@@ -10,12 +10,12 @@ class UserService {
   id: number
 
   constructor(){
-    this.id = 0
+    this.id = -1
   }
 
   async postUserLogin(userLogin: UserLogin) {
-    const idUsuario = axios.post(`${REST_SERVER_URL}/login`,userLogin).then()      
-    this.id = (await idUsuario).data
+    const idUsuario = await axios.post(`${REST_SERVER_URL}/login`,userLogin)    
+    this.id = idUsuario.data
   }
 
   async getUser() {
@@ -23,13 +23,9 @@ class UserService {
     return new User(userData.name, userData.surname, new Date(userData.birthday), userData.dni, userData.img, userData.credit)
   }
 
-  async getFriends(userId: number): Promise<Friend[]> {
-    const response = await axios.get(`${REST_SERVER_URL}/users/${userId}/friends`)
-    const friendsData = response.data
-
-    const friends: Friend[] = friendsData.map((friendData: Friend) => {
-      new Friend(friendData.name, friendData.surname, friendData.img, friendData.id)
-    })
+  async getFriends(): Promise<Friend[]> {
+    const response = await axios.get(`${REST_SERVER_URL}/user_profile/${this.id}/friends`)
+    const friends = response.data
 
     return friends
   }
