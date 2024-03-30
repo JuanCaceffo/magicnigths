@@ -5,7 +5,7 @@ import { User } from 'src/data/model/User'
 
 
 
-class LoginService {
+class UserService {
   id: number
 
   constructor(){
@@ -24,4 +24,4 @@ class LoginService {
 
 }
 
-export const loginService = new LoginService()
+export const userService = new UserService()
