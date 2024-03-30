@@ -31,11 +31,9 @@ class UserService {
   }
 
   async deleteFriend(friendId:number) {
-    //TODO: Pegarle al back
-   
+    await axios.delete(`${REST_SERVER_URL}/user_profile/${this.id}/friends/${friendId}`)
   }
 }
-
   
 
 export const userService = new UserService()
