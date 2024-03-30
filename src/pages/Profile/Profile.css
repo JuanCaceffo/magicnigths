@@ -28,5 +28,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 2em;
-    justify-content: space-around;
+    justify-content: flex-start;
+    width: 100%;
 }
