@@ -28,7 +28,7 @@ class UserService {
 
   async addCreditToUser(creditToAdd: number) {
     // Actualización del crédito del back
-    await axios.put(`${REST_SERVER_URL}/user_profile/${this.id}/add_credit`, { creditToAdd })
+    await axios.put(`${REST_SERVER_URL}/user_profile/${this.id}/add_credit`, {"credit": creditToAdd})
 
     // Actualización del crédito localmente
     const credit = await this.getCredit()

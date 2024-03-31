@@ -80,8 +80,8 @@ export const Profile = () => {
   }
 
   const handleAddCreditClick = async () => {
-    // TO DO: Implementar
-    setUser({ ...user, credit: 0 })
+    const updatedCredit = await userService.addCreditToUser(100.0) // Hacer dinámico
+    setCredit(updatedCredit)
   }
 
   return (
