@@ -1,4 +1,3 @@
-import { Container } from '@mui/material'
 import { Navbar } from 'src/components/Navbar/Navbar'
 import { Logo } from 'src/components/Logo/Logo'
 
@@ -26,9 +25,9 @@ const navbar = {
 
 export const Header = () => {
   return (
-    <Container className="main__header shadow">
+    <header className="main__header shadow">
       <Logo className="shadow--item" imgUrl={'src/assets/images/logo/logo_minimal.png'} alt={'Noches Mágicas'} />
       <Navbar className={navbar.className} nodes={navbar.nodes} />
-    </Container>
+    </header>
   )
 }
