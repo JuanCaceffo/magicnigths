@@ -1,4 +1,4 @@
-import { Avatar, Container, Divider, Input } from '@mui/material'
+import { Avatar, Container, Divider, Input, ToggleButton, ToggleButtonGroup } from '@mui/material'
 import { Header } from 'src/components/Header/Header'
 import { Page } from 'src/pages/Page/Page'
 import '../../index.css'
@@ -139,11 +139,22 @@ export const Profile = () => {
               </button>
             </div>
             <div className='user_display_container'>
-              <div className='selection_panel'>
-                <p className='subtitle selection_button' onClick={ () => setContent(SelectionContent.PURCHASED_TICKET) }>Entradas compradas</p>
-                <p className='subtitle2 selection_button' onClick={ () => setContent(SelectionContent.FRIENDS) }>Amigos</p>
-                <p className='subtitle2 selection_button' onClick={ () => setContent(SelectionContent.COMMENTS) }>Comentario</p>
-              </div>
+              <ToggleButtonGroup
+                value={content}
+                exclusive
+                onChange={(_event, newValue) => setContent(newValue)}
+                className='selection_panel'
+              >
+                <ToggleButton value={SelectionContent.PURCHASED_TICKET} className='subtitle selection_button' disableRipple>
+                  Entradas compradas
+                </ToggleButton>
+                <ToggleButton value={SelectionContent.FRIENDS} className='subtitle2 selection_button' disableRipple>
+                  Amigos
+                </ToggleButton>
+                <ToggleButton value={SelectionContent.COMMENTS} className='subtitle2 selection_button' disableRipple>
+                  Comentario
+                </ToggleButton>
+              </ToggleButtonGroup>
               <Divider></Divider>
               <div className='content_container'>
                 {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
