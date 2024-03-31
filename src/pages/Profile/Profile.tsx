@@ -15,37 +15,33 @@ import { isAxiosError } from 'axios'
 import { differenceInYears } from 'date-fns'
 
 export const Profile = () => {
-  const [user, setUser] = useState(new User('Nombre', 'Apellido', new Date(2000,0,1), 0, '/mock-imgs/user-imgs/denise.jpeg', 1000))
+  const [user, setUser] = useState(new User('Nombre', 'Apellido', new Date(2000,0,1), 0, '/mock-imgs/user-imgs/denise.jpeg'))
+  const [credit, setCredit] = useState(0)
   const [age, setAge] = useState(0)
   const [content, setContent] = useState(SelectionContent.PURCHASED_TICKET)
   const [errorMessage, setError] = useState('')
 
   useEffect(() => {
     const fetchUserData = async () => {
+      // Obtener datos del usuario
       try {
-        const userData = await userService.getUser() //Datos del usuario del backend
+        const userData = await userService.getUser() 
         setUser(userData)
 
-      } catch (e) {
-        console.log(e)
-        // Mensaje de error en caso de que lo haya
-        if(isAxiosError(e)) {
-          if(e.message) {
-            setError(e.message)
-          }
-          else {
-            setError(e.response?.data.message)
-          }
-          
+        // Obtener crédito del usuario
+        try {
+          const userCredit = await userService.getCredit()
+          setCredit(userCredit)
+        } catch (e) {
+          handleRequestError(e)
         }
-        else {
-          setError(e as string)
-        }      
+      } catch (e) {
+        handleRequestError(e)
       }
     }
 
     fetchUserData()
-  }, []) // Array vacío como segundo argumento para indicar que se ejecute solo una vez
+  }, [])  // Array vacío como segundo argumento para indicar que se ejecute solo una vez
 
   useEffect(() => {
     // Cálculo de la edad del usuario después de haber establecido el estado de user
@@ -54,6 +50,20 @@ export const Profile = () => {
       setAge(age)
     }
   }, [user]) 
+
+  // Menejo de error
+  const handleRequestError = (e: unknown) => {
+    console.error(e)
+    if (isAxiosError(e)) {
+      if (e.message) {
+        setError(e.message)
+      } else {
+        setError(e.response?.data.message)
+      }
+    } else {
+      setError(e as string)
+    }
+  }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -123,7 +133,7 @@ export const Profile = () => {
                 value={user.dni}
                 onChange={handleInputChange}
               ></Input>
-              <h3 className='subtitle2' data-testid='credit'>Crédito ${user.credit}</h3>
+              <h3 className='subtitle2' data-testid='credit'>Crédito ${credit}</h3>
               <button className='button add_credit-user-button' onClick={handleAddCreditClick}>
                   Sumar crédito
               </button>
