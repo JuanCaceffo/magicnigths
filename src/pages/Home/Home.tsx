@@ -6,9 +6,12 @@ import CardShow from 'src/components/CardShow/CardShow'
 import { Show } from 'src/data/model/Show'
 import { showService } from 'src/services/ShowService'
 import './Home.scss'
+import { getUserId } from 'src/data/helpers/userSessionStorage'
+import { useNavigate } from 'react-router-dom'
 
 export const Home = () => {
   const [shows, setShows] = useState<Array<Show>>([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fechShows = async () => {
@@ -18,6 +21,11 @@ export const Home = () => {
     }
     fechShows()
   }, [])
+
+  const handleClick = (showId: number) => {
+    const userId = getUserId()
+    userId > 0 ? navigate(`/show/${showId}`, { state: { showId: showId } }) : navigate('login')
+  }
 
   return (
     <Page
@@ -32,7 +40,7 @@ export const Home = () => {
               button={{
                 content: 'comprar',
                 whenclick: () => {
-                  console.log('hola')
+                  handleClick(show.props.id)
                 },
               }}
             ></CardShow>
