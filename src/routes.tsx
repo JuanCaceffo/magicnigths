@@ -6,6 +6,9 @@ import { Profile } from './pages/Profile/Profile'
 import { Shop } from './pages/Shop/Shop'
 import { NotFoundPage } from './pages/NotFound/NotFound'
 import { Show } from './components/Show/Show'
+import { ShowDetails } from './components/ShowDetails/ShowDetails'
+import { Page } from './pages/Page/Page'
+import { Header } from './components/Header/Header'
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +17,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/show/:showId',
-    element: <Show />,
+    element: <Page header={<Header />} content={<ShowDetails />} />,
   },
   {
     path: '/admin_dashboard',

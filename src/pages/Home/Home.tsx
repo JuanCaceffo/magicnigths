@@ -6,7 +6,6 @@ import CardShow from 'src/components/CardShow/CardShow'
 import { Show } from 'src/data/model/Show'
 import { showService } from 'src/services/ShowService'
 import './Home.scss'
-import { getUserId } from 'src/data/helpers/userSessionStorage'
 import { useNavigate } from 'react-router-dom'
 
 export const Home = () => {
@@ -23,8 +22,7 @@ export const Home = () => {
   }, [])
 
   const handleClick = (showId: number) => {
-    const userId = getUserId()
-    userId >= 0 ? navigate(`/show/${showId}`, { state: { showId: showId } }) : navigate('login')
+    navigate(`/show/${showId}`, { state: { showId: showId } })
   }
 
   return (

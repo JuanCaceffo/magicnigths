@@ -15,7 +15,7 @@ export const QtySelector = ({ ...props }: QtySelectorProps) => {
       <div className="quantitySelector">
         <span className="quantitySelector__name">{props.name}</span>
         <span className="quantitySelector__price">{props.price}</span>
-        <input className="quantitySelector__maxQty" type="number" id="cantidad" name="cantidad" value={props.value ?? 0} min="0" max={props.maxQuantity} />
+        {/* <input className="quantitySelector__maxQty" type="number" id="cantidad" name="cantidad" value={props.value ?? 0} min="0" max={props.maxQuantity} /> */}
       </div>
     </>
   )

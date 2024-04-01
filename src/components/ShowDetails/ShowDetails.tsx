@@ -33,9 +33,9 @@ export const ShowDetails = ({ show = mockShow }) => {
           Los Pepes - Pearljam
         </Box>
         <Box className="show-details__info">
-          <text className="show-details__info-item subtitle">{show.rating}<text className="subtitle2">{show.opinions}</text></text>
-          <text className="show-details__info-item subtitle">{show.facility}</text>
-          <text className="show-details__info-item subtitle">{show.geolocation}</text>
+          <span className="show-details__info-item subtitle">{show.rating}<span className="subtitle2">{show.opinions}</span></span>
+          <span className="show-details__info-item subtitle">{show.facility}</span>
+          <span className="show-details__info-item subtitle">{show.geolocation}</span>
         </Box>
       </Box>
       <Box className="show-details__body">
