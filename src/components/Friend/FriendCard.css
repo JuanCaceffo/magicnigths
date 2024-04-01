@@ -1,0 +1,23 @@
+.friend_container {
+    display: flex;
+    align-items: center;
+    margin: 1em
+}
+.friend_data {
+    margin: 0em 1em;
+}
+.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-i4bv87-MuiSvgIcon-root {
+    color: var(--text-color-medium);
+}
+
+.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-i4bv87-MuiSvgIcon-root:hover {
+    color: var(--color-highligthed)
+}
+.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-i4bv87-MuiSvgIcon-root:active {
+    color: var(--text-color-medium)
+}
+.delete_button {
+    border: none;
+    background: none;
+    cursor:pointer
+}

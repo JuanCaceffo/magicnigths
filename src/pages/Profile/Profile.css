@@ -11,8 +11,8 @@
 }
 
 .user_profile_photo {
-    margin-left: auto; /* Mueve el objeto hacia la derecha */
-    margin-right: auto; 
+  margin-left: auto; /* Mueve el objeto hacia la derecha */
+  margin-right: auto;
 }
 
 .user_display_container {
@@ -20,11 +20,11 @@
 }
 
 .input_container {
-    margin: 1em 0em;
+  margin: 1em 0em;
 }
 
 .input-field {
-    width: 100%;
+  width: 100%;
 }
 
 .user_profile_photo {
@@ -48,13 +48,14 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2em;
-  justify-content: space-around;
+  justify-content: flex-start;
+  width: 100%;
 }
 
 .selection_panel .MuiToggleButton-root {
   border: none;
   background-color: transparent;
-  border-radius: var(--border-radius-md)
+  border-radius: var(--border-radius-md);
 }
 
 .css-ueukts-MuiButtonBase-root-MuiToggleButton-root.Mui-selected {

@@ -2,6 +2,7 @@ import axios from 'axios'
 import { REST_SERVER_URL } from './contants'
 import { UserLogin } from 'src/data/model/UserLogin'
 import { User } from 'src/data/model/User'
+import { Friend } from 'src/data/model/Friend'
 
 
 
@@ -9,12 +10,12 @@ class UserService {
   id: number
 
   constructor(){
-    this.id = 0
+    this.id = -1
   }
 
   async postUserLogin(userLogin: UserLogin) {
-    const idUsuario = axios.post(`${REST_SERVER_URL}/login`,userLogin).then()      
-    this.id = (await idUsuario).data
+    const idUsuario = await axios.post(`${REST_SERVER_URL}/login`,userLogin)    
+    this.id = idUsuario.data
   }
 
   async getUser() {
@@ -35,6 +36,17 @@ class UserService {
     return credit
   }
 
+  async getFriends(): Promise<Friend[]> {
+    const response = await axios.get(`${REST_SERVER_URL}/user_profile/${this.id}/friends`)
+    const friends = response.data
+
+    return friends
+  }
+
+  async deleteFriend(friendId:number) {
+    await axios.delete(`${REST_SERVER_URL}/user_profile/${this.id}/friends/${friendId}`)
+  }
 }
+  
 
 export const userService = new UserService()
