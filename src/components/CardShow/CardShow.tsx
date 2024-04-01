@@ -19,7 +19,7 @@ interface CardShowProps {
 
 const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
   const fomratedDates = () =>
-    show.props.dates
+    show.dates
       .map((date) => new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'numeric' }).format(date))
       .join(' - ')
 
@@ -39,21 +39,21 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
             <span className="card-show__fileld">{show.props.name}</span>
             <article className="card-show__fileld">
               <StarIcon fontSize="small"></StarIcon>
-              <b>{show.props.valoration}</b>
-              <span>({show.props.valorationSize})</span>
+              <b>{show.props.rating}</b>
+              <span>({show.props.totalComments})</span>
             </article>
           </header>
           <div className="card-show--flex body">
             <article className="card-show__fileld">
               <span>
                 <b>Ubicacion: </b>
-                {show.props.ubication}
+                {show.props.location}
               </span>
             </article>
             <span className="card-show__fileld">{`fechas ${fomratedDates()}`}</span>
           </div>
           <div className="card-show--flex body">
-            {!!show.props.userImgs.length && (
+            {!!show.props.userImageNames.length && (
               <article className="card-show__friends card-show--flex">
                 <span>Tambien van a asistir</span>
                 <div className="card-show__user-img-cnt">
@@ -69,7 +69,7 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
             <strong data-testid="show-price" className="card-show__fileld card-show__price">
               {show.wasPricePaid()
                 ? `Precio pagado  $${show.props.price}`
-                : show.props.pricePaid && `Desde ${show.props.pricePaid.map((price) => `$${price}`).join(' a ')}`}
+                : show.props.prices && `Desde ${show.props.prices.map((price) => `$${price}`).join(' a ')}`}
             </strong>
             {button && (
               <Button

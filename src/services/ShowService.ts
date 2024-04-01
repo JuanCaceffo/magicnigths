@@ -5,7 +5,7 @@ import { Show } from 'src/data/model/Show'
 
 class ShowService {
   async getShows() {
-    const data = (await axios.get<ShowProps[]>(`${REST_SERVER_URL}/show/`)).data
+    const data = (await axios.get<ShowProps[]>(`${REST_SERVER_URL}/shows`)).data
     return data.map((show) => new Show(show))
   }
 }

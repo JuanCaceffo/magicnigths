@@ -5,8 +5,8 @@ export interface ShowProps {
   location: string
   rating: number
   totalComments: number
-  dates: Date[]
-  userImgs: string[]
   price?: number
   prices?: number[]
+  dates: string[]
+  userImageNames: string[]
 }
