@@ -71,7 +71,11 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
             <strong data-testid="show-price" className="card-show__fileld card-show__price">
               {show.wasPricePaid()
                 ? `Precio pagado  $${show.props.price}`
-                : show.props.prices && `Desde ${show.props.prices.map((price) => `$${price}`).join(' a ')}`}
+                : show.props.prices &&
+                  `Desde ${show
+                    .getMinMaxPrices()
+                    .map((price) => `$${price}`)
+                    .join(' a ')}`}
             </strong>
             {button && (
               <Button

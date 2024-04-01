@@ -9,6 +9,8 @@ export class Show {
   dates!: Date[]
   LIMIT_FRIENDS = 3
 
+  getMinMaxPrices = () => (this.props.prices ? [Math.min(...this.props.prices), Math.max(...this.props.prices)] : [])
+
   getLimitedUserImgs = () =>
     this.pasedLimitFriends()
       ? this.props.userImageNames.slice(0, this.LIMIT_FRIENDS)
