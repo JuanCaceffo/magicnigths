@@ -1,4 +1,4 @@
-import { Avatar, Container, Divider, Input } from '@mui/material'
+import { Avatar, Container, Divider, Input, ToggleButton, ToggleButtonGroup } from '@mui/material'
 import { Header } from 'src/components/Header/Header'
 import { Page } from 'src/pages/Page/Page'
 import '../../index.css'
@@ -12,57 +12,68 @@ import { CommentsContent } from 'src/components/TicketsContent/CommentsContent'
 import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
-import { differenceInYears } from 'date-fns'
 
 export const Profile = () => {
-  const [user, setUser] = useState(new User('Nombre', 'Apellido', new Date(2000,0,1), 0, '/mock-imgs/user-imgs/denise.jpeg', 1000))
+  const [user, setUser] = useState(new User('Nombre', 'Apellido', new Date(2000,0,1), 0, '/mock-imgs/user-imgs/denise.jpeg'))
+  const [credit, setCredit] = useState(0)
   const [age, setAge] = useState(0)
   const [content, setContent] = useState(SelectionContent.PURCHASED_TICKET)
   const [errorMessage, setError] = useState('')
 
   useEffect(() => {
     const fetchUserData = async () => {
+      // Obtener datos del usuario
       try {
-        const userData = await userService.getUser() //Datos del usuario del backend
+        const userData = await userService.getUser() 
         setUser(userData)
 
-      } catch (e) {
-        console.log(e)
-        // Mensaje de error en caso de que lo haya
-        if(isAxiosError(e)) {
-          if(e.message) {
-            setError(e.message)
-          }
-          else {
-            setError(e.response?.data.message)
-          }
-          
+        // Cálculo y seteo de la edad del usuario
+        setAge(userData.getAge())
+
+        // Obtener crédito del usuario
+        try {
+          const userCredit = await userService.getCredit()
+          setCredit(userCredit)
+        } catch (e) {
+          handleRequestError(e)
         }
-        else {
-          setError(e as string)
-        }      
+      } catch (e) {
+        handleRequestError(e)
       }
     }
 
     fetchUserData()
-  }, []) // Array vacío como segundo argumento para indicar que se ejecute solo una vez
+  }, [])  // Array vacío como segundo argumento para indicar que se ejecute solo una vez
 
-  useEffect(() => {
-    // Cálculo de la edad del usuario después de haber establecido el estado de user
-    if (user.birthday) {
-      const age = differenceInYears(new Date(), new Date(user.birthday))
-      setAge(age)
+  // Menejo de error
+  const handleRequestError = (e: unknown) => {
+    console.error(e)
+    if (isAxiosError(e)) {
+      if (e.message) {
+        setError(e.message)
+      } else {
+        setError(e.response?.data.message)
+      }
+    } else {
+      setError(e as string)
     }
-  }, [user]) 
+  }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target
+    const { name , value } = event.target
+  
+    setUser((prevUser: User) => {
+      const prevUserData: { name: string; surname: string; birthday: Date; dni: number; img: string; } = { ...prevUser }
 
-    // Se crea un nuevo objeto igual al anterior pero con el nuevo valor del input
-    setUser(prevUser => ({
-      ...prevUser,
-      [name]: value
-    }))
+      if(name == "name" || name == "surname") {
+        prevUserData[name] = value
+      }    
+  
+      // Crea un nuevo objeto User con los datos actualizados
+      const updatedUser = new User(prevUserData.name, prevUserData.surname, prevUserData.birthday, prevUserData.dni, prevUserData.img)
+  
+      return updatedUser
+    })
   }
 
   const handleSaveClick = async () => {
@@ -70,8 +81,8 @@ export const Profile = () => {
   }
 
   const handleAddCreditClick = async () => {
-    // TO DO: Implementar
-    setUser({ ...user, credit: 0 })
+    const updatedCredit = await userService.addCreditToUser(100.0) // Hacer dinámico
+    setCredit(updatedCredit)
   }
 
   return (
@@ -82,58 +93,84 @@ export const Profile = () => {
         ) : (
           <Container className='main__content_user'>
             <div className='user_data_container'>
-              <Avatar className='user_profile_photo' src={user.img} />
-              <h3 className='subtitle2'>Nombre</h3>
-              <Input 
-                className='login-input-field'
-                name='name'
-                data-testid='name'
-                placeholder='Nombre'
-                value={user.name}
-                onChange={handleInputChange}
-              ></Input>
-              <h3 className='subtitle2'>Apellidos</h3>
-              <Input 
-                className='login-input-field'
-                name='surname'
-                data-testid='surname'
-                placeholder='Apellidos'
-                value={user.surname}
-                onChange={handleInputChange}
-              ></Input>
-              <h3 className='subtitle2'>Fecha de nacimiento</h3>
-              <Input 
-                className='login-input-field'
-                placeholder='Fecha de nacimiento'
-                name='birthday'
-                data-testid='birthday'
-                value={user.birthday.toISOString().split('T')[0]}
-                onChange={handleInputChange}
-              ></Input>
-              <h3 className='subtitle2' data-testid='age'>{age} años</h3>
-              <button className='button save-user-data-button' onClick={handleSaveClick}>
+              <div className='user_data'>
+                <Avatar className='user_profile_photo' src={user.img} />
+                <div className='input_container'>
+                  <h3 className='subtitle2'>Nombre</h3>
+                  <Input 
+                    className='input-field'
+                    name='name'
+                    data-testid='name'
+                    placeholder='Nombre'
+                    value={user.name}
+                    onChange={handleInputChange}
+                  ></Input>
+                </div>
+                <div className='input_container'>
+                  <h3 className='subtitle2'>Apellidos</h3>
+                  <Input 
+                    className='input-field'
+                    name='surname'
+                    data-testid='surname'
+                    placeholder='Apellidos'
+                    value={user.surname}
+                    onChange={handleInputChange}
+                  ></Input>
+                </div>
+                <div className='input_container'>
+                  <h3 className='subtitle2'>Fecha de nacimiento</h3>
+                  <Input 
+                    className='input-field'
+                    placeholder='Fecha de nacimiento'
+                    name='birthday'
+                    data-testid='birthday'
+                    value={user.birthday.toLocaleDateString('es-ES')}
+                    onChange={handleInputChange}
+                    disabled
+                  ></Input>
+                </div>
+                <h3 className='subtitle2' data-testid='age'>Edad: {age} años</h3>
+                <div className='input_container'>
+                  <h3 className='subtitle2'>DNI</h3>
+                  <Input 
+                    className='input-field'
+                    placeholder='DNI'
+                    name='dni'
+                    data-testid='dni'
+                    value={user.dni}
+                    onChange={handleInputChange}
+                    disabled
+                  ></Input>
+                </div>
+                <button className='button save-user-data-button' onClick={handleSaveClick}>
                   Guardar
-              </button>
-              <h3 className='subtitle2'>DNI</h3>
-              <Input 
-                className='login-input-field'
-                placeholder='DNI'
-                name='dni'
-                data-testid='dni'
-                value={user.dni}
-                onChange={handleInputChange}
-              ></Input>
-              <h3 className='subtitle2' data-testid='credit'>Crédito ${user.credit}</h3>
-              <button className='button add_credit-user-button' onClick={handleAddCreditClick}>
+                </button>
+              </div>
+              <div className='user_credit_container'>
+                <h3 className='subtitle2' data-testid='credit'>Crédito ${credit}</h3>
+                <button className='button add_credit-user-button' onClick={handleAddCreditClick}>
                   Sumar crédito
-              </button>
+                </button>
+              </div>
+              
             </div>
             <div className='user_display_container'>
-              <div className='selection_panel'>
-                <p className='subtitle selection_button' onClick={ () => setContent(SelectionContent.PURCHASED_TICKET) }>Entradas compradas</p>
-                <p className='subtitle2 selection_button' onClick={ () => setContent(SelectionContent.FRIENDS) }>Amigos</p>
-                <p className='subtitle2 selection_button' onClick={ () => setContent(SelectionContent.COMMENTS) }>Comentario</p>
-              </div>
+              <ToggleButtonGroup
+                value={content}
+                exclusive
+                onChange={(_event, newValue) => setContent(newValue)}
+                className='selection_panel'
+              >
+                <ToggleButton value={SelectionContent.PURCHASED_TICKET} className='subtitle selection_button' disableRipple>
+                  Entradas compradas
+                </ToggleButton>
+                <ToggleButton value={SelectionContent.FRIENDS} className='subtitle2 selection_button' disableRipple>
+                  Amigos
+                </ToggleButton>
+                <ToggleButton value={SelectionContent.COMMENTS} className='subtitle2 selection_button' disableRipple>
+                  Comentario
+                </ToggleButton>
+              </ToggleButtonGroup>
               <Divider></Divider>
               <div className='content_container'>
                 {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
