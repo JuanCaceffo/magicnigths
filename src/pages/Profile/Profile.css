@@ -1,32 +1,74 @@
 .main__content_user {
-    display: flex;
-    padding: var(--box-padding);
+  display: flex;
+  padding: var(--box-padding);
 }
 
 .user_data_container {
-    width: 25%;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
-.user_display_container {
-    width: 75%;
-}
+
 .user_profile_photo {
-    width: 15rem;
-    height: 15rem;
+    margin-left: auto; /* Mueve el objeto hacia la derecha */
+    margin-right: auto; 
 }
-.selection_panel {
-    display: flex;
+
+.user_display_container {
+  width: 75%;
+}
+
+.input_container {
+    margin: 1em 0em;
+}
+
+.input-field {
     width: 100%;
-    padding: 2em 0 2em 0;
-    font-weight: bold;
 }
+
+.user_profile_photo {
+  width: 15rem;
+  height: 15rem;
+}
+
+.selection_panel {
+  display: flex;
+  width: 100%;
+  padding: 2em 0 2em 0;
+  font-weight: bold;
+}
+
 .selection_button {
- margin: 0 2em 0 0;
+  margin: 0 2em 0 0;
 }
 
 .content_container {
-    padding: 3em;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2em;
-    justify-content: space-around;
+  padding: 3em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: space-around;
+}
+
+.selection_panel .MuiToggleButton-root {
+  border: none;
+  background-color: transparent;
+  border-radius: var(--border-radius-md)
+}
+
+.css-ueukts-MuiButtonBase-root-MuiToggleButton-root.Mui-selected {
+  font-weight: bolder;
+}
+
+.css-ueukts-MuiButtonBase-root-MuiToggleButton-root.Mui-selected:hover {
+  background-color: transparent;
+}
+
+.css-ueukts-MuiButtonBase-root-MuiToggleButton-root.Mui-selected {
+  background-color: transparent;
+}
+
+.selection_panel.MuiToggleButton-root:hover {
+  font-weight: bolder;
 }
