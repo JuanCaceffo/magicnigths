@@ -60,13 +60,20 @@ export const Profile = () => {
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target
+    const { name , value } = event.target
+  
+    setUser((prevUser: User) => {
+      const prevUserData: { name: string; surname: string; birthday: Date; dni: number; img: string; } = { ...prevUser }
 
-    // Se crea un nuevo objeto igual al anterior pero con el nuevo valor del input
-    setUser(prevUser => ({
-      ...prevUser,
-      [name]: value
-    }))
+      if(name == "name" || name == "surname") {
+        prevUserData[name] = value
+      }    
+  
+      // Crea un nuevo objeto User con los datos actualizados
+      const updatedUser = new User(prevUserData.name, prevUserData.surname, prevUserData.birthday, prevUserData.dni, prevUserData.img)
+  
+      return updatedUser
+    })
   }
 
   const handleSaveClick = async () => {
