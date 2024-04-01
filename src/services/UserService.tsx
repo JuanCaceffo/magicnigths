@@ -20,7 +20,18 @@ class UserService {
 
   async getUser() {
     const userData = (await axios.get(`${REST_SERVER_URL}/user_profile/${this.id}`).then()).data    
-    return new User(userData.name, userData.surname, new Date(userData.birthday), userData.dni, userData.img)
+    return new User(userData.name, userData.surname, userData.username, new Date(userData.birthday), userData.dni, userData.img)
+  }
+
+  async updateUser(user: User) {
+    await axios.put(`${REST_SERVER_URL}/user_profile/${this.id}`, {
+      name: user.name,
+      surname: user.surname,
+      username: user.username,
+      birthday: user.birthday.toISOString(), // Fecha a un formato compatible con el servidor
+      dni: user.dni,
+      img: user.img
+    })
   }
 
   async getCredit() {
