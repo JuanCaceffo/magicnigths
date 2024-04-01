@@ -24,7 +24,7 @@ export const Home = () => {
 
   const handleClick = (showId: number) => {
     const userId = getUserId()
-    userId > 0 ? navigate(`/show/${showId}`, { state: { showId: showId } }) : navigate('login')
+    userId >= 0 ? navigate(`/show/${showId}`, { state: { showId: showId } }) : navigate('login')
   }
 
   return (
