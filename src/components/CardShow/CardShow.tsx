@@ -53,7 +53,7 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
             <span className="card-show__fileld">{`fechas ${fomratedDates()}`}</span>
           </div>
           <div className="card-show--flex body">
-            {!!show.props.userImageNames.length && (
+            {!!show.props.userImageNames.length ? (
               <article className="card-show__friends card-show--flex">
                 <span>Tambien van a asistir</span>
                 <div className="card-show__user-img-cnt">
@@ -63,6 +63,8 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
                 </div>
                 {show.pasedLimitFriends() && <span data-testid="more-friends">+ {show.restFriends()} amigos</span>}
               </article>
+            ) : (
+              'No asisten amigos'
             )}
           </div>
           <footer className="card-show--flex body">

@@ -5,6 +5,7 @@ import { Page } from 'src/pages/Page/Page'
 import CardShow from 'src/components/CardShow/CardShow'
 import { Show } from 'src/data/model/Show'
 import { showService } from 'src/services/ShowService'
+import './Home.scss'
 
 export const Home = () => {
   const [shows, setShows] = useState<Array<Show>>([])
@@ -26,6 +27,7 @@ export const Home = () => {
         <article className="main__content">
           {shows.map((show) => (
             <CardShow
+              key={show.props.id}
               show={show}
               button={{
                 content: 'comprar',
