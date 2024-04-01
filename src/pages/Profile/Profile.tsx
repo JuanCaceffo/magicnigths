@@ -12,7 +12,6 @@ import { CommentsContent } from 'src/components/TicketsContent/CommentsContent'
 import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
-import { differenceInYears } from 'date-fns'
 
 export const Profile = () => {
   const [user, setUser] = useState(new User('Nombre', 'Apellido', new Date(2000,0,1), 0, '/mock-imgs/user-imgs/denise.jpeg'))
@@ -28,6 +27,9 @@ export const Profile = () => {
         const userData = await userService.getUser() 
         setUser(userData)
 
+        // Cálculo y seteo de la edad del usuario
+        setAge(userData.getAge())
+
         // Obtener crédito del usuario
         try {
           const userCredit = await userService.getCredit()
@@ -42,14 +44,6 @@ export const Profile = () => {
 
     fetchUserData()
   }, [])  // Array vacío como segundo argumento para indicar que se ejecute solo una vez
-
-  useEffect(() => {
-    // Cálculo de la edad del usuario después de haber establecido el estado de user
-    if (user.birthday) {
-      const age = differenceInYears(new Date(), new Date(user.birthday))
-      setAge(age)
-    }
-  }, [user]) 
 
   // Menejo de error
   const handleRequestError = (e: unknown) => {
@@ -92,51 +86,66 @@ export const Profile = () => {
         ) : (
           <Container className='main__content_user'>
             <div className='user_data_container'>
-              <Avatar className='user_profile_photo' src={user.img} />
-              <h3 className='subtitle2'>Nombre</h3>
-              <Input 
-                className='login-input-field'
-                name='name'
-                data-testid='name'
-                placeholder='Nombre'
-                value={user.name}
-                onChange={handleInputChange}
-              ></Input>
-              <h3 className='subtitle2'>Apellidos</h3>
-              <Input 
-                className='login-input-field'
-                name='surname'
-                data-testid='surname'
-                placeholder='Apellidos'
-                value={user.surname}
-                onChange={handleInputChange}
-              ></Input>
-              <h3 className='subtitle2'>Fecha de nacimiento</h3>
-              <Input 
-                className='login-input-field'
-                placeholder='Fecha de nacimiento'
-                name='birthday'
-                data-testid='birthday'
-                value={user.birthday.toISOString().split('T')[0]}
-                onChange={handleInputChange}
-              ></Input>
-              <h3 className='subtitle2' data-testid='age'>{age} años</h3>
-              <button className='button save-user-data-button' onClick={handleSaveClick}>
+              <div className='user_data'>
+                <Avatar className='user_profile_photo' src={user.img} />
+                <div className='input_container'>
+                  <h3 className='subtitle2'>Nombre</h3>
+                  <Input 
+                    className='input-field'
+                    name='name'
+                    data-testid='name'
+                    placeholder='Nombre'
+                    value={user.name}
+                    onChange={handleInputChange}
+                  ></Input>
+                </div>
+                <div className='input_container'>
+                  <h3 className='subtitle2'>Apellidos</h3>
+                  <Input 
+                    className='input-field'
+                    name='surname'
+                    data-testid='surname'
+                    placeholder='Apellidos'
+                    value={user.surname}
+                    onChange={handleInputChange}
+                  ></Input>
+                </div>
+                <div className='input_container'>
+                  <h3 className='subtitle2'>Fecha de nacimiento</h3>
+                  <Input 
+                    className='input-field'
+                    placeholder='Fecha de nacimiento'
+                    name='birthday'
+                    data-testid='birthday'
+                    value={user.birthday.toLocaleDateString('es-ES')}
+                    onChange={handleInputChange}
+                    disabled
+                  ></Input>
+                </div>
+                <h3 className='subtitle2' data-testid='age'>Edad: {age} años</h3>
+                <div className='input_container'>
+                  <h3 className='subtitle2'>DNI</h3>
+                  <Input 
+                    className='input-field'
+                    placeholder='DNI'
+                    name='dni'
+                    data-testid='dni'
+                    value={user.dni}
+                    onChange={handleInputChange}
+                    disabled
+                  ></Input>
+                </div>
+                <button className='button save-user-data-button' onClick={handleSaveClick}>
                   Guardar
-              </button>
-              <h3 className='subtitle2'>DNI</h3>
-              <Input 
-                className='login-input-field'
-                placeholder='DNI'
-                name='dni'
-                data-testid='dni'
-                value={user.dni}
-                onChange={handleInputChange}
-              ></Input>
-              <h3 className='subtitle2' data-testid='credit'>Crédito ${credit}</h3>
-              <button className='button add_credit-user-button' onClick={handleAddCreditClick}>
+                </button>
+              </div>
+              <div className='user_credit_container'>
+                <h3 className='subtitle2' data-testid='credit'>Crédito ${credit}</h3>
+                <button className='button add_credit-user-button' onClick={handleAddCreditClick}>
                   Sumar crédito
-              </button>
+                </button>
+              </div>
+              
             </div>
             <div className='user_display_container'>
               <ToggleButtonGroup

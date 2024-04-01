@@ -1,3 +1,5 @@
+import { differenceInYears } from "date-fns"
+
 export class User {
   name: string
   surname: string
@@ -11,5 +13,9 @@ export class User {
     this.birthday = birthday
     this.dni = dni
     this.img = img
+  }
+
+  getAge(): number {
+    return differenceInYears(new Date(), this.birthday)
   }
 }
