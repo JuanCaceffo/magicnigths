@@ -1,0 +1,21 @@
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card-date {
+  justify-content: space-around;
+  width: 9em;
+  height: 8em;
+  background-color: rgba(116, 175, 221, 0.459);
+  border-radius: 0.5em;
+  border: 0.1em solid #000;
+  &.card-date--active {
+    background-color: rgb(99, 167, 219);
+  }
+  &.card-date--disabled {
+    border-style: dashed;
+    filter: opacity(50%);
+  }
+}

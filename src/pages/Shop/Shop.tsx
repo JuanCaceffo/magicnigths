@@ -1,7 +1,6 @@
+import { Header } from 'src/components/Header/Header'
+import { Page } from 'src/pages/Page/Page'
+
 export const Shop = () => {
-  return (
-    <>
-      <h1>Shop Page</h1>
-    </>
-  )
+  return <Page header={<Header />} content={<main className="main__content">Contenido</main>} />
 }
