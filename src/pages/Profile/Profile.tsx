@@ -1,4 +1,4 @@
-import { Avatar, Container, Divider, Input, ToggleButton, ToggleButtonGroup } from '@mui/material'
+import { Avatar, Divider, Input, ToggleButton, ToggleButtonGroup } from '@mui/material'
 import { Header } from 'src/components/Header/Header'
 import { Page } from 'src/pages/Page/Page'
 import '../../index.css'
@@ -77,7 +77,7 @@ export const Profile = () => {
   }
 
   const handleSaveClick = async () => {
-    // TO DO: Implementar 
+    // TO DO: Implementar
   }
 
   const handleAddCreditClick = async () => {
@@ -91,7 +91,7 @@ export const Profile = () => {
         errorMessage ? ( // Mostrar mensaje de error si hay un mensaje en errorMessage
           <p className="error-message error">{errorMessage}</p>
         ) : (
-          <Container className='main__content_user'>
+          <main className='main__content_user'>
             <div className='user_data_container'>
               <div className='user_data'>
                 <Avatar className='user_profile_photo' src={user.img} />
@@ -178,7 +178,7 @@ export const Profile = () => {
                 {content === SelectionContent.COMMENTS && <CommentsContent />}
               </div>
             </div>
-          </Container>
+          </main>
         )
       } />
     </>
@@ -188,6 +188,6 @@ export const Profile = () => {
 // Enum para los tipos de contenidos a mostrar
 enum SelectionContent {
   PURCHASED_TICKET,
-  FRIENDS, 
-  COMMENTS
+  FRIENDS,
+  COMMENTS,
 }

@@ -1,4 +1,3 @@
-import { Container } from '@mui/material'
 import { Footer } from 'src/components/Footer/Footer'
 
 interface PageProps {
@@ -9,11 +8,11 @@ interface PageProps {
 
 export const Page = ({ header, search, content }: PageProps) => {
   return (
-    <Container className={`main ${search ? 'main--search' : header ? 'main--header' : ''}`}>
+    <main className={`main ${search ? 'main--search' : header ? 'main--header' : ''}`}>
       {header}
       {search}
       {content}
       <Footer />
-    </Container>
+    </main>
   )
 }

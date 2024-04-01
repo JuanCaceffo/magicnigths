@@ -1,4 +1,3 @@
-import { Container } from '@mui/material'
 import { Header } from 'src/components/Header/Header'
 import { Search } from 'src/components/Search/Search'
 import { Page } from 'src/pages/Page/Page'
@@ -9,7 +8,7 @@ export const Home = () => {
       header={<Header />}
       search={<Search />}
       content={
-        <Container className="main__content">
+        <main className="main__content">
           <p style={{ padding: '2em' }}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id erat lacinia, faucibus tortor a, porttitor
             quam. Mauris ut rhoncus enim, sed suscipit mauris. Nulla quam urna, lacinia ut aliquam id, blandit in dui.
@@ -77,7 +76,7 @@ export const Home = () => {
             ornare. Aenean pretium mauris eu sem vestibulum ultrices. Nulla fermentum sapien magna, sit amet tempor
             tortor commodo in. Aenean nec dolor id turpis gravida dapibus vel at tellus. Etiam at urna erat.
           </p>
-        </Container>
+        </main>
       }
     />
   )
