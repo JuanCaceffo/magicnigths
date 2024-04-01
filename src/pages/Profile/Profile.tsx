@@ -1,4 +1,4 @@
-import { Avatar, Container, Divider, Input, ToggleButton, ToggleButtonGroup } from '@mui/material'
+import { Avatar, Divider, Input, ToggleButton, ToggleButtonGroup } from '@mui/material'
 import { Header } from 'src/components/Header/Header'
 import { Page } from 'src/pages/Page/Page'
 import '../../index.css'
