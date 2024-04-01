@@ -7,12 +7,10 @@ import { Shop } from './pages/Shop/Shop'
 import { NotFoundPage } from './pages/NotFound/NotFound'
 import { Show } from './components/Show/Show'
 
-
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <Home />,
-    errorElement: <NotFoundPage />,
   },
   {
     path: '/shows/:showId',
@@ -33,5 +31,9 @@ export const router = createBrowserRouter([
   {
     path: '/shop',
     element: <Shop />,
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ])
