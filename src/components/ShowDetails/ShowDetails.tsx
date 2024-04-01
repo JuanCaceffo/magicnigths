@@ -1,8 +1,8 @@
 import { Box, Button } from "@mui/material"
 import "./ShowDetails.scss"
 import { DateBox } from "./DateBox"
-import { SeatBox } from "./SeatBox"
-import { Key } from "react"
+import { Key, useEffect } from "react"
+import { QtySelector } from "../QtySelector/QtySelector"
 
 const mockShow = {
   name: 'Los Pepes - Pearljam',
@@ -19,6 +19,12 @@ const mockShow = {
 }
 
 export const ShowDetails = ({ show = mockShow }) => {
+
+  useEffect(() => {
+    try {
+
+    } catch (err) { }
+  }, [])
 
   return (
     <Box className="show-details">
@@ -43,8 +49,11 @@ export const ShowDetails = ({ show = mockShow }) => {
             ))}
           </Box>
           <Box className="show-details__seats">
-            {show.seats.map((seat: string, index: Key | null | undefined) => (
-              <SeatBox key={index} location={seat} />
+            {show.seats.map((name: string, index: Key | null | undefined) => (
+              // <SeatBox key={index} location={seat} />
+              <QtySelector key={index} handleInputChange={function (): void {
+                throw new Error("Function not implemented.")
+              }} value={undefined} name={name} price={0} maxQuantity={0}></QtySelector>
             ))}
           </Box>
           <Box className="show-details__bottom">

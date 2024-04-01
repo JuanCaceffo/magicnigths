@@ -1,5 +1,6 @@
 import { Header } from 'src/components/Header/Header'
 import { Search } from 'src/components/Search/Search'
+import { ShowDetails } from 'src/components/ShowDetails/ShowDetails'
 import { Page } from 'src/pages/Page/Page'
 
 export const Home = () => {
@@ -9,6 +10,7 @@ export const Home = () => {
       search={<Search />}
       content={
         <main className="main__content">
+          <ShowDetails></ShowDetails>
           <p style={{ padding: '2em' }}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id erat lacinia, faucibus tortor a, porttitor
             quam. Mauris ut rhoncus enim, sed suscipit mauris. Nulla quam urna, lacinia ut aliquam id, blandit in dui.
