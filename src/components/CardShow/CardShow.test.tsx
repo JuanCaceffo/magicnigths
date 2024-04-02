@@ -2,7 +2,7 @@ import { RenderResult, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { beforeEach, describe, expect, test } from 'vitest'
 import CardShow from './CardShow'
-import { showBase, showPassTheFirendLimits, showUnPaid } from 'src/data/mocks/showMocks'
+import { showBase, showPassTheFriendLimits, showUnPaid } from 'src/data/mocks/showMocks'
 
 describe('CardShow Component', () => {
   let renderResult: RenderResult
@@ -15,7 +15,7 @@ describe('CardShow Component', () => {
 
   test('When you have more firends than the limit, the card, show you the rest of the firends without profile img', () => {
     //ARRANGE
-    renderResult.rerender(<CardShow show={showPassTheFirendLimits} />)
+    renderResult.rerender(<CardShow show={showPassTheFriendLimits} />)
 
     //ASSERT
     expect(renderResult.queryByTestId('more-friends')).toBeTruthy()
