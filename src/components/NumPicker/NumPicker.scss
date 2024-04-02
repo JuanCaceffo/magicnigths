@@ -1,0 +1,46 @@
+.numeric-picker {
+  display: flex;
+  align-items: center;
+  height: 2.5em;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 9999px;
+  overflow: hidden;
+  filter: drop-shadow(0rem 0.1rem 0.2rem rgba(0, 0, 0, 0.5));
+
+  background-color: var(--color-clear);
+
+  & * {
+    transition: all 0.4s ease;
+  }
+
+  &:hover {
+    border: 1.5px solid var(--color-secondary);
+  }
+
+  &__number {
+    min-width: 2.2em;
+    height: 100%;
+    font-family: inherit;
+    font-size: 1.5em;
+    text-align: center;
+    border: none;
+    outline: none;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2em;
+    height: 100%;
+    background-color: var(--color-primary);
+    font-size: 1.4em;
+    font-weight: 900;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background-color: var(--color-secondary);
+    }
+  }
+}

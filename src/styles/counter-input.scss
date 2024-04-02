@@ -1,0 +1,77 @@
+.base-NumberInput-root {
+  background-color: red;
+  font-family: var(--typeface-primary);
+  font-weight: 400;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.base-NumberInput-input {
+  font-size: 0.875rem;
+  font-family: inherit;
+  font-weight: 400;
+  line-height: 1.375;
+  color: #1C2025;
+  background: #fff;
+  border: 1px solid #DAE2ED;
+  box-shadow: 0px 2px 4px rgba(0,0,0, 0.05);
+  border-radius: 8px;
+  margin: 0 8px;
+  padding: 10px 12px;
+  outline: 0;
+  min-width: 0;
+  width: 4rem;
+  text-align: center;
+
+  &:hover {
+    border-color: #3399ff;
+  }
+
+  &:focus {
+    border-color: #3399ff;
+    box-shadow: 0 0 0 3px #b6daff;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+}
+
+.base-NumberInput-decrementButton, 
+.base-NumberInput-incrementButton {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.875rem;
+  box-sizing: border-box;
+  line-height: 1.5;
+  border: 1px solid;
+  border-radius: 999px;
+  border-color: #DAE2ED;
+  background: #F3F6F9;
+  color: #1C2025;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 120ms;
+
+  &:hover {
+    cursor: pointer;
+    background: #007fff;
+    border-color: #3399ff;
+    color: #F3F6F9;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  &.increment {
+    order: 1;
+  }
+}
