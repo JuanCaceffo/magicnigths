@@ -36,11 +36,14 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
         </header>
         <section className="card-show__cont card-show--flex">
           <header className="card-show--flex subtitle2">
-            <span className="card-show__fileld">{show.bandName}</span>
+            <span className="card-show__fileld">
+              {show.showName}
+              {show.bandName}
+            </span>
             <article className="card-show__fileld">
               <StarIcon fontSize="small"></StarIcon>
-              <b>{show.props.rating}</b>
-              <span>({show.props.totalComments})</span>
+              <b>{show.rating}</b>
+              <span>({show.totalComments})</span>
             </article>
           </header>
           <div className="card-show--flex body">
@@ -70,8 +73,8 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
           <footer className="card-show--flex body">
             <strong data-testid="show-price" className="card-show__fileld card-show__price">
               {show.wasPricePaid()
-                ? `Precio pagado  $${show.props.price}`
-                : show.props.prices &&
+                ? `Precio pagado  $${show.price}`
+                : show.prices &&
                   `Desde ${show
                     .getMinMaxPrices()
                     .map((price) => `$${price}`)

@@ -11,8 +11,10 @@ export class Show implements ShowProps {
   rating: number
   totalComments: number
   price: number
+  prices: number[]
   userImageNames: string[]
   comments: Comment[]
+  dates!: Date[]
 
   constructor(public props: ShowProps) {
     this.id = props.id
@@ -23,27 +25,27 @@ export class Show implements ShowProps {
     this.rating = props.rating ?? 0
     this.totalComments = props.totalComments ?? 0
     this.price = props.price ?? 0
+    this.prices = props.prices ?? []
     this.userImageNames = props.userImageNames ?? []
     this.comments = props.comments ?? []
     this.dates = props.dates.map((date) => moment.utc(date).toDate())
   }
 
-  dates!: Date[]
   LIMIT_FRIENDS = 3
 
-  getMinMaxPrices = () => (this.props.prices ? [Math.min(...this.props.prices), Math.max(...this.props.prices)] : [])
+  getMinMaxPrices = () => (this.prices ? [Math.min(...this.prices), Math.max(...this.prices)] : [])
 
   getLimitedUserImgs = () =>
     this.pasedLimitFriends()
       ? this.props.userImageNames!!.slice(0, this.LIMIT_FRIENDS)
-      : this.props.userImageNames!!.slice(0, this.props.userImageNames!!.length)
+      : this.props.userImageNames!!.slice(0, this.userImageNames!!.length)
 
-  pasedLimitFriends = () => this.props.userImageNames!!.length > this.LIMIT_FRIENDS
+  pasedLimitFriends = () => this.userImageNames!!.length > this.LIMIT_FRIENDS
 
-  restFriends = () => this.pasedLimitFriends() && this.props.userImageNames!!.length - this.LIMIT_FRIENDS
+  restFriends = () => this.pasedLimitFriends() && this.userImageNames!!.length - this.LIMIT_FRIENDS
 
-  wasPricePaid = () => !!this.props.price
+  wasPricePaid = () => !!this.price
 
   // Devuelve si el show puede ser comentado o no
-  canBeComment = () => this.props.dates.every((date) => new Date(date) < new Date())
+  canBeComment = () => this.dates.every((date) => new Date(date) < new Date())
 }
