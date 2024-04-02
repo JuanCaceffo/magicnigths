@@ -7,7 +7,6 @@ import { Show } from 'src/data/model/Show'
 import { ShowProps } from 'src/data/interfaces/ShowProps'
 
 
-
 class UserService {
   id: number
 
@@ -61,38 +60,24 @@ class UserService {
   }
 
   async getPurchasedTickets():  Promise<Show[]> {
-    // const response = await axios.get(`${REST_SERVER_URL}/user_profile/${this.id}/purchased_tickets`)
-    // const purchasedTickets = response.data
+    const response = await axios.get(`${REST_SERVER_URL}/user_profile/${this.id}/purchased_tickets`)
+    const purchasedTicketsData = response.data
 
-    //return purchasedTickets
-    /////////
-    const showProps1: ShowProps = {
-      showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
-      name: 'la vela puerca',
-      valoration: 4,
-      valorationSize: 150,
-      ubication: 'Buenos Aires',
-      dates: [new Date('Jul 12 2024'), new Date('Jul 16 2024')],
-      userImgs: ['/mock-imgs/user-imgs/pablito.jpeg', '/mock-imgs/user-imgs/juan.jpeg', '/mock-imgs/user-imgs/denise.jpeg'],
-      price: 23000
-    }
-    
-    const show1: Show = new Show(showProps1)
-
-    const showProps2: ShowProps = {
-      showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
-      name: 'la vela puerca',
-      valoration: 4,
-      valorationSize: 150,
-      ubication: 'Buenos Aires',
-      dates: [new Date('Ene 12 2020'), new Date('Jul 16 2024')],
-      userImgs: ['/mock-imgs/user-imgs/pablito.jpeg'],
-      price: 25000
-    }
-    
-    const show2: Show = new Show(showProps2)
-
-    return [show1, show2]
+    const purchasedTickets: Show[] = purchasedTicketsData.map((purchasedTicketData: ShowProps) => {
+      return new Show({
+        showImg: purchasedTicketData.showImg,
+        name: purchasedTicketData.name,
+        valoration: purchasedTicketData.valoration,
+        valorationSize: purchasedTicketData.valorationSize,
+        ubication: purchasedTicketData.ubication,
+        dates: purchasedTicketData.dates.map((dateString) => new Date(dateString)),
+        userImgs: purchasedTicketData.userImgs,
+        price: purchasedTicketData.price,
+        id: purchasedTicketData.id
+      })
+    })
+  
+    return purchasedTickets
   }
 }
   

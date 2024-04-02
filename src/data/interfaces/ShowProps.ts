@@ -8,4 +8,5 @@ export interface ShowProps {
   userImgs: string[]
   price?: number
   pricePaid?: number[]
+  id?: number
 }
