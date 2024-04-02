@@ -13,12 +13,12 @@ export class Show {
 
   getLimitedUserImgs = () =>
     this.pasedLimitFriends()
-      ? this.props.userImageNames.slice(0, this.LIMIT_FRIENDS)
-      : this.props.userImageNames.slice(0, this.props.userImageNames.length)
+      ? this.props.userImageNames!!.slice(0, this.LIMIT_FRIENDS)
+      : this.props.userImageNames!!.slice(0, this.props.userImageNames!!.length)
 
-  pasedLimitFriends = () => this.props.userImageNames.length > this.LIMIT_FRIENDS
+  pasedLimitFriends = () => this.props.userImageNames!!.length > this.LIMIT_FRIENDS
 
-  restFriends = () => this.pasedLimitFriends() && this.props.userImageNames.length - this.LIMIT_FRIENDS
+  restFriends = () => this.pasedLimitFriends() && this.props.userImageNames!!.length - this.LIMIT_FRIENDS
 
   wasPricePaid = () => !!this.props.price
 }
