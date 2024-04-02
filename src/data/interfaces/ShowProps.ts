@@ -1,12 +1,12 @@
 export interface ShowProps {
-  showImg: string
+  id: number
+  img: string
   name: string
-  valoration: number
-  valorationSize: number
-  ubication: string
-  dates: Date[]
-  userImgs: string[]
+  location: string
+  rating: number
+  totalComments: number
   price?: number
-  pricePaid?: number[]
-  id?: number
+  prices?: number[]
+  dates: string[]
+  userImageNames: string[]
 }
