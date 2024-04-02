@@ -65,7 +65,7 @@ class UserService {
 
     //return purchasedTickets
     /////////
-    const show1= new Show({
+    const show1: Show = new Show({
       showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
       name: 'la vela puerca',
       valoration: 4,
@@ -76,7 +76,7 @@ class UserService {
       price: 23000,
     })
 
-    const show2= new Show({
+    const show2: Show = new Show({
       showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
       name: 'la vela puerca',
       valoration: 4,
