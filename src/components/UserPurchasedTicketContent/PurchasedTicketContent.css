@@ -1,0 +1,6 @@
+.tickets_container {
+  display: inherit;
+  flex-wrap: inherit;
+  gap: inherit;
+  justify-content: inherit;
+}

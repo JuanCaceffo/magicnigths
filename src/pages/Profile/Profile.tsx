@@ -5,16 +5,16 @@ import '../../index.css'
 import '../../styles/typography.scss'
 import '../../styles/error.scss'
 import './Profile.css'
-import { PurchasedTicketContent } from 'src/components/TicketsContent/PurchasedTicketContent'
+import { PurchasedTicketContent } from 'src/components/UserPurchasedTicketContent/PurchasedTicketContent'
 import { useEffect, useState } from 'react'
-import { FriendsContent } from 'src/components/TicketsContent/FriendsContent'
-import { CommentsContent } from 'src/components/TicketsContent/CommentsContent'
+import { FriendsContent } from 'src/components/UserFriendsContent/FriendsContent'
+import { CommentsContent } from 'src/components/UserTicketsContent/CommentsContent'
 import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
 
 export const Profile = () => {
-  const [user, setUser] = useState(new User('Nombre', 'Apellido', new Date(2000,0,1), 0, '/mock-imgs/user-imgs/denise.jpeg'))
+  const [user, setUser] = useState(new User('Nombre', 'Apellido', 'username', new Date(2000,0,1), 0, '/mock-imgs/user-imgs/denise.jpeg'))
   const [credit, setCredit] = useState(0)
   const [age, setAge] = useState(0)
   const [content, setContent] = useState(SelectionContent.PURCHASED_TICKET)
@@ -63,21 +63,22 @@ export const Profile = () => {
     const { name , value } = event.target
   
     setUser((prevUser: User) => {
-      const prevUserData: { name: string; surname: string; birthday: Date; dni: number; img: string; } = { ...prevUser }
+      const prevUserData: { name: string; surname: string; username: string, birthday: Date; dni: number; img: string; } = { ...prevUser }
 
       if(name == "name" || name == "surname") {
         prevUserData[name] = value
       }    
   
       // Crea un nuevo objeto User con los datos actualizados
-      const updatedUser = new User(prevUserData.name, prevUserData.surname, prevUserData.birthday, prevUserData.dni, prevUserData.img)
+      const updatedUser = new User(prevUserData.name, prevUserData.surname, prevUserData.username, prevUserData.birthday, prevUserData.dni, prevUserData.img)
   
       return updatedUser
     })
   }
 
   const handleSaveClick = async () => {
-    // TO DO: Implementar
+    await userService.updateUser(user)
+    console.log(user)
   }
 
   const handleAddCreditClick = async () => {
