@@ -34,7 +34,7 @@ export const FriendsContent = () => {
     fetchUserFriends()
   }, []) // Array vacío como segundo argumento para indicar que se ejecute solo una vez
 
-  // Método para manejar la eliminacion de un amigo //////////////////
+  // Método para manejar la eliminacion de un amigo
   const handleDeleteFriend = async (friendId: number) => {
     try {
       await userService.deleteFriend(friendId) // Llamada al método deleteFriend del userService con el ID del amigo
