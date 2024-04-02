@@ -1,25 +1,10 @@
 import { Box, Button } from '@mui/material'
 import './ShowDetails.scss'
 import { DateBox } from './DateBox'
-import { Key, useEffect, useState } from 'react'
-import { QtySelector } from 'src/components/QtySelector/QtySelector'
+import { useEffect, useState } from 'react'
 import { showService } from 'src/services/ShowService'
 import { Show } from 'src/data/model/Show'
 import { useParams } from 'react-router-dom'
-
-// const mockShow = {
-//   name: 'Los Pepes - Pearljam',
-//   rating: 4.5,
-//   opinions: 120,
-//   facility: 'Estadio XYZ',
-//   geolocation: 'Ciudad ABC',
-//   dates: [
-//     { date: '2024-03-25', time: '19:00' },
-//     { date: '2024-03-26', time: '20:00' },
-//     { date: '2024-03-27', time: '18:30' },
-//   ],
-//   seats: ['Sector A', 'Sector B', 'Sector C'],
-// }
 
 export const ShowDetails = () => {
   const params = useParams()

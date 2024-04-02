@@ -7,7 +7,6 @@ import { getUserId } from 'src/data/helpers/userSessionStorage'
 class ShowService {
   async getShows() {
     const data = (await axios.get<ShowProps[]>(`${REST_SERVER_URL}/shows?userId=${getUserId()}`)).data
-    data.map((show) => console.log(show.dates))
 
     return data.map((show) => new Show(show))
   }
