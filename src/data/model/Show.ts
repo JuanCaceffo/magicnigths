@@ -15,4 +15,7 @@ export class Show {
   restFriends = () => this.pasedLimitFriends() && this.props.userImgs.length - this.LIMIT_FRIENDS
 
   wasPricePaid = () => !!this.props.price
+
+  // Devuelve si el show puede ser comentado o no
+  canBeComment = () => this.props.dates.every((date) => date < new Date())
 }
