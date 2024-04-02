@@ -10,5 +10,5 @@ export interface ShowProps {
   prices?: number[]
   dates: Date[]
   userImageNames?: string[]
-  comments?: { userImg: string; userName: string; text: string; rating: number; date: string }[]
+  comments?: Comment[]
 }
