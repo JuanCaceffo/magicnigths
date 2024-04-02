@@ -17,5 +17,5 @@ export class Show {
   wasPricePaid = () => !!this.props.price
 
   // Devuelve si el show puede ser comentado o no
-  canBeComment = () => this.props.dates.every((date) => date < new Date())
+  canBeComment = () => this.props.dates.every((date: Date) => date < new Date())
 }
