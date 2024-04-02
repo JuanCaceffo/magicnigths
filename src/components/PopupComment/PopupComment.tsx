@@ -14,6 +14,7 @@ export const PopupComment = ({ open, onSave, onClose }: { open: boolean, onSave:
 
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>, newRating: number | null) => {
     setRating(newRating)
+    console.log(event)
   }
 
   const handleSave = () => {
