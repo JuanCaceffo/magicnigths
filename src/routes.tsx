@@ -5,8 +5,6 @@ import { Login } from './pages/Login/Login'
 import { Profile } from './pages/Profile/Profile'
 import { Shop } from './pages/Shop/Shop'
 import { NotFoundPage } from './pages/NotFound/NotFound'
-import { Show } from './components/Show/Show'
-import { ShowDetails } from './components/ShowDetails/ShowDetails'
 import { Page } from './pages/Page/Page'
 import { Header } from './components/Header/Header'
 
@@ -17,7 +15,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/show/:showId',
-    element: <Page header={<Header />} content={<ShowDetails />} />,
+    element: <Page header={<Header />} content={<></>} />,
   },
   {
     path: '/admin_dashboard',
