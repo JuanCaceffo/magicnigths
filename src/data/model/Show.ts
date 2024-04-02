@@ -4,7 +4,7 @@ import { ShowProps } from '../interfaces/ShowProps'
 //TODO: when the imgs managment will finished in the backend change here if is necesary
 export class Show {
   constructor(public props: ShowProps) {
-    this.dates = props.dates.map((date) => moment.utc(date).toDate())
+    this.dates = props.dates.map((e) => moment.utc(e.date).toDate())
   }
   dates!: Date[]
   LIMIT_FRIENDS = 3
