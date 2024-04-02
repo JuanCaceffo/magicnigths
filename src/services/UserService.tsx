@@ -72,13 +72,14 @@ class UserService {
     //return purchasedTickets
     /////////
     const showProps1: ShowProps = {
-      showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
+      id: 0,
+      img: '/mock-imgs/card-show-imgs/velapuerca.jpg',
       name: 'la vela puerca',
-      valoration: 4,
-      valorationSize: 150,
-      ubication: 'Buenos Aires',
-      dates: [new Date(2024, 7, 12), new Date(2024, 7, 16)],
-      userImgs: [
+      rating: 4,
+      totalComments: 150,
+      location: 'Buenos Aires',
+      dates: [new Date(2024, 7, 12).toDateString(), new Date(2024, 7, 16).toDateString()],
+      userImageNames: [
         '/mock-imgs/user-imgs/pablito.jpeg',
         '/mock-imgs/user-imgs/juan.jpeg',
         '/mock-imgs/user-imgs/denise.jpeg',
@@ -89,13 +90,14 @@ class UserService {
     const show1: Show = new Show(showProps1)
 
     const showProps2: ShowProps = {
-      showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
+      id: 1,
+      img: '/mock-imgs/card-show-imgs/velapuerca.jpg',
       name: 'la vela puerca',
-      valoration: 4,
-      valorationSize: 150,
-      ubication: 'Buenos Aires',
-      dates: [new Date(2020, 1, 12), new Date(2020, 7, 16)],
-      userImgs: ['/mock-imgs/user-imgs/pablito.jpeg'],
+      rating: 4,
+      totalComments: 150,
+      location: 'Buenos Aires',
+      dates: [new Date(2020, 1, 12).toDateString(), new Date(2020, 7, 16).toDateString()],
+      userImageNames: ['/mock-imgs/user-imgs/pablito.jpeg'],
       price: 25000,
     }
 
