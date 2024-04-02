@@ -32,10 +32,10 @@ export const ShowDetails = () => {
             <Box className="show-details__info">
               <span className="show-details__info-item subtitle">
                 {show && show.props.rating}
-                <span className="subtitle2">{show.props.opinions}</span>
+                <span className="subtitle2">{}</span>
               </span>
-              <span className="show-details__info-item subtitle">{show.facility}</span>
-              <span className="show-details__info-item subtitle">{show.geolocation}</span>
+              <span className="show-details__info-item subtitle">{}</span>
+              <span className="show-details__info-item subtitle">{}</span>
             </Box>
           </Box>
           <Box className="show-details__body">
