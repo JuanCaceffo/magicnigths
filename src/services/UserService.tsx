@@ -4,6 +4,7 @@ import { UserLogin } from 'src/data/model/UserLogin'
 import { User } from 'src/data/model/User'
 import { Friend } from 'src/data/model/Friend'
 import { Show } from 'src/data/model/Show'
+import { ShowProps } from 'src/data/interfaces/ShowProps'
 
 
 
@@ -65,7 +66,7 @@ class UserService {
 
     //return purchasedTickets
     /////////
-    const show1: Show = new Show({
+    const showProps1: ShowProps = {
       showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
       name: 'la vela puerca',
       valoration: 4,
@@ -73,19 +74,23 @@ class UserService {
       ubication: 'Buenos Aires',
       dates: [new Date('Jul 12 2024'), new Date('Jul 16 2024')],
       userImgs: ['/mock-imgs/user-imgs/pablito.jpeg', '/mock-imgs/user-imgs/juan.jpeg', '/mock-imgs/user-imgs/denise.jpeg'],
-      price: 23000,
-    })
+      price: 23000
+    }
+    
+    const show1: Show = new Show(showProps1)
 
-    const show2: Show = new Show({
+    const showProps2: ShowProps = {
       showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
       name: 'la vela puerca',
       valoration: 4,
       valorationSize: 150,
       ubication: 'Buenos Aires',
-      dates: [new Date('Jul 12 2020')],
+      dates: [new Date('Ene 12 2020'), new Date('Jul 16 2024')],
       userImgs: ['/mock-imgs/user-imgs/pablito.jpeg'],
-      price: 25000,
-    })
+      price: 25000
+    }
+    
+    const show2: Show = new Show(showProps2)
 
     return [show1, show2]
   }
