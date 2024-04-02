@@ -73,32 +73,34 @@ class UserService {
     /////////
     const showProps1: ShowProps = {
       id: 0,
-      img: '/mock-imgs/card-show-imgs/velapuerca.jpg',
-      name: 'la vela puerca',
+      showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
+      showName: 'Hell Rise Tour',
       rating: 4,
       totalComments: 150,
-      location: 'Buenos Aires',
-      dates: [new Date(2024, 7, 12).toDateString(), new Date(2024, 7, 16).toDateString()],
+      facilityName: 'Buenos Aires',
+      dates: [new Date(2024, 7, 12), new Date(2024, 7, 16)],
       userImageNames: [
         '/mock-imgs/user-imgs/pablito.jpeg',
         '/mock-imgs/user-imgs/juan.jpeg',
         '/mock-imgs/user-imgs/denise.jpeg',
       ],
       price: 23000,
+      bandName: 'AC/DC',
     }
 
     const show1: Show = new Show(showProps1)
 
     const showProps2: ShowProps = {
       id: 1,
-      img: '/mock-imgs/card-show-imgs/velapuerca.jpg',
-      name: 'la vela puerca',
+      showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
+      showName: 'Chanchadas',
       rating: 4,
       totalComments: 150,
-      location: 'Buenos Aires',
-      dates: [new Date(2020, 1, 12).toDateString(), new Date(2020, 7, 16).toDateString()],
+      facilityName: 'Buenos Aires',
+      dates: [new Date(2020, 1, 12), new Date(2020, 7, 16)],
       userImageNames: ['/mock-imgs/user-imgs/pablito.jpeg'],
       price: 25000,
+      bandName: 'La Vela Puerca',
     }
 
     const show2: Show = new Show(showProps2)

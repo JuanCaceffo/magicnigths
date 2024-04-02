@@ -36,24 +36,27 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
         </header>
         <section className="card-show__cont card-show--flex">
           <header className="card-show--flex subtitle2">
-            <span className="card-show__fileld">{show.props.name}</span>
+            <span className="card-show__fileld">
+              {show.showName}
+              {show.bandName}
+            </span>
             <article className="card-show__fileld">
               <StarIcon fontSize="small"></StarIcon>
-              <b>{show.props.rating}</b>
-              <span>({show.props.totalComments})</span>
+              <b>{show.rating}</b>
+              <span>({show.totalComments})</span>
             </article>
           </header>
           <div className="card-show--flex body">
             <article className="card-show__fileld">
               <span>
                 <b>Ubicacion: </b>
-                {show.props.location}
+                {show.facilityName}
               </span>
             </article>
             <span className="card-show__fileld">{`fechas ${fomratedDates()}`}</span>
           </div>
           <div className="card-show--flex body">
-            {!!show.props.userImageNames.length ? (
+            {!!show.userImageNames.length ? (
               <article className="card-show__friends card-show--flex">
                 <span>Tambien van a asistir</span>
                 <div className="card-show__user-img-cnt">
@@ -70,8 +73,8 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
           <footer className="card-show--flex body">
             <strong data-testid="show-price" className="card-show__fileld card-show__price">
               {show.wasPricePaid()
-                ? `Precio pagado  $${show.props.price}`
-                : show.props.prices &&
+                ? `Precio pagado  $${show.price}`
+                : show.prices &&
                   `Desde ${show
                     .getMinMaxPrices()
                     .map((price) => `$${price}`)
