@@ -16,19 +16,19 @@ export class Show implements ShowProps {
   comments: Comment[]
   dates!: Date[]
 
-  constructor(public props: ShowProps) {
-    this.id = props.id
-    this.showImg = props.showImg ?? 'default.jpg'
-    this.showName = props.showName
-    this.bandName = props.bandName
-    this.facilityName = props.facilityName
-    this.rating = props.rating ?? 0
-    this.totalComments = props.totalComments ?? 0
-    this.price = props.price ?? 0
-    this.prices = props.prices ?? []
-    this.userImageNames = props.userImageNames ?? []
-    this.comments = props.comments ?? []
-    this.dates = props.dates.map((date) => moment.utc(date).toDate())
+  constructor(private props: ShowProps) {
+    this.id = this.props.id
+    this.showImg = this.props.showImg ?? 'default.jpg'
+    this.showName = this.props.showName
+    this.bandName = this.props.bandName
+    this.facilityName = this.props.facilityName
+    this.rating = this.props.rating ?? 0
+    this.totalComments = this.props.totalComments ?? 0
+    this.price = this.props.price ?? 0
+    this.prices = this.props.prices ?? []
+    this.userImageNames = this.props.userImageNames ?? []
+    this.comments = this.props.comments ?? []
+    this.dates = this.props.dates.map((date) => moment.utc(date).toDate())
   }
 
   LIMIT_FRIENDS = 3
@@ -37,12 +37,12 @@ export class Show implements ShowProps {
 
   getLimitedUserImgs = () =>
     this.pasedLimitFriends()
-      ? this.props.userImageNames!!.slice(0, this.LIMIT_FRIENDS)
-      : this.props.userImageNames!!.slice(0, this.userImageNames!!.length)
+      ? this.userImageNames.slice(0, this.LIMIT_FRIENDS)
+      : this.userImageNames.slice(0, this.userImageNames.length)
 
-  pasedLimitFriends = () => this.userImageNames!!.length > this.LIMIT_FRIENDS
+  pasedLimitFriends = () => this.userImageNames.length > this.LIMIT_FRIENDS
 
-  restFriends = () => this.pasedLimitFriends() && this.userImageNames!!.length - this.LIMIT_FRIENDS
+  restFriends = () => this.pasedLimitFriends() && this.userImageNames.length - this.LIMIT_FRIENDS
 
   wasPricePaid = () => !!this.price
 

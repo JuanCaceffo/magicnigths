@@ -66,46 +66,11 @@ class UserService {
   }
 
   async getPurchasedTickets(): Promise<Show[]> {
-    // const response = await axios.get(`${REST_SERVER_URL}/user_profile/${this.id}/purchased_tickets`)
-    // const purchasedTickets = response.data
+    const response = await axios.get<ShowProps[]>(`${REST_SERVER_URL}/user_profile/${this.id}/purchased_tickets`)
 
-    //return purchasedTickets
-    /////////
-    const showProps1: ShowProps = {
-      id: 0,
-      showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
-      showName: 'Hell Rise Tour',
-      rating: 4,
-      totalComments: 150,
-      facilityName: 'Buenos Aires',
-      dates: [new Date(2024, 7, 12), new Date(2024, 7, 16)],
-      userImageNames: [
-        '/mock-imgs/user-imgs/pablito.jpeg',
-        '/mock-imgs/user-imgs/juan.jpeg',
-        '/mock-imgs/user-imgs/denise.jpeg',
-      ],
-      price: 23000,
-      bandName: 'AC/DC',
-    }
+    const purchasedTickets: Show[] = response.data.map((purchasedTicketsData) => new Show(purchasedTicketsData))
 
-    const show1: Show = new Show(showProps1)
-
-    const showProps2: ShowProps = {
-      id: 1,
-      showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
-      showName: 'Chanchadas',
-      rating: 4,
-      totalComments: 150,
-      facilityName: 'Buenos Aires',
-      dates: [new Date(2020, 1, 12), new Date(2020, 7, 16)],
-      userImageNames: ['/mock-imgs/user-imgs/pablito.jpeg'],
-      price: 25000,
-      bandName: 'La Vela Puerca',
-    }
-
-    const show2: Show = new Show(showProps2)
-
-    return [show1, show2]
+    return purchasedTickets
   }
 }
 
