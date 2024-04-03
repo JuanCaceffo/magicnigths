@@ -11,6 +11,11 @@ export const ShowDetails = () => {
   const params = useParams()
   const [show, setShow] = useState<Show>()
   const [seats, setSeats] = useState<Seat>()
+  const [dateSelected, setDateSelected] = useState<Date | null>(null)
+
+  const handleDateClick = (date: Date) => {
+    setDateSelected(date)
+  }
 
   useEffect(() => {
     try {
@@ -64,7 +69,13 @@ export const ShowDetails = () => {
             <section className="show-details__buybox">
               <div className="show-details__dates shadow shadow--line">
                 {show.dates.map((date) => (
-                  <CardDate key={date.toDateString()} date={date} />
+                  <CardDate
+                    key={date.toDateString()}
+                    isSelected={date === dateSelected}
+                    isDisable={date < new Date()}
+                    date={date}
+                    handleClick={handleDateClick}
+                  />
                 ))}
               </div>
               <Box className="show-details__seats">{/* <p>{seats?.date.toString()}</p> */}</Box>
