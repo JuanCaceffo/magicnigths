@@ -17,8 +17,15 @@ class ShowService {
     return new Show(showJson.data)
   }
 
-  getShowDatesById = async (showId: number) => {
-    const showDatesJson = await axios.get(`${REST_SERVER_URL}/show_dates/${showId}`)
+  getShowDatesById = async (showId: number, selectedDate: Date) => {
+    const fechaIso = selectedDate.toISOString()
+    console.log(fechaIso)
+    const showDatesJson = await axios.get(`${REST_SERVER_URL}/show_dates/${showId}`, {
+      params: {
+        fechaIso,
+      },
+    })
+
     return Seat.fromJSON(showDatesJson.data)
   }
 }

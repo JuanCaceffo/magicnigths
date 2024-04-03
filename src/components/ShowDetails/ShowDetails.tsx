@@ -11,7 +11,7 @@ export const ShowDetails = () => {
   const params = useParams()
   const [show, setShow] = useState<Show>()
   const [seats, setSeats] = useState<Seat>()
-  const [dateSelected, setDateSelected] = useState<Date | null>(null)
+  const [dateSelected, setDateSelected] = useState<Date>()
 
   const handleDateClick = (date: Date) => {
     setDateSelected(date)
@@ -19,20 +19,17 @@ export const ShowDetails = () => {
 
   useEffect(() => {
     try {
-      const fetchShow = async () => {
-        showService.getShowById(+params['showId']!!).then((value) => {
-          setShow(value)
-        })
+      const fetchShowAndSeats = async () => {
+        const fetchedShow = await showService.getShowById(+params['showId']!!)
+        setShow(fetchedShow)
+
+        let selectedDate = dateSelected ?? (fetchedShow?.dates.length > 0 ? fetchedShow.dates[0] : null)
+
+        const fetchedSeats: Seat = await showService.getShowDatesById(+params['showId']!!, selectedDate!!)
+        setSeats(fetchedSeats)
       }
 
-      const fetchSeats = async () => {
-        showService.getShowDatesById(+params['showId']!!).then((value) => {
-          setSeats(value)
-        })
-      }
-
-      fetchShow()
-      fetchSeats()
+      fetchShowAndSeats()
     } catch (err) {
       console.log(err)
     }
@@ -78,7 +75,7 @@ export const ShowDetails = () => {
                   />
                 ))}
               </div>
-              <Box className="show-details__seats">{/* <p>{seats?.date.toString()}</p> */}</Box>
+              <Box className="show-details__seats">{}</Box>
               <Box className="show-details__bottom">
                 <Button className="show-details__button">Agregar al Carrito</Button>
               </Box>
