@@ -16,7 +16,7 @@ export const NumPicker = ({ ...args }: NumPickerArgs) => {
   const updateWidth = () => {
     if (inputRef.current && !isNaN(+inputRef.current.value)) {
       const digits = inputRef.current.value.length
-      inputRef.current.style.width = `${digits + 1}em`
+      inputRef.current.style.width = `${digits * 0.61 + 1}em`
     }
   }
 

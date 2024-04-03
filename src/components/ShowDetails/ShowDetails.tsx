@@ -6,13 +6,14 @@ import { Show } from 'src/data/model/Show'
 import { useParams } from 'react-router-dom'
 import CardDate from '../CardDate/CardDate'
 import { Seat } from 'src/data/model/Seat'
-import { SeatBox } from './SeatBox'
+import { SeatBox } from '../SeatBox/SeatBox'
 
 export const ShowDetails = () => {
   const params = useParams()
   const [show, setShow] = useState<Show>()
   const [seats, setSeats] = useState<Seat[]>([])
   const [dateSelected, setDateSelected] = useState<Date>()
+  const [picker, setPicker] = useState(0)
 
   const handleDateClick = (date: Date) => {
     setDateSelected(date)
@@ -78,7 +79,7 @@ export const ShowDetails = () => {
               </div>
               <Box className="show-details__seats">
                 {seats.map((seat) => (
-                  <SeatBox key={seat.seatType} seatType={seat.seatType} price={seat.price} maxToSell={seat.maxToSell} />
+                  <SeatBox key={seat.seatType} seatArgs={seat} value={picker} handler={setPicker} />
                 ))}
               </Box>
               <Box className="show-details__bottom">
