@@ -4,18 +4,45 @@
   justify-content: center;
   align-items: center;
 }
+
 .card-date {
   justify-content: space-around;
-  width: 9em;
-  height: 8em;
-  background-color: rgba(116, 175, 221, 0.459);
-  border-radius: 0.5em;
-  border: 0.1em solid #000;
-  &.card-date--active {
-    background-color: rgb(99, 167, 219);
+  width: 7.5em;
+  height: 6em;
+  color: var(--color-clear);
+  background-image: linear-gradient(to top, var(--color-secondary) 10%, var(--color-primary) 110%);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-time) ease;
+
+  &--active {
+    transform: translateY(-3%);
+    box-shadow: var(--box-shadow);
   }
-  &.card-date--disabled {
+
+  &--disabled {
     border-style: dashed;
     filter: opacity(50%);
+  }
+
+  &__day {
+    font-size: 0.9em;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  &__day-month {
+    font-size: 1.4em;
+    padding-top: 0.2em;
+  }
+
+  &__hs {
+    font-size: 0.9em;
+    font-weight: 200;
+    letter-spacing: 0.5px;
+  }
+
+  &:hover {
+    transform: translateY(-3%);
+    box-shadow: var(--box-shadow);
   }
 }

@@ -4,19 +4,30 @@ import { useEffect, useState } from 'react'
 import { showService } from 'src/services/ShowService'
 import { Show } from 'src/data/model/Show'
 import { useParams } from 'react-router-dom'
+import CardDate from '../CardDate/CardDate'
+import { Seat } from 'src/data/model/Seat'
 
 export const ShowDetails = () => {
   const params = useParams()
   const [show, setShow] = useState<Show>()
+  const [seats, setSeats] = useState<Seat>()
 
   useEffect(() => {
     try {
-      const fechShow = async () => {
+      const fetchShow = async () => {
         showService.getShowById(+params['showId']!!).then((value) => {
           setShow(value)
         })
       }
-      fechShow()
+
+      const fetchSeats = async () => {
+        showService.getShowDatesById(+params['showId']!!).then((value) => {
+          setSeats(value)
+        })
+      }
+
+      fetchShow()
+      fetchSeats()
     } catch (err) {
       console.log(err)
     }
@@ -25,8 +36,8 @@ export const ShowDetails = () => {
   return (
     <>
       {show && (
-        <div className="show-details">
-          <div className="show-details__header text">
+        <article className="show-details">
+          <section className="show-details__header text shadow shadow--box">
             <div className="show-details__name">
               <span className="text--stronger">{`${show.bandName} - `}</span>
               <span>{show.showName}</span>
@@ -45,38 +56,24 @@ export const ShowDetails = () => {
               </span>
               <span className="show-details__info-item">{show.geolocation}</span>
             </div>
-          </div>
-          <div className="show-details__body">
-            <div className="show-details__img">
+          </section>
+          <section className="show-details__body">
+            <section className="show-details__img">
               <img src={`/src/assets/images/${show.showImg}`} />
-            </div>
-            <Box className="show-details__timetable">
-              <Box className="show-details__dates">
-                {show.dates.map((date, index) => (
-                  <></>
+            </section>
+            <section className="show-details__buybox">
+              <div className="show-details__dates shadow shadow--line">
+                {show.dates.map((date) => (
+                  <CardDate key={date.toDateString()} date={date} />
                 ))}
-              </Box>
-              <Box className="show-details__seats">
-                {/* {show.props.seats.map((name: string, index: Key | null | undefined) => (
-                  // <SeatBox key={index} location={seat} />
-                  <QtySelector
-                    key={index}
-                    handleInputChange={function (): void {
-                      throw new Error('Function not implemented.')
-                    }}
-                    value={undefined}
-                    name={name}
-                    price={0}
-                    maxQuantity={0}
-                  ></QtySelector>
-                ))} */}
-              </Box>
+              </div>
+              <Box className="show-details__seats">{/* <p>{seats?.date.toString()}</p> */}</Box>
               <Box className="show-details__bottom">
-                <Button className="show-details__button"> Agregar al Carrito </Button>
+                <Button className="show-details__button">Agregar al Carrito</Button>
               </Box>
-            </Box>
-          </div>
-        </div>
+            </section>
+          </section>
+        </article>
       )}
     </>
   )
