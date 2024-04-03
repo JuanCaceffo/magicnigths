@@ -65,28 +65,13 @@ class UserService {
     await axios.delete(`${REST_SERVER_URL}/user_profile/${this.id}/friends/${friendId}`)
   }
 
-  async getPurchasedTickets():  Promise<Show[]> {
-    const response = await axios.get(`${REST_SERVER_URL}/user_profile/${this.id}/purchased_tickets`)
-    const purchasedTicketsData = response.data
+  async getPurchasedTickets(): Promise<Show[]> {
+    const response = await axios.get<ShowProps[]>(`${REST_SERVER_URL}/user_profile/${this.id}/purchased_tickets`)
 
-    const purchasedTickets: Show[] = purchasedTicketsData.map((purchasedTicketData: ShowProps) => {
-      return new Show({
-        id: purchasedTicketData.id,
-        showImg: purchasedTicketData.showImg,
-        showName: purchasedTicketData.showName,
-        rating: purchasedTicketData.rating,
-        totalComments: purchasedTicketData.totalComments,
-        facilityName: purchasedTicketData.facilityName,
-        dates: purchasedTicketData.dates.map((dateString) => new Date(dateString)),
-        userImageNames: purchasedTicketData.userImageNames,
-        price: purchasedTicketData.price,
-        bandName: purchasedTicketData.bandName
-      })
-    })
-  
+    const purchasedTickets: Show[] = response.data.map((purchasedTicketsData) => new Show(purchasedTicketsData))
+
     return purchasedTickets
   }
 }
-
 
 export const userService = new UserService()
