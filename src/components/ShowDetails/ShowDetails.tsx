@@ -6,11 +6,12 @@ import { Show } from 'src/data/model/Show'
 import { useParams } from 'react-router-dom'
 import CardDate from '../CardDate/CardDate'
 import { Seat } from 'src/data/model/Seat'
+import { SeatBox } from './SeatBox'
 
 export const ShowDetails = () => {
   const params = useParams()
   const [show, setShow] = useState<Show>()
-  const [seats, setSeats] = useState<Seat>()
+  const [seats, setSeats] = useState<Seat[]>([])
   const [dateSelected, setDateSelected] = useState<Date>()
 
   const handleDateClick = (date: Date) => {
@@ -25,7 +26,7 @@ export const ShowDetails = () => {
 
         let selectedDate = dateSelected ?? (fetchedShow?.dates.length > 0 ? fetchedShow.dates[0] : null)
 
-        const fetchedSeats: Seat = await showService.getShowDatesById(+params['showId']!!, selectedDate!!)
+        const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(+params['showId']!!, selectedDate!!)
         setSeats(fetchedSeats)
       }
 
@@ -75,7 +76,11 @@ export const ShowDetails = () => {
                   />
                 ))}
               </div>
-              <Box className="show-details__seats">{}</Box>
+              <Box className="show-details__seats">
+                {seats.map((seat) => (
+                  <SeatBox key={seat.seatType} seatType={seat.seatType} price={seat.price} maxToSell={seat.maxToSell} />
+                ))}
+              </Box>
               <Box className="show-details__bottom">
                 <Button className="show-details__button">Agregar al Carrito</Button>
               </Box>

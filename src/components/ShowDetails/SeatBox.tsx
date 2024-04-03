@@ -1,21 +1,12 @@
-import React, { useState } from "react"
-import { Box } from "@mui/material"
-import CounterInput from "./CounterInput"
+import { SeatArgs } from 'src/data/model/Seat'
 
-export const SeatBox = ({ location }) => {
-  const [selectedSeats, setSelectedSeats] = useState(0)
-
+export const SeatBox = (args: SeatArgs) => {
+  const { seatType = '', price = 0, maxToSell = 10 } = args
   return (
-    <Box className="seat-box">
-      <Box className="seat-box__seatType">
-        {location}
-      </Box>
-      <Box className="seat-box__price">
-        $ {location}
-      </Box>
-      <Box>
-        <CounterInput />
-      </Box>
-    </Box>
+    <section className="seat-box">
+      <span className="seat-box__seat-type">{seatType}</span>
+      <span className="seat-box__price">$ {price}</span>
+      <span>{}</span>
+    </section>
   )
 }

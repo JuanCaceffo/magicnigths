@@ -3,7 +3,7 @@ import { ShowProps } from 'src/data/interfaces/ShowProps'
 import { REST_SERVER_URL } from './contants'
 import { Show } from 'src/data/model/Show'
 import { getUserId } from 'src/data/helpers/userSessionStorage'
-import { Seat } from 'src/data/model/Seat'
+import { Seat, SeatArgs } from 'src/data/model/Seat'
 
 class ShowService {
   async getShows() {
@@ -17,16 +17,17 @@ class ShowService {
     return new Show(showJson.data)
   }
 
-  getShowDatesById = async (showId: number, selectedDate: Date) => {
-    const fechaIso = selectedDate.toISOString()
-    console.log(fechaIso)
-    const showDatesJson = await axios.get(`${REST_SERVER_URL}/show_dates/${showId}`, {
-      params: {
-        fechaIso,
-      },
-    })
+  getSeatsByShowDate = async (showId: number, selectedDate: Date) => {
+    const date = selectedDate.toISOString()
+    const seatsJson = (
+      await axios.get<SeatArgs[]>(`${REST_SERVER_URL}/show_dates/${showId}`, {
+        params: {
+          date,
+        },
+      })
+    ).data
 
-    return Seat.fromJSON(showDatesJson.data)
+    return seatsJson.map((seat) => Seat.fromJSON(seat))
   }
 }
 
