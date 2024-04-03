@@ -1,0 +1,127 @@
+.show-details {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-clear-medium);
+  width: 100%;
+  min-height: calc(100vh - 21rem);
+
+  &__header {
+    padding: var(--padding-xs) var(--padding);
+    display: flex;
+    flex-wrap: wrap;
+    height: 8rem;
+    justify-content: center;
+    gap: 0.4em;
+    width: 100%;
+    box-shadow: 0 0.2em 0.4em rgba(0, 0, 0, 0.2);
+  }
+
+  &__name {
+    align-content: center;
+    width: 100%;
+    font-size: 2em;
+    text-transform: uppercase;
+  }
+
+  &__info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__info-item {
+    font-size: 0.9em;
+  }
+
+  &__body {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--padding);
+  }
+
+  &__img {
+    flex: 0.4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 39em;
+    overflow: hidden;
+  }
+
+  &__timetable {
+    flex: 0.6;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__dates {
+    display: flex;
+    justify-content: center;
+    // background-color: aqua;
+    height: 15em;
+    width: 100%;
+    gap: 1em;
+    padding: 1em 0;
+  }
+
+  &__seats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // background-color: lightcoral;
+    gap: 2em;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__button {
+    font-size: 1em;
+    color: var(--color-clear);
+    background-color: var(--color-highligthed);
+    border-radius: var(--border-radius);
+  }
+}
+
+.date-box {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-secondary);
+  gap: 1em;
+  padding: 1em;
+  width: 10em;
+  border-radius: var(--border-radius);
+
+  &__day {
+    height: 50%;
+  }
+
+  &__time {
+    height: 50%;
+  }
+}
+
+.seat-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5em;
+  background-color: var(--color-tertiary);
+  border-radius: var(--border-radius);
+  padding: 1em;
+
+  &__seatType {
+  }
+
+  &__price {
+  }
+
+  &__number {
+  }
+}

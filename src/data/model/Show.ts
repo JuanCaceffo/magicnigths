@@ -15,6 +15,7 @@ export class Show implements ShowProps {
   userImageNames: string[]
   comments: Comment[]
   dates!: Date[]
+  geolocation?: string
 
   constructor(public props: ShowProps) {
     this.id = props.id
@@ -29,9 +30,14 @@ export class Show implements ShowProps {
     this.userImageNames = props.userImageNames ?? []
     this.comments = props.comments ?? []
     this.dates = props.dates.map((date) => moment.utc(date).toDate())
+    this.geolocation = props.geolocation ?? ''
   }
 
   LIMIT_FRIENDS = 3
+
+  get title() {
+    return `${this.bandName} - ${this.showName}`
+  }
 
   getMinMaxPrices = () => (this.prices ? [Math.min(...this.prices), Math.max(...this.prices)] : [])
 
