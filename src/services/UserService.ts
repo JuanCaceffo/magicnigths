@@ -97,6 +97,13 @@ class UserService {
       `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/remove-reserved-tickets`,
     )
   }
+
+  async reservedTicketsPrice(): Promise<number> {
+    const price = await axios.get<number>(
+      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/reserved-tickets-price`,
+    )
+    return price.data
+  }
 }
 
 export const userService = new UserService()
