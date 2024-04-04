@@ -3,6 +3,7 @@ import './CardShow.css'
 import StarIcon from '@mui/icons-material/Star'
 import { Show } from 'src/data/model/Show'
 import { Button, ButtonProps } from '@mui/material'
+import { format } from 'date-fns'
 
 interface extButtonProps {
   content: string
@@ -18,10 +19,7 @@ interface CardShowProps {
 }
 
 const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
-  const fomratedDates = () =>
-    show.dates
-      .map((date) => new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'numeric' }).format(date))
-      .join(' - ')
+  const fomratedDates = () => show.dates.map((date) => format(date, 'MM/dd')).join(' - ')
 
   return (
     <>
