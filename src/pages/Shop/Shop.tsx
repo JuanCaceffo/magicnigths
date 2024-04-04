@@ -1,12 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CardShow from 'src/components/CardShow/CardShow'
 import { Header } from 'src/components/Header/Header'
 import { Show } from 'src/data/model/Show'
 import { Page } from 'src/pages/Page/Page'
 import './Shop.scss'
+import { userService } from 'src/services/UserService'
 
 export const Shop = () => {
   const [ticketsShow, setTicketsShow] = useState<Show[]>([])
+
+  useEffect(() => {
+    const fetchTicketsShow = async () => {
+      userService.getReservedTickets().then((data) => {
+        setTicketsShow(data)
+      })
+    }
+    fetchTicketsShow()
+  }, [])
 
   return (
     <Page
