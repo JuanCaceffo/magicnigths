@@ -27,7 +27,15 @@ class ShowService {
       })
     ).data
 
-    return seatsJson.map((seat) => Seat.fromJSON(seat))
+    const seatsJsonWithIndex = seatsJson.map((seat, index) => ({
+      ...seat,
+      id: index,
+      disabled: selectedDate < new Date(),
+    }))
+
+    console.log(seatsJsonWithIndex)
+
+    return seatsJsonWithIndex.map((seat) => Seat.fromJSON(seat))
   }
 }
 

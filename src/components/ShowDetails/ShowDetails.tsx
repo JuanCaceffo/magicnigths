@@ -1,5 +1,5 @@
-import { Box, Button } from '@mui/material'
 import './ShowDetails.scss'
+import { Box, Button } from '@mui/material'
 import { useState } from 'react'
 import { showService } from 'src/services/ShowService'
 import { Show } from 'src/data/model/Show'
@@ -14,10 +14,16 @@ export const ShowDetails = () => {
   const [show, setShow] = useState<Show>()
   const [seats, setSeats] = useState<Seat[]>([])
   const [dateSelected, setDateSelected] = useState<Date>()
-  const [picker, setPicker] = useState(0)
 
   const handleDateClick = (date: Date) => {
     setDateSelected(date)
+    getShowSeatTypes(date)
+  }
+
+  const handlePickerUpdate = (seat: Seat) => {
+    setSeats((prevSeats) => {
+      return [...prevSeats.slice(0, seat.id), seat, ...prevSeats.slice(seat.id + 1)]
+    })
   }
 
   const getAllShows = async () => {
@@ -34,6 +40,7 @@ export const ShowDetails = () => {
     try {
       const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(+id!!, selectedDate!!)
       setSeats([...fetchedSeats])
+      console.log(fetchedSeats)
     } catch (err) {
       console.log(err)
     }
@@ -85,7 +92,7 @@ export const ShowDetails = () => {
               </div>
               <Box className="show-details__seats">
                 {seats.map((seat) => (
-                  <SeatBox key={seat.seatType} seatArgs={seat} value={picker} handler={setPicker} />
+                  <SeatBox key={seat.seatType} isDisable={seat.disabled} seat={seat} handler={handlePickerUpdate} />
                 ))}
               </Box>
               <Box className="show-details__bottom">

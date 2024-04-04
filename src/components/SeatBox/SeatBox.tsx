@@ -1,20 +1,27 @@
-import { SeatArgs } from 'src/data/model/Seat'
+import { Seat } from 'src/data/model/Seat'
 import './SeatBox.scss'
 import { NumPicker } from '../NumPicker/NumPicker'
 
 interface SeatBoxArgs {
-  value: number
-  handler: (newValue: number) => void
-  seatArgs: SeatArgs
+  seat: Seat
+  isDisable: boolean
+  handler: (seat: Seat) => void
 }
 
 export const SeatBox = (args: SeatBoxArgs) => {
-  const { value = 0, handler, seatArgs } = args
+  const { seat, handler, isDisable = false } = args
+  const handleOnPicker = (value: number) => {
+    if (!isDisable) {
+      const newReserveState: Seat = { ...seat, reservedQuantity: value }
+      handler(newReserveState)
+    }
+  }
+
   return (
-    <section className="seat-box">
-      <span className="seat-box__seat-type text--stronger">{seatArgs.seatType}</span>
-      <span>$ {seatArgs.price}</span>
-      <span>{<NumPicker value={value} handler={handler} max={seatArgs.maxToSell} min={0} />}</span>
+    <section className={`seat-box ${isDisable && 'seat-box--disabled'}`}>
+      <span className="seat-box__seat-type text--stronger">{seat.seatType}</span>
+      <span>{`$ ${seat.price}`}</span>
+      <span>{<NumPicker value={seat.reservedQuantity} handler={handleOnPicker} max={seat.maxToSell} min={0} />}</span>
     </section>
   )
 }
