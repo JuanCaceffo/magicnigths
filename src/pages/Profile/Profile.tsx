@@ -14,7 +14,7 @@ import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
 
 export const Profile = () => {
-  const [user, setUser] = useState(new User('Nombre', 'Apellido', 'username', new Date(2000,0,1), 0, '/mock-imgs/user-imgs/denise.jpeg'))
+  const [user, setUser] = useState({} as User)
   const [credit, setCredit] = useState(0)
   const [age, setAge] = useState(0)
   const [content, setContent] = useState(SelectionContent.PURCHASED_TICKET)
@@ -24,7 +24,7 @@ export const Profile = () => {
     const fetchUserData = async () => {
       // Obtener datos del usuario
       try {
-        const userData = await userService.getUser() 
+        const userData = await userService.getUser()
         setUser(userData)
 
         // Cálculo y seteo de la edad del usuario
@@ -43,7 +43,7 @@ export const Profile = () => {
     }
 
     fetchUserData()
-  }, [])  // Array vacío como segundo argumento para indicar que se ejecute solo una vez
+  }, []) // Array vacío como segundo argumento para indicar que se ejecute solo una vez
 
   // Menejo de error
   const handleRequestError = (e: unknown) => {
@@ -60,18 +60,32 @@ export const Profile = () => {
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name , value } = event.target
-  
-    setUser((prevUser: User) => {
-      const prevUserData: { name: string; surname: string; username: string, birthday: Date; dni: number; img: string; } = { ...prevUser }
+    const { name, value } = event.target
 
-      if(name == "name" || name == "surname") {
+    setUser((prevUser: User) => {
+      const prevUserData: {
+        profileImg: string
+        name: string
+        surname: string
+        username: string
+        birthday: Date
+        dni: number
+      } = { ...prevUser }
+
+      if (name == 'name' || name == 'surname') {
         prevUserData[name] = value
-      }    
-  
+      }
+
       // Crea un nuevo objeto User con los datos actualizados
-      const updatedUser = new User(prevUserData.name, prevUserData.surname, prevUserData.username, prevUserData.birthday, prevUserData.dni, prevUserData.img)
-  
+      const updatedUser = new User(
+        prevUserData.profileImg,
+        prevUserData.name,
+        prevUserData.surname,
+        prevUserData.username,
+        prevUserData.birthday,
+        prevUserData.dni,
+      )
+
       return updatedUser
     })
   }
@@ -88,100 +102,110 @@ export const Profile = () => {
 
   return (
     <>
-      <Page header={<Header />} content={
-        errorMessage ? ( // Mostrar mensaje de error si hay un mensaje en errorMessage
-          <p className="error-message error">{errorMessage}</p>
-        ) : (
-          <main className='main__content_user'>
-            <div className='user_data_container'>
-              <div className='user_data'>
-                <Avatar className='user_profile_photo' src={user.img} />
-                <div className='input_container'>
-                  <h3 className='subtitle2'>Nombre</h3>
-                  <Input 
-                    className='input-field'
-                    name='name'
-                    data-testid='name'
-                    placeholder='Nombre'
-                    value={user.name}
-                    onChange={handleInputChange}
-                  ></Input>
+      <Page
+        header={<Header />}
+        content={
+          errorMessage ? ( // Mostrar mensaje de error si hay un mensaje en errorMessage
+            <p className="error-message error">{errorMessage}</p>
+          ) : (
+            <main className="main__content_user">
+              <div className="user_data_container">
+                <div className="user_data">
+                  <Avatar className="user_profile_photo" src={`'/mock-imgs/user-imgs/${user.profileImg}`} />
+                  <div className="input_container">
+                    <h3 className="subtitle2">Nombre</h3>
+                    <Input
+                      className="input-field"
+                      name="name"
+                      data-testid="name"
+                      placeholder="Nombre"
+                      value={user.name}
+                      onChange={handleInputChange}
+                    ></Input>
+                  </div>
+                  <div className="input_container">
+                    <h3 className="subtitle2">Apellidos</h3>
+                    <Input
+                      className="input-field"
+                      name="surname"
+                      data-testid="surname"
+                      placeholder="Apellidos"
+                      value={user.surname}
+                      onChange={handleInputChange}
+                    ></Input>
+                  </div>
+                  <div className="input_container">
+                    <h3 className="subtitle2">Fecha de nacimiento</h3>
+                    <Input
+                      className="input-field"
+                      placeholder="Fecha de nacimiento"
+                      name="birthday"
+                      data-testid="birthday"
+                      value={user.birthday.toLocaleDateString('es-ES')}
+                      onChange={handleInputChange}
+                      disabled
+                    ></Input>
+                  </div>
+                  <h3 className="subtitle2" data-testid="age">
+                    Edad: {age} años
+                  </h3>
+                  <div className="input_container">
+                    <h3 className="subtitle2">DNI</h3>
+                    <Input
+                      className="input-field"
+                      placeholder="DNI"
+                      name="dni"
+                      data-testid="dni"
+                      value={user.dni}
+                      onChange={handleInputChange}
+                      disabled
+                    ></Input>
+                  </div>
+                  <button className="button save-user-data-button" onClick={handleSaveClick}>
+                    Guardar
+                  </button>
                 </div>
-                <div className='input_container'>
-                  <h3 className='subtitle2'>Apellidos</h3>
-                  <Input 
-                    className='input-field'
-                    name='surname'
-                    data-testid='surname'
-                    placeholder='Apellidos'
-                    value={user.surname}
-                    onChange={handleInputChange}
-                  ></Input>
+                <div className="user_credit_container">
+                  <h3 className="subtitle2" data-testid="credit">
+                    Crédito ${credit}
+                  </h3>
+                  <button className="button add_credit-user-button" onClick={handleAddCreditClick}>
+                    Sumar crédito
+                  </button>
                 </div>
-                <div className='input_container'>
-                  <h3 className='subtitle2'>Fecha de nacimiento</h3>
-                  <Input 
-                    className='input-field'
-                    placeholder='Fecha de nacimiento'
-                    name='birthday'
-                    data-testid='birthday'
-                    value={user.birthday.toLocaleDateString('es-ES')}
-                    onChange={handleInputChange}
-                    disabled
-                  ></Input>
-                </div>
-                <h3 className='subtitle2' data-testid='age'>Edad: {age} años</h3>
-                <div className='input_container'>
-                  <h3 className='subtitle2'>DNI</h3>
-                  <Input 
-                    className='input-field'
-                    placeholder='DNI'
-                    name='dni'
-                    data-testid='dni'
-                    value={user.dni}
-                    onChange={handleInputChange}
-                    disabled
-                  ></Input>
-                </div>
-                <button className='button save-user-data-button' onClick={handleSaveClick}>
-                  Guardar
-                </button>
               </div>
-              <div className='user_credit_container'>
-                <h3 className='subtitle2' data-testid='credit'>Crédito ${credit}</h3>
-                <button className='button add_credit-user-button' onClick={handleAddCreditClick}>
-                  Sumar crédito
-                </button>
+              <div className="user_display_container">
+                <ToggleButtonGroup
+                  value={content}
+                  exclusive
+                  onChange={(_event, newValue) => setContent(newValue)}
+                  className="selection_panel"
+                >
+                  <ToggleButton
+                    value={SelectionContent.PURCHASED_TICKET}
+                    className="subtitle selection_button"
+                    disableRipple
+                  >
+                    Entradas compradas
+                  </ToggleButton>
+                  <ToggleButton value={SelectionContent.FRIENDS} className="subtitle2 selection_button" disableRipple>
+                    Amigos
+                  </ToggleButton>
+                  <ToggleButton value={SelectionContent.COMMENTS} className="subtitle2 selection_button" disableRipple>
+                    Comentario
+                  </ToggleButton>
+                </ToggleButtonGroup>
+                <Divider></Divider>
+                <div className="content_container">
+                  {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
+                  {content === SelectionContent.FRIENDS && <FriendsContent />}
+                  {content === SelectionContent.COMMENTS && <CommentsContent />}
+                </div>
               </div>
-              
-            </div>
-            <div className='user_display_container'>
-              <ToggleButtonGroup
-                value={content}
-                exclusive
-                onChange={(_event, newValue) => setContent(newValue)}
-                className='selection_panel'
-              >
-                <ToggleButton value={SelectionContent.PURCHASED_TICKET} className='subtitle selection_button' disableRipple>
-                  Entradas compradas
-                </ToggleButton>
-                <ToggleButton value={SelectionContent.FRIENDS} className='subtitle2 selection_button' disableRipple>
-                  Amigos
-                </ToggleButton>
-                <ToggleButton value={SelectionContent.COMMENTS} className='subtitle2 selection_button' disableRipple>
-                  Comentario
-                </ToggleButton>
-              </ToggleButtonGroup>
-              <Divider></Divider>
-              <div className='content_container'>
-                {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
-                {content === SelectionContent.FRIENDS && <FriendsContent />}
-                {content === SelectionContent.COMMENTS && <CommentsContent />}
-              </div>
-            </div>
-          </main>
-        )
-      } />
+            </main>
+          )
+        }
+      />
     </>
   )
 }
