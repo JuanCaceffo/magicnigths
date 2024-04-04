@@ -1,4 +1,4 @@
-export interface CommentProps {
+export interface CommentDTO {
   imgPath: string
   title: string
   text: string

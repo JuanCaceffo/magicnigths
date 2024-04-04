@@ -1,29 +1,34 @@
 import { FC } from 'react'
 import './Comment.scss'
-import { CommentProps } from 'src/data/interfaces/CommentProps'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
+import { CommentDTO } from 'src/data/interfaces/CommentDTO'
 
-const Comment: FC<CommentProps> = ({ imgPath, title, date, rating, text }) => {
+interface CommentProps {
+  comment: CommentDTO
+  handleDelete?: () => void
+}
+
+const Comment: FC<CommentProps> = ({ comment, handleDelete }) => {
   return (
     <article className="comment ">
       <header className="comment__header comment--flex">
         <section className="comment__description comment--flex">
-          <img className="comment__img" src={imgPath} />
+          <img className="comment__img" src={comment.imgPath} />
           <div>
-            <h2 className="text--md">{title}</h2>
-            <span>{format(date, 'MMMM yyyy', { locale: es })}</span>
+            <h2 className="text--md">{comment.title}</h2>
+            <span>{format(comment.date, 'MMMM yyyy', { locale: es })}</span>
           </div>
         </section>
         <section className="comment__state comment--flex">
           <div className="comment__rating comment--flex">
             <i className="fa-solid fa-star"></i>
-            <span>{rating}</span>
+            <span>{comment.rating}</span>
           </div>
-          <i className="fa-solid fa-trash"></i>
+          {handleDelete && <i onClick={handleDelete} className="fa-solid fa-trash button-trash" />}
         </section>
       </header>
-      <section>{text}</section>
+      <section>{comment.text}</section>
     </article>
   )
 }
