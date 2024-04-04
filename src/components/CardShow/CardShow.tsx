@@ -27,7 +27,7 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
     <>
       <main className="card-show">
         <header className="card-show__header">
-          <img className="card-show__img" src="/mock-imgs/card-show-imgs/velapuerca.jpg" />
+          <img className="card-show__img" src={`/mock-imgs/card-show-imgs/${show.showImg}`} />
           {amount && (
             <strong data-testid="show-amount" className="card-show__amount body">
               X{amount}

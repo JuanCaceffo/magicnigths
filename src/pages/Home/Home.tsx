@@ -33,12 +33,12 @@ export const Home = () => {
         <article className="main__content">
           {shows.map((show) => (
             <CardShow
-              key={show.props.id}
+              key={show.id}
               show={show}
               button={{
                 content: 'comprar',
                 whenclick: () => {
-                  handleClick(show.props.id)
+                  handleClick(show.id)
                 },
               }}
             ></CardShow>
@@ -48,4 +48,3 @@ export const Home = () => {
     />
   )
 }
-

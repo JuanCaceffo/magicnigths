@@ -5,49 +5,47 @@ import { User } from 'src/data/model/User'
 import { Friend } from 'src/data/model/Friend'
 import { Show } from 'src/data/model/Show'
 import { ShowProps } from 'src/data/interfaces/ShowProps'
+import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 
 class UserService {
-  id: number
-
-  constructor() {
-    this.id = -1
-  }
-
   async postUserLogin(userLogin: UserLogin) {
     const idUsuario = await axios.post(`${REST_SERVER_URL}/login`, userLogin)
-    this.id = idUsuario.data
+    sessionStorage.setItem(userSessionStorage.USER_KEY_STORAGE, idUsuario.data)
   }
 
   async getUser() {
-    const userData = (await axios.get(`${REST_SERVER_URL}/user_profile/${this.id}`).then()).data
+    const userData = (await axios.get(`${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}`).then()).data
+    console.log(userData.birthday)
     return new User(
+      userData.profileImg,
       userData.name,
       userData.surname,
       userData.username,
       new Date(userData.birthday),
       userData.dni,
-      userData.img,
     )
   }
 
   async updateUser(user: User) {
-    await axios.put(`${REST_SERVER_URL}/user_profile/${this.id}`, {
+    await axios.put(`${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}`, {
+      profileImg: user.profileImg,
       name: user.name,
       surname: user.surname,
       username: user.username,
       birthday: user.birthday.toISOString(), // Fecha a un formato compatible con el servidor
       dni: user.dni,
-      img: user.img,
     })
   }
 
   async getCredit() {
-    return (await axios.get(`${REST_SERVER_URL}/user_profile/${this.id}/credit`).then()).data
+    return (await axios.get(`${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}/credit`).then()).data
   }
 
   async addCreditToUser(creditToAdd: number) {
     // Actualización del crédito del back
-    await axios.put(`${REST_SERVER_URL}/user_profile/${this.id}/add_credit`, { credit: creditToAdd })
+    await axios.put(`${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}/add_credit`, {
+      credit: creditToAdd,
+    })
 
     // Actualización del crédito localmente
     const credit = await this.getCredit()
@@ -55,57 +53,24 @@ class UserService {
   }
 
   async getFriends(): Promise<Friend[]> {
-    const response = await axios.get(`${REST_SERVER_URL}/user_profile/${this.id}/friends`)
+    const response = await axios.get(`${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}/friends`)
     const friends = response.data
 
     return friends
   }
 
   async deleteFriend(friendId: number) {
-    await axios.delete(`${REST_SERVER_URL}/user_profile/${this.id}/friends/${friendId}`)
+    await axios.delete(`${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}/friends/${friendId}`)
   }
 
   async getPurchasedTickets(): Promise<Show[]> {
-    // const response = await axios.get(`${REST_SERVER_URL}/user_profile/${this.id}/purchased_tickets`)
-    // const purchasedTickets = response.data
+    const response = await axios.get<ShowProps[]>(
+      `${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}/purchased_tickets`,
+    )
 
-    //return purchasedTickets
-    /////////
-    const showProps1: ShowProps = {
-      id: 0,
-      showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
-      showName: 'Hell Rise Tour',
-      rating: 4,
-      totalComments: 150,
-      facilityName: 'Buenos Aires',
-      dates: [new Date(2024, 7, 12), new Date(2024, 7, 16)],
-      userImageNames: [
-        '/mock-imgs/user-imgs/pablito.jpeg',
-        '/mock-imgs/user-imgs/juan.jpeg',
-        '/mock-imgs/user-imgs/denise.jpeg',
-      ],
-      price: 23000,
-      bandName: 'AC/DC',
-    }
+    const purchasedTickets: Show[] = response.data.map((purchasedTicketsData) => new Show(purchasedTicketsData))
 
-    const show1: Show = new Show(showProps1)
-
-    const showProps2: ShowProps = {
-      id: 1,
-      showImg: '/mock-imgs/card-show-imgs/velapuerca.jpg',
-      showName: 'Chanchadas',
-      rating: 4,
-      totalComments: 150,
-      facilityName: 'Buenos Aires',
-      dates: [new Date(2020, 1, 12), new Date(2020, 7, 16)],
-      userImageNames: ['/mock-imgs/user-imgs/pablito.jpeg'],
-      price: 25000,
-      bandName: 'La Vela Puerca',
-    }
-
-    const show2: Show = new Show(showProps2)
-
-    return [show1, show2]
+    return purchasedTickets
   }
 }
 
