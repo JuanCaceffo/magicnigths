@@ -59,7 +59,7 @@ export const PurchasedTicketContent = () => {
       {errorMessage ? (
         <p className="error-message error">{errorMessage}</p>
       ) : (
-        <div className="main__content main__content--grid">
+        <div className="ticket-content main__content main__content--grid">
           {shows.map((show, index) => (
             <div key={index}>
               {show.canBeComment() && (
