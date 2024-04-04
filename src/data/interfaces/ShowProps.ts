@@ -1,3 +1,5 @@
+import { Comment } from "./Comment"
+
 export interface ShowProps {
   id: number
   showImg: string

@@ -92,4 +92,19 @@
       background-color: var(--color-primary);
     }
   }
+
+  &__comments {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: var(--padding);
+    width: 100%;
+    min-height: 10em;
+    // background-color: blue;
+    gap: 2em;
+  }
+
+  &__comment {
+    flex: 0.25;
+  }
 }

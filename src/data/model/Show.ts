@@ -1,5 +1,6 @@
 import moment from 'moment'
 import { ShowProps } from '../interfaces/ShowProps'
+import { Comment } from '../interfaces/Comment'
 
 //TODO: when the imgs managment will finished in the backend change here if is necesary
 export class Show implements ShowProps {

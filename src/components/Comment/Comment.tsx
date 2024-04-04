@@ -2,21 +2,22 @@ import { FC } from 'react'
 import './Comment.scss'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { CommentDTO } from 'src/data/interfaces/CommentDTO'
+import { Comment } from 'src/data/interfaces/Comment'
 
 interface CommentProps {
-  comment: CommentDTO
+  comment: Comment
   handleDelete?: () => void
+  className?: string
 }
 
-const Comment: FC<CommentProps> = ({ comment, handleDelete }) => {
+const Comment: FC<CommentProps> = ({ className = "", comment, handleDelete }) => {
   return (
-    <article className="comment ">
+    <article className={`comment ${className}`}>
       <header className="comment__header comment--flex">
         <section className="comment__description comment--flex">
-          <img className="comment__img" src={comment.imgPath} />
+          <img className="comment__img" src={`/mock-imgs/user-imgs/${comment.userImg}`} />
           <div>
-            <h2 className="text--md">{comment.title}</h2>
+            <h2 className="text--md">{comment.name}</h2>
             <span>{format(comment.date, 'MMMM yyyy', { locale: es })}</span>
           </div>
         </section>

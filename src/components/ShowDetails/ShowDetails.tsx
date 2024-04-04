@@ -8,6 +8,7 @@ import CardDate from '../CardDate/CardDate'
 import { Seat } from 'src/data/model/Seat'
 import { SeatBox } from '../SeatBox/SeatBox'
 import { useOnInit } from 'src/hooks/hooks'
+import Comment from '../Comment/Comment'
 
 export const ShowDetails = () => {
   const { id } = useParams()
@@ -28,7 +29,7 @@ export const ShowDetails = () => {
 
   const getAllShows = async () => {
     try {
-      const fetchedShow = await showService.getShowById(+id!!)
+      const fetchedShow = await showService.getShowById(+id!)
       setShow(fetchedShow)
       await getShowSeatTypes(fetchedShow.dates[0])
     } catch (err) {
@@ -38,7 +39,7 @@ export const ShowDetails = () => {
 
   const getShowSeatTypes = async (selectedDate: Date) => {
     try {
-      const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(+id!!, selectedDate!!)
+      const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(+id!, selectedDate!)
       setSeats([...fetchedSeats])
     } catch (err) {
       console.log(err)
@@ -98,6 +99,11 @@ export const ShowDetails = () => {
                 <Button className="show-details__button">Agregar al Carrito</Button>
               </Box>
             </section>
+          </section>
+          <section className="show-details__comments text">
+            {show.comments.map((comment) => (
+              <Comment className="show-details__comment" comment={comment} />
+            ))}
           </section>
         </article>
       )}
