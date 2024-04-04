@@ -30,6 +30,12 @@ export const Shop = () => {
       })
   }
 
+  const removeAllReservedTickets = async () => {
+    await userService.removeReservedTickets().then(() => {
+      console.log('Lanzar snackbar avisando que los tickets se removieron con exito')
+    })
+  }
+
   return (
     <Page
       header={<Header />}
@@ -49,7 +55,7 @@ export const Shop = () => {
               <button className="shop__button button" onClick={pruchaseTickets}>
                 Confirmar pediodo
               </button>
-              <button className="shop__button button button__secondary" onClick={}>
+              <button className="shop__button button button__secondary" onClick={removeAllReservedTickets}>
                 Limpiar carrito
               </button>
             </section>

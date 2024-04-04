@@ -86,6 +86,10 @@ class UserService {
       `${REST_SERVER_URL}/user-profile/${userSessionStorage.getUserId()}/purchase-reserved-tickets`,
     )
   }
+
+  async removeReservedTickets() {
+    return await axios.put(`${REST_SERVER_URL}/user-profile/${userSessionStorage.getUserId()}/remove-reserved-tickets`)
+  }
 }
 
 export const userService = new UserService()
