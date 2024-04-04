@@ -6,6 +6,7 @@ import { Friend } from 'src/data/model/Friend'
 import { Show } from 'src/data/model/Show'
 import { ShowProps } from 'src/data/interfaces/ShowProps'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
+import { CommentDTO } from 'src/data/interfaces/CommentDTO'
 
 class UserService {
   async postUserLogin(userLogin: UserLogin) {
@@ -103,6 +104,18 @@ class UserService {
       `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/reserved-tickets-price`,
     )
     return price.data
+  }
+
+  async getComments(): Promise<CommentDTO[]> {
+    return (
+      await axios.get<CommentDTO[]>(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/comments`)
+    ).data
+  }
+
+  async removeComment(commentId: number) {
+    return await axios.get(
+      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/delete-comment/${commentId}`,
+    )
   }
 }
 
