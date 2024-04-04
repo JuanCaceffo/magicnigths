@@ -53,7 +53,7 @@ export const Shop = () => {
             <header className="text--xl">Carrito de compras</header>
             <section className="main__content--grid">
               {ticketsShow.map((show) => (
-                <CardShow show={show} amount={show.quantity} />
+                <CardShow show={show} quantity={show.quantity} />
               ))}
             </section>
           </article>
