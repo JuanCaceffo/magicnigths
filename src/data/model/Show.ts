@@ -15,24 +15,24 @@ export class Show implements ShowProps {
   userImageNames: string[]
   comments: Comment[]
   dates!: Date[]
+  quantity?: number
   geolocation?: string
-  quantity: number
 
   constructor(private props: ShowProps) {
-    this.id = props.id ?? -1
-    this.showImg = props.showImg ?? 'default.jpg'
-    this.showName = props.showName ?? ''
-    this.bandName = props.bandName ?? ''
-    this.facilityName = props.facilityName ?? ''
-    this.rating = props.rating ?? 0
-    this.totalComments = props.totalComments ?? 0
-    this.price = props.price ?? 0
-    this.prices = props.prices ?? []
-    this.userImageNames = props.userImageNames ?? []
-    this.comments = props.comments ?? []
-    this.dates = props.dates.map((date) => moment.utc(date).toDate()) ?? []
-    this.geolocation = props.geolocation ?? ''
-    this.quantity = props.quantity ?? 0
+    this.id = this.props.id ?? ''
+    this.showImg = this.props.showImg ?? 'default.jpg'
+    this.showName = this.props.showName ?? ''
+    this.bandName = this.props.bandName ?? ''
+    this.facilityName = this.props.facilityName ?? ''
+    this.rating = this.props.rating ?? 0
+    this.totalComments = this.props.totalComments ?? 0
+    this.price = this.props.price ?? 0
+    this.prices = this.props.prices ?? []
+    this.userImageNames = this.props.userImageNames ?? []
+    this.comments = this.props.comments ?? []
+    this.dates = this.props.dates.map((date) => moment.utc(date).toDate())
+    this.geolocation = this.props.geolocation ?? ''
+    this.quantity = this.props.quantity ?? 0
   }
 
   LIMIT_FRIENDS = 3
