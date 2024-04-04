@@ -1,12 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { Home } from './pages/Home/Home'
-import { Admin } from './pages/Admin/Admin'
-import { Login } from './pages/Login/Login'
-import { Profile } from './pages/Profile/Profile'
-import { Shop } from './pages/Shop/Shop'
-import { NotFoundPage } from './pages/NotFound/NotFound'
-import { Page } from './pages/Page/Page'
-import { Header } from './components/Header/Header'
+import { Home } from 'src/pages/Home/Home'
+import { Admin } from 'src/pages/Admin/Admin'
+import { Login } from 'src/pages/Login/Login'
+import { Profile } from 'src/pages/Profile/Profile'
+import { Shop } from 'src/pages/Shop/Shop'
+import { NotFoundPage } from 'src/pages/NotFound/NotFound'
+import { Page } from 'src/pages/Page/Page'
+import { Header } from 'src/components/Header/Header'
+import { ShowDetails } from 'src/components/ShowDetails/ShowDetails'
 
 export const router = createBrowserRouter([
   {
@@ -14,8 +15,8 @@ export const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: '/show/:showId',
-    element: <Page header={<Header />} content={<></>} />,
+    path: '/show/:id',
+    element: <Page header={<Header />} content={<ShowDetails />} />,
   },
   {
     path: '/admin_dashboard',

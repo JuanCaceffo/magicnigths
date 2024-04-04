@@ -16,7 +16,7 @@
   /* Colors */
   --color-primary: hsla(344, 66%, 25%, 1);
   --color-secondary: hsla(344, 90%, 39%, 1);
-  --color-tertiary: hsla(344, 80%, 65%, 1);
+  --color-tertiary: hsla(344, 65%, 85%, 1);
   --color-tertiary-lighter: hsla(197, 96%, 65%, 1);
   /* Poin of Interest Color */
   --color-highligthed: hsla(32, 100%, 50%, 1);
@@ -31,10 +31,10 @@
   --color-clear-variant: hsla(32, 100%, 97%, 1);
 
   /* Text & Typeface */
-  --text-color-2lighter: hsla(207, 20%, 75%, 1);
-  --text-color-lighter: hsla(207, 20%, 55%, 1);
-  --text-color: hsla(207, 30%, 10%, 1);
-  --text-color-medium: hsla(207, 25%, 35%, 1);
+  --text-color-2lighter: hsla(344, 20%, 75%, 1);
+  --text-color-lighter: hsla(344, 20%, 55%, 1);
+  --text-color: hsla(344, 30%, 10%, 1);
+  --text-color-medium: hsla(344, 25%, 35%, 1);
   
   /* Card Background Color */
   --gradient-primary: linear-gradient(to right, var(--color-secondary) 20%, var(--color-primary) 80%);

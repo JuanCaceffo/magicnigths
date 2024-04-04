@@ -18,7 +18,7 @@ export const Footer = () => {
       {footerLinks.map((link) => (
         <NodeItem key={link.link} node={link.node} link={link.link} className={textClass} newTab={true} />
       ))}
-      <Logo className="shadow--item" imgUrl={'src/assets/images/logo/logominimal.png'} alt={'Noches Mágicas'} />
+      <Logo className="shadow--item" imgUrl={'/images/logominimal.png'} alt={'Noches Mágicas'} />
       <span className={textClass}>/</span>
       <span className={textClass}>{currentYear()}</span>
     </footer>

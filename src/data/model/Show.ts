@@ -16,13 +16,14 @@ export class Show implements ShowProps {
   comments: Comment[]
   dates!: Date[]
   quantity?: number
+  geolocation?: string
 
   constructor(private props: ShowProps) {
-    this.id = this.props.id
+    this.id = this.props.id ?? ''
     this.showImg = this.props.showImg ?? 'default.jpg'
-    this.showName = this.props.showName
-    this.bandName = this.props.bandName
-    this.facilityName = this.props.facilityName
+    this.showName = this.props.showName ?? ''
+    this.bandName = this.props.bandName ?? ''
+    this.facilityName = this.props.facilityName ?? ''
     this.rating = this.props.rating ?? 0
     this.totalComments = this.props.totalComments ?? 0
     this.price = this.props.price ?? 0
@@ -30,10 +31,15 @@ export class Show implements ShowProps {
     this.userImageNames = this.props.userImageNames ?? []
     this.comments = this.props.comments ?? []
     this.dates = this.props.dates.map((date) => moment.utc(date).toDate())
-    this.quantity = this.props.quantity
+    this.geolocation = this.props.geolocation ?? ''
+    this.quantity = this.props.quantity ?? 0
   }
 
   LIMIT_FRIENDS = 3
+
+  get title() {
+    return `${this.bandName} - ${this.showName}`
+  }
 
   getMinMaxPrices = () => (this.prices ? [Math.min(...this.prices), Math.max(...this.prices)] : [])
 

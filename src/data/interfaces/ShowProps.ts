@@ -11,5 +11,6 @@ export interface ShowProps {
   dates: Date[]
   userImageNames?: string[]
   comments?: Comment[]
+  geolocation?: string
   quantity?: number
 }

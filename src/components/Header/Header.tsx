@@ -56,7 +56,7 @@ export const Header = () => {
 
   return (
     <header className="main__header shadow">
-      <Logo className="shadow--item" imgUrl={'src/assets/images/logo/logominimal.png'} alt={'Noches Mágicas'} />
+      <Logo className="shadow--item" imgUrl={'/images/logominimal.png'} alt={'Noches Mágicas'} />
       <Navbar className={navbar.className} nodes={navbar.nodes} />
     </header>
   )
