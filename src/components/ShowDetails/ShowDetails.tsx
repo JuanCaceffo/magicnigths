@@ -63,7 +63,7 @@ export const ShowDetails = () => {
           </section>
           <section className="show-details__body">
             <section className="show-details__img">
-              <img src={`/src/assets/images/${show.showImg}`} />
+              <img src={`/images/${show.showImg}`} />
             </section>
             <section className="show-details__buybox">
               <div className="show-details__dates shadow shadow--line">
