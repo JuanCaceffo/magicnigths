@@ -15,7 +15,7 @@ const CardDate = (props: CardDateProps) => {
     <article
       data-testid="cardDate"
       className={`card-date flex text--md ${isSelected ? 'card-date--active' : ''} ${isDisable ? 'card-date--disabled' : ''}`}
-      onClick={() => handleClick(date)}
+      onClick={() => handleClick!!(date)}
     >
       <section className="flex">
         <strong className="card-date__day">{format(date, 'eeee')}</strong>
