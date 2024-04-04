@@ -12,4 +12,5 @@ export interface ShowProps {
   userImageNames?: string[]
   comments?: Comment[]
   geolocation?: string
+  quantity?: number
 }

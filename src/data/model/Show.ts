@@ -16,6 +16,7 @@ export class Show implements ShowProps {
   comments: Comment[]
   dates!: Date[]
   geolocation?: string
+  quantity: number
 
   constructor(public props: ShowProps) {
     this.id = props.id ?? -1
@@ -31,6 +32,7 @@ export class Show implements ShowProps {
     this.comments = props.comments ?? []
     this.dates = props.dates.map((date) => moment.utc(date).toDate()) ?? []
     this.geolocation = props.geolocation ?? ''
+    this.quantity = props.quantity ?? 0
   }
 
   LIMIT_FRIENDS = 3
