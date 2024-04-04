@@ -80,6 +80,12 @@ class UserService {
 
     return showPropsList.data.map((props) => new Show(props))
   }
+
+  async pruchaseReservedTickets() {
+    return await axios.put(
+      `${REST_SERVER_URL}/user-profile/${userSessionStorage.getUserId()}/purchase-reserved-tickets`,
+    )
+  }
 }
 
 export const userService = new UserService()

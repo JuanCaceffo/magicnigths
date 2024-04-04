@@ -5,6 +5,7 @@ import { Show } from 'src/data/model/Show'
 import { Page } from 'src/pages/Page/Page'
 import './Shop.scss'
 import { userService } from 'src/services/UserService'
+import { AxiosError } from 'axios'
 
 export const Shop = () => {
   const [ticketsShow, setTicketsShow] = useState<Show[]>([])
@@ -17,6 +18,17 @@ export const Shop = () => {
     }
     fetchTicketsShow()
   }, [])
+
+  const pruchaseTickets = async () => {
+    userService
+      .pruchaseReservedTickets()
+      .then(() => {
+        console.log('Lanzar snackbar felicitando la compra de tickets')
+      })
+      .catch((error: AxiosError) => {
+        console.log(error, 'atrapar el error con componente de errores del back y lanzar snackbar')
+      })
+  }
 
   return (
     <Page
@@ -34,8 +46,12 @@ export const Shop = () => {
           <footer className="shop__footer">
             <span className="text--md">TOTAL $XXXXX</span>
             <section className="shop__buttons">
-              <button className="shop__button button">Confirmar pediodo</button>
-              <button className="shop__button button button__secondary">Limpiar carrito</button>
+              <button className="shop__button button" onClick={pruchaseTickets}>
+                Confirmar pediodo
+              </button>
+              <button className="shop__button button button__secondary" onClick={}>
+                Limpiar carrito
+              </button>
             </section>
           </footer>
         </main>
