@@ -14,7 +14,7 @@ import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
 
 export const Profile = () => {
-  const [user, setUser] = useState({} as User)
+  const [user, setUser] = useState(new User('', '', '', '', new Date(), 0))
   const [credit, setCredit] = useState(0)
   const [age, setAge] = useState(0)
   const [content, setContent] = useState(SelectionContent.PURCHASED_TICKET)
@@ -111,7 +111,7 @@ export const Profile = () => {
             <main className="main__content_user">
               <div className="user_data_container">
                 <div className="user_data">
-                  <Avatar className="user_profile_photo" src={`'/mock-imgs/user-imgs/${user.profileImg}`} />
+                  <Avatar className="user_profile_photo" src={`/mock-imgs/user-imgs/${user.profileImg}`} />
                   <div className="input_container">
                     <h3 className="subtitle2">Nombre</h3>
                     <Input
