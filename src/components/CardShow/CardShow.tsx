@@ -15,10 +15,10 @@ interface extButtonProps {
 interface CardShowProps {
   show: Show
   button?: extButtonProps
-  amount?: number
+  quantity?: number
 }
 
-const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
+const CardShow: FC<CardShowProps> = ({ show, button, quantity }) => {
   const fomratedDates = () => show.dates.map((date) => format(date, 'MM/dd')).join(' - ')
 
   return (
@@ -26,9 +26,9 @@ const CardShow: FC<CardShowProps> = ({ show, button, amount }) => {
       <main className="card-show">
         <header className="card-show__header">
           <img className="card-show__img" src={`/mock-imgs/card-show-imgs/${show.showImg}`} />
-          {amount && (
+          {quantity && quantity > 1 && (
             <strong data-testid="show-amount" className="card-show__amount body">
-              X{amount}
+              X{quantity}
             </strong>
           )}
         </header>
