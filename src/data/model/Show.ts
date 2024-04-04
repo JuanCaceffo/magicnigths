@@ -18,7 +18,7 @@ export class Show implements ShowProps {
   geolocation?: string
   quantity: number
 
-  constructor(public props: ShowProps) {
+  constructor(private props: ShowProps) {
     this.id = props.id ?? -1
     this.showImg = props.showImg ?? 'default.jpg'
     this.showName = props.showName ?? ''

@@ -39,6 +39,16 @@
     padding: inherit;
     grid-area: content;
     background-color: var(--color-clear-variant);
+
+    &--grid {
+      display: grid;
+      justify-content: center;
+      grid-template-columns: repeat(auto-fit, 25rem);
+      grid-template-rows: repeat(auto-fit, 28rem);
+      gap: 5em;
+      padding: 3em;
+      background-color: var(--color-clear);
+    }
   }
 
   &__footer {

@@ -1,0 +1,30 @@
+.comment--flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.comment {
+  min-width: 35em;
+  height: fit-content;
+
+  .comment__header {
+    justify-content: space-between;
+    padding-bottom: 0.5em;
+    .comment__description {
+      gap: 1em;
+    }
+    .comment__img {
+      width: 4em;
+      border-radius: 50%;
+    }
+    .comment__state {
+      gap: 1em;
+    }
+    .comment__rating {
+      gap: 0.3em;
+    }
+  }
+  .button-trash {
+    cursor: pointer;
+  }
+}

@@ -30,7 +30,7 @@ export const Home = () => {
       header={<Header />}
       search={<Search />}
       content={
-        <article className="main__content">
+        <article className="main__content main__content--grid">
           {shows.map((show) => (
             <CardShow
               key={show.id}
