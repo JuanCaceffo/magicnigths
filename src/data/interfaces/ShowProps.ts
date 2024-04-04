@@ -11,4 +11,5 @@ export interface ShowProps {
   dates: Date[]
   userImageNames?: string[]
   comments?: Comment[]
+  quantity?: number
 }

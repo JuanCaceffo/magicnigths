@@ -1,16 +1,16 @@
-import { useState } from "react"
-import CardShow from "../CardShow/CardShow"
-import { useEffect } from "react"
-import { userService } from "src/services/UserService"
-import { isAxiosError } from "axios"
-import { Show } from "src/data/model/Show"
+import { useState } from 'react'
+import CardShow from '../CardShow/CardShow'
+import { useEffect } from 'react'
+import { userService } from 'src/services/UserService'
+import { isAxiosError } from 'axios'
+import { Show } from 'src/data/model/Show'
 
-import "./PurchasedTicketContent.css"
-import { PopupComment } from "../PopupComment/PopupComment"
+import './PurchasedTicketContent.css'
+import { PopupComment } from '../PopupComment/PopupComment'
 
 export const PurchasedTicketContent = () => {
   const [shows, setShows] = useState<Show[]>([])
-  const [errorMessage, setErrorMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState('')
   const [isPopupOpen, setIsPopupOpen] = useState(false) // Estado para controlar si el popup está abierto
   // const [idShowToComment, setIdShowToComment] = useState(-1)
 
@@ -59,14 +59,14 @@ export const PurchasedTicketContent = () => {
       {errorMessage ? (
         <p className="error-message error">{errorMessage}</p>
       ) : (
-        <div className="main__content">
+        <div className="ticket-content main__content main__content--grid">
           {shows.map((show, index) => (
             <div key={index}>
               {show.canBeComment() && (
                 <CardShow
                   show={show}
                   button={{
-                    content: "Calificar artista",
+                    content: 'Calificar artista',
                     whenclick: () => handleAddComment(show),
                   }}
                 />
@@ -77,13 +77,7 @@ export const PurchasedTicketContent = () => {
         </div>
       )}
       {/* Renderiza el popup si está abierto */}
-      {isPopupOpen && (
-        <PopupComment
-          open = {isPopupOpen}
-          onSave={handleSaveComment}
-          onClose={handleClosePopup}
-        />
-      )}
+      {isPopupOpen && <PopupComment open={isPopupOpen} onSave={handleSaveComment} onClose={handleClosePopup} />}
     </>
   )
 }

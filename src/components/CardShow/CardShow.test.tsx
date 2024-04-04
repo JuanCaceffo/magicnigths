@@ -32,7 +32,7 @@ describe('CardShow Component', () => {
   })
 
   test('when the amount of the card is passed, is displayed in the right top of the card', () => {
-    renderResult.rerender(<CardShow show={showBase} amount={3} />)
+    renderResult.rerender(<CardShow show={showBase} quantity={3} />)
 
     expect(renderResult.queryByTestId('show-amount')).toBeTruthy()
   })
