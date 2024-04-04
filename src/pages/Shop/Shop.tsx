@@ -26,7 +26,8 @@ export const Shop = () => {
         console.log('Lanzar snackbar felicitando la compra de tickets')
       })
       .catch((error: AxiosError) => {
-        console.log(error, 'atrapar el error con componente de errores del back y lanzar snackbar')
+        console.log(error)
+        console.log('atrapar el error con componente de errores del back y lanzar snackbar')
       })
   }
 

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { REST_SERVER_URL } from './contants'
+import { REST_SERVER_URL, pathPrefix } from './contants'
 import { UserLogin } from 'src/data/model/UserLogin'
 import { User } from 'src/data/model/User'
 import { Friend } from 'src/data/model/Friend'
@@ -9,12 +9,14 @@ import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 
 class UserService {
   async postUserLogin(userLogin: UserLogin) {
-    const idUsuario = await axios.post(`${REST_SERVER_URL}/login`, userLogin)
+    const idUsuario = await axios.post(`${REST_SERVER_URL}/${pathPrefix.user}/login`, userLogin)
     sessionStorage.setItem(userSessionStorage.USER_KEY_STORAGE, idUsuario.data)
   }
 
   async getUser() {
-    const userData = (await axios.get(`${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}`).then()).data
+    const userData = (
+      await axios.get(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/data`).then()
+    ).data
     console.log(userData.birthday)
     return new User(
       userData.profileImg,
@@ -27,7 +29,7 @@ class UserService {
   }
 
   async updateUser(user: User) {
-    await axios.put(`${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}`, {
+    await axios.put(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/update`, {
       profileImg: user.profileImg,
       name: user.name,
       surname: user.surname,
@@ -38,12 +40,13 @@ class UserService {
   }
 
   async getCredit() {
-    return (await axios.get(`${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}/credit`).then()).data
+    return (await axios.get(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/credit`).then())
+      .data
   }
 
   async addCreditToUser(creditToAdd: number) {
     // Actualización del crédito del back
-    await axios.put(`${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}/add_credit`, {
+    await axios.put(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/add_credit`, {
       credit: creditToAdd,
     })
 
@@ -53,19 +56,21 @@ class UserService {
   }
 
   async getFriends(): Promise<Friend[]> {
-    const response = await axios.get(`${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}/friends`)
+    const response = await axios.get(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/friends`)
     const friends = response.data
 
     return friends
   }
 
   async deleteFriend(friendId: number) {
-    await axios.delete(`${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}/friends/${friendId}`)
+    await axios.delete(
+      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/remove-friend/${friendId}`,
+    )
   }
 
   async getPurchasedTickets(): Promise<Show[]> {
     const response = await axios.get<ShowProps[]>(
-      `${REST_SERVER_URL}/user_profile/${userSessionStorage.getUserId()}/purchased_tickets`,
+      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/purchased_tickets`,
     )
 
     const purchasedTickets: Show[] = response.data.map((purchasedTicketsData) => new Show(purchasedTicketsData))
@@ -75,7 +80,7 @@ class UserService {
 
   async getReservedTickets(): Promise<Show[]> {
     const showPropsList = await axios.get<ShowProps[]>(
-      `${REST_SERVER_URL}/user-profile/${userSessionStorage.getUserId()}/reserved-tickets`,
+      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/reserved-tickets`,
     )
 
     return showPropsList.data.map((props) => new Show(props))
@@ -83,12 +88,14 @@ class UserService {
 
   async pruchaseReservedTickets() {
     return await axios.put(
-      `${REST_SERVER_URL}/user-profile/${userSessionStorage.getUserId()}/purchase-reserved-tickets`,
+      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/purchase-reserved-tickets`,
     )
   }
 
   async removeReservedTickets() {
-    return await axios.put(`${REST_SERVER_URL}/user-profile/${userSessionStorage.getUserId()}/remove-reserved-tickets`)
+    return await axios.put(
+      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/remove-reserved-tickets`,
+    )
   }
 }
 
