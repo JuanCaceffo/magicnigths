@@ -1,15 +1,16 @@
 import { Box, Button } from '@mui/material'
 import './ShowDetails.scss'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { showService } from 'src/services/ShowService'
 import { Show } from 'src/data/model/Show'
 import { useParams } from 'react-router-dom'
 import CardDate from '../CardDate/CardDate'
 import { Seat } from 'src/data/model/Seat'
 import { SeatBox } from '../SeatBox/SeatBox'
+import { useOnInit } from 'src/hooks/hooks'
 
 export const ShowDetails = () => {
-  const params = useParams()
+  const { id } = useParams()
   const [show, setShow] = useState<Show>()
   const [seats, setSeats] = useState<Seat[]>([])
   const [dateSelected, setDateSelected] = useState<Date>()
@@ -19,23 +20,28 @@ export const ShowDetails = () => {
     setDateSelected(date)
   }
 
-  useEffect(() => {
+  const getAllShows = async () => {
     try {
-      const fetchShowAndSeats = async () => {
-        const fetchedShow = await showService.getShowById(+params['showId']!!)
-        setShow(fetchedShow)
-
-        let selectedDate = dateSelected ?? (fetchedShow?.dates.length > 0 ? fetchedShow.dates[0] : null)
-
-        const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(+params['showId']!!, selectedDate!!)
-        setSeats(fetchedSeats)
-      }
-
-      fetchShowAndSeats()
+      const fetchedShow = await showService.getShowById(+id!!)
+      setShow(fetchedShow)
+      await getShowSeatTypes(fetchedShow.dates[0])
     } catch (err) {
       console.log(err)
     }
-  }, [params])
+  }
+
+  const getShowSeatTypes = async (selectedDate: Date) => {
+    try {
+      const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(+id!!, selectedDate!!)
+      setSeats([...fetchedSeats])
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useOnInit(async () => {
+    await getAllShows()
+  })
 
   return (
     <>
@@ -67,10 +73,10 @@ export const ShowDetails = () => {
             </section>
             <section className="show-details__buybox">
               <div className="show-details__dates shadow shadow--line">
-                {show.dates.map((date) => (
+                {show.dates.map((date, index) => (
                   <CardDate
                     key={date.toDateString()}
-                    isSelected={date === dateSelected}
+                    isSelected={!dateSelected ? (index === 0 ? true : false) : date === dateSelected}
                     isDisable={date < new Date()}
                     date={date}
                     handleClick={handleDateClick}
