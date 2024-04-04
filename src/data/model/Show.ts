@@ -15,6 +15,7 @@ export class Show implements ShowProps {
   userImageNames: string[]
   comments: Comment[]
   dates!: Date[]
+  quantity?: number
 
   constructor(private props: ShowProps) {
     this.id = this.props.id
@@ -29,6 +30,7 @@ export class Show implements ShowProps {
     this.userImageNames = this.props.userImageNames ?? []
     this.comments = this.props.comments ?? []
     this.dates = this.props.dates.map((date) => moment.utc(date).toDate())
+    this.quantity = this.props.quantity
   }
 
   LIMIT_FRIENDS = 3
