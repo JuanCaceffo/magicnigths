@@ -1,0 +1,7 @@
+.comment-container {
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: repeat(auto-fit, 40rem);
+  row-gap: 2em;
+  width: 100%;
+}

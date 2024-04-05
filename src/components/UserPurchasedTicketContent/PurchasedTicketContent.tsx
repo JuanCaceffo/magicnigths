@@ -18,7 +18,7 @@ export const PurchasedTicketContent = () => {
   const fetchUserShows = async () => {
     try {
       const userShows = await userService.getPurchasedTickets()
-      setShows(userShows)
+      setShows([...userShows])
     } catch (e) {
       console.log(e)
       if (isAxiosError(e)) {
@@ -66,6 +66,7 @@ export const PurchasedTicketContent = () => {
         <div className="ticket-content main__content main__content--grid">
           {shows.map((show, index) => (
             <div key={index}>
+              //TODO: ver como hacer para que una vez comentado el show no se pueda volver a comentar
               {show.canBeComment() && (
                 <CardShow
                   show={show}

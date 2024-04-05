@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { CommentDTO } from 'src/data/interfaces/CommentDTO'
 import Comment from '../Comment/Comment'
 import { userService } from 'src/services/UserService'
+import './CommentsContent.css'
 
 export const CommentsContent = () => {
   const [comments, setComments] = useState<CommentDTO[]>([])
@@ -29,7 +30,7 @@ export const CommentsContent = () => {
   }
 
   return (
-    <main className="main__content--grid">
+    <main className="comment-container">
       {comments.map((comment, index) => (
         <Comment
           comment={comment}
