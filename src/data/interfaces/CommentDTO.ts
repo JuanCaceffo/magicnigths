@@ -5,3 +5,9 @@ export interface CommentDTO {
   rating: number
   date: Date
 }
+
+export interface CommentCreateDTO {
+  ticketId: number
+  text: string
+  rating: number
+}

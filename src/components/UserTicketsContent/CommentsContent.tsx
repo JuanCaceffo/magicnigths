@@ -6,12 +6,13 @@ import { userService } from 'src/services/UserService'
 export const CommentsContent = () => {
   const [comments, setComments] = useState<CommentDTO[]>([])
 
+  const fetchComments = async () => {
+    userService.getComments().then((comments) => {
+      setComments(comments)
+    })
+  }
+
   useEffect(() => {
-    const fetchComments = async () => {
-      userService.getComments().then((comments) => {
-        setComments(comments)
-      })
-    }
     fetchComments()
   }, [])
 
@@ -20,6 +21,7 @@ export const CommentsContent = () => {
       .removeComment(commentId)
       .then(() => {
         console.log('lanzar snackbar de comentario eliminado con exito')
+        fetchComments()
       })
       .catch(() => {
         console.log('manejar error venido del back con componente')

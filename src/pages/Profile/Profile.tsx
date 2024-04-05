@@ -10,6 +10,7 @@ import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
 
+//TODO: refactorizar componente por una solucion mas mantenible
 export const Profile = () => {
   const [user, setUser] = useState(new User('', '', '', '', new Date(), 0))
   const [credit, setCredit] = useState(0)
