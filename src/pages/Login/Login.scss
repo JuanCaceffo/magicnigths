@@ -1,4 +1,4 @@
-.card{
+.card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,11 +7,12 @@
   height: 100%;
   max-width: 25vw;
   min-width: 30em;
-  max-height: 55vh;
-  padding: calc(var(--padding)*2);
+  height: fit-content;
+  padding: calc(var(--padding) * 2);
 
   &__logo {
-    height: 40%;
+    height: 13em;
+    filter: drop-shadow(0.3rem 0.3rem 0.2rem rgba(0, 0, 0, 0.3));
   }
 
   &__form {
