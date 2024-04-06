@@ -18,7 +18,7 @@ class UserService {
     const userData = (
       await axios.get(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/data`).then()
     ).data
-    console.log(userData.birthday)
+
     return new User(
       userData.profileImg,
       userData.name,
