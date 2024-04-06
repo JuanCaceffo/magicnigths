@@ -38,42 +38,34 @@ export const Login = () => {
   return (
     <section className="main__content main__content--login">
       <Card className="card shadow shadow--big">
-        <img src="/images/" alt='Noches Magicas' />
-        <h1 className="title">Noches Mágicas</h1>
-        <form onSubmit={HandleLoginClick} onChange={() => setError('')}>
-          <DialogContent className="login-content">
-            <div className="login-input">
-              <h3 className="subtitle2">Usuario</h3>
-              <Input
-                id="user"
-                className="login-input-field"
-                placeholder="Usuario"
-                name="username"
-                value={userLogin.username}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="login-input">
-              <h3 className="subtitle2">Contraseña</h3>
-              <Input
-                id="pass"
-                className="login-input-field"
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={userLogin.password}
-                onChange={handleInputChange}
-              />
-            </div>
-          </DialogContent>
-        </form>
-
-        <p className="login-error">{errorMessage}</p>
-        <DialogActions sx={{ justifyContent: 'space-around' }}>
-          <button className="login-button button" type='submit' onClick={HandleLoginClick}>
+        <img className="card__logo" src="/images/logo.png" alt='Noches Magicas' />
+        <form className="card__form" onSubmit={HandleLoginClick} onChange={() => setError('')}>
+          <div className="card__input">
+            <label className="text text--light">Usuario</label>
+            <Input
+              id="user"
+              className="card__field"
+              name="username"
+              value={userLogin.username}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="card__input">
+            <label className="text text--light">Contraseña</label>
+            <Input
+              id="pass"
+              className="card__field"
+              type="password"
+              name="password"
+              value={userLogin.password}
+              onChange={handleInputChange}
+            />
+          </div>
+          <button className="login-button button shadow--box" type='submit' onClick={HandleLoginClick}>
             Ingresar
           </button>
-        </DialogActions>
+        </form>
+        <p className="login-error">{errorMessage}</p>
       </Card>
     </section>
   )
