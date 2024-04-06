@@ -7,51 +7,55 @@ import { Show } from 'src/data/model/Show'
 
 import './PurchasedTicketContent.css'
 import { PopupComment } from '../PopupComment/PopupComment'
-
+//TODO: refactorizar componente por una solucion mas mantenible
 export const PurchasedTicketContent = () => {
   const [shows, setShows] = useState<Show[]>([])
   const [errorMessage, setErrorMessage] = useState('')
   const [isPopupOpen, setIsPopupOpen] = useState(false) // Estado para controlar si el popup está abierto
-  // const [idShowToComment, setIdShowToComment] = useState(-1)
+  const [gorupTicketId, setGorupTicketId] = useState(-1)
 
-  useEffect(() => {
-    const fetchUserShows = async () => {
-      try {
-        const userShows = await userService.getPurchasedTickets()
-        setShows(userShows)
-      } catch (e) {
-        console.log(e)
-        if (isAxiosError(e)) {
-          if (e.message) {
-            setErrorMessage(e.message)
-          } else {
-            setErrorMessage(e.response?.data.message)
-          }
+  //TODO: cuando el componente de manejo de errores del back este listo aplicarlo aca
+  const fetchUserShows = async () => {
+    try {
+      const userShows = await userService.getPurchasedTickets()
+      setShows([...userShows])
+    } catch (e) {
+      console.log(e)
+      if (isAxiosError(e)) {
+        if (e.message) {
+          setErrorMessage(e.message)
         } else {
-          setErrorMessage(e as string)
+          setErrorMessage(e.response?.data.message)
         }
+      } else {
+        setErrorMessage(e as string)
       }
     }
-
+  }
+  useEffect(() => {
     fetchUserShows()
   }, [])
 
-  const handleAddComment = (show: Show) => {
-    // setIdShowToComment(show.id) // TODO: agregar atributo al obj de dominio
+  const handleAddComment = (ticketId: number) => {
+    setGorupTicketId(ticketId)
     setIsPopupOpen(true) // Abre el popup cuando se hace clic en el botón
-    console.log(show)
   }
 
   const handleClosePopup = () => {
     setIsPopupOpen(false) // Cierra el popup
   }
 
-  const handleSaveComment = (comment: string) => {
-    // const comment = new Comment() //TODO: Crear objeto de dominio
-    // Lógica para guardar el comentario
-    // userService.addComment()
-    setIsPopupOpen(false) // Cierra el popup después de guardar el comentario
-    console.log(comment)
+  const handleSaveComment = async (comment: string, rating: number) => {
+    userService
+      .addComment({ groupTicketId: gorupTicketId, text: comment, rating })
+      .then(() => {
+        setIsPopupOpen(false)
+        fetchUserShows()
+      })
+      .catch((error: unknown) => {
+        console.log(error)
+        //TODO: manejar error con componente de errores de back si sale mal
+      })
   }
 
   return (
@@ -62,16 +66,17 @@ export const PurchasedTicketContent = () => {
         <div className="ticket-content main__content main__content--grid">
           {shows.map((show, index) => (
             <div key={index}>
-              {show.canBeComment() && (
-                <CardShow
-                  show={show}
-                  button={{
-                    content: 'Calificar artista',
-                    whenclick: () => handleAddComment(show),
-                  }}
-                />
-              )}
-              {!show.canBeComment() && <CardShow show={show} />}
+              <CardShow
+                show={show}
+                button={
+                  show.canBeCommented
+                    ? {
+                        content: 'Calificar artista',
+                        whenclick: () => handleAddComment(index), //TODO: cuando tengamos el id de los tickets y groupTickets cambiar
+                      }
+                    : undefined
+                }
+              />
             </div>
           ))}
         </div>
