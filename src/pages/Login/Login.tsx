@@ -1,4 +1,4 @@
-import { Card, DialogActions, DialogContent } from '@mui/material'
+import { Card } from '@mui/material'
 import 'src/styles/button.scss'
 import './Login.scss'
 import { useState } from 'react'
@@ -7,10 +7,11 @@ import { userService } from 'src/services/UserService'
 import { useNavigate } from 'react-router-dom'
 import { isAxiosError } from 'axios'
 import { Input } from '@mui/material'
+import { ErrorHandler } from 'src/error/ErrorHandler'
 
 export const Login = () => {
   const [userLogin, setUser] = useState(new UserLogin('', ''))
-  const [errorMessage, setError] = useState('')
+  const [errorMessage, setError] = useState<string | null>(null)
 
   const navigate = useNavigate()
 
@@ -20,7 +21,7 @@ export const Login = () => {
       navigate('/user_profile')
     } catch (e) {
       if (isAxiosError(e)) {
-        setError(e.response?.data.message)
+        ErrorHandler(e, setError)
       }
     }
   }
@@ -39,11 +40,10 @@ export const Login = () => {
     <section className="main__content main__content--login">
       <Card className="card shadow shadow--big">
         <img className="card__logo" src="/images/logo.png" alt='Noches Magicas' />
-        <form className="card__form" onSubmit={HandleLoginClick} onChange={() => setError('')}>
+        <form className="card__form" onSubmit={HandleLoginClick}>
           <div className="card__input">
             <label className="text text--light">Usuario</label>
             <Input
-              id="user"
               className="card__field"
               name="username"
               value={userLogin.username}
@@ -53,7 +53,6 @@ export const Login = () => {
           <div className="card__input">
             <label className="text text--light">Contraseña</label>
             <Input
-              id="pass"
               className="card__field"
               type="password"
               name="password"
@@ -61,11 +60,11 @@ export const Login = () => {
               onChange={handleInputChange}
             />
           </div>
-          <button className="login-button button shadow--box" type='submit' onClick={HandleLoginClick}>
+          <button className="card__button button shadow--box" type='submit' onClick={HandleLoginClick}>
             Ingresar
           </button>
         </form>
-        <p className="login-error">{errorMessage}</p>
+        {errorMessage && <p className="card__error">{errorMessage}</p>}
       </Card>
     </section>
   )
