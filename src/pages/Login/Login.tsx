@@ -1,27 +1,28 @@
-import { Card } from '@mui/material'
-import 'src/styles/button.scss'
 import './Login.scss'
-import { useState } from 'react'
-import { UserLogin } from 'src/data/model/UserLogin'
+import { Card } from '@mui/material'
+import { FormEvent, useState } from 'react'
 import { userService } from 'src/services/UserService'
 import { useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
 import { Input } from '@mui/material'
-import { ErrorHandler } from 'src/error/ErrorHandler'
+
+interface LoginData {
+  username: string
+  password: string
+}
 
 export const Login = () => {
-  const [userLogin, setUser] = useState(new UserLogin('', ''))
+  const [userLogin, setUserLogin] = useState<LoginData>({ username: '', password: '' })
   const [errorMessage, setError] = useState<string | null>(null)
-  const [text, setText] = useState<string | null>('hola')
   const navigate = useNavigate()
 
-  const HandleLoginClick = async () => {
+  const HandleLoginClick = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     try {
       await userService.postUserLogin(userLogin)
       navigate('/user_profile')
     } catch (err) {
-      setText((err as AxiosError).message)
-      // ErrorHandler(err as AxiosError, setError)
+      setError((err as AxiosError).message)
     }
   }
 
@@ -29,13 +30,11 @@ export const Login = () => {
     const { name, value } = event.target
 
     // Se crea un nuevo objeto igual al anterior pero con el nuevo valor del input
-    setUser((prevUser) => ({
+    setUserLogin((prevUser) => ({
       ...prevUser,
       [name]: value,
     }))
   }
-
-  setTimeout(() => setText(null), 5000)
 
   return (
     <section className="main__content main__content--login">
@@ -56,11 +55,11 @@ export const Login = () => {
               onChange={handleInputChange}
             />
           </div>
-          <button className="card__button button shadow--box" type="submit" onClick={HandleLoginClick}>
+          {errorMessage && <span className="card__error">{errorMessage}</span>}
+          <button className="button button--tall shadow--box" type="submit">
             Ingresar
           </button>
         </form>
-        {errorMessage && <span className="card__error">{errorMessage}</span>}
       </Card>
     </section>
   )
