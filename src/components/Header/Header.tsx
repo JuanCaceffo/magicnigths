@@ -32,7 +32,7 @@ export const Header = () => {
       : {
           node: (
             <>
-              <i className="fas fa-user"></i> Login
+              <i className="fas fa-user" /> Login
             </>
           ),
           link: '/login',

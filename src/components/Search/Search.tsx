@@ -1,34 +1,52 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 
-type Inputs = {
-  artist: string
-  location: string
+export type FilterArgs = {
+  bandKeyword: string
+  facilityKeyword: string
   withFriends: boolean
 }
 
-export const Search = () => {
-  const { register, handleSubmit } = useForm<Inputs>()
+interface SearchArgs {
+  onSubmit: (data: FilterArgs) => Promise<void>
+}
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+export const Search = (onSubmit: SearchArgs) => {
+  const { register, handleSubmit } = useForm<FilterArgs>({
+    defaultValues: {
+      bandKeyword: "",
+      facilityKeyword: "",
+      withFriends: false
+    }
+  })
+
+  const handleFormSubmit: SubmitHandler<FilterArgs> = async (data) => {
+    try {
+      await onSubmit.onSubmit(data)
+    } catch (error) {
+      // ErrorHandler(error as AxiosError, setErrorMsg)
+    }
+  }
 
   return (
-    <form className="main__search shadow--large" onSubmit={handleSubmit(onSubmit)}>
+    <form className="main__search shadow--large" onSubmit={handleSubmit(handleFormSubmit)}>
       <input
         className="field field__rounded field__large text shadow--item"
-        {...register('artist')}
+        {...register('bandKeyword')}
         placeholder={'Artista'}
       />
       <input
         className="field field__rounded field__large text shadow--item"
-        {...register('location')}
+        {...register('facilityKeyword')}
         placeholder={'Lugar'}
       />
-      <span className="field__container">
-        <input className="shadow--item" id="withFriends" type="checkbox" {...register('withFriends')} />{' '}
-        <label className="text" htmlFor="withFriends">
-          Con amigos
-        </label>
-      </span>
+      {userSessionStorage.userIsLoged() &&
+        <span className="field__container">
+          <input className="shadow--item" id="withFriends" type="checkbox" {...register('withFriends')} />{' '}
+          <label className="text" htmlFor="withFriends">
+            Con amigos
+          </label>
+        </span>}
       <button className="button button__secondary button__small text shadow--item" type="submit">
         Buscar
       </button>
