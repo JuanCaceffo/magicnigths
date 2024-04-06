@@ -8,6 +8,7 @@ import CardDate from '../Card/CardDate/CardDate'
 import { Seat } from 'src/data/model/Seat'
 import { SeatBox } from '../SeatBox/SeatBox'
 import { useOnInit } from 'src/hooks/hooks'
+import Comment from '../Comment/Comment'
 
 export const ShowDetails = () => {
   const { id } = useParams()
@@ -98,6 +99,11 @@ export const ShowDetails = () => {
                 <Button className="show-details__button">Agregar al Carrito</Button>
               </Box>
             </section>
+          </section>
+          <section className="show-details__comments text">
+            {show.comments.map((comment) => (
+              <Comment className="show-details__comment" comment={comment} />
+            ))}
           </section>
         </article>
       )}

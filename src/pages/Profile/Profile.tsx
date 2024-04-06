@@ -105,7 +105,7 @@ export const Profile = () => {
     const updatedCredit = await userService.addCreditToUser(creditToAdd) // Hacer dinámico
     setCredit(updatedCredit)
   }
-  
+
   const handleOpenPupup = async () => {
     setIsPopupOpen(true)
     // const updatedCredit = await userService.addCreditToUser(100.0) // Hacer dinámico
@@ -123,7 +123,7 @@ export const Profile = () => {
             <main className="main__content_user">
               <div className="user_data_container user-flex">
                 <div className="user_data user-flex">
-                  <Avatar className="user_profile_photo" src={`/mock-imgs/user-imgs/${user.profileImg}`} />
+                  <Avatar className="user_profile_photo" src={`/images/${user.profileImg}`} />
                   <div className="input_container">
                     <h3 className="subtitle2">Nombre</h3>
                     <Input

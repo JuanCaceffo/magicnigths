@@ -7,14 +7,17 @@ import { CommentDTO } from 'src/data/interfaces/CommentDTO'
 interface CommentProps {
   comment: CommentDTO
   handleDelete?: () => void
+  className?: string
 }
 
-const Comment: FC<CommentProps> = ({ comment, handleDelete }) => {
+const Comment: FC<CommentProps> = ({ className = "", comment, handleDelete }) => {
   return (
-    <article className="comment ">
+    <article className={`comment ${className}`}>
       <header className="comment__header comment--flex">
         <section className="comment__description comment--flex">
-          <img className="comment__img" src={comment.imgPath} />
+          <div className="comment__img-container">
+            <img className="comment__img" src={`/images/${comment.imgPath}`} />
+          </div>
           <div>
             <h2 className="text--md">{comment.title}</h2>
             <span>{format(comment.date, 'MMMM yyyy', { locale: es })}</span>
