@@ -1,25 +1,29 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Header } from 'src/components/Header/Header'
-import { Search } from 'src/components/Search/Search'
+import { FilterArgs, Search } from 'src/components/Search/Search'
 import { Page } from 'src/pages/Page/Page'
 import CardShow from 'src/components/CardShow/CardShow'
 import { Show } from 'src/data/model/Show'
 import { showService } from 'src/services/ShowService'
 import './Home.scss'
 import { useNavigate } from 'react-router-dom'
+import { useOnInit } from 'src/hooks/hooks'
 
 export const Home = () => {
   const [shows, setShows] = useState<Array<Show>>([])
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const fechShows = async () => {
-      showService.getShows().then((value) => {
+  const onSubmit = async (filter: FilterArgs) => {
+    try {
+      await showService.getShows(filter).then((value) => {
         setShows(value)
       })
+    } catch (error) {
+      // ErrorHandler(error as AxiosError, setErrorMsg)
     }
-    fechShows()
-  }, [])
+  }
+
+  useOnInit(() => onSubmit({} as FilterArgs))
 
   const handleClick = (showId: number) => {
     navigate(`/show/${showId}`, { state: { showId: showId } })
@@ -28,7 +32,7 @@ export const Home = () => {
   return (
     <Page
       header={<Header />}
-      search={<Search />}
+      search={<Search onSubmit={onSubmit} />}
       content={
         <article className="main__content main__content--grid">
           {shows.map((show) => (
