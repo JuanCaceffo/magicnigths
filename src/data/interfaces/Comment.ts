@@ -1,5 +1,5 @@
 export interface Comment {
-  userImg: string
+  imgPath: string
   name: string
   text: string
   rating: number

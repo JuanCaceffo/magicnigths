@@ -21,22 +21,22 @@ export const Header = () => {
   const loginOrProfile = () => {
     return userSessionStorage.userIsLoged()
       ? {
-          node: (
-            <section className="proflie-item">
-              <img className="profile-picture" src={`/mock-imgs/user-imgs/${user.profileImg}`} />{' '}
-              {`${user.name} ${user.surname}`}
-            </section>
-          ),
-          link: '/user_profile',
-        }
+        node: (
+          <section className="proflie-item">
+            <img className="profile-picture" src={`/images/${user.profileImg}`} />{' '}
+            {`${user.name} ${user.surname}`}
+          </section>
+        ),
+        link: '/user_profile',
+      }
       : {
-          node: (
-            <>
-              <i className="fas fa-user"></i> Login
-            </>
-          ),
-          link: '/login',
-        }
+        node: (
+          <>
+            <i className="fas fa-user" /> Login
+          </>
+        ),
+        link: '/login',
+      }
   }
 
   const navbar = {

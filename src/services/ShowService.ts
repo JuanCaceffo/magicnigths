@@ -4,12 +4,14 @@ import { REST_SERVER_URL } from './contants'
 import { Show } from 'src/data/model/Show'
 import { Seat, SeatArgs } from 'src/data/model/Seat'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
+import { FilterArgs } from 'src/components/Search/Search'
 
 class ShowService {
-  async getShows() {
-    const data = (await axios.get<ShowProps[]>(`${REST_SERVER_URL}/shows?userId=${userSessionStorage.getUserId()}`))
-      .data
 
+  async getShows(filter: FilterArgs) {
+    console.log(filter)
+    const data = (await axios.get<ShowProps[]>(`${REST_SERVER_URL}/shows?userId=${userSessionStorage.getUserId()}`, {params: filter}))
+      .data
     return data.map((show) => new Show(show))
   }
 

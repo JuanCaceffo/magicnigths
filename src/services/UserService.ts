@@ -6,6 +6,7 @@ import { Friend } from 'src/data/model/Friend'
 import { Show } from 'src/data/model/Show'
 import { ShowProps } from 'src/data/interfaces/ShowProps'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
+import { CommentCreateDTO, CommentDTO } from 'src/data/interfaces/CommentDTO'
 
 class UserService {
   async postUserLogin(userLogin: UserLogin) {
@@ -17,7 +18,7 @@ class UserService {
     const userData = (
       await axios.get(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/data`).then()
     ).data
-    console.log(userData.birthday)
+
     return new User(
       userData.profileImg,
       userData.name,
@@ -103,6 +104,22 @@ class UserService {
       `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/reserved-tickets-price`,
     )
     return price.data
+  }
+
+  async getComments(): Promise<CommentDTO[]> {
+    return (
+      await axios.get<CommentDTO[]>(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/comments`)
+    ).data
+  }
+
+  async removeComment(commentId: number) {
+    return await axios.delete(
+      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/delete-comment/${commentId}`,
+    )
+  }
+
+  async addComment(comment: CommentCreateDTO) {
+    return axios.put(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/create-comment`, comment)
   }
 }
 

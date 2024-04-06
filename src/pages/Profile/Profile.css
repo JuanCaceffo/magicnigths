@@ -1,3 +1,7 @@
+.user-flex {
+  display: flex;
+  flex-direction: column;
+}
 .main__content_user {
   display: flex;
   padding: var(--box-padding);
@@ -5,11 +9,18 @@
 
 .user_data_container {
   width: 25%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  padding: 0 1em;
+  padding-top: 3em;
 }
 
+.user_data {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+.tx-aling-center {
+  text-align: center;
+}
 .user_profile_photo {
   margin-left: auto; /* Mueve el objeto hacia la derecha */
   margin-right: auto;

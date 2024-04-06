@@ -15,7 +15,9 @@ const Comment: FC<CommentProps> = ({ className = "", comment, handleDelete }) =>
     <article className={`comment ${className}`}>
       <header className="comment__header comment--flex">
         <section className="comment__description comment--flex">
-          <img className="comment__img" src={`/mock-imgs/user-imgs/${comment.userImg}`} />
+          <div className="comment__img-container">
+            <img className="comment__img" src={`/images/${comment.imgPath}`} />
+          </div>
           <div>
             <h2 className="text--md">{comment.name}</h2>
             <span>{format(comment.date, 'MMMM yyyy', { locale: es })}</span>

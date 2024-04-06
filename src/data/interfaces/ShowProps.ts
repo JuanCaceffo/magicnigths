@@ -15,4 +15,5 @@ export interface ShowProps {
   comments?: Comment[]
   geolocation?: string
   quantity?: number
+  canBeCommented?: boolean
 }

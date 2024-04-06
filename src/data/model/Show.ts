@@ -18,6 +18,7 @@ export class Show implements ShowProps {
   dates!: Date[]
   quantity?: number
   geolocation?: string
+  canBeCommented: boolean
 
   constructor(private props: ShowProps) {
     this.id = this.props.id ?? ''
@@ -34,6 +35,7 @@ export class Show implements ShowProps {
     this.dates = this.props.dates.map((date) => moment.utc(date).toDate())
     this.geolocation = this.props.geolocation ?? ''
     this.quantity = this.props.quantity ?? 0
+    this.canBeCommented = props.canBeCommented ?? false
   }
 
   LIMIT_FRIENDS = 3
@@ -54,7 +56,4 @@ export class Show implements ShowProps {
   restFriends = () => this.pasedLimitFriends() && this.userImageNames.length - this.LIMIT_FRIENDS
 
   wasPricePaid = () => !!this.price
-
-  // Devuelve si el show puede ser comentado o no
-  canBeComment = () => this.dates.every((date) => new Date(date) < new Date())
 }

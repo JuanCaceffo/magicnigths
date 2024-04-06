@@ -1,9 +1,6 @@
 import { Avatar, Divider, Input, ToggleButton, ToggleButtonGroup } from '@mui/material'
 import { Header } from 'src/components/Header/Header'
 import { Page } from 'src/pages/Page/Page'
-import '../../index.css'
-import '../../styles/typography.scss'
-import '../../styles/error.scss'
 import './Profile.css'
 import { PurchasedTicketContent } from 'src/components/UserPurchasedTicketContent/PurchasedTicketContent'
 import { useEffect, useState } from 'react'
@@ -12,38 +9,41 @@ import { CommentsContent } from 'src/components/UserTicketsContent/CommentsConte
 import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
+import { PopupCredit } from 'src/components/PopopCredit/PopupCredit'
 
+//TODO: refactorizar componente por una solucion mas mantenible
 export const Profile = () => {
   const [user, setUser] = useState(new User('', '', '', '', new Date(), 0))
   const [credit, setCredit] = useState(0)
   const [age, setAge] = useState(0)
   const [content, setContent] = useState(SelectionContent.PURCHASED_TICKET)
   const [errorMessage, setError] = useState('')
+  const [isPopupOpen, setIsPopupOpen] = useState(false) // Estado para controlar si el popup está abierto
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      // Obtener datos del usuario
+    fetchUserData()
+  }, []) // Array vacío como segundo argumento para indicar que se ejecute solo una vez
+
+  const fetchUserData = async () => {
+    // Obtener datos del usuario
+    try {
+      const userData = await userService.getUser()
+      setUser(userData)
+
+      // Cálculo y seteo de la edad del usuario
+      setAge(userData.getAge())
+
+      // Obtener crédito del usuario
       try {
-        const userData = await userService.getUser()
-        setUser(userData)
-
-        // Cálculo y seteo de la edad del usuario
-        setAge(userData.getAge())
-
-        // Obtener crédito del usuario
-        try {
-          const userCredit = await userService.getCredit()
-          setCredit(userCredit)
-        } catch (e) {
-          handleRequestError(e)
-        }
+        const userCredit = await userService.getCredit()
+        setCredit(userCredit)
       } catch (e) {
         handleRequestError(e)
       }
+    } catch (e) {
+      handleRequestError(e)
     }
-
-    fetchUserData()
-  }, []) // Array vacío como segundo argumento para indicar que se ejecute solo una vez
+  }
 
   // Menejo de error
   const handleRequestError = (e: unknown) => {
@@ -90,14 +90,26 @@ export const Profile = () => {
     })
   }
 
+  //TODO: agregar el fetch de data a un context compartido con el header para que se actualizae automacticamente el nombre en el header
   const handleSaveClick = async () => {
-    await userService.updateUser(user)
+    await userService.updateUser(user).then(() => {
+      fetchUserData()
+    })
     console.log(user)
   }
 
-  const handleAddCreditClick = async () => {
-    const updatedCredit = await userService.addCreditToUser(100.0) // Hacer dinámico
+  const handleAddCredit = async (creditToAdd: number) => {
+    console.log("Credito para agregar:")
+    console.log(creditToAdd)
+
+    const updatedCredit = await userService.addCreditToUser(creditToAdd) // Hacer dinámico
     setCredit(updatedCredit)
+  }
+
+  const handleOpenPupup = async () => {
+    setIsPopupOpen(true)
+    // const updatedCredit = await userService.addCreditToUser(100.0) // Hacer dinámico
+    // setCredit(updatedCredit)
   }
 
   return (
@@ -109,9 +121,9 @@ export const Profile = () => {
             <p className="error-message error">{errorMessage}</p>
           ) : (
             <main className="main__content_user">
-              <div className="user_data_container">
-                <div className="user_data">
-                  <Avatar className="user_profile_photo" src={`/mock-imgs/user-imgs/${user.profileImg}`} />
+              <div className="user_data_container user-flex">
+                <div className="user_data user-flex">
+                  <Avatar className="user_profile_photo" src={`/images/${user.profileImg}`} />
                   <div className="input_container">
                     <h3 className="subtitle2">Nombre</h3>
                     <Input
@@ -146,7 +158,7 @@ export const Profile = () => {
                       disabled
                     ></Input>
                   </div>
-                  <h3 className="subtitle2" data-testid="age">
+                  <h3 className="user__age tx-aling-center user-flex text--xl" data-testid="age">
                     Edad: {age} años
                   </h3>
                   <div className="input_container">
@@ -166,10 +178,10 @@ export const Profile = () => {
                   </button>
                 </div>
                 <div className="user_credit_container">
-                  <h3 className="subtitle2" data-testid="credit">
+                  <h3 className="text--xl tx-aling-center" data-testid="credit">
                     Crédito ${credit}
                   </h3>
-                  <button className="button add_credit-user-button" onClick={handleAddCreditClick}>
+                  <button className="button add_credit-user-button" onClick={handleOpenPupup}>
                     Sumar crédito
                   </button>
                 </div>
@@ -201,6 +213,7 @@ export const Profile = () => {
                   {content === SelectionContent.FRIENDS && <FriendsContent />}
                   {content === SelectionContent.COMMENTS && <CommentsContent />}
                 </div>
+                {isPopupOpen && <PopupCredit open={isPopupOpen} onSave={(creditToAdd) => handleAddCredit(creditToAdd)} onClose={() => setIsPopupOpen(false)} />}
               </div>
             </main>
           )
