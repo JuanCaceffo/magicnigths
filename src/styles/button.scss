@@ -36,6 +36,10 @@
     }
   }
 
+  &--tall {
+    height: 4.2rem;
+  }
+
   transition:
     color var(--transition-time) ease,
     background-color var(--transition-time) ease;

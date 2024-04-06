@@ -13,6 +13,13 @@ export const NumPicker = ({ ...args }: NumPickerArgs) => {
   const { min = -Infinity, max = Infinity, step = 1, value = 0, handler } = args
   const inputRef = useRef<HTMLInputElement>(null)
 
+  const onInputChange = (data: string) => {
+    TODO: { "Hacer que tire un error cuando te pasas de los limites" }
+    const newCount = !isNaN(+data) && +data <= max && +data >= min ? +data : value
+    handler(newCount)
+    updateWidth()
+  }
+
   const updateWidth = () => {
     if (inputRef.current && !isNaN(+inputRef.current.value)) {
       const digits = inputRef.current.value.length
@@ -43,11 +50,7 @@ export const NumPicker = ({ ...args }: NumPickerArgs) => {
         value={value}
         className="numeric-picker__number"
         pattern="[0-9]+"
-        onChange={(e) => {
-          const newCount = !isNaN(+e.target.value) ? +e.target.value : value
-          handler(newCount)
-          updateWidth()
-        }}
+        onChange={(e) => onInputChange(e.target.value)}
       />
       <a className="numeric-picker__button text--clear" onClick={increase}>
         +

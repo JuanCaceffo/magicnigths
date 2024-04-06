@@ -12,7 +12,7 @@ export const PurchasedTicketContent = () => {
   const [shows, setShows] = useState<Show[]>([])
   const [errorMessage, setErrorMessage] = useState('')
   const [isPopupOpen, setIsPopupOpen] = useState(false) // Estado para controlar si el popup está abierto
-  const [idShowToComment, setIdShowToComment] = useState(-1)
+  const [gorupTicketId, setGorupTicketId] = useState(-1)
 
   //TODO: cuando el componente de manejo de errores del back este listo aplicarlo aca
   const fetchUserShows = async () => {
@@ -37,7 +37,7 @@ export const PurchasedTicketContent = () => {
   }, [])
 
   const handleAddComment = (ticketId: number) => {
-    setIdShowToComment(ticketId)
+    setGorupTicketId(ticketId)
     setIsPopupOpen(true) // Abre el popup cuando se hace clic en el botón
   }
 
@@ -47,7 +47,7 @@ export const PurchasedTicketContent = () => {
 
   const handleSaveComment = async (comment: string, rating: number) => {
     userService
-      .addComment({ ticketId: idShowToComment, text: comment, rating })
+      .addComment({ groupTicketId: gorupTicketId, text: comment, rating })
       .then(() => {
         setIsPopupOpen(false)
         fetchUserShows()
@@ -66,17 +66,17 @@ export const PurchasedTicketContent = () => {
         <div className="ticket-content main__content main__content--grid">
           {shows.map((show, index) => (
             <div key={index}>
-              //TODO: ver como hacer para que una vez comentado el show no se pueda volver a comentar
-              {show.canBeComment() && (
-                <CardShow
-                  show={show}
-                  button={{
-                    content: 'Calificar artista',
-                    whenclick: () => handleAddComment(index), //TODO: cuando tengamos el id de los comentarios cambiar
-                  }}
-                />
-              )}
-              {!show.canBeComment() && <CardShow show={show} />}
+              <CardShow
+                show={show}
+                button={
+                  show.canBeCommented
+                    ? {
+                        content: 'Calificar artista',
+                        whenclick: () => handleAddComment(index), //TODO: cuando tengamos el id de los tickets y groupTickets cambiar
+                      }
+                    : undefined
+                }
+              />
             </div>
           ))}
         </div>

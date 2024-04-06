@@ -7,7 +7,7 @@ export interface CommentDTO {
 }
 
 export interface CommentCreateDTO {
-  ticketId: number
+  groupTicketId: number
   text: string
   rating: number
 }
