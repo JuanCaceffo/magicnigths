@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Header } from 'src/components/Header/Header'
 import { FilterArgs, Search } from 'src/components/Search/Search'
 import { Page } from 'src/pages/Page/Page'
-import CardShow from 'src/components/CardShow/CardShow'
+import CardShow from 'src/components/Card/CardShow/CardShow'
 import { Show } from 'src/data/model/Show'
 import { showService } from 'src/services/ShowService'
 import './Home.scss'
@@ -13,7 +13,7 @@ export const Home = () => {
   const [shows, setShows] = useState<Array<Show>>([])
   const navigate = useNavigate()
 
-  const onSubmit = async (filter: FilterArgs) => {
+  const getAllShows = async (filter: FilterArgs) => {
     try {
       await showService.getShows(filter).then((value) => {
         setShows(value)
@@ -23,7 +23,7 @@ export const Home = () => {
     }
   }
 
-  useOnInit(() => onSubmit({} as FilterArgs))
+  useOnInit(() => getAllShows({} as FilterArgs))
 
   const handleClick = (showId: number) => {
     navigate(`/show/${showId}`, { state: { showId: showId } })
@@ -32,7 +32,7 @@ export const Home = () => {
   return (
     <Page
       header={<Header />}
-      search={<Search onSubmit={onSubmit} />}
+      search={<Search onSubmit={getAllShows} />}
       content={
         <article className="main__content main__content--grid">
           {shows.map((show) => (

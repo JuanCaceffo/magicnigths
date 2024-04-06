@@ -4,7 +4,7 @@ import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 export type FilterArgs = {
   bandKeyword: string
   facilityKeyword: string
-  withFriends: boolean
+  withFriends?: boolean
 }
 
 interface SearchArgs {

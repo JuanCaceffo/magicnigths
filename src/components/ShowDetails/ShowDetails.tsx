@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { showService } from 'src/services/ShowService'
 import { Show } from 'src/data/model/Show'
 import { useParams } from 'react-router-dom'
-import CardDate from '../CardDate/CardDate'
+import CardDate from '../Card/CardDate/CardDate'
 import { Seat } from 'src/data/model/Seat'
 import { SeatBox } from '../SeatBox/SeatBox'
 import { useOnInit } from 'src/hooks/hooks'
@@ -28,7 +28,7 @@ export const ShowDetails = () => {
 
   const getAllShows = async () => {
     try {
-      const fetchedShow = await showService.getShowById(+id!!)
+      const fetchedShow = await showService.getShowById(+id!)
       setShow(fetchedShow)
       await getShowSeatTypes(fetchedShow.dates[0])
     } catch (err) {
@@ -38,7 +38,7 @@ export const ShowDetails = () => {
 
   const getShowSeatTypes = async (selectedDate: Date) => {
     try {
-      const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(+id!!, selectedDate!!)
+      const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(+id!, selectedDate!)
       setSeats([...fetchedSeats])
     } catch (err) {
       console.log(err)

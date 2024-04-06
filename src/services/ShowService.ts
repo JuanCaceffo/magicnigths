@@ -9,7 +9,6 @@ import { FilterArgs } from 'src/components/Search/Search'
 class ShowService {
 
   async getShows(filter: FilterArgs) {
-    console.log(filter)
     const data = (await axios.get<ShowProps[]>(`${REST_SERVER_URL}/shows?userId=${userSessionStorage.getUserId()}`, {params: filter}))
       .data
     return data.map((show) => new Show(show))
