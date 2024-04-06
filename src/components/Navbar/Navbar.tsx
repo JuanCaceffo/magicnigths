@@ -2,6 +2,8 @@ import { useState } from 'react'
 import './Navbar.scss'
 import { Box } from '@mui/material'
 import { NodeItem, NodeItemProps } from './NodeItem'
+import { useNavigate } from 'react-router-dom'
+import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 
 interface NavbarProps {
   className?: string
@@ -10,9 +12,15 @@ interface NavbarProps {
 
 export const Navbar = ({ ...props }: NavbarProps) => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const nav = useNavigate()
 
   const handleMenu = () => {
     setMenuOpen(!menuOpen)
+  }
+
+  const handleLogout = () => {
+    sessionStorage.clear()
+    nav('/')
   }
 
   const closeIcon = () => {
@@ -22,6 +30,14 @@ export const Navbar = ({ ...props }: NavbarProps) => {
           <i className="fas fa-xmark" onClick={handleMenu} />
         </li>
       )
+    )
+  }
+
+  const logoutIcon = () => {
+    return (
+      <li className={`navbar__item ${props.className}`} onClick={handleLogout}>
+        <i className="fas fa-right-from-bracket" />
+      </li>
     )
   }
 
@@ -43,6 +59,7 @@ export const Navbar = ({ ...props }: NavbarProps) => {
             do={node.do ?? undefined}
           />
         ))}
+        {userSessionStorage.userIsLoged() && logoutIcon()}
       </ul>
     </nav>
   )

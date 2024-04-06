@@ -35,6 +35,9 @@
   &__item {
     list-style: none;
     cursor: pointer;
+    & i {
+      color: var(--color-clear);
+    }
   }
 
   &__link {

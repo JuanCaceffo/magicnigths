@@ -1,27 +1,28 @@
-import { Card, CardContent, DialogActions, DialogContent } from '@mui/material'
-import'../../styles/button.scss'
-import './Login.css' // Importa el archivo de estilos CSS
-import { useState } from 'react'
-import { UserLogin } from 'src/data/model/UserLogin'
+import './Login.scss'
+import { Card } from '@mui/material'
+import { FormEvent, useState } from 'react'
 import { userService } from 'src/services/UserService'
 import { useNavigate } from 'react-router-dom'
-import { isAxiosError } from 'axios'
+import { AxiosError } from 'axios'
 import { Input } from '@mui/material'
 
-export const Login = () => {
-  const [userLogin, setUser] = useState(new UserLogin('', ''))
-  const [errorMessage, setError] = useState('')
+interface LoginData {
+  username: string
+  password: string
+}
 
+export const Login = () => {
+  const [userLogin, setUserLogin] = useState<LoginData>({ username: '', password: '' })
+  const [errorMessage, setError] = useState<string | null>(null)
   const navigate = useNavigate()
 
-  const HandleLoginClick = async () => {
+  const HandleLoginClick = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     try {
       await userService.postUserLogin(userLogin)
       navigate('/user_profile')
-    } catch (e) {
-      if(isAxiosError(e)) {
-        setError(e.response?.data.message)
-      }
+    } catch (err) {
+      setError((err as AxiosError).message)
     }
   }
 
@@ -29,55 +30,37 @@ export const Login = () => {
     const { name, value } = event.target
 
     // Se crea un nuevo objeto igual al anterior pero con el nuevo valor del input
-    setUser(prevUser => ({
+    setUserLogin((prevUser) => ({
       ...prevUser,
-      [name]: value
+      [name]: value,
     }))
   }
 
   return (
-    <>
-      <div className="login-container">
-        <Card>
-          <CardContent>
-            <h1 className="title">Noches Mágicas</h1>
-            <form onSubmit={HandleLoginClick} onChange={() => setError('')}> 
-              <DialogContent className="login-content">
-                <div className="login-input">
-                  <h3 className="subtitle2">Usuario</h3>
-                  <Input
-                    id="user"
-                    className="login-input-field"
-                    placeholder="Usuario"
-                    name="username"
-                    value={userLogin.username}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="login-input">
-                  <h3 className="subtitle2">Contraseña</h3>
-                  <Input
-                    id="pass"
-                    className="login-input-field"
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={userLogin.password}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </DialogContent>
-            </form>
-            
-            <p className="login-error">{errorMessage}</p>
-            <DialogActions sx={{ justifyContent: 'space-around' }}>
-              <button className="login-button button" type='submit' onClick={HandleLoginClick}>
-                Ingresar
-              </button>
-            </DialogActions>
-          </CardContent>
-        </Card>
-      </div>
-    </>
+    <section className="main__content main__content--login">
+      <Card className="card shadow shadow--big">
+        <img className="card__logo" src="/images/logo.png" alt="Noches Magicas" />
+        <form className="card__form" onSubmit={HandleLoginClick}>
+          <div className="card__input">
+            <label className="text text--light">Usuario</label>
+            <Input className="card__field" name="username" value={userLogin.username} onChange={handleInputChange} />
+          </div>
+          <div className="card__input">
+            <label className="text text--light">Contraseña</label>
+            <Input
+              className="card__field"
+              type="password"
+              name="password"
+              value={userLogin.password}
+              onChange={handleInputChange}
+            />
+          </div>
+          {errorMessage && <span className="card__error">{errorMessage}</span>}
+          <button className="button button--tall shadow--box" type="submit">
+            Ingresar
+          </button>
+        </form>
+      </Card>
+    </section>
   )
 }
