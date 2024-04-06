@@ -2,10 +2,10 @@ import { FC } from 'react'
 import './Comment.scss'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { Comment } from 'src/data/interfaces/Comment'
+import { CommentDTO } from 'src/data/interfaces/CommentDTO'
 
 interface CommentProps {
-  comment: Comment
+  comment: CommentDTO
   handleDelete?: () => void
   className?: string
 }
@@ -19,7 +19,7 @@ const Comment: FC<CommentProps> = ({ className = "", comment, handleDelete }) =>
             <img className="comment__img" src={`/images/${comment.imgPath}`} />
           </div>
           <div>
-            <h2 className="text--md">{comment.name}</h2>
+            <h2 className="text--md">{comment.title}</h2>
             <span>{format(comment.date, 'MMMM yyyy', { locale: es })}</span>
           </div>
         </section>

@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { ShowProps } from '../interfaces/ShowProps'
-import { Comment } from '../interfaces/Comment'
+import { CommentDTO } from '../interfaces/CommentDTO'
 
 //TODO: when the imgs managment will finished in the backend change here if is necesary
 export class Show implements ShowProps {
@@ -14,7 +14,7 @@ export class Show implements ShowProps {
   price: number
   prices: number[]
   userImageNames: string[]
-  comments: Comment[]
+  comments: CommentDTO[]
   dates!: Date[]
   quantity?: number
   geolocation?: string
