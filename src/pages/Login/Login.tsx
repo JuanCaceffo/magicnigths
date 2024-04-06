@@ -1,6 +1,6 @@
-import { Card, CardContent, DialogActions, DialogContent } from '@mui/material'
-import'../../styles/button.scss'
-import './Login.css' // Importa el archivo de estilos CSS
+import { Card, DialogActions, DialogContent } from '@mui/material'
+import 'src/styles/button.scss'
+import './Login.scss'
 import { useState } from 'react'
 import { UserLogin } from 'src/data/model/UserLogin'
 import { userService } from 'src/services/UserService'
@@ -19,7 +19,7 @@ export const Login = () => {
       await userService.postUserLogin(userLogin)
       navigate('/user_profile')
     } catch (e) {
-      if(isAxiosError(e)) {
+      if (isAxiosError(e)) {
         setError(e.response?.data.message)
       }
     }
@@ -36,48 +36,45 @@ export const Login = () => {
   }
 
   return (
-    <>
-      <div className="login-container">
-        <Card>
-          <CardContent>
-            <h1 className="title">Noches Mágicas</h1>
-            <form onSubmit={HandleLoginClick} onChange={() => setError('')}> 
-              <DialogContent className="login-content">
-                <div className="login-input">
-                  <h3 className="subtitle2">Usuario</h3>
-                  <Input
-                    id="user"
-                    className="login-input-field"
-                    placeholder="Usuario"
-                    name="username"
-                    value={userLogin.username}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="login-input">
-                  <h3 className="subtitle2">Contraseña</h3>
-                  <Input
-                    id="pass"
-                    className="login-input-field"
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={userLogin.password}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </DialogContent>
-            </form>
-            
-            <p className="login-error">{errorMessage}</p>
-            <DialogActions sx={{ justifyContent: 'space-around' }}>
-              <button className="login-button button" type='submit' onClick={HandleLoginClick}>
-                Ingresar
-              </button>
-            </DialogActions>
-          </CardContent>
-        </Card>
-      </div>
-    </>
+    <section className="main__content main__content--login">
+      <Card className="card shadow shadow--big">
+        <img src="/images/" alt='Noches Magicas' />
+        <h1 className="title">Noches Mágicas</h1>
+        <form onSubmit={HandleLoginClick} onChange={() => setError('')}>
+          <DialogContent className="login-content">
+            <div className="login-input">
+              <h3 className="subtitle2">Usuario</h3>
+              <Input
+                id="user"
+                className="login-input-field"
+                placeholder="Usuario"
+                name="username"
+                value={userLogin.username}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="login-input">
+              <h3 className="subtitle2">Contraseña</h3>
+              <Input
+                id="pass"
+                className="login-input-field"
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={userLogin.password}
+                onChange={handleInputChange}
+              />
+            </div>
+          </DialogContent>
+        </form>
+
+        <p className="login-error">{errorMessage}</p>
+        <DialogActions sx={{ justifyContent: 'space-around' }}>
+          <button className="login-button button" type='submit' onClick={HandleLoginClick}>
+            Ingresar
+          </button>
+        </DialogActions>
+      </Card>
+    </section>
   )
 }
