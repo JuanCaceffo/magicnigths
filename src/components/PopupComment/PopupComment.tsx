@@ -1,7 +1,5 @@
 import { Dialog, DialogActions, DialogContent, TextField, Rating } from '@mui/material'
 import React, { useState } from 'react'
-import '../../styles/button.scss'
-import '../../styles/typography.scss'
 import './PopupComment.css'
 
 export const PopupComment = ({

@@ -9,6 +9,7 @@ import { CommentsContent } from 'src/components/UserTicketsContent/CommentsConte
 import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
+import { PopupCredit } from 'src/components/PopopCredit/PopupCredit'
 
 //TODO: refactorizar componente por una solucion mas mantenible
 export const Profile = () => {
@@ -17,6 +18,7 @@ export const Profile = () => {
   const [age, setAge] = useState(0)
   const [content, setContent] = useState(SelectionContent.PURCHASED_TICKET)
   const [errorMessage, setError] = useState('')
+  const [isPopupOpen, setIsPopupOpen] = useState(false) // Estado para controlar si el popup está abierto
 
   useEffect(() => {
     fetchUserData()
@@ -96,9 +98,18 @@ export const Profile = () => {
     console.log(user)
   }
 
-  const handleAddCreditClick = async () => {
-    const updatedCredit = await userService.addCreditToUser(100.0) // Hacer dinámico
+  const handleAddCredit = async (creditToAdd: number) => {
+    console.log("Credito para agregar:")
+    console.log(creditToAdd)
+
+    const updatedCredit = await userService.addCreditToUser(creditToAdd) // Hacer dinámico
     setCredit(updatedCredit)
+  }
+  
+  const handleOpenPupup = async () => {
+    setIsPopupOpen(true)
+    // const updatedCredit = await userService.addCreditToUser(100.0) // Hacer dinámico
+    // setCredit(updatedCredit)
   }
 
   return (
@@ -170,7 +181,7 @@ export const Profile = () => {
                   <h3 className="text--xl tx-aling-center" data-testid="credit">
                     Crédito ${credit}
                   </h3>
-                  <button className="button add_credit-user-button" onClick={handleAddCreditClick}>
+                  <button className="button add_credit-user-button" onClick={handleOpenPupup}>
                     Sumar crédito
                   </button>
                 </div>
@@ -202,6 +213,7 @@ export const Profile = () => {
                   {content === SelectionContent.FRIENDS && <FriendsContent />}
                   {content === SelectionContent.COMMENTS && <CommentsContent />}
                 </div>
+                {isPopupOpen && <PopupCredit open={isPopupOpen} onSave={(creditToAdd) => handleAddCredit(creditToAdd)} onClose={() => setIsPopupOpen(false)} />}
               </div>
             </main>
           )
