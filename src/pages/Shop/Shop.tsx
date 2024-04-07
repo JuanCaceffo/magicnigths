@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import CardShow from 'src/components/Card/CardShow/CardShow'
-import { Header } from 'src/components/Header/Header'
 import { Show } from 'src/data/model/Show'
-import { Page } from 'src/pages/Page/Page'
 import './Shop.scss'
 import { userService } from 'src/services/UserService'
 import { AxiosError } from 'axios'
@@ -45,31 +43,26 @@ export const Shop = () => {
   }
 
   return (
-    <Page
-      header={<Header />}
-      content={
-        <main className="main__content shop">
-          <article className="shop__content">
-            <header className="text--xl">Carrito de compras</header>
-            <section className="main__content--grid">
-              {ticketsShow.map((show) => (
-                <CardShow show={show} quantity={show.quantity} />
-              ))}
-            </section>
-          </article>
-          <footer className="shop__footer">
-            <span className="text--md">TOTAL ${price}</span>
-            <section className="shop__buttons">
-              <button className="shop__button button" onClick={pruchaseTickets}>
+    <main className="main__content shop">
+      <article className="shop__content">
+        <header className="text--xl">Carrito de compras</header>
+        <section className="main__content--grid">
+          {ticketsShow.map((show) => (
+            <CardShow show={show} quantity={show.quantity} />
+          ))}
+        </section>
+      </article>
+      <footer className="shop__footer">
+        <span className="text--md">TOTAL ${price}</span>
+        <section className="shop__buttons">
+          <button className="shop__button button" onClick={pruchaseTickets}>
                 Confirmar pediodo
-              </button>
-              <button className="shop__button button button__secondary" onClick={removeAllReservedTickets}>
+          </button>
+          <button className="shop__button button button__secondary" onClick={removeAllReservedTickets}>
                 Limpiar carrito
-              </button>
-            </section>
-          </footer>
-        </main>
-      }
-    />
+          </button>
+        </section>
+      </footer>
+    </main>
   )
 }

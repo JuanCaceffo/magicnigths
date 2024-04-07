@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/admin_dashboard',
-    element: <PrivatePage content={<Admin />} condition={userSessionStorage.userIsAdmin()} redirectRoute='/'/>,
+    element: <PrivatePage header={<Header />} content={<Admin />} condition={userSessionStorage.userIsAdmin()} redirectRoute='/'/>,
   },
   {
     path: '/login',
@@ -29,11 +29,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/user_profile',
-    element: <PrivatePage content={<Profile />} condition={userSessionStorage.userIsLoged()} redirectRoute='/login'/>,
+    element: <PrivatePage header={<Header />} content={<Profile />} condition={userSessionStorage.userIsLoged()} redirectRoute='/login'/>,
   },
   {
     path: '/shop',
-    element: <PrivatePage content={<Shop />} condition={userSessionStorage.userIsLoged()} redirectRoute='/login'/>,
+    element: <PrivatePage header={<Header />} content={<Shop />} condition={userSessionStorage.userIsLoged()} redirectRoute='/login'/>,
   },
   {
     path: '*',
