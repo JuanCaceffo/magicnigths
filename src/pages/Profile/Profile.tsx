@@ -9,7 +9,7 @@ import { CommentsContent } from 'src/components/UserTicketsContent/CommentsConte
 import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
-import { PopupCredit } from 'src/components/PopopCredit/PopupCredit'
+import { PopupCredit } from 'src/components/PopupCredit/PopupCredit'
 
 //TODO: refactorizar componente por una solucion mas mantenible
 export const Profile = () => {
@@ -99,9 +99,6 @@ export const Profile = () => {
   }
 
   const handleAddCredit = async (creditToAdd: number) => {
-    console.log("Credito para agregar:")
-    console.log(creditToAdd)
-
     const updatedCredit = await userService.addCreditToUser(creditToAdd) // Hacer dinámico
     setCredit(updatedCredit)
   }
