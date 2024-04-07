@@ -1,6 +1,8 @@
 import { TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { PopupForm } from '../Popup/Popup'
+import { format } from 'date-fns'
+import moment from 'moment'
 
 export const PopupNewShow = ({
   open,
@@ -78,7 +80,7 @@ export const PopupNewShow = ({
             label="Fecha"
             type="date"
             fullWidth
-            value={date.toISOString().split('T')[0]}
+            value={moment(date).format('YYYY-MM-DD')}
             onChange={handleInputDateChange}
           />
           <TextField
