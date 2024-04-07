@@ -1,17 +1,24 @@
 import { TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { PopupForm } from '../Popup/Popup'
-import { format } from 'date-fns'
 import moment from 'moment'
 
 export const PopupNewShow = ({
   open,
   onSave,
   onClose,
+  show: {
+    band,
+    showName
+  }
 }: {
   open: boolean
   onSave: (date: Date) => void
   onClose: () => void
+  show: {
+    band: string;
+    showName: string;
+  }
 }) => {
   const [date, setDate] = useState<Date>(new Date())
   const [errorMessage, setErrorMessage] = useState('')
@@ -66,7 +73,7 @@ export const PopupNewShow = ({
   return (
     <PopupForm
       open={open}
-      title="Agregar función a {band} - {showName}"
+      title={`Agregar función a ${band} - ${showName}`}
       onSave={handleSave}
       onClose={handleClose}
       buttonDisabled={date<new Date()}
