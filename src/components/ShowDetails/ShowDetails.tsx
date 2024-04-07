@@ -27,7 +27,7 @@ export const ShowDetails = () => {
     })
   }
 
-  const getAllShows = async () => {
+  const getShowById = async () => {
     try {
       const fetchedShow = await showService.getShowById(+id!)
       setShow(fetchedShow)
@@ -47,7 +47,7 @@ export const ShowDetails = () => {
   }
 
   useOnInit(async () => {
-    await getAllShows()
+    await getShowById()
   })
 
   return (

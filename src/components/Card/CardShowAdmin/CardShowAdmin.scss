@@ -1,0 +1,47 @@
+.card-admin{
+  display: flex;
+  height: 10em;
+  transition: all var(--transition-time) ease;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--color-clear);
+
+  &__img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 100%;
+    max-width: 13em;
+  }
+
+  &__img {
+    height: 100%;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 1.2em;
+    padding: var(--padding-xs) var(--padding);
+  }
+
+  &__title {
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+
+  &__text {
+    color: hsla(0, 0%, 22%, 0.8);
+  }
+
+  &--active {
+    
+  }
+
+  &:hover {
+    transform: translateY(var(--translateY));
+    box-shadow: var(--box-shadow-hover);
+  }
+}

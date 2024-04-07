@@ -1,6 +1,7 @@
 import moment from 'moment'
 import { ShowProps } from '../interfaces/ShowProps'
 import { CommentDTO } from '../interfaces/CommentDTO'
+import { format } from 'date-fns'
 
 //TODO: when the imgs managment will finished in the backend change here if is necesary
 export class Show implements ShowProps {
@@ -44,7 +45,7 @@ export class Show implements ShowProps {
     return `${this.bandName} - ${this.showName}`
   }
 
-  getMinMaxPrices = () => (this.prices ? [Math.min(...this.prices), Math.max(...this.prices)] : [])
+  getMinMaxPrices = () => (this.prices ? [Math.min(...this.prices).toFixed(2), Math.max(...this.prices).toFixed(2)] : [])
 
   getLimitedUserImgs = () =>
     this.pasedLimitFriends()
@@ -56,4 +57,12 @@ export class Show implements ShowProps {
   restFriends = () => this.pasedLimitFriends() && this.userImageNames.length - this.LIMIT_FRIENDS
 
   wasPricePaid = () => !!this.price
+
+  firstDate = () => new Date(Math.min.apply(null, this.dates.map(date => date.getTime())))
+
+  lastDate = () => new Date(Math.max.apply(null, this.dates.map(date => date.getTime())))
+
+  get reducedDates(): string {
+    return `${format(this.firstDate(), 'MM/dd')} - ${format(this.lastDate(), 'MM/dd')}`
+  }
 }

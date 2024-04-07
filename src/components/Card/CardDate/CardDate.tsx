@@ -5,17 +5,18 @@ interface CardDateProps {
   date: Date
   isSelected?: boolean
   isDisable?: boolean
-  handleClick: (value: Date) => void
+  handleClick?: (value: Date) => void
+  className?: string
 }
 
 const CardDate = (props: CardDateProps) => {
-  const { date, isSelected = false, isDisable = false, handleClick } = props
+  const { date, isSelected = false, isDisable = false, handleClick, className = "" } = props
 
   return (
     <article
       data-testid="cardDate"
-      className={`card-date flex text--md ${isSelected ? 'card-date--active' : ''} ${isDisable ? 'card-date--disabled' : ''}`}
-      onClick={() => handleClick!!(date)}
+      className={`card-date flex text--md ${isSelected ? 'card-date--active' : ''} ${isDisable ? 'card-date--disabled' : ''} ${className}`}
+      onClick={() => handleClick!(date)}
     >
       <section className="flex">
         <strong className="card-date__day">{format(date, 'eeee')}</strong>

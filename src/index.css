@@ -65,6 +65,7 @@
   
   /* Animations */
   --transition-time: 0.5s;
+  --translateY: -8%;
 }
 
 * {

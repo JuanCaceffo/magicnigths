@@ -1,0 +1,35 @@
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-wrapper {
+  display: flex;
+}
+
+.carousel-items {
+  display: flex;
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  width: 100px; /* Ancho de cada elemento, ajusta según tus necesidades */
+}
+
+.prev-button, .next-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.prev-button {
+  left: 10px;
+}
+
+.next-button {
+  right: 10px;
+}

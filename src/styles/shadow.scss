@@ -1,12 +1,12 @@
 .shadow {
-  filter: drop-shadow(0rem 0.1rem 0.4rem rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0rem 0.25rem 0.5rem rgba(0, 0, 0, 0.3));
 
   &--large {
-    filter: drop-shadow(0rem 0.4rem 0.6rem rgba(0, 0, 0, 0.1));
+    filter: drop-shadow(0rem 0.4rem 0.7rem rgba(0, 0, 0, 0.3));
   }
 
   &--item {
-    filter: drop-shadow(0.1rem 0.1rem 0.4rem rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.3));
   }
 
   &--box {
