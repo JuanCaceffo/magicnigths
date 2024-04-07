@@ -1,7 +1,7 @@
-import { TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { PopupForm } from '../Popup/Popup'
 import moment from 'moment'
+import './PopupNewShow.css'
 
 export const PopupNewShow = ({
   open,
@@ -79,24 +79,24 @@ export const PopupNewShow = ({
       buttonDisabled={date<new Date()}
       content={
         <>
-          <TextField
-            label="Fecha"
-            type="date"
-            inputProps={{min: moment(new Date()).format('YYYY-MM-DD')}}
-            fullWidth
-            value={moment(date).format('YYYY-MM-DD')}
-            onChange={handleInputDateChange}
-          />
-          <TextField
-            label="Hora"
-            type="time"
-            fullWidth
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={`${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`} // Hora y minutos en el formato HH:mm
-            onChange={handleInputTimeChange}
-          />
+          <div className='input_new_show_container'>
+            <input
+              className='field field__rounded field__large text shadow--it'
+              type="date"
+              min={moment(new Date()).format('YYYY-MM-DD')}
+              value={moment(date).format('YYYY-MM-DD')}
+              onChange={handleInputDateChange}
+            />
+
+            <input
+              className='field field__rounded field__large text shadow--it'
+              type="time"
+              value={`${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`} // Hora y minutos en el formato HH:mm
+              onChange={handleInputTimeChange}
+            />
+          </div>
+          
+
           {errorMessage}
         </>
       }

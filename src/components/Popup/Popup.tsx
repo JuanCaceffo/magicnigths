@@ -29,8 +29,8 @@ export const PopupForm = ({
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <p className="subtitle2">{title}</p>
-      <DialogContent>
+      <span className="text--stronger">{title}</span>
+      <DialogContent className='popup_content'>
         {content}
       </DialogContent>
       <DialogActions>
