@@ -82,6 +82,7 @@ export const PopupNewShow = ({
           <TextField
             label="Fecha"
             type="date"
+            inputProps={{min: moment(new Date()).format('YYYY-MM-DD')}}
             fullWidth
             value={moment(date).format('YYYY-MM-DD')}
             onChange={handleInputDateChange}
