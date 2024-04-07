@@ -1,0 +1,10 @@
+.selection_panel {
+  display: flex;
+  width: 100%;
+  padding: 2em 0 2em 0;
+  font-weight: bold;
+}
+
+.selection_button {
+  margin: 0 2em 0 0;
+}
