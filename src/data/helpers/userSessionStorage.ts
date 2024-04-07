@@ -7,6 +7,8 @@ class UserSessionStorage {
   }
 
   userIsLoged = () => this.getUserId() >= 0
+
+  userIsAdmin = () => true //TODO: Implementar logica
 }
 
 export const userSessionStorage = new UserSessionStorage()

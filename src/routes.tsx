@@ -1,4 +1,4 @@
-import { createBrowserRouter, Route, Navigate } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { Home } from 'src/pages/Home/Home'
 import { Admin } from 'src/pages/Admin/Admin'
 import { Login } from 'src/pages/Login/Login'
@@ -12,16 +12,24 @@ import { userSessionStorage } from './data/helpers/userSessionStorage' // Asumie
 
 const PrivateRoute = ({ element, path }: { element: JSX.Element, path: string }) => {
   return userSessionStorage.userIsLoged() ? (
-    <Route path={path} element={element} />
+    <Page content={element} />
   ) : (
     <Navigate to="/login" replace />
+  )
+}
+
+const AdminRoute = ({ element }: { element: JSX.Element }) => {
+  return userSessionStorage.userIsAdmin() ? (
+    <Page content={element} />
+  ) : (
+    <Navigate to="/" replace />
   )
 }
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <Page content={<Home />} />,
   },
   {
     path: '/show/:id',
@@ -29,7 +37,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/admin_dashboard',
-    element: <PrivateRoute path="/admin_dashboard" element={<Admin />} />,
+    element: <AdminRoute element={<Admin />} />,
   },
   {
     path: '/login',
@@ -45,6 +53,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <NotFoundPage />,
+    element: <Page content={<NotFoundPage />} />,
   },
 ])
