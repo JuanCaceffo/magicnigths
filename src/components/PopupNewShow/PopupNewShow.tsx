@@ -26,7 +26,6 @@ export const PopupNewShow = ({
       newDate.setMonth(inputDate.getMonth())
       newDate.setDate(inputDate.getDate())
 
-      //   console.log(newDate)
       return newDate
     })
   }
@@ -40,7 +39,6 @@ export const PopupNewShow = ({
       newDate.setHours(hours)
       newDate.setMinutes(minutes)
 
-      console.log(newDate)
       return newDate
     })
   }
@@ -52,8 +50,6 @@ export const PopupNewShow = ({
     else {
       setErrorMessage('')
     }
-
-    console.log(date)
 
   }, [date]) 
 
@@ -90,7 +86,7 @@ export const PopupNewShow = ({
             InputLabelProps={{
               shrink: true,
             }}
-            value={date.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })} // Hora y minutos en el formato HH:mm
+            value={`${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`} // Hora y minutos en el formato HH:mm
             onChange={handleInputTimeChange}
           />
           {errorMessage}
