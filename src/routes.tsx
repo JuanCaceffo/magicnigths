@@ -1,35 +1,19 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 import { Home } from 'src/pages/Home/Home'
 import { Admin } from 'src/pages/Admin/Admin'
 import { Login } from 'src/pages/Login/Login'
 import { Profile } from 'src/pages/Profile/Profile'
 import { Shop } from 'src/pages/Shop/Shop'
 import { NotFoundPage } from 'src/pages/NotFound/NotFound'
-import { Page } from 'src/pages/Page/Page'
+import { Page, PrivatePage } from 'src/pages/Page/Page'
 import { Header } from 'src/components/Header/Header'
 import { ShowDetails } from 'src/components/ShowDetails/ShowDetails'
-import { userSessionStorage } from './data/helpers/userSessionStorage' // Asumiendo que este es el nombre del archivo donde se encuentra userSessionStorage
-
-const PrivateRoute = ({ element, path }: { element: JSX.Element, path: string }) => {
-  return userSessionStorage.userIsLoged() ? (
-    <Page content={element} />
-  ) : (
-    <Navigate to="/login" replace />
-  )
-}
-
-const AdminRoute = ({ element }: { element: JSX.Element }) => {
-  return userSessionStorage.userIsAdmin() ? (
-    <Page content={element} />
-  ) : (
-    <Navigate to="/" replace />
-  )
-}
+import { userSessionStorage } from './data/helpers/userSessionStorage'
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Page content={<Home />} />,
+    element: <Home />,
   },
   {
     path: '/show/:id',
@@ -37,7 +21,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/admin_dashboard',
-    element: <AdminRoute element={<Admin />} />,
+    element: <PrivatePage content={<Admin />} condition={userSessionStorage.userIsAdmin()} redirectRoute='/'/>,
   },
   {
     path: '/login',
@@ -45,14 +29,14 @@ export const router = createBrowserRouter([
   },
   {
     path: '/user_profile',
-    element: <PrivateRoute path="/user_profile" element={<Profile />} />,
+    element: <PrivatePage content={<Profile />} condition={userSessionStorage.userIsLoged()} redirectRoute='/login'/>,
   },
   {
     path: '/shop',
-    element: <PrivateRoute path="/shop" element={<Shop />} />,
+    element: <PrivatePage content={<Shop />} condition={userSessionStorage.userIsLoged()} redirectRoute='/login'/>,
   },
   {
     path: '*',
-    element: <Page content={<NotFoundPage />} />,
+    element: <NotFoundPage />,
   },
 ])
