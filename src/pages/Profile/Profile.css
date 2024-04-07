@@ -13,11 +13,6 @@
   padding-top: 3em;
 }
 
-.user_data {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-}
 .tx-aling-center {
   text-align: center;
 }
@@ -32,10 +27,12 @@
 
 .input_container {
   margin: 1em 0em;
+  display: flex;
+  flex-direction: column;
 }
 
-.input-field {
-  width: 100%;
+.field:disabled {
+  opacity: 50%;
 }
 
 .user_profile_photo {
