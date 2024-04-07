@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import CardShow from 'src/components/CardShow/CardShow'
+import CardShow from 'src/components/Card/CardShow/CardShow'
 import { Header } from 'src/components/Header/Header'
 import { Show } from 'src/data/model/Show'
 import { Page } from 'src/pages/Page/Page'

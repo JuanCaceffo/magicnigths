@@ -9,7 +9,7 @@ import { CommentsContent } from 'src/components/UserTicketsContent/CommentsConte
 import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
-import { PopupCredit } from 'src/components/PopopCredit/PopupCredit'
+import { PopupCredit } from 'src/components/PopupCredit/PopupCredit'
 
 //TODO: refactorizar componente por una solucion mas mantenible
 export const Profile = () => {
@@ -99,13 +99,10 @@ export const Profile = () => {
   }
 
   const handleAddCredit = async (creditToAdd: number) => {
-    console.log("Credito para agregar:")
-    console.log(creditToAdd)
-
     const updatedCredit = await userService.addCreditToUser(creditToAdd) // Hacer dinámico
     setCredit(updatedCredit)
   }
-  
+
   const handleOpenPupup = async () => {
     setIsPopupOpen(true)
     // const updatedCredit = await userService.addCreditToUser(100.0) // Hacer dinámico
@@ -123,7 +120,7 @@ export const Profile = () => {
             <main className="main__content_user">
               <div className="user_data_container user-flex">
                 <div className="user_data user-flex">
-                  <Avatar className="user_profile_photo" src={`/mock-imgs/user-imgs/${user.profileImg}`} />
+                  <Avatar className="user_profile_photo" src={`/images/${user.profileImg}`} />
                   <div className="input_container">
                     <h3 className="subtitle2">Nombre</h3>
                     <Input

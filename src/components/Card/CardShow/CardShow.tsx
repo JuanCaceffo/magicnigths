@@ -61,7 +61,7 @@ const CardShow: FC<CardShowProps> = ({ show, button, quantity }) => {
                 <span>Tambien van a asistir</span>
                 <div className="card-show__user-img-cnt">
                   {show.getLimitedUserImgs().map((path) => (
-                    <img key={path} className="card-show__user-img" src={path}></img>
+                    <img key={path} className="card-show__user-img" src={`/images/${path}`}></img>
                   ))}
                 </div>
                 {show.pasedLimitFriends() && <span data-testid="more-friends">+ {show.restFriends()} amigos</span>}

@@ -4,7 +4,7 @@
   align-items: center;
 }
 .comment {
-  min-width: 35em;
+  min-width: 20em;
   height: fit-content;
 
   .comment__header {
@@ -13,9 +13,14 @@
     .comment__description {
       gap: 1em;
     }
-    .comment__img {
-      width: 4em;
+    .comment__img-container {
+      height: 5em;
+      width: 5em;
+      overflow: hidden;
       border-radius: 50%;
+    }
+    .comment__img {
+      height: 100%;
     }
     .comment__state {
       gap: 1em;
