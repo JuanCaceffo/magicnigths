@@ -1,3 +1,5 @@
+import { CommentDTO } from "./CommentDTO"
+
 export interface ShowProps {
   id: number
   showImg: string
@@ -10,7 +12,7 @@ export interface ShowProps {
   prices?: number[]
   dates: Date[]
   userImageNames?: string[]
-  comments?: Comment[]
+  comments?: CommentDTO[]
   geolocation?: string
   quantity?: number
   canBeCommented?: boolean

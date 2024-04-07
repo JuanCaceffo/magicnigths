@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import CardShow from '../CardShow/CardShow'
+import CardShow from '../Card/CardShow/CardShow'
 import { useEffect } from 'react'
 import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
@@ -71,9 +71,9 @@ export const PurchasedTicketContent = () => {
                 button={
                   show.canBeCommented
                     ? {
-                        content: 'Calificar artista',
-                        whenclick: () => handleAddComment(index), //TODO: cuando tengamos el id de los tickets y groupTickets cambiar
-                      }
+                      content: 'Calificar artista',
+                      whenclick: () => handleAddComment(index), //TODO: cuando tengamos el id de los tickets y groupTickets cambiar
+                    }
                     : undefined
                 }
               />

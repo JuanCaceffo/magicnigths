@@ -25,7 +25,7 @@ const CardShow: FC<CardShowProps> = ({ show, button, quantity }) => {
     <>
       <main className="card-show">
         <header className="card-show__header">
-          <img className="card-show__img" src={`/mock-imgs/card-show-imgs/${show.showImg}`} />
+          <img className="card-show__img" src={`/images/${show.showImg}`} />
           {quantity && quantity > 1 && (
             <strong data-testid="show-amount" className="card-show__amount body">
               X{quantity}
@@ -59,7 +59,7 @@ const CardShow: FC<CardShowProps> = ({ show, button, quantity }) => {
                 <span>Tambien van a asistir</span>
                 <div className="card-show__user-img-cnt">
                   {show.getLimitedUserImgs().map((path) => (
-                    <img key={path} className="card-show__user-img" src={path}></img>
+                    <img key={path} className="card-show__user-img" src={`/images/${path}`}></img>
                   ))}
                 </div>
                 {show.pasedLimitFriends() && <span data-testid="more-friends">+ {show.restFriends()} amigos</span>}
@@ -73,10 +73,10 @@ const CardShow: FC<CardShowProps> = ({ show, button, quantity }) => {
               {show.wasPricePaid()
                 ? `Precio pagado  $${show.price}`
                 : show.prices &&
-                  `Desde ${show
-                    .getMinMaxPrices()
-                    .map((price) => `$${price}`)
-                    .join(' a ')}`}
+                `Desde ${show
+                  .getMinMaxPrices()
+                  .map((price) => `$${price}`)
+                  .join(' a ')}`}
             </strong>
             {button && (
               <Button
