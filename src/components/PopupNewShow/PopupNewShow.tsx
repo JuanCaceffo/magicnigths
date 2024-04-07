@@ -15,13 +15,16 @@ export const PopupNewShow = ({
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleInputDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputDate = new Date(event.target.value)
-    
+    const [year, month, day] = event.target.value.split('-').map(Number)
+    const inputDate = new Date(year, month - 1, day)
+
     setDate((prevDate: Date) => {
       const newDate = new Date(prevDate)
       newDate.setFullYear(inputDate.getFullYear())
       newDate.setMonth(inputDate.getMonth())
       newDate.setDate(inputDate.getDate())
+
+      //   console.log(newDate)
       return newDate
     })
   }
@@ -34,6 +37,8 @@ export const PopupNewShow = ({
       const [hours, minutes] = inputTime.split(':').map(Number) // Horas y minutos del input
       newDate.setHours(hours)
       newDate.setMinutes(minutes)
+
+      console.log(newDate)
       return newDate
     })
   }
@@ -45,6 +50,8 @@ export const PopupNewShow = ({
     else {
       setErrorMessage('')
     }
+
+    console.log(date)
 
   }, [date]) 
 
@@ -64,6 +71,7 @@ export const PopupNewShow = ({
       title="Agregar función a {band} - {showName}"
       onSave={handleSave}
       onClose={handleClose}
+      buttonDisabled={date<new Date()}
       content={
         <>
           <TextField
@@ -80,10 +88,7 @@ export const PopupNewShow = ({
             InputLabelProps={{
               shrink: true,
             }}
-            inputProps={{
-              step: 300, // intervalo de tiempo
-            }}
-            value={date.getHours() + ':' + date.getMinutes()} // Hora y minutos en el formato HH:mm
+            value={date.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })} // Hora y minutos en el formato HH:mm
             onChange={handleInputTimeChange}
           />
           {errorMessage}
