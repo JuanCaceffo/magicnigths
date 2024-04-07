@@ -4,13 +4,12 @@ import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
 import { PopupCredit } from 'src/components/PopupCredit/PopupCredit'
-import UserData from 'src/components/UserData/UserData'
-
-import './Profile.css'
-import { UserSelectionPanel } from 'src/components/UserSelectionPanel/UserSelectionPanel'
+import { UserData } from 'src/components/UserData/UserData'
+import { SelectionContent, UserSelectionPanel } from 'src/components/UserSelectionPanel/UserSelectionPanel'
 import { PurchasedTicketContent } from 'src/components/UserPurchasedTicketContent/PurchasedTicketContent'
 import { FriendsContent } from 'src/components/UserFriendsContent/FriendsContent'
 import { CommentsContent } from 'src/components/UserTicketsContent/CommentsContent'
+import './Profile.css'
 
 export const Profile = () => {
   const [user, setUser] = useState(new User('', '', '', '', new Date(), 0))
@@ -145,10 +144,3 @@ export const Profile = () => {
   )
 }
 
-enum SelectionContent {
-  PURCHASED_TICKET,
-  FRIENDS,
-  COMMENTS,
-}
-
-export default Profile
