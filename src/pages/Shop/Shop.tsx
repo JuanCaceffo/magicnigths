@@ -4,18 +4,18 @@ import { Header } from 'src/components/Header/Header'
 import { Show } from 'src/data/model/Show'
 import { Page } from 'src/pages/Page/Page'
 import './Shop.scss'
-import { userService } from 'src/services/UserService'
 import { AxiosError } from 'axios'
+import { cartService } from 'src/services/CartService'
 
 export const Shop = () => {
   const [ticketsShow, setTicketsShow] = useState<Show[]>([])
   const [price, setPrice] = useState<number>(0)
 
   const fetchTicketData = async () => {
-    userService.reservedTicketsPrice().then((price) => {
+    cartService.reservedTicketsPrice().then((price) => {
       setPrice(price)
     })
-    userService.getReservedTickets().then((data) => {
+    cartService.getReservedTickets().then((data) => {
       setTicketsShow(data)
     })
   }
@@ -25,7 +25,7 @@ export const Shop = () => {
   }, [])
 
   const pruchaseTickets = async () => {
-    userService
+    cartService
       .pruchaseReservedTickets()
       .then(() => {
         console.log('Lanzar snackbar felicitando la compra de tickets')
@@ -38,7 +38,7 @@ export const Shop = () => {
   }
 
   const removeAllReservedTickets = async () => {
-    await userService.removeReservedTickets().then(() => {
+    await cartService.removeReservedTickets().then(() => {
       console.log('Lanzar snackbar avisando que los tickets se removieron con exito')
       fetchTicketData()
     })
