@@ -111,7 +111,7 @@ export const Profile = () => {
               handleSaveClick={handleSaveClick}
             />
             <div className="user_credit_container">
-              <h3 className="text--md tx-aling-center" data-testid="credit">
+              <h3 className="text--md tx-aling-center credit" data-testid="credit">
                 Crédito ${credit}
               </h3>
               <button className="button add_credit-user-button" onClick={handleOpenPupup}>

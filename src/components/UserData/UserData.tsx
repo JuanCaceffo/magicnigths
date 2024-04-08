@@ -1,5 +1,6 @@
 import { Avatar } from '@mui/material'
 import { User } from 'src/data/model/User'
+import './UserData.css'
 
 interface UserDataProps {
     user: User
@@ -21,6 +22,7 @@ export const UserData: React.FC<UserDataProps> = ({ user, handleInputChange, han
           placeholder="Nombre"
           value={user.name}
           onChange={handleInputChange}
+          style={{ width: '100%' }} 
         />
       </div>
       <div className="input_container">

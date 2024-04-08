@@ -7,37 +7,16 @@
   padding: var(--box-padding);
 }
 
-.user_data_container {
-  width: 25%;
-  padding: 0 1em;
-  padding-top: 3em;
-}
-
 .tx-aling-center {
   text-align: center;
-}
-.user_profile_photo {
-  margin-left: auto; /* Mueve el objeto hacia la derecha */
-  margin-right: auto;
 }
 
 .user_display_container {
   width: 75%;
 }
 
-.input_container {
-  margin: 1em 0em;
-  display: flex;
-  flex-direction: column;
-}
-
 .field:disabled {
   opacity: 50%;
-}
-
-.user_profile_photo {
-  width: 15rem;
-  height: 15rem;
 }
 
 .content_container {
@@ -62,6 +41,10 @@
   border-radius: var(--border-radius-md);
 }
 
+.credit {
+  padding: 1em 0em;
+}
+
 .css-ueukts-MuiButtonBase-root-MuiToggleButton-root.Mui-selected {
   font-weight: bolder;
 }
@@ -79,5 +62,5 @@
 }
 
 main {
-  max-height: 80vh; /* Establece la altura máxima como el 100% de la altura de la ventana visible */
+  max-height: 80vh;
 }
