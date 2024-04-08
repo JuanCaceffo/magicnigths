@@ -1,4 +1,5 @@
 import { ToggleButton, ToggleButtonGroup } from '@mui/material'
+import './UserSelectionPanel.css'
 
 interface SelectionPanelProps {
   content: SelectionContent

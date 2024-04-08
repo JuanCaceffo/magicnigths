@@ -1,8 +1,7 @@
 .selection_panel {
   display: flex;
   width: 100%;
-  padding: 2em 0 2em 0;
-  font-weight: bold;
+  justify-content: space-around;
 }
 
 .selection_button {
