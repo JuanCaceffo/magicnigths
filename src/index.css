@@ -5,6 +5,7 @@
 @import url('./styles/icon.scss');
 @import url('./styles/button.scss');
 @import url('./styles/input.scss');
+@import url('./styles/centered.scss');
 
 :root {
   /* Default Heights*/
@@ -14,30 +15,29 @@
   --element-height: 2.8rem;
 
   /* Colors */
-  --color-primary: hsla(344, 66%, 25%, 1);
-  --color-secondary: hsla(344, 90%, 39%, 1);
-  --color-tertiary: hsla(344, 65%, 85%, 1);
-  --color-tertiary-lighter: hsla(197, 96%, 65%, 1);
+  --color-primary-background: hsla(344,100%,97%,1);
+  --color-primary-lighter: hsla(344, 65%, 85%, 1);
+  --color-primary: hsla(344, 90%, 39%, 1);
+  --color-primary-darker: hsla(344, 66%, 25%, 1);
+  --color-secondary-lighter: hsla(224, 72%, 70%, 1);
+  --color-secondary: hsla(224, 72%, 46%, 1);
+  --color-secondary-darker: hsla(224, 72%, 34%, 1);
+  
   /* Poin of Interest Color */
-  --color-highligthed: hsla(32, 100%, 50%, 1);
-  --color-focus: hsla(32, 100%, 65%, 1);
-  --color-focus-lighter: hsla(36, 100%, 90%, 1);
+  --color-focus: hsla(32, 100%, 50%, 1);  
   --color-hot: hsla(0, 80%, 50%, 1);
+  
   /* Brigth Colors */
-  --color-clear: hsla(0, 0%, 99%, 1);
-  --color-clear-medium: hsla(0, 0%, 96%, 1);
-  --color-clear-dark: hsla(0, 0%, 94%, 1);
-  --color-clear-2dark: hsla(0, 0%, 84%, 1);
-  --color-clear-variant: hsla(32, 100%, 97%, 1);
-
+  --color-white: hsla(0, 0%, 99%, 1);
+  --color-white-variant: hsla(0, 0%, 96%, 1);
+  
   /* Text & Typeface */
-  --text-color-2lighter: hsla(344, 20%, 75%, 1);
-  --text-color-lighter: hsla(344, 20%, 55%, 1);
-  --text-color: hsla(344, 30%, 10%, 1);
-  --text-color-medium: hsla(344, 25%, 35%, 1);
+  --text-color-lighter: hsla(344, 70%, 22%, 1);
+  --text-color: hsla(344, 90%, 10%, 1);
+  --text-color-medium: hsla(344, 80%, 15%, 1);
   
   /* Card Background Color */
-  --gradient-primary: linear-gradient(to right, var(--color-secondary) 20%, var(--color-primary) 80%);
+  --gradient-primary: linear-gradient(to right, var(--color-primary) 20%, var(--color-secondary-darker) 80%);
   --card-bg-gradient: linear-gradient(to top, var(--color-clear) 15%, rgba(0, 0, 0, 0.05));
   --user-info-background: linear-gradient(to bottom, var(--color-clear-medium), var(--color-clear));
   /* Fonts */
@@ -48,23 +48,15 @@
   --border-radius-sm: 0.3rem;
   --border-radius: 0.5rem;
   --border-radius-md: 1rem;
-  --border-radius-xl: 1.5rem;
+  --border-radius-xl: 1.5rem;   
     
-  /* Box Shadow */
-  --box-shadow-xs: 0rem 0.1rem 0.4rem rgba(0, 0, 0, 0.2);
-  --box-shadow: 0rem 0.4rem 1rem -0.2rem rgba(0, 0, 0, 0.2);
-  --box-shadow-md: 0.25rem 0.25rem 1.2rem rgba(0, 0, 0, 0.3);
-  --box-shadow-xl: 0.5rem 0.5rem 2rem rgba(0, 0, 0, 0.3);
-  --box-shadow-line: 0rem 0.4rem 0.6rem -0.5rem rgba(0, 70, 128, 0.3);
-  --box-shadow-hover: 0rem 2rem 2rem -1.5rem rgba(0, 0, 0, 0.3);
-  
-  /* Box Padding */
-  --box-padding: 1.6rem;
+  /* Padding */  
   --padding-xs: 0.8rem;
   --padding: 1.6rem;
   
   /* Animations */
-  --transition-time: 0.5s;
+  --transition-fast: 0.5s;
+  --transition-slow: 1s;
   --translateY: -8%;
 }
 
@@ -81,6 +73,7 @@ html {
   color: var(--text-color);
 }
 
+/* Font Awesome special css */
 .fa-lp {
   padding-left: 0.15em;
 }

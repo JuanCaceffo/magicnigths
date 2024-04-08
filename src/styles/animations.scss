@@ -1,0 +1,18 @@
+.animated {
+  transition: all var(--transition-fast) ease;
+
+  &--slow {
+    transition: all var(--transition-slow) ease;
+  }
+
+  &__primary {
+  }
+
+  &__secondary {
+  }
+  &.animated__primary:hover {
+  }
+
+  &.animated__secondary:hover {
+  }
+}

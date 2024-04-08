@@ -4,7 +4,7 @@
 }
 .main__content_user {
   display: flex;
-  padding: var(--box-padding);
+  padding: var(--padding);
 }
 
 .user_data_container {

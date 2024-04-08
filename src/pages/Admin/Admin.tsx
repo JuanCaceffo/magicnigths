@@ -30,11 +30,13 @@ export const Admin = () => {
         await showService.getShowById(showId).then((value) => {
           setShow(value)
         })
-      }, 500)
+      }, 450)
     } catch (err) {
       console.log(err)
     }
   }
+
+  const handleAddDate = () => {}
 
   const cardList = () => {
     return shows.map((show) => <CardShowAdmin key={show.id} show={show} />)
@@ -54,10 +56,18 @@ export const Admin = () => {
     <Page
       header={<Header />}
       content={
-        <article className="admin main__content">
+        <article className="main__content admin">
           <section className="admin__shows">{cardList()}</section>
           <section className="admin__dates">
-            <Carousel elements={dateList()} maxElements={1} />
+            <span className="admin__date-item centered" /> {/*wrapper item no borrar*/}
+            <span className="admin__date-center-item flex">
+              <Carousel elements={dateList()} maxElements={3} />
+            </span>
+            <span className="admin__date-item centered">
+              <a className="button button--circle button--animated" onClick={handleAddDate}>
+                +
+              </a>
+            </span>
           </section>
           <section className="admin__stats"></section>
         </article>

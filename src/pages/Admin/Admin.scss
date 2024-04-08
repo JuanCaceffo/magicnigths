@@ -17,21 +17,41 @@
   &__dates {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     width: 100%;
     gap: var(--padding-xs);
     padding: var(--padding);
   }
 
+  &__date-item {
+    flex: 0.1;
+  }
+
+  &__date-center-item {
+    flex: 1;
+  }
+
+  &__add-button {
+    font-family: var(--typeface-secondary);
+    width: 1.2em;
+    height: 1.2em;
+    font-size: 3.5em;
+    background-color: var(--color-highligthed);
+    border-radius: 50%;
+
+    &:hover {
+    }
+  }
+
   &__stats {
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 800px) {
     &__shows {
       grid-template-columns: 1fr;
     }
   }
-  @media (max-width: 1280px) and (min-width: 701px) {
+  @media (max-width: 1280px) and (min-width: 801px) {
     &__shows {
       grid-template-columns: 1fr 1fr;
     }
