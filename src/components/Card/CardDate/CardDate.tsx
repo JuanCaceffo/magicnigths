@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import './CardDate.scss'
 import { format } from 'date-fns'
 
@@ -9,14 +10,15 @@ interface CardDateProps {
   className?: string
 }
 
-const CardDate = (props: CardDateProps) => {
-  const { date, isSelected = false, isDisable = false, handleClick, className = "" } = props
+const CardDate = forwardRef<HTMLDivElement, CardDateProps>((props: CardDateProps, ref) => {
+  const { date, isSelected = false, isDisable = false, handleClick, className = '' } = props
 
   return (
     <article
       data-testid="cardDate"
       className={`card-date flex text--md ${isSelected ? 'card-date--active' : ''} ${isDisable ? 'card-date--disabled' : ''} ${className}`}
       onClick={() => handleClick!(date)}
+      ref={ref}
     >
       <section className="flex">
         <strong className="card-date__day">{format(date, 'eeee')}</strong>
@@ -25,6 +27,6 @@ const CardDate = (props: CardDateProps) => {
       <span className="card-date__hs">{format(date, 'k:m')}</span>
     </article>
   )
-}
+})
 
 export default CardDate

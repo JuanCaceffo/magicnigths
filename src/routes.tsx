@@ -36,10 +36,6 @@ export const router = createBrowserRouter([
     element: <Shop />,
   },
   {
-    path: '/carousel',
-    element: <Carousel />,
-  },
-  {
     path: '*',
     element: <NotFoundPage />,
   },
