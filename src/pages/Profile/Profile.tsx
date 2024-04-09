@@ -1,7 +1,4 @@
 import { Avatar, Divider, Input, ToggleButton, ToggleButtonGroup } from '@mui/material'
-import { Header } from 'src/components/Header/Header'
-import { Page } from 'src/pages/Page/Page'
-import './Profile.css'
 import { PurchasedTicketContent } from 'src/components/UserPurchasedTicketContent/PurchasedTicketContent'
 import { useEffect, useState } from 'react'
 import { FriendsContent } from 'src/components/UserFriendsContent/FriendsContent'
@@ -10,6 +7,7 @@ import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
 import { PopupCredit } from 'src/components/PopupCredit/PopupCredit'
+import './Profile.css'
 
 //TODO: refactorizar componente por una solucion mas mantenible
 export const Profile = () => {
@@ -110,112 +108,108 @@ export const Profile = () => {
   }
 
   return (
-    <>
-      <Page
-        header={<Header />}
-        content={
-          errorMessage ? ( // Mostrar mensaje de error si hay un mensaje en errorMessage
-            <p className="error-message error">{errorMessage}</p>
-          ) : (
-            <main className="main__content_user">
-              <div className="user_data_container user-flex">
-                <div className="user_data user-flex">
-                  <Avatar className="user_profile_photo" src={`/images/${user.profileImg}`} />
-                  <div className="input_container">
-                    <h3 className="subtitle2">Nombre</h3>
-                    <Input
-                      className="input-field"
-                      name="name"
-                      data-testid="name"
-                      placeholder="Nombre"
-                      value={user.name}
-                      onChange={handleInputChange}
-                    ></Input>
-                  </div>
-                  <div className="input_container">
-                    <h3 className="subtitle2">Apellidos</h3>
-                    <Input
-                      className="input-field"
-                      name="surname"
-                      data-testid="surname"
-                      placeholder="Apellidos"
-                      value={user.surname}
-                      onChange={handleInputChange}
-                    ></Input>
-                  </div>
-                  <div className="input_container">
-                    <h3 className="subtitle2">Fecha de nacimiento</h3>
-                    <Input
-                      className="input-field"
-                      placeholder="Fecha de nacimiento"
-                      name="birthday"
-                      data-testid="birthday"
-                      value={user.birthday.toLocaleDateString('es-ES')}
-                      onChange={handleInputChange}
-                      disabled
-                    ></Input>
-                  </div>
-                  <h3 className="user__age tx-aling-center user-flex text--xl" data-testid="age">
+    <>{
+      errorMessage ? ( // Mostrar mensaje de error si hay un mensaje en errorMessage
+        <p className="error-message error">{errorMessage}</p>
+      ) : (
+        <main className="main__content_user">
+          <div className="user_data_container user-flex">
+            <div className="user_data user-flex">
+              <Avatar className="user_profile_photo" src={`/images/${user.profileImg}`} />
+              <div className="input_container">
+                <h3 className="subtitle2">Nombre</h3>
+                <Input
+                  className="input-field"
+                  name="name"
+                  data-testid="name"
+                  placeholder="Nombre"
+                  value={user.name}
+                  onChange={handleInputChange}
+                ></Input>
+              </div>
+              <div className="input_container">
+                <h3 className="subtitle2">Apellidos</h3>
+                <Input
+                  className="input-field"
+                  name="surname"
+                  data-testid="surname"
+                  placeholder="Apellidos"
+                  value={user.surname}
+                  onChange={handleInputChange}
+                ></Input>
+              </div>
+              <div className="input_container">
+                <h3 className="subtitle2">Fecha de nacimiento</h3>
+                <Input
+                  className="input-field"
+                  placeholder="Fecha de nacimiento"
+                  name="birthday"
+                  data-testid="birthday"
+                  value={user.birthday.toLocaleDateString('es-ES')}
+                  onChange={handleInputChange}
+                  disabled
+                ></Input>
+              </div>
+              <h3 className="user__age tx-aling-center user-flex text--xl" data-testid="age">
                     Edad: {age} años
-                  </h3>
-                  <div className="input_container">
-                    <h3 className="subtitle2">DNI</h3>
-                    <Input
-                      className="input-field"
-                      placeholder="DNI"
-                      name="dni"
-                      data-testid="dni"
-                      value={user.dni}
-                      onChange={handleInputChange}
-                      disabled
-                    ></Input>
-                  </div>
-                  <button className="button save-user-data-button" onClick={handleSaveClick}>
+              </h3>
+              <div className="input_container">
+                <h3 className="subtitle2">DNI</h3>
+                <Input
+                  className="input-field"
+                  placeholder="DNI"
+                  name="dni"
+                  data-testid="dni"
+                  value={user.dni}
+                  onChange={handleInputChange}
+                  disabled
+                ></Input>
+              </div>
+              <button className="button save-user-data-button" onClick={handleSaveClick}>
                     Guardar
-                  </button>
-                </div>
-                <div className="user_credit_container">
-                  <h3 className="text--xl tx-aling-center" data-testid="credit">
+              </button>
+            </div>
+            <div className="user_credit_container">
+              <h3 className="text--xl tx-aling-center" data-testid="credit">
                     Crédito ${credit}
-                  </h3>
-                  <button className="button add_credit-user-button" onClick={handleOpenPupup}>
+              </h3>
+              <button className="button add_credit-user-button" onClick={handleOpenPupup}>
                     Sumar crédito
-                  </button>
-                </div>
-              </div>
-              <div className="user_display_container">
-                <ToggleButtonGroup
-                  value={content}
-                  exclusive
-                  onChange={(_event, newValue) => setContent(newValue)}
-                  className="selection_panel"
-                >
-                  <ToggleButton
-                    value={SelectionContent.PURCHASED_TICKET}
-                    className="subtitle selection_button"
-                    disableRipple
-                  >
+              </button>
+            </div>
+          </div>
+          <div className="user_display_container">
+            <ToggleButtonGroup
+              value={content}
+              exclusive
+              onChange={(_event, newValue) => setContent(newValue)}
+              className="selection_panel"
+            >
+              <ToggleButton
+                value={SelectionContent.PURCHASED_TICKET}
+                className="subtitle selection_button"
+                disableRipple
+              >
                     Entradas compradas
-                  </ToggleButton>
-                  <ToggleButton value={SelectionContent.FRIENDS} className="subtitle2 selection_button" disableRipple>
+              </ToggleButton>
+              <ToggleButton value={SelectionContent.FRIENDS} className="subtitle2 selection_button" disableRipple>
                     Amigos
-                  </ToggleButton>
-                  <ToggleButton value={SelectionContent.COMMENTS} className="subtitle2 selection_button" disableRipple>
+              </ToggleButton>
+              <ToggleButton value={SelectionContent.COMMENTS} className="subtitle2 selection_button" disableRipple>
                     Comentario
-                  </ToggleButton>
-                </ToggleButtonGroup>
-                <Divider></Divider>
-                <div className="content_container">
-                  {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
-                  {content === SelectionContent.FRIENDS && <FriendsContent />}
-                  {content === SelectionContent.COMMENTS && <CommentsContent />}
-                </div>
-                {isPopupOpen && <PopupCredit open={isPopupOpen} onSave={(creditToAdd) => handleAddCredit(creditToAdd)} onClose={() => setIsPopupOpen(false)} />}
-              </div>
-            </main>
-          )
-        }
-      />
+              </ToggleButton>
+            </ToggleButtonGroup>
+            <Divider></Divider>
+            <div className="content_container">
+              {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
+              {content === SelectionContent.FRIENDS && <FriendsContent />}
+              {content === SelectionContent.COMMENTS && <CommentsContent />}
+            </div>
+            {isPopupOpen && <PopupCredit open={isPopupOpen} onSave={(creditToAdd) => handleAddCredit(creditToAdd)} onClose={() => setIsPopupOpen(false)} />}
+          </div>
+        </main>
+      )
+    }
     </>
   )
 }

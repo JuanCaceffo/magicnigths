@@ -5,9 +5,10 @@ import { Login } from 'src/pages/Login/Login'
 import { Profile } from 'src/pages/Profile/Profile'
 import { Shop } from 'src/pages/Shop/Shop'
 import { NotFoundPage } from 'src/pages/NotFound/NotFound'
-import { Page } from 'src/pages/Page/Page'
+import { Page, PrivatePage } from 'src/pages/Page/Page'
 import { Header } from 'src/components/Header/Header'
 import { ShowDetails } from 'src/components/ShowDetails/ShowDetails'
+import { userSessionStorage } from './data/helpers/userSessionStorage'
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/admin_dashboard',
-    element: <Admin />,
+    element: <PrivatePage header={<Header />} content={<Admin />} condition={userSessionStorage.userIsAdmin()} redirectRoute='/'/>,
   },
   {
     path: '/login',
@@ -28,11 +29,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/user_profile',
-    element: <Profile />,
+    element: <PrivatePage header={<Header />} content={<Profile />} condition={userSessionStorage.userIsLoged()} redirectRoute='/login'/>,
   },
   {
     path: '/shop',
-    element: <Shop />,
+    element: <PrivatePage header={<Header />} content={<Shop />} condition={userSessionStorage.userIsLoged()} redirectRoute='/login'/>,
   },
   {
     path: '*',
