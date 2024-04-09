@@ -5,11 +5,12 @@ import { Login } from 'src/pages/Login/Login'
 import { Profile } from 'src/pages/Profile/Profile'
 import { Shop } from 'src/pages/Shop/Shop'
 import { NotFoundPage } from 'src/pages/NotFound/NotFound'
-import { Page, PrivatePage } from 'src/pages/Page/Page'
+import { Page } from 'src/pages/Page/Page'
 import { Header } from 'src/components/Header/Header'
 import { ShowDetails } from 'src/components/ShowDetails/ShowDetails'
-import { userSessionStorage } from './data/helpers/userSessionStorage'
+import { ProtectedRouter } from './components/RequireAuth/RequireAuth'
 
+//TODO: refactorizar page por anidamiento de ruta
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -17,11 +18,19 @@ export const router = createBrowserRouter([
   },
   {
     path: '/show/:id',
-    element: <Page header={<Header />} content={<ShowDetails />} />,
+    element: (
+      <ProtectedRouter>
+        <Page header={<Header />} content={<ShowDetails />} />
+      </ProtectedRouter>
+    ),
   },
   {
     path: '/admin_dashboard',
-    element: <PrivatePage header={<Header />} content={<Admin />} condition={userSessionStorage.userIsAdmin()} redirectRoute='/'/>,
+    element: (
+      <ProtectedRouter>
+        <Page header={<Header />} content={<Admin />} />,
+      </ProtectedRouter>
+    ),
   },
   {
     path: '/login',
@@ -29,11 +38,19 @@ export const router = createBrowserRouter([
   },
   {
     path: '/user_profile',
-    element: <PrivatePage header={<Header />} content={<Profile />} condition={userSessionStorage.userIsLoged()} redirectRoute='/login'/>,
+    element: (
+      <ProtectedRouter>
+        <Page header={<Header />} content={<Profile />} />,
+      </ProtectedRouter>
+    ),
   },
   {
     path: '/shop',
-    element: <PrivatePage header={<Header />} content={<Shop />} condition={userSessionStorage.userIsLoged()} redirectRoute='/login'/>,
+    element: (
+      <ProtectedRouter>
+        <Page header={<Header />} content={<Shop />} />,
+      </ProtectedRouter>
+    ),
   },
   {
     path: '*',
