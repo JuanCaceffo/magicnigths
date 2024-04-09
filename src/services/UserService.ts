@@ -79,33 +79,6 @@ class UserService {
     return purchasedTickets
   }
 
-  async getReservedTickets(): Promise<Show[]> {
-    const showPropsList = await axios.get<ShowProps[]>(
-      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/reserved-tickets`,
-    )
-
-    return showPropsList.data.map((props) => new Show(props))
-  }
-
-  async pruchaseReservedTickets() {
-    return await axios.put(
-      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/purchase-reserved-tickets`,
-    )
-  }
-
-  async removeReservedTickets() {
-    return await axios.put(
-      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/remove-reserved-tickets`,
-    )
-  }
-
-  async reservedTicketsPrice(): Promise<number> {
-    const price = await axios.get<number>(
-      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/reserved-tickets-price`,
-    )
-    return price.data
-  }
-
   async getComments(): Promise<CommentDTO[]> {
     return (
       await axios.get<CommentDTO[]>(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/comments`)
