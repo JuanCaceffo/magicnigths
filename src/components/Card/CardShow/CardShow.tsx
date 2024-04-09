@@ -25,12 +25,14 @@ const CardShow: FC<CardShowProps> = ({ show, button, quantity }) => {
     <>
       <main className="card-show">
         <header className="card-show__header">
-          <img className="card-show__img" src={`/images/${show.showImg}`} />
-          {quantity && quantity > 1 && (
-            <strong data-testid="show-amount" className="card-show__amount body">
-              X{quantity}
-            </strong>
-          )}
+          <img className="card-show__img" src={`/mock-imgs/card-show-imgs/${show.showImg}`} />
+          {quantity
+            ? quantity > 1 && (
+                <strong data-testid="show-amount" className="card-show__amount body">
+                  X{quantity}
+                </strong>
+              )
+            : undefined}
         </header>
         <section className="card-show__cont card-show--flex">
           <header className="card-show--flex subtitle2">
@@ -73,10 +75,10 @@ const CardShow: FC<CardShowProps> = ({ show, button, quantity }) => {
               {show.wasPricePaid()
                 ? `Precio pagado  $${show.price}`
                 : show.prices &&
-                `Desde ${show
-                  .getMinMaxPrices()
-                  .map((price) => `$${price}`)
-                  .join(' a ')}`}
+                  `Desde ${show
+                    .getMinMaxPrices()
+                    .map((price) => `$${price}`)
+                    .join(' a ')}`}
             </strong>
             {button && (
               <Button

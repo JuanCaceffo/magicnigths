@@ -68,6 +68,7 @@ export const PurchasedTicketContent = () => {
             <div key={index}>
               <CardShow
                 show={show}
+                quantity={show.quantity}
                 button={
                   show.canBeCommented
                     ? {
