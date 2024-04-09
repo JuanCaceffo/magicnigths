@@ -53,10 +53,18 @@ export const PopupComment = ({
         />
       </DialogContent>
       <DialogActions>
-        <button className="button button__secondary" onClick={handleClose} color="secondary">
+        <button
+          className="button button--secondary button--rounded text--strong text--spaced animated shadow--box"
+          onClick={handleClose}
+          color="secondary"
+        >
           Cancelar
         </button>
-        <button className="button" onClick={handleSave} color="primary">
+        <button
+          className="button button--primary button--rounded text--strong animated text--spaced"
+          onClick={handleSave}
+          color="primary"
+        >
           Guardar
         </button>
       </DialogActions>

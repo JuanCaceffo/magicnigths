@@ -62,22 +62,20 @@ export const ShowDetails = () => {
             <div className="show-details__info text text--md">
               <div className="show-details__info-item">
                 <span className="text--stronger">
-                  <i className="fas fa-star fa-rp" />
+                  <i className="fas fa-star fa--rp fa--up" />
                   {`${show.rating} Puntos - `}
                 </span>
                 <span>{`${show.totalComments} Opiniones`}</span>
               </div>
               <span className="show-details__info-item text--stronger">
-                <i className="fas fa-compass fa-rp" />
-                {show.facilityName}
+                <i className="fas fa-compass fa--rp" />
+                <span>{show.facilityName}</span>
               </span>
               <span className="show-details__info-item">{show.geolocation}</span>
             </div>
           </header>
           <section className="show-details__body">
-            {/* <section className="show-details__img"> */}
             <img className="show-details__img" src={`/images/${show.showImg}`} />
-            {/* </section> */}
             <section className="show-details__buybox">
               <div className="show-details__dates shadow shadow--line">
                 {show.dates.map((date, index) => (

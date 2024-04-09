@@ -1,22 +1,15 @@
 .card-admin {
   display: flex;
   height: 10em;
-  transition: all var(--transition-time) ease;
+  transition: all var(--transition-slow) ease;
   border-radius: var(--border-radius);
   overflow: hidden;
   background-color: var(--color-white);
 
-  &__img-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    height: 100%;
-    max-width: 13em;
-  }
-
   &__img {
     height: 100%;
+    object-fit: cover;
+    max-width: 13em;
   }
 
   &__info {
@@ -41,6 +34,6 @@
 
   &:hover {
     transform: translateY(var(--translateY));
-    box-shadow: var(--box-shadow-hover);
+    box-shadow: 0rem 2rem 1.8rem -1.4rem rgba(0, 0, 0, 0.3);
   }
 }

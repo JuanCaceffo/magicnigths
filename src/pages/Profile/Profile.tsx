@@ -123,9 +123,9 @@ export const Profile = () => {
                 <div className="user_data user-flex">
                   <Avatar className="user_profile_photo" src={`/images/${user.profileImg}`} />
                   <div className="input_container">
-                    <h3 className="subtitle2">Nombre</h3>
+                    <h3 className="text text--strong text--md">Nombre</h3>
                     <Input
-                      className="input-field"
+                      className="input-field text"
                       name="name"
                       data-testid="name"
                       placeholder="Nombre"
@@ -134,9 +134,9 @@ export const Profile = () => {
                     ></Input>
                   </div>
                   <div className="input_container">
-                    <h3 className="subtitle2">Apellidos</h3>
+                    <h3 className="text text--strong text--md">Apellidos</h3>
                     <Input
-                      className="input-field"
+                      className="input-field text"
                       name="surname"
                       data-testid="surname"
                       placeholder="Apellidos"
@@ -145,10 +145,9 @@ export const Profile = () => {
                     ></Input>
                   </div>
                   <div className="input_container">
-                    <h3 className="subtitle2">Fecha de nacimiento</h3>
+                    <h3 className="text text--strong text--md">Fecha de nacimiento</h3>
                     <Input
-                      className="input-field"
-                      placeholder="Fecha de nacimiento"
+                      className="input-field text"
                       name="birthday"
                       data-testid="birthday"
                       value={user.birthday.toLocaleDateString('es-ES')}
@@ -160,10 +159,9 @@ export const Profile = () => {
                     Edad: {age} años
                   </h3>
                   <div className="input_container">
-                    <h3 className="subtitle2">DNI</h3>
+                    <h3 className="text text--strong text--md">DNI</h3>
                     <Input
-                      className="input-field"
-                      placeholder="DNI"
+                      className="input-field text"
                       name="dni"
                       data-testid="dni"
                       value={user.dni}
@@ -171,7 +169,10 @@ export const Profile = () => {
                       disabled
                     ></Input>
                   </div>
-                  <button className="button save-user-data-button" onClick={handleSaveClick}>
+                  <button
+                    className="save-user-data-button button button--primary button--rounded animated text--spaced text--strong shadow--box"
+                    onClick={handleSaveClick}
+                  >
                     Guardar
                   </button>
                 </div>
@@ -179,7 +180,10 @@ export const Profile = () => {
                   <h3 className="text--xl tx-aling-center" data-testid="credit">
                     Crédito ${credit}
                   </h3>
-                  <button className="button add_credit-user-button" onClick={handleOpenPupup}>
+                  <button
+                    className="add_credit-user-button button button--primary button--rounded animated text--spaced text--strong shadow--box"
+                    onClick={handleOpenPupup}
+                  >
                     Sumar crédito
                   </button>
                 </div>
@@ -193,19 +197,27 @@ export const Profile = () => {
                 >
                   <ToggleButton
                     value={SelectionContent.PURCHASED_TICKET}
-                    className="subtitle selection_button"
+                    className="selection_button text text--strong text--md"
                     disableRipple
                   >
                     Entradas compradas
                   </ToggleButton>
-                  <ToggleButton value={SelectionContent.FRIENDS} className="subtitle2 selection_button" disableRipple>
+                  <ToggleButton
+                    value={SelectionContent.FRIENDS}
+                    className="selection_button text text--strong text--md"
+                    disableRipple
+                  >
                     Amigos
                   </ToggleButton>
-                  <ToggleButton value={SelectionContent.COMMENTS} className="subtitle2 selection_button" disableRipple>
+                  <ToggleButton
+                    value={SelectionContent.COMMENTS}
+                    className="selection_button text text--strong text--md"
+                    disableRipple
+                  >
                     Comentario
                   </ToggleButton>
                 </ToggleButtonGroup>
-                <Divider></Divider>
+                <Divider />
                 <div className="content_container">
                   {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
                   {content === SelectionContent.FRIENDS && <FriendsContent />}

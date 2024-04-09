@@ -10,11 +10,11 @@ interface CommentProps {
   className?: string
 }
 
-const Comment: FC<CommentProps> = ({ className = "", comment, handleDelete }) => {
+const Comment: FC<CommentProps> = ({ className = '', comment, handleDelete }) => {
   return (
     <article className={`comment ${className}`}>
-      <header className="comment__header comment--flex">
-        <section className="comment__description comment--flex">
+      <header className="comment__header centered">
+        <section className="comment__description centered">
           <div className="comment__img-container">
             <img className="comment__img" src={`/images/${comment.imgPath}`} />
           </div>
@@ -23,12 +23,12 @@ const Comment: FC<CommentProps> = ({ className = "", comment, handleDelete }) =>
             <span>{format(comment.date, 'MMMM yyyy', { locale: es })}</span>
           </div>
         </section>
-        <section className="comment__state comment--flex">
-          <div className="comment__rating comment--flex">
+        <section className="comment__state centered">
+          <div className="comment__rating centered">
             <i className="fa-solid fa-star"></i>
             <span>{comment.rating}</span>
           </div>
-          {handleDelete && <i onClick={handleDelete} className="fa-solid fa-trash button-trash" />}
+          {handleDelete && <i onClick={handleDelete} className="fa-solid fa-trash fa--hot button-trash" />}
         </section>
       </header>
       <section>{comment.text}</section>

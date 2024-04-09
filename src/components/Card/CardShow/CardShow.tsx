@@ -1,6 +1,7 @@
 import './CardShow.scss'
 import { useState } from 'react'
 import { Show } from 'src/data/model/Show'
+import { Prices } from '../Prices/Prices'
 
 interface buttonProps {
   content: string
@@ -16,7 +17,6 @@ interface CardShowProps {
 
 const CardShow = (props: CardShowProps) => {
   const { show, button, quantity = 0 } = props
-  const { content, onClick, className = '' } = button!!
   const [showButton, setShowButton] = useState(false)
 
   const qty = () => {
@@ -48,7 +48,7 @@ const CardShow = (props: CardShowProps) => {
   }
 
   const friends = () => {
-    return !!show.totalFriends ? (
+    return (
       <section className="card__friends centered">
         <span className="text--strong">Asisten:</span>
         <span className="card__friends--img">
@@ -58,33 +58,18 @@ const CardShow = (props: CardShowProps) => {
         </span>
         {<span data-testid="more-friends">{!!show.restFriends ? `+ ${show.restFriends} amigos` : 'amigos'}</span>}
       </section>
-    ) : (
-      <>'No asisten amigos'</>
     )
   }
 
-  const price = () => {
-    return (
-      <p data-testid="show-price">
-        {show.isPurchaced()
-          ? `Valor:  $ ${show.price}`
-          : `Desde ${show
-              .reducedPrices()
-              .map((price) => `$ ${price}`)
-              .join(' a ')}`}
-      </p>
-    )
-  }
-
-  const buyButton = () => {
+  const actionButton = () => {
     return (
       button && (
         <button
-          className={`button button--primary button--rounded button--tall button--medium animated text--strong text--spaced shadow--box ${className}`}
+          className={`button button--primary button--rounded button--tall button--medium animated text--strong text--spaced shadow--box ${button.className}`}
           data-testid="show-button"
-          onClick={() => onClick(show.id)}
+          onClick={() => button.onClick(show.id)}
         >
-          {content.toUpperCase()}
+          {button.content.toUpperCase()}
         </button>
       )
     )
@@ -122,10 +107,10 @@ const CardShow = (props: CardShowProps) => {
             <p>{show.reducedDates}</p>
           </span>
         </div>
-        {friends()}
+        {!!show.totalFriends ? friends() : <p className="card__friends centered">No asisten amigos</p>}
 
         <footer className="card__footer text--md text--strong centered">
-          {showButton && button ? buyButton() : price()}
+          {showButton && button ? actionButton() : <Prices show={show} />}
         </footer>
       </section>
     </main>

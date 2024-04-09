@@ -58,10 +58,16 @@ export const Shop = () => {
           <footer className="shop__footer">
             <span className="text--md">TOTAL ${price}</span>
             <section className="shop__buttons">
-              <button className="shop__button button" onClick={pruchaseTickets}>
-                Confirmar pediodo
+              <button
+                className="shop__button button button--primary button--tall button--rounded animated shadow shadow--box"
+                onClick={pruchaseTickets}
+              >
+                Confirmar pedido
               </button>
-              <button className="shop__button button button__secondary" onClick={removeAllReservedTickets}>
+              <button
+                className="shop__button button button--secondary button--tall button--rounded animated shadow shadow--box"
+                onClick={removeAllReservedTickets}
+              >
                 Limpiar carrito
               </button>
             </section>

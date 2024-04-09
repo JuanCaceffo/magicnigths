@@ -56,7 +56,10 @@ export const Login = () => {
             />
           </div>
           {errorMessage && <span className="login__error">{errorMessage}</span>}
-          <button className="button button--tall shadow--box" type="submit">
+          <button
+            className="button button--primary button--tall button--rounded text--md text--strong text--spaced animated shadow--box"
+            type="submit"
+          >
             Ingresar
           </button>
         </form>

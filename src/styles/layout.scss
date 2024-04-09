@@ -51,7 +51,7 @@
       display: grid;
       justify-content: center;
       grid-template-columns: repeat(auto-fit, 28rem);
-      grid-template-rows: repeat(auto-fit, 34rem);
+      grid-template-rows: repeat(auto-fit, minmax(24rem, 34rem));
       gap: 4rem;
       padding: calc(2 * var(--padding));
     }

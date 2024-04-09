@@ -63,7 +63,7 @@ export const Admin = () => {
               <Carousel elements={dateList()} maxElements={3} />
             </span>
             <span className="admin__date-item centered">
-              <a className="button button--circle button--animated" onClick={handleAddDate}>
+              <a className="button button--primary button--circle shadow--box animated" onClick={handleAddDate}>
                 +
               </a>
             </span>

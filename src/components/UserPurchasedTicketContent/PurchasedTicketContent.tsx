@@ -71,9 +71,9 @@ export const PurchasedTicketContent = () => {
                 button={
                   show.canBeCommented
                     ? {
-                      content: 'Calificar artista',
-                      whenclick: () => handleAddComment(index), //TODO: cuando tengamos el id de los tickets y groupTickets cambiar
-                    }
+                        content: 'Calificar artista',
+                        onClick: handleAddComment, //TODO: cuando tengamos el id de los tickets y groupTickets cambiar
+                      }
                     : undefined
                 }
               />
