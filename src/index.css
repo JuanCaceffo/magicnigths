@@ -4,8 +4,10 @@
 @import url('./styles/shadow.scss');
 @import url('./styles/icon.scss');
 @import url('./styles/button.scss');
-@import url('./styles/input.scss');
+@import url('./styles/field.scss');
 @import url('./styles/centered.scss');
+@import url('./styles/animations.scss');
+@import url('./styles/image.scss');
 
 :root {
   /* Default Heights*/
@@ -16,15 +18,15 @@
 
   /* Colors */
   --color-primary-background: hsla(344,100%,97%,1);
-  --color-primary-lighter: hsla(344, 65%, 85%, 1);
-  --color-primary: hsla(344, 90%, 39%, 1);
-  --color-primary-darker: hsla(344, 66%, 25%, 1);
-  --color-secondary-lighter: hsla(224, 72%, 70%, 1);
-  --color-secondary: hsla(224, 72%, 46%, 1);
-  --color-secondary-darker: hsla(224, 72%, 28%, 1);
+  --color-primary-lighter: hsla(321, 70%, 50%, 1);
+  --color-primary: hsla(321, 80%, 31%,1);
+  --color-primary-darker: hsla(321, 70%, 20%, 1);
+  --color-secondary-lighter: hsla(224, 72%, 45%, 1);
+  --color-secondary: hsla(224, 72%, 33%, 1);
+  --color-secondary-darker: hsla(224, 72%, 16%, 1);
   
   /* Poin of Interest Color */
-  --color-focus: hsla(32, 100%, 50%, 1);  
+  --color-focus: rgb(255, 166, 0);  
   --color-hot: hsla(0, 80%, 50%, 1);
   
   /* Brigth Colors */
@@ -36,13 +38,13 @@
   --color-dark-variant: hsla(224, 60%, 5%, 1);
   
   /* Text & Typeface */
-  --typeface-color-lighter: hsla(344, 70%, 22%, 1);
-  --typeface-color: hsla(344, 90%, 10%, 1);
-  --typeface-color-medium: hsla(344, 80%, 15%, 1);
+  --typeface-color-lighter: hsla(321, 40%, 32%, 1);
+  --typeface-color: hsla(321, 90%, 10%, 1);
+  --typeface-color-medium: hsla(321, 80%, 15%, 1);
   
   /* Card Background Color */
   --gradient-primary: linear-gradient(to right, var(--color-primary) 20%, var(--color-secondary-darker) 80%);
-  --card-bg-gradient: linear-gradient(to top, var(--color-white) 15%, rgba(0, 0, 0, 0.05));
+  --gradient-grey-vertical: linear-gradient(to bottom, var(--color-white) 15%, rgba(0, 0, 0, 0.05));
   --user-info-background: linear-gradient(to bottom, var(--color-clear-medium), var(--color-white));
   /* Fonts */
   --typeface-primary: 'Mulish', 'Open Sans', 'Verdana', 'sans-serif';
@@ -78,16 +80,30 @@ html {
 }
 
 /* Font Awesome special css */
-.fa-lp {
-  padding-left: 0.15em;
+.fa--lp {
+  padding-left: 0.3em;
 }
 
-.fa-rp {
-  padding-right: 0.4em;
+.fa--rp {
+  padding-right: 0.3em;
 }
 
 .fa--hot {
   color: var(--color-hot);
+}
+
+.fa--up {
+  color: var(--color-focus);
+}
+
+.fa--medium {
+  color: var(--color-focus);
+  opacity: 0.7
+}
+
+.fa--low {
+  color: var(--color-focus);
+  opacity: 0.4
 }
 
 .fas--highlighted {

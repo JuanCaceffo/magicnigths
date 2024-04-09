@@ -54,7 +54,6 @@ export const Admin = () => {
 
   return (
     <Page
-      header={<Header />}
       content={
         <article className="main__content admin">
           <section className="admin__shows">{cardList()}</section>

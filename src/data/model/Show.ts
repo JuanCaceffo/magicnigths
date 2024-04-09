@@ -20,6 +20,7 @@ export class Show implements ShowProps {
   quantity?: number
   geolocation?: string
   canBeCommented: boolean
+  showedImages: number = 0
 
   constructor(private props: ShowProps) {
     this.id = this.props.id ?? ''
@@ -39,30 +40,46 @@ export class Show implements ShowProps {
     this.canBeCommented = props.canBeCommented ?? false
   }
 
-  LIMIT_FRIENDS = 3
-
   get title() {
     return `${this.bandName} - ${this.showName}`
   }
 
-  getMinMaxPrices = () => (this.prices ? [Math.min(...this.prices).toFixed(2), Math.max(...this.prices).toFixed(2)] : [])
+  reducedPrices = (decimals: number = 0) =>
+    this.prices ? [Math.min(...this.prices).toFixed(decimals), Math.max(...this.prices).toFixed(decimals)] : []
 
-  getLimitedUserImgs = () =>
-    this.pasedLimitFriends()
-      ? this.userImageNames.slice(0, this.LIMIT_FRIENDS)
-      : this.userImageNames.slice(0, this.userImageNames.length)
+  takeImages = (amount: number = 1): string[] => {
+    this.showedImages = amount
+    return this.userImageNames.slice(0, amount)
+  }
 
-  pasedLimitFriends = () => this.userImageNames.length > this.LIMIT_FRIENDS
+  get totalFriends() {
+    return this.userImageNames.length
+  }
 
-  restFriends = () => this.pasedLimitFriends() && this.userImageNames.length - this.LIMIT_FRIENDS
+  get restFriends() {
+    const rest = this.totalFriends - this.showedImages
+    return rest > 0 ? rest : 0
+  }
 
-  wasPricePaid = () => !!this.price
+  isPurchaced = () => !!this.price
 
-  firstDate = () => new Date(Math.min.apply(null, this.dates.map(date => date.getTime())))
+  firstDate = () =>
+    new Date(
+      Math.min.apply(
+        null,
+        this.dates.map((date) => date.getTime()),
+      ),
+    )
 
-  lastDate = () => new Date(Math.max.apply(null, this.dates.map(date => date.getTime())))
+  lastDate = () =>
+    new Date(
+      Math.max.apply(
+        null,
+        this.dates.map((date) => date.getTime()),
+      ),
+    )
 
-  get reducedDates(): string {
-    return `${format(this.firstDate(), 'MM/dd')} - ${format(this.lastDate(), 'MM/dd')}`
+  get reducedDates(): string[] {
+    return this.dates ? [format(this.firstDate(), 'MM/dd'), format(this.lastDate(), 'MM/dd')] : []
   }
 }

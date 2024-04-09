@@ -9,7 +9,7 @@
     padding: var(--padding-xs) var(--padding);
     display: flex;
     flex-wrap: wrap;
-    height: 8rem;
+    height: var(--header-height);
     justify-content: center;
     gap: 0.4em;
     width: 100%;
@@ -43,11 +43,8 @@
 
   &__img {
     flex: 0.4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    object-fit: cover;
     max-height: 39em;
-    overflow: hidden;
   }
 
   &__buybox {

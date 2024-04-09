@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import CardShow from 'src/components/Card/CardShow/CardShow'
-import { Header } from 'src/components/Header/Header'
 import { Show } from 'src/data/model/Show'
 import { Page } from 'src/pages/Page/Page'
 import './Shop.scss'
@@ -46,7 +45,6 @@ export const Shop = () => {
 
   return (
     <Page
-      header={<Header />}
       content={
         <main className="main__content shop">
           <article className="shop__content">

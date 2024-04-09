@@ -6,8 +6,7 @@
   width: 100%;
   height: var(--element-height);
 
-  font-family: var(--typeface-secondary);
-  font-size: 1.2em;
+  font-family: var(--typeface-primary);
   cursor: pointer;
 
   border: 1px solid;
@@ -18,8 +17,8 @@
 
   &--primary {
     color: var(--color-white);
-    border: 1px solid var(--color-secondary);
-    background-color: var(--color-secondary);
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-primary);
   }
 
   &--circle {
@@ -32,34 +31,35 @@
     border-radius: 50%;
   }
 
-  &--animated {
-    transition: color var(--transition-time) ease;
+  &.animated:hover {
+    background-color: var(--color-primary-lighter);
+    border: 1px solid var(--color-primary-lighter);
   }
 
-  &.button--animated:hover {
-    background-color: var(--color-secondary);
+  &--small {
+    max-width: 5em;
   }
 
-  &__small {
-    width: 5em;
+  &--medium {
+    max-width: 10em;
   }
 
-  &__secondary {
+  &--large {
+    max-width: 15em;
+  }
+
+  &--secondary {
     color: initial;
-    border: 1px solid var(--color-secondary);
+    border: 1px solid var(--color-primary);
     background-color: var(--color-white);
 
-    &:hover {
+    &.animated:hover {
       color: var(--color-white);
-      background-color: var(--color-secondary);
+      background-color: var(--color-primary);
     }
   }
 
   &--tall {
     height: 4.2rem;
   }
-
-  transition:
-    color var(--transition-time) ease,
-    background-color var(--transition-time) ease;
 }

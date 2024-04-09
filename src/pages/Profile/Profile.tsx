@@ -1,5 +1,4 @@
 import { Avatar, Divider, Input, ToggleButton, ToggleButtonGroup } from '@mui/material'
-import { Header } from 'src/components/Header/Header'
 import { Page } from 'src/pages/Page/Page'
 import './Profile.css'
 import { PurchasedTicketContent } from 'src/components/UserPurchasedTicketContent/PurchasedTicketContent'
@@ -99,7 +98,7 @@ export const Profile = () => {
   }
 
   const handleAddCredit = async (creditToAdd: number) => {
-    console.log("Credito para agregar:")
+    console.log('Credito para agregar:')
     console.log(creditToAdd)
 
     const updatedCredit = await userService.addCreditToUser(creditToAdd) // Hacer dinámico
@@ -115,7 +114,6 @@ export const Profile = () => {
   return (
     <>
       <Page
-        header={<Header />}
         content={
           errorMessage ? ( // Mostrar mensaje de error si hay un mensaje en errorMessage
             <p className="error-message error">{errorMessage}</p>
@@ -213,7 +211,13 @@ export const Profile = () => {
                   {content === SelectionContent.FRIENDS && <FriendsContent />}
                   {content === SelectionContent.COMMENTS && <CommentsContent />}
                 </div>
-                {isPopupOpen && <PopupCredit open={isPopupOpen} onSave={(creditToAdd) => handleAddCredit(creditToAdd)} onClose={() => setIsPopupOpen(false)} />}
+                {isPopupOpen && (
+                  <PopupCredit
+                    open={isPopupOpen}
+                    onSave={(creditToAdd) => handleAddCredit(creditToAdd)}
+                    onClose={() => setIsPopupOpen(false)}
+                  />
+                )}
               </div>
             </main>
           )

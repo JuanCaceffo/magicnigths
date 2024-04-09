@@ -38,24 +38,24 @@ export const Login = () => {
 
   return (
     <section className="main__content main__content--login">
-      <Card className="card shadow shadow--big">
-        <img className="card__logo" src="/images/logo.png" alt="Noches Magicas" />
-        <form className="card__form" onSubmit={HandleLoginClick}>
-          <div className="card__input">
+      <Card className="login shadow shadow--big">
+        <img className="login__logo" src="/images/logo.png" alt="Noches Magicas" />
+        <form className="login__form" onSubmit={HandleLoginClick}>
+          <div className="login__input">
             <label className="text text--light">Usuario</label>
-            <Input className="card__field" name="username" value={userLogin.username} onChange={handleInputChange} />
+            <Input className="login__field" name="username" value={userLogin.username} onChange={handleInputChange} />
           </div>
-          <div className="card__input">
+          <div className="login__input">
             <label className="text text--light">Contraseña</label>
             <Input
-              className="card__field"
+              className="login__field"
               type="password"
               name="password"
               value={userLogin.password}
               onChange={handleInputChange}
             />
           </div>
-          {errorMessage && <span className="card__error">{errorMessage}</span>}
+          {errorMessage && <span className="login__error">{errorMessage}</span>}
           <button className="button button--tall shadow--box" type="submit">
             Ingresar
           </button>

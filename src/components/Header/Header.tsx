@@ -21,8 +21,9 @@ export const Header = () => {
     return userSessionStorage.userIsLoged()
       ? {
           node: (
-            <section className="proflie-item">
-              <img className="profile-picture" src={`/images/${user.profileImg}`} /> {`${user.name} ${user.surname}`}
+            <section className="centered centered--spaced">
+              <img className="profile-img" src={`/images/${user.profileImg}`} />
+              <span>{`${user.username}`}</span>
             </section>
           ),
           link: '/user_profile',
@@ -30,7 +31,7 @@ export const Header = () => {
       : {
           node: (
             <>
-              <i className="fas fa-user" /> Login
+              <i className="fas fa-user fa-rp" /> Login
             </>
           ),
           link: '/login',
@@ -38,7 +39,7 @@ export const Header = () => {
   }
 
   const navbar = {
-    className: 'text text--xl text--clear text--stronger  shadow--item',
+    className: 'text text--xl text--clear text--stronger text--spaced-sm shadow--text',
     nodes: [
       {
         node: <>Home</>,
@@ -53,8 +54,8 @@ export const Header = () => {
   }
 
   return (
-    <header className="main__header shadow">
-      <Logo className="shadow--item" imgUrl={'/images/logominimal.png'} alt={'Noches Mágicas'} />
+    <header className="main__header shadow--div">
+      <Logo imgUrl={'/images/logominimal.png'} alt={'Noches Mágicas'} />
       <Navbar className={navbar.className} nodes={navbar.nodes} />
     </header>
   )

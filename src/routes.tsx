@@ -6,9 +6,7 @@ import { Profile } from 'src/pages/Profile/Profile'
 import { Shop } from 'src/pages/Shop/Shop'
 import { NotFoundPage } from 'src/pages/NotFound/NotFound'
 import { Page } from 'src/pages/Page/Page'
-import { Header } from 'src/components/Header/Header'
 import { ShowDetails } from 'src/components/ShowDetails/ShowDetails'
-import { Carousel } from './pages/Poc/Carousel'
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +15,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/show/:id',
-    element: <Page header={<Header />} content={<ShowDetails />} />,
+    element: <Page content={<ShowDetails />} />,
   },
   {
     path: '/admin_dashboard',

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Header } from 'src/components/Header/Header'
 import { FilterArgs, Search } from 'src/components/Search/Search'
 import { Page } from 'src/pages/Page/Page'
 import CardShow from 'src/components/Card/CardShow/CardShow'
@@ -25,13 +24,12 @@ export const Home = () => {
 
   useOnInit(() => getAllShows({} as FilterArgs))
 
-  const handleClick = (showId: number) => {
-    navigate(`/show/${showId}`, { state: { showId: showId } })
+  const handleClick = (id: number) => {
+    navigate(`/show/${id}`)
   }
 
   return (
     <Page
-      header={<Header />}
       search={<Search onSubmit={getAllShows} />}
       content={
         <article className="main__content main__content--grid">
@@ -41,9 +39,7 @@ export const Home = () => {
               show={show}
               button={{
                 content: 'comprar',
-                whenclick: () => {
-                  handleClick(show.id)
-                },
+                onClick: handleClick,
               }}
             ></CardShow>
           ))}

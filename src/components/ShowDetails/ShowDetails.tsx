@@ -1,5 +1,5 @@
 import './ShowDetails.scss'
-import { Box, Button } from '@mui/material'
+import { Box } from '@mui/material'
 import { useState } from 'react'
 import { showService } from 'src/services/ShowService'
 import { Show } from 'src/data/model/Show'
@@ -54,7 +54,7 @@ export const ShowDetails = () => {
     <>
       {show && (
         <article className="show-details">
-          <section className="show-details__header text shadow shadow--box">
+          <header className="show-details__header text shadow shadow--div">
             <div className="show-details__name">
               <span className="text--stronger">{`${show.bandName} - `}</span>
               <span>{show.showName}</span>
@@ -73,11 +73,11 @@ export const ShowDetails = () => {
               </span>
               <span className="show-details__info-item">{show.geolocation}</span>
             </div>
-          </section>
+          </header>
           <section className="show-details__body">
-            <section className="show-details__img">
-              <img src={`/images/${show.showImg}`} />
-            </section>
+            {/* <section className="show-details__img"> */}
+            <img className="show-details__img" src={`/images/${show.showImg}`} />
+            {/* </section> */}
             <section className="show-details__buybox">
               <div className="show-details__dates shadow shadow--line">
                 {show.dates.map((date, index) => (
@@ -96,7 +96,9 @@ export const ShowDetails = () => {
                 ))}
               </Box>
               <Box className="show-details__bottom">
-                <Button className="show-details__button">Agregar al Carrito</Button>
+                <button className="button button--primary button--rounded button--tall button--large animated shadow--box text--strong text--spaced">
+                  AGREGAR AL CARRITO
+                </button>
               </Box>
             </section>
           </section>

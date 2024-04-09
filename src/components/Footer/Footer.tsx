@@ -2,7 +2,7 @@ import { Logo } from 'src/components/Logo/Logo'
 import { NodeItem } from 'src/components/Navbar/NodeItem'
 import { currentYear } from 'src/data/helpers/getYear'
 
-const textClass = 'text text--md text--clear text--strong text--spaced shadow--item'
+const textClass = 'text text--md text--clear text--strong text--spaced shadow--text'
 
 const footerLinks = [
   { node: <i className="fab fa-facebook" />, link: 'https://www.facebook.com' },
@@ -18,7 +18,7 @@ export const Footer = () => {
       {footerLinks.map((link) => (
         <NodeItem key={link.link} node={link.node} link={link.link} className={textClass} newTab={true} />
       ))}
-      <Logo className="shadow--item" imgUrl={'/images/logominimal.png'} alt={'Noches Mágicas'} />
+      <Logo className="shadow--png" imgUrl={'/images/logominimal.png'} alt={'Noches Mágicas'} />
       <span className={textClass}>/</span>
       <span className={textClass}>{currentYear()}</span>
     </footer>

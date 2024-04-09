@@ -36,11 +36,23 @@
     font-weight: 800;
   }
 
+  &--spaced-sm {
+    letter-spacing: 0.5px;
+  }
+
   &--spaced {
     letter-spacing: 1.25px;
   }
 
   &--clear {
     color: var(--color-white);
+  }
+
+  &--highlight {
+    color: var(--color-focus);
+  }
+
+  &--border {
+    text-shadow: 0 0 0.2em rgba(0, 0, 0, 1);
   }
 }

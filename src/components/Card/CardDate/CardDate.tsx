@@ -15,12 +15,12 @@ const CardDate = forwardRef<HTMLDivElement, CardDateProps>((props: CardDateProps
 
   return (
     <article
-      data-testid="cardDate"
       className={`card-date flex text--md ${isSelected ? 'card-date--active' : ''} ${isDisable ? 'card-date--disabled' : ''} ${className}`}
       onClick={() => handleClick!(date)}
       ref={ref}
+      data-testid="cardDate"
     >
-      <section className="flex">
+      <section className="centered centered--column">
         <strong className="card-date__day">{format(date, 'eeee')}</strong>
         <strong className="card-date__day-month">{format(date, 'dd/MM')}</strong>
       </section>

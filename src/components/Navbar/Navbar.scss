@@ -33,9 +33,6 @@
   &__item {
     list-style: none;
     cursor: pointer;
-    & i {
-      color: var(--color-white);
-    }
   }
 
   &__link {
@@ -43,7 +40,8 @@
   }
 
   .active {
-    color: var(--color-primary);
+    // color: var(--color-primary-lighter);
+    color: var(--color-primary-lighter);
   }
 
   @media (min-width: 480px) {
