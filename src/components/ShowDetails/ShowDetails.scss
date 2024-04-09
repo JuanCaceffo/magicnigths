@@ -1,7 +1,7 @@
 .show-details {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-clear);
+  background-color: var(--color-white);
   width: 100%;
   min-height: calc(100vh - 21rem);
 
@@ -85,7 +85,7 @@
     height: 3em;
     font-size: 1.4em;
     letter-spacing: 1.25px;
-    color: var(--color-clear);
+    color: var(--color-white);
     background-color: var(--color-secondary);
     border-radius: var(--border-radius);
     &:hover {

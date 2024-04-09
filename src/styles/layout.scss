@@ -32,7 +32,7 @@
     z-index: 1;
 
     gap: var(--padding);
-    background-color: var(--color-clear);
+    background-color: var(--color-white);
   }
 
   &__content {
@@ -53,7 +53,7 @@
       grid-template-rows: repeat(auto-fit, 28rem);
       gap: 5em;
       padding: 3em;
-      background-color: var(--color-clear);
+      background-color: var(--color-white);
     }
   }
 

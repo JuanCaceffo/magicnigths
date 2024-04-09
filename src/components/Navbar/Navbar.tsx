@@ -42,9 +42,9 @@ export const Navbar = ({ ...props }: NavbarProps) => {
   }
 
   return (
-    <nav className="navbar">
+    <nav className="navbar centered">
       {!menuOpen && (
-        <Box className={`navbar__hamburger ${props.className}`} onClick={handleMenu}>
+        <Box className={`navbar__hamburger shadow shadow__text ${props.className}`} onClick={handleMenu}>
           <i className="fas fa-bars" />
         </Box>
       )}

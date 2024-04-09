@@ -21,7 +21,7 @@
   --color-primary-darker: hsla(344, 66%, 25%, 1);
   --color-secondary-lighter: hsla(224, 72%, 70%, 1);
   --color-secondary: hsla(224, 72%, 46%, 1);
-  --color-secondary-darker: hsla(224, 72%, 34%, 1);
+  --color-secondary-darker: hsla(224, 72%, 28%, 1);
   
   /* Poin of Interest Color */
   --color-focus: hsla(32, 100%, 50%, 1);  
@@ -30,16 +30,20 @@
   /* Brigth Colors */
   --color-white: hsla(0, 0%, 99%, 1);
   --color-white-variant: hsla(0, 0%, 96%, 1);
+
+  /* Dark Colors */
+  --color-dark: hsla(0, 0%, 0%, 1);
+  --color-dark-variant: hsla(224, 60%, 5%, 1);
   
   /* Text & Typeface */
-  --text-color-lighter: hsla(344, 70%, 22%, 1);
-  --text-color: hsla(344, 90%, 10%, 1);
-  --text-color-medium: hsla(344, 80%, 15%, 1);
+  --typeface-color-lighter: hsla(344, 70%, 22%, 1);
+  --typeface-color: hsla(344, 90%, 10%, 1);
+  --typeface-color-medium: hsla(344, 80%, 15%, 1);
   
   /* Card Background Color */
   --gradient-primary: linear-gradient(to right, var(--color-primary) 20%, var(--color-secondary-darker) 80%);
-  --card-bg-gradient: linear-gradient(to top, var(--color-clear) 15%, rgba(0, 0, 0, 0.05));
-  --user-info-background: linear-gradient(to bottom, var(--color-clear-medium), var(--color-clear));
+  --card-bg-gradient: linear-gradient(to top, var(--color-white) 15%, rgba(0, 0, 0, 0.05));
+  --user-info-background: linear-gradient(to bottom, var(--color-clear-medium), var(--color-white));
   /* Fonts */
   --typeface-primary: 'Mulish', 'Open Sans', 'Verdana', 'sans-serif';
   --typeface-secondary: 'Roboto', 'Open Sans', 'Verdana', 'sans-serif';

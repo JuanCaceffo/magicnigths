@@ -1,17 +1,19 @@
 .text {
-  font-family: 'Mulish', 'Open Sans', 'Verdana', 'sans-serif';
-  color: hsla(207, 30%, 10%, 1);
+  font-family: var(--typeface-primary);
+  color: var(--typeface-color);
   font-size: 1.2em;
   font-weight: 400;
 
+  &--secondary {
+    font-family: var(--typeface-secondary);
+  }
+
   &--xxl {
     font-size: 2.8em;
-    font-weight: 800;
   }
 
   &--xl {
-    font-size: 2em;
-    font-weight: 600;
+    font-size: 2.2em;
   }
 
   &--md {
@@ -39,6 +41,6 @@
   }
 
   &--clear {
-    color: hsla(0, 0%, 99%, 1);
+    color: var(--color-white);
   }
 }

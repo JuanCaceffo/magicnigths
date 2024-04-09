@@ -1,10 +1,10 @@
-.card-admin{
+.card-admin {
   display: flex;
   height: 10em;
   transition: all var(--transition-time) ease;
   border-radius: var(--border-radius);
   overflow: hidden;
-  background-color: var(--color-clear);
+  background-color: var(--color-white);
 
   &__img-container {
     display: flex;
@@ -37,7 +37,6 @@
   }
 
   &--active {
-    
   }
 
   &:hover {
