@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
     path: '/user_profile',
     element: (
       <ProtectedRouter>
-        <Page content={<Profile />} />,
+        <Page content={<Profile />} />
       </ProtectedRouter>
     ),
   },
