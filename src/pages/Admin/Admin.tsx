@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { CardShowAdmin } from 'src/components/Card/CardShowAdmin/CardShowAdmin'
-import { Header } from 'src/components/Header/Header'
 import { FilterArgs } from 'src/components/Search/Search'
 import { Show } from 'src/data/model/Show'
 import { useOnInit } from 'src/hooks/hooks'
@@ -9,10 +8,20 @@ import { showService } from 'src/services/ShowService'
 import './Admin.scss'
 import CardDate from 'src/components/Card/CardDate/CardDate'
 import { Carousel } from 'src/components/Carousel/Carousel'
+import { DateTimeModal } from 'src/components/Modal/DateTimeModal'
 
 export const Admin = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false)
   const [shows, setShows] = useState<Array<Show>>([])
   const [show, setShow] = useState<Show>()
+
+  const openModal = () => {
+    setModalIsOpen(true)
+  }
+
+  const closeModal = () => {
+    setModalIsOpen(false)
+  }
 
   const getAllShows = async (filter: FilterArgs) => {
     try {
@@ -36,7 +45,18 @@ export const Admin = () => {
     }
   }
 
-  const handleAddDate = () => {}
+  const handleAddDate = () => {
+    openModal()
+    // try {
+    //   !show?.id
+    //     ? new Error('Hubo un problema con el show')
+    //     : userSessionStorage.getUserId() < 0
+    //       ? new Error('No existe un usuario logeado')
+    //       : showService.addShowDate(show.id, userSessionStorage.getUserId(), new Date())
+    // } catch (err) {
+    //   console.log(err)
+    // }
+  }
 
   const cardList = () => {
     return shows.map((show) => <CardShowAdmin key={show.id} show={show} />)
@@ -69,6 +89,7 @@ export const Admin = () => {
             </span>
           </section>
           <section className="admin__stats"></section>
+          {modalIsOpen && show && <DateTimeModal isOpen={modalIsOpen} handleClose={closeModal} show={show} />}
         </article>
       }
     />

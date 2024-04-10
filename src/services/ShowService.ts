@@ -7,10 +7,12 @@ import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 import { FilterArgs } from 'src/components/Search/Search'
 
 class ShowService {
-
   async getShows(filter: FilterArgs) {
-    const data = (await axios.get<ShowProps[]>(`${REST_SERVER_URL}/shows?userId=${userSessionStorage.getUserId()}`, {params: filter}))
-      .data
+    const data = (
+      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/shows?userId=${userSessionStorage.getUserId()}`, {
+        params: filter,
+      })
+    ).data
     return data.map((show) => new Show(show))
   }
 
@@ -35,9 +37,12 @@ class ShowService {
       disabled: selectedDate < new Date(),
     }))
 
-    console.log(seatsJsonWithIndex)
-
     return seatsJsonWithIndex.map((seat) => Seat.fromJSON(seat))
+  }
+
+  addShowDate = async (showId: number, userId: number, newDate: Date) => {
+    const isoDate = newDate.toISOString()
+    await axios.post(`${REST_SERVER_URL}/show/${showId}/create-date/user/${userId}`, isoDate)
   }
 }
 

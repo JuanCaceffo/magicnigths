@@ -31,12 +31,12 @@ export const Search = (onSubmit: SearchArgs) => {
   return (
     <form className="main__search shadow--div" onSubmit={handleSubmit(handleFormSubmit)}>
       <input
-        className="field field__rounded field__large shadow--box animated"
+        className="field field--rounded field--large shadow--box animated"
         {...register('bandKeyword')}
         placeholder={'Artista'}
       />
       <input
-        className="field field__rounded field__large shadow--box animated"
+        className="field field--rounded field--large shadow--box animated"
         {...register('facilityKeyword')}
         placeholder={'Lugar'}
       />

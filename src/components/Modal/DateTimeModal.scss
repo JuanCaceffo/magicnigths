@@ -1,0 +1,18 @@
+.date-modal {
+  .MuiDialog-paper {
+    height: minmax(30vh, 100%);
+    max-height: 50vh;
+  }
+
+  &__form {
+    max-width: 100%;
+  }
+
+  &__actions {
+    width: 100%;
+  }
+
+  &__header {
+    gap: var(--padding-xs);
+  }
+}

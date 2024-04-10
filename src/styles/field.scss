@@ -1,5 +1,5 @@
 .field {
-  max-height: var(--element-height);
+  height: var(--element-height);
   width: 100%;
   padding: var(--padding-xs);
 
@@ -13,12 +13,16 @@
     margin-top: 0.8em;
   }
 
-  &__rounded {
+  &--rounded {
     border-radius: var(--border-radius-sm);
   }
 
-  &__large {
+  &--large {
     max-width: 20vw;
+  }
+
+  &--tall {
+    height: 4.2rem;
   }
 
   &__container {

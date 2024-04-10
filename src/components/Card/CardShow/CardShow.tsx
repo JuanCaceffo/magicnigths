@@ -94,7 +94,6 @@ const CardShow = (props: CardShowProps) => {
           <span>{`${show.bandName.toUpperCase()}`}</span>
           <span>|</span>
           <span>{`${show.showName}`}</span>
-          <article className="card-show__fileld"></article>
         </header>
 
         <div className="card__content-body">
