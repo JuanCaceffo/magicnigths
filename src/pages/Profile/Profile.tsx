@@ -99,7 +99,7 @@ export const Profile = () => {
         fetchUserData()
       })
       .catch((error: AxiosError) => {
-        enqueueSnackbar(errorHandler(error))
+        enqueueSnackbar(errorHandler(error), snackbarProfileOptions)
       })
   }
 
@@ -107,7 +107,7 @@ export const Profile = () => {
     try {
       const updatedCredit = await userService.addCreditToUser(creditToAdd)
       setCredit(updatedCredit)
-      enqueueSnackbar('Creditos agregados con exito', { variant: 'success' })
+      enqueueSnackbar('Creditos agregados con exito', { variant: 'success', ...snackbarProfileOptions })
     } catch (error) {
       enqueueSnackbar(errorHandler(error as AxiosError), snackbarProfileOptions)
     }
