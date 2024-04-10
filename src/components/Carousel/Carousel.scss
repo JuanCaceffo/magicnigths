@@ -1,11 +1,5 @@
 $arrow-size: 2em;
 
-.centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .carousel {
   justify-content: space-around;
   max-width: 100%;
@@ -16,9 +10,11 @@ $arrow-size: 2em;
     max-width: 100%;
     height: max-content;
     overflow: hidden;
+    position: relative;
   }
 
   &__container {
+    display: flex;
     width: fit-content;
     height: fit-content;
     transition: transform 1s ease;

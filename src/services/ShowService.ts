@@ -40,9 +40,11 @@ class ShowService {
     return seatsJsonWithIndex.map((seat) => Seat.fromJSON(seat))
   }
 
-  addShowDate = async (showId: number, userId: number, newDate: Date) => {
+  addShowDate = async (show: Show, newDate: Date) => {
     const isoDate = newDate.toISOString()
-    await axios.post(`${REST_SERVER_URL}/show/${showId}/create-date/user/${userId}`, isoDate)
+    const userId = userSessionStorage.getUserId()
+
+    await axios.post(`${REST_SERVER_URL}/show/${show.id}/create-show-date`, { userId: userId, date: isoDate })
   }
 }
 

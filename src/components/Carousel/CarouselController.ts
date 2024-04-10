@@ -21,6 +21,10 @@ export class CarouselController {
     this.gap = args.gap ?? 0
   }
 
+  get containerEnd(): number {
+    return this.containerStart + this.containerWidth
+  }
+
   get containerWidth(): number {
     return this.cardWidth * this.totalElements + this.gap * (this.totalElements - 1)
   }
@@ -33,20 +37,12 @@ export class CarouselController {
     return this.cardWidth ? this.gap + this.cardWidth : 50
   }
 
-  get containerDiff(): number {
-    return Math.abs(this.maskWidth - this.containerWidth)
-  }
-
-  get halfContainerDiff(): number {
-    return this.containerDiff / 2
-  }
-
   allowMovementLeft(): boolean {
-    return -1 * this.halfContainerDiff < this.containerStart
+    return this.containerEnd > this.maskWidth
   }
 
   allowMovementRight(): boolean {
-    return this.halfContainerDiff > this.containerStart
+    return this.containerStart < 0
   }
 
   moveLeft = () => {

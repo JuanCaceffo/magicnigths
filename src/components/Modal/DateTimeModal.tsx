@@ -1,5 +1,5 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { CDate, CDateArgs } from 'src/data/model/CDate'
 import { Show } from 'src/data/model/Show'
 import './DateTimeModal.scss'
@@ -8,21 +8,27 @@ interface DateTimeModalArgs {
   show: Show
   isOpen: boolean
   handleClose: () => void
+  onSubmit: (data: CDateArgs) => void
 }
 
 export const DateTimeModal = (args: DateTimeModalArgs) => {
-  const { isOpen, handleClose, show } = args
+  const { isOpen, handleClose, show, onSubmit } = args
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isSubmitting },
   } = useForm<CDateArgs>()
 
-  const onSubmit: SubmitHandler<CDateArgs> = (data) => {
-    // const isoDate = new CDate(data as CDateArgs))
+  const validateDate = (date: string): boolean | string =>
+    !CDate.validateFutureDate(date) ? `La fecha debe ser superior a ${CDate.currentDDMMYYYY()}` : true
 
-    alert({ data })
+  const validateTime = (time: string, date: string): boolean | string => {
+    return !CDate.isSameDate(date)
+      ? true
+      : !CDate.validateFutureTime(time)
+        ? `La hora debe ser superior a ${CDate.currenHour()}`
+        : true
   }
 
   return (
@@ -45,14 +51,19 @@ export const DateTimeModal = (args: DateTimeModalArgs) => {
             autoFocus={true}
             {...register('date', {
               required: 'Ingrese una fecha correcta, dd/MM/aaaa',
-              validate: (date) => CDate.validateFutureDate(date),
+              validate: (date) => validateDate(date),
             })}
             className="field field--tall field--rounded field--large shadow--box animated"
             type="date"
           />
           {errors.date && <span className="text text--error">{errors.date.message}</span>}
           <input
-            {...register('time', { required: 'Ingrese un horario correcto, hh:mm:ss' })}
+            {...register('time', {
+              required: 'Ingrese un horario correcto, hh:mm:ss',
+              validate: (time, date) => {
+                return !errors.date && validateTime(time, date.date)
+              },
+            })}
             className="field field--tall field--rounded field--large shadow--box animated"
             type="time"
           />
@@ -66,7 +77,8 @@ export const DateTimeModal = (args: DateTimeModalArgs) => {
             </button>
             <input
               value={'AGREGAR'}
-              disabled={!isDirty || !isValid}
+              disabled={isSubmitting}
+              // disabled={!isDirty || !isValid} // estas lineas pueden ser útiles en caso de no querer permitir el uso del botón
               className="button button--primary button--tall button--rounded text text--clear animated shadow shadow--box"
               type="submit"
               data-testid="date-submit"

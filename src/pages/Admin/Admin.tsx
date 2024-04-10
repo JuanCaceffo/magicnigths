@@ -9,18 +9,25 @@ import './Admin.scss'
 import CardDate from 'src/components/Card/CardDate/CardDate'
 import { Carousel } from 'src/components/Carousel/Carousel'
 import { DateTimeModal } from 'src/components/Modal/DateTimeModal'
+import { SubmitHandler } from 'react-hook-form'
+import { CDate, CDateArgs } from 'src/data/model/CDate'
+import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 
 export const Admin = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [shows, setShows] = useState<Array<Show>>([])
   const [show, setShow] = useState<Show>()
 
-  const openModal = () => {
-    setModalIsOpen(true)
-  }
-
-  const closeModal = () => {
-    setModalIsOpen(false)
+  const onSubmit: SubmitHandler<CDateArgs> = async (data) => {
+    const date = new CDate(data).toDate
+    try {
+      show && (await showService.addShowDate(show, date))
+      getAllShows({} as FilterArgs)
+      setModalIsOpen(false)
+    } catch (err) {
+      // handle error
+      TODO: console.error(err)
+    }
   }
 
   const getAllShows = async (filter: FilterArgs) => {
@@ -43,19 +50,6 @@ export const Admin = () => {
     } catch (err) {
       console.log(err)
     }
-  }
-
-  const handleAddDate = () => {
-    openModal()
-    // try {
-    //   !show?.id
-    //     ? new Error('Hubo un problema con el show')
-    //     : userSessionStorage.getUserId() < 0
-    //       ? new Error('No existe un usuario logeado')
-    //       : showService.addShowDate(show.id, userSessionStorage.getUserId(), new Date())
-    // } catch (err) {
-    //   console.log(err)
-    // }
   }
 
   const cardList = () => {
@@ -83,13 +77,23 @@ export const Admin = () => {
               <Carousel elements={dateList()} maxElements={3} />
             </span>
             <span className="admin__date-item centered">
-              <a className="button button--primary button--circle shadow--box animated" onClick={handleAddDate}>
+              <a
+                className="button button--primary button--circle shadow--box animated"
+                onClick={() => setModalIsOpen(true)}
+              >
                 +
               </a>
             </span>
           </section>
           <section className="admin__stats"></section>
-          {modalIsOpen && show && <DateTimeModal isOpen={modalIsOpen} handleClose={closeModal} show={show} />}
+          {modalIsOpen && show && (
+            <DateTimeModal
+              isOpen={modalIsOpen}
+              handleClose={() => setModalIsOpen(false)}
+              show={show}
+              onSubmit={onSubmit}
+            />
+          )}
         </article>
       }
     />

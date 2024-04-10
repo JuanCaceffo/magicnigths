@@ -14,15 +14,6 @@ export const Carousel = (args: CarouselArgs) => {
   const cardRef = useRef<HTMLDivElement>(null)
   const [controller, setController] = useState<CarouselController>(new CarouselController({} as CarouselControllerArgs))
 
-  // const updateContainerWidth = () => {
-  //   if (carouselContainerRef.current) {
-  //     const carousel = carouselContainerRef.current
-  //     setController((prev) => {
-  //       return new CarouselController({ ...prev, containerWidth: carousel.offsetWidth })
-  //     })
-  //   }
-  // }
-
   const moveLeft = () => {
     controller.moveLeft()
     updatePosition()
@@ -63,9 +54,9 @@ export const Carousel = (args: CarouselArgs) => {
           />
         )}
 
-        <div className="carousel__mask centered" style={{ width: `${controller.maskWidth}px` }}>
+        <div className="carousel__mask" style={{ width: `${controller.maskWidth}px` }}>
           <div
-            className="carousel__container centered"
+            className="carousel__container"
             style={{ transform: `translateX(${controller.containerStart}px)`, gap: `${gap}px` }}
           >
             {elements.map((card) => (
