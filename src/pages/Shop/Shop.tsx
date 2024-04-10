@@ -4,6 +4,8 @@ import { Show } from 'src/data/model/Show'
 import './Shop.scss'
 import { AxiosError } from 'axios'
 import { cartService } from 'src/services/CartService'
+import { errorHandler } from 'src/data/helpers/ErrorHandler'
+import { enqueueSnackbar } from 'notistack'
 
 export const Shop = () => {
   const [ticketsShow, setTicketsShow] = useState<Show[]>([])
@@ -30,8 +32,7 @@ export const Shop = () => {
         fetchTicketData()
       })
       .catch((error: AxiosError) => {
-        console.log(error)
-        console.log('atrapar el error con componente de errores del back y lanzar snackbar')
+        enqueueSnackbar(errorHandler(error))
       })
   }
 
@@ -56,10 +57,10 @@ export const Shop = () => {
         <span className="text--md">TOTAL ${price}</span>
         <section className="shop__buttons">
           <button className="shop__button button" onClick={pruchaseTickets}>
-                Confirmar pediodo
+            Confirmar pediodo
           </button>
           <button className="shop__button button button__secondary" onClick={removeAllReservedTickets}>
-                Limpiar carrito
+            Limpiar carrito
           </button>
         </section>
       </footer>

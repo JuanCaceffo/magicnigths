@@ -10,7 +10,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <StyledEngineProvider injectFirst>
       <RouterProvider router={router} />
-      <SnackbarProvider className="snackbar" />
+      <SnackbarProvider
+        className="snackbar"
+        variant="error"
+        autoHideDuration={4000}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+      />
     </StyledEngineProvider>
   </React.StrictMode>,
 )

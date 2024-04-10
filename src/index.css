@@ -35,7 +35,7 @@
   --text-color-lighter: hsla(344, 20%, 55%, 1);
   --text-color: hsla(344, 30%, 10%, 1);
   --text-color-medium: hsla(344, 25%, 35%, 1);
-  
+
   /* Card Background Color */
   --gradient-primary: linear-gradient(to right, var(--color-secondary) 20%, var(--color-primary) 80%);
   --card-bg-gradient: linear-gradient(to top, var(--color-clear) 15%, rgba(0, 0, 0, 0.05));
@@ -43,13 +43,13 @@
   /* Fonts */
   --typeface-primary: 'Mulish', 'Open Sans', 'Verdana', 'sans-serif';
   --typeface-secondary: 'Roboto', 'Open Sans', 'Verdana', 'sans-serif';
-  
+
   /* Border Radius */
   --border-radius-sm: 0.3rem;
   --border-radius: 0.5rem;
   --border-radius-md: 1rem;
   --border-radius-xl: 1.5rem;
-    
+
   /* Box Shadow */
   --box-shadow-xs: 0rem 0.1rem 0.4rem rgba(0, 0, 0, 0.2);
   --box-shadow: 0rem 0.4rem 1rem -0.2rem rgba(0, 0, 0, 0.2);
@@ -57,12 +57,12 @@
   --box-shadow-xl: 0.5rem 0.5rem 2rem rgba(0, 0, 0, 0.3);
   --box-shadow-line: 0rem 0.4rem 0.6rem -0.5rem rgba(0, 70, 128, 0.3);
   --box-shadow-hover: 0rem 2rem 2rem -1.5rem rgba(0, 0, 0, 0.3);
-  
+
   /* Box Padding */
   --box-padding: 1.6rem;
   --padding-xs: 0.8rem;
   --padding: 1.6rem;
-  
+
   /* Animations */
   --transition-time: 0.5s;
 }
@@ -113,4 +113,9 @@ html {
 
 ::-webkit-scrollbar-button {
   display: none;
+}
+
+/* Cuando la posicion de la prop anchorOrigin es top le doy 8 rems al top a si no tapa el header */
+.notistack-SnackbarContainer.go3118922589 {
+  top: 8rem;
 }

@@ -1,12 +1,17 @@
-import { AxiosError } from 'axios'
+import { AxiosError, isAxiosError } from 'axios'
 
-export const ErrorHandler = (error: AxiosError) => {
-  const safeErrorCode = error.response ? +error.response.status : 0
-  const data = error.response?.data as { message: string }
+export const errorHandler = (error: AxiosError) => {
+  const data = error.response?.data as { status: number; message: string }
 
-  return safeErrorCode >= 500
-    ? 'Hubo un error al realizar la operación. Consulte al administrador del sistema.'
-    : safeErrorCode >= 400
-      ? data
-      : 'Error desconocido'
+  if (!isAxiosError(error)) {
+    return 'Error desconocido'
+  }
+
+  return data
+    ? data.status >= 500
+      ? 'Hubo un error al realizar la operación. Consulte al administrador del sistema.'
+      : data.status >= 400
+        ? data.message
+        : 'Error desconocido'
+    : 'Esta tenienedo problemas con la red'
 }
