@@ -5,7 +5,7 @@ import './Shop.scss'
 import { AxiosError } from 'axios'
 import { cartService } from 'src/services/CartService'
 import { errorHandler } from 'src/data/helpers/ErrorHandler'
-import { enqueueSnackbar } from 'notistack'
+import { enqueueSnackbar, closeSnackbar } from 'notistack'
 
 export const Shop = () => {
   const [ticketsShow, setTicketsShow] = useState<Show[]>([])
@@ -22,13 +22,16 @@ export const Shop = () => {
 
   useEffect(() => {
     fetchTicketData()
+    return () => {
+      closeSnackbar()
+    }
   }, [])
 
   const pruchaseTickets = async () => {
     cartService
       .pruchaseReservedTickets()
       .then(() => {
-        console.log('Lanzar snackbar felicitando la compra de tickets')
+        enqueueSnackbar('La compra fue realizada con exito', { variant: 'success' })
         fetchTicketData()
       })
       .catch((error: AxiosError) => {
