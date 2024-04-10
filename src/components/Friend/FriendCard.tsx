@@ -18,8 +18,12 @@ export const FriendCard: FC<FriendCardProps>= ({ friend, deleteFriend }) => {
   return (
     <>
       <div className="friend_container">
-        <Avatar className='friend_photo' src={friend.img} />
-        <div className="friend_data">{friend.name} {friend.surname}</div>
+        <Avatar className='friend_photo' src={`/images/${friend.img}`}/>
+        <div className="friends_data">
+          <div className="friend_name text--stronger">{friend.name} </div>
+          <div className="friend_user text">{friend.surname}</div>
+        </div>
+        
         <button className="delete_button" onClick={handleDeleteFriend}>
           <DeleteIcon></DeleteIcon>
         </button>
