@@ -7,51 +7,16 @@
   padding: var(--padding);
 }
 
-.user_data_container {
-  width: 25%;
-  padding: 0 1em;
-  padding-top: 3em;
-}
-
-.user_data {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-}
 .tx-aling-center {
   text-align: center;
-}
-.user_profile_photo {
-  margin-left: auto; /* Mueve el objeto hacia la derecha */
-  margin-right: auto;
 }
 
 .user_display_container {
   width: 75%;
 }
 
-.input_container {
-  margin: 1em 0em;
-}
-
-.input-field {
-  width: 100%;
-}
-
-.user_profile_photo {
-  width: 15rem;
-  height: 15rem;
-}
-
-.selection_panel {
-  display: flex;
-  width: 100%;
-  padding: 2em 0 2em 0;
-  font-weight: bold;
-}
-
-.selection_button {
-  margin: 0 2em 0 0;
+.field:disabled {
+  opacity: 50%;
 }
 
 .content_container {
@@ -60,13 +25,24 @@
   flex-wrap: wrap;
   gap: 2em;
   justify-content: flex-start;
+  align-content: flex-start;
   width: 100%;
+  height: 100%;
+  overflow-y: auto;
 }
 
+.ticket-content {
+  padding: 0%;
+  justify-content: space-evenly;
+}
 .selection_panel .MuiToggleButton-root {
   border: none;
   background-color: transparent;
   border-radius: var(--border-radius-md);
+}
+
+.credit {
+  padding: 1em 0em;
 }
 
 .css-ueukts-MuiButtonBase-root-MuiToggleButton-root.Mui-selected {
@@ -83,9 +59,4 @@
 
 .selection_panel.MuiToggleButton-root:hover {
   font-weight: bolder;
-}
-
-.subtitle2 {
-  text-align: left;
-  margin: 0em;
 }

@@ -3,36 +3,33 @@ import { Page } from 'src/pages/Page/Page'
 import './Profile.css'
 import { PurchasedTicketContent } from 'src/components/UserPurchasedTicketContent/PurchasedTicketContent'
 import { useEffect, useState } from 'react'
-import { FriendsContent } from 'src/components/UserFriendsContent/FriendsContent'
-import { CommentsContent } from 'src/components/UserTicketsContent/CommentsContent'
 import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
 import { isAxiosError } from 'axios'
-import { PopupCredit } from 'src/components/PopopCredit/PopupCredit'
+import { PopupCredit } from 'src/components/PopupCredit/PopupCredit'
+import { UserData } from 'src/components/UserData/UserData'
+import { SelectionContent, UserSelectionPanel } from 'src/components/UserSelectionPanel/UserSelectionPanel'
+import { FriendsContent } from 'src/components/UserFriendsContent/FriendsContent'
+import { CommentsContent } from 'src/components/UserTicketsContent/CommentsContent'
+import './Profile.css'
 
-//TODO: refactorizar componente por una solucion mas mantenible
 export const Profile = () => {
   const [user, setUser] = useState(new User('', '', '', '', new Date(), 0))
   const [credit, setCredit] = useState(0)
   const [age, setAge] = useState(0)
   const [content, setContent] = useState(SelectionContent.PURCHASED_TICKET)
   const [errorMessage, setError] = useState('')
-  const [isPopupOpen, setIsPopupOpen] = useState(false) // Estado para controlar si el popup está abierto
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
 
   useEffect(() => {
     fetchUserData()
-  }, []) // Array vacío como segundo argumento para indicar que se ejecute solo una vez
+  }, [])
 
   const fetchUserData = async () => {
-    // Obtener datos del usuario
     try {
       const userData = await userService.getUser()
       setUser(userData)
-
-      // Cálculo y seteo de la edad del usuario
       setAge(userData.getAge())
-
-      // Obtener crédito del usuario
       try {
         const userCredit = await userService.getCredit()
         setCredit(userCredit)
@@ -44,7 +41,6 @@ export const Profile = () => {
     }
   }
 
-  // Menejo de error
   const handleRequestError = (e: unknown) => {
     console.error(e)
     if (isAxiosError(e)) {
@@ -71,11 +67,10 @@ export const Profile = () => {
         dni: number
       } = { ...prevUser }
 
-      if (name == 'name' || name == 'surname') {
+      if (name === 'name' || name === 'surname') {
         prevUserData[name] = value
       }
 
-      // Crea un nuevo objeto User con los datos actualizados
       const updatedUser = new User(
         prevUserData.profileImg,
         prevUserData.name,
@@ -89,159 +84,60 @@ export const Profile = () => {
     })
   }
 
-  //TODO: agregar el fetch de data a un context compartido con el header para que se actualizae automacticamente el nombre en el header
   const handleSaveClick = async () => {
     await userService.updateUser(user).then(() => {
       fetchUserData()
     })
-    console.log(user)
   }
 
   const handleAddCredit = async (creditToAdd: number) => {
-    console.log('Credito para agregar:')
-    console.log(creditToAdd)
-
     const updatedCredit = await userService.addCreditToUser(creditToAdd) // Hacer dinámico
+
     setCredit(updatedCredit)
   }
 
   const handleOpenPupup = async () => {
     setIsPopupOpen(true)
-    // const updatedCredit = await userService.addCreditToUser(100.0) // Hacer dinámico
-    // setCredit(updatedCredit)
   }
 
   return (
     <>
-      <Page
-        content={
-          errorMessage ? ( // Mostrar mensaje de error si hay un mensaje en errorMessage
-            <p className="error-message error">{errorMessage}</p>
-          ) : (
-            <main className="main__content_user">
-              <div className="user_data_container user-flex">
-                <div className="user_data user-flex">
-                  <Avatar className="user_profile_photo" src={`/images/${user.profileImg}`} />
-                  <div className="input_container">
-                    <h3 className="text text--strong text--md">Nombre</h3>
-                    <Input
-                      className="input-field text"
-                      name="name"
-                      data-testid="name"
-                      placeholder="Nombre"
-                      value={user.name}
-                      onChange={handleInputChange}
-                    ></Input>
-                  </div>
-                  <div className="input_container">
-                    <h3 className="text text--strong text--md">Apellidos</h3>
-                    <Input
-                      className="input-field text"
-                      name="surname"
-                      data-testid="surname"
-                      placeholder="Apellidos"
-                      value={user.surname}
-                      onChange={handleInputChange}
-                    ></Input>
-                  </div>
-                  <div className="input_container">
-                    <h3 className="text text--strong text--md">Fecha de nacimiento</h3>
-                    <Input
-                      className="input-field text"
-                      name="birthday"
-                      data-testid="birthday"
-                      value={user.birthday.toLocaleDateString('es-ES')}
-                      onChange={handleInputChange}
-                      disabled
-                    ></Input>
-                  </div>
-                  <h3 className="user__age tx-aling-center user-flex text--xl" data-testid="age">
-                    Edad: {age} años
-                  </h3>
-                  <div className="input_container">
-                    <h3 className="text text--strong text--md">DNI</h3>
-                    <Input
-                      className="input-field text"
-                      name="dni"
-                      data-testid="dni"
-                      value={user.dni}
-                      onChange={handleInputChange}
-                      disabled
-                    ></Input>
-                  </div>
-                  <button
-                    className="save-user-data-button button button--primary button--rounded animated text--spaced text--strong shadow--box"
-                    onClick={handleSaveClick}
-                  >
-                    Guardar
-                  </button>
-                </div>
-                <div className="user_credit_container">
-                  <h3 className="text--xl tx-aling-center" data-testid="credit">
-                    Crédito ${credit}
-                  </h3>
-                  <button
-                    className="add_credit-user-button button button--primary button--rounded animated text--spaced text--strong shadow--box"
-                    onClick={handleOpenPupup}
-                  >
-                    Sumar crédito
-                  </button>
-                </div>
-              </div>
-              <div className="user_display_container">
-                <ToggleButtonGroup
-                  value={content}
-                  exclusive
-                  onChange={(_event, newValue) => setContent(newValue)}
-                  className="selection_panel"
-                >
-                  <ToggleButton
-                    value={SelectionContent.PURCHASED_TICKET}
-                    className="selection_button text text--strong text--md"
-                    disableRipple
-                  >
-                    Entradas compradas
-                  </ToggleButton>
-                  <ToggleButton
-                    value={SelectionContent.FRIENDS}
-                    className="selection_button text text--strong text--md"
-                    disableRipple
-                  >
-                    Amigos
-                  </ToggleButton>
-                  <ToggleButton
-                    value={SelectionContent.COMMENTS}
-                    className="selection_button text text--strong text--md"
-                    disableRipple
-                  >
-                    Comentario
-                  </ToggleButton>
-                </ToggleButtonGroup>
-                <Divider />
-                <div className="content_container">
-                  {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
-                  {content === SelectionContent.FRIENDS && <FriendsContent />}
-                  {content === SelectionContent.COMMENTS && <CommentsContent />}
-                </div>
-                {isPopupOpen && (
-                  <PopupCredit
-                    open={isPopupOpen}
-                    onSave={(creditToAdd) => handleAddCredit(creditToAdd)}
-                    onClose={() => setIsPopupOpen(false)}
-                  />
-                )}
-              </div>
-            </main>
-          )
-        }
-      />
+      {errorMessage ? (
+        <p className="error-message error">{errorMessage}</p>
+      ) : (
+        <main className="main__content_user">
+          <div className="user_data_container user-flex">
+            <UserData user={user} handleInputChange={handleInputChange} age={age} handleSaveClick={handleSaveClick} />
+            <div className="user_credit_container">
+              <h3 className="text--md tx-aling-center credit" data-testid="credit">
+                Crédito ${credit}
+              </h3>
+              <button
+                className="add_credit-user-button button button--primary button--rounded animated text--spaced text--strong shadow--box"
+                onClick={handleOpenPupup}
+              >
+                Sumar crédito
+              </button>
+            </div>
+          </div>
+          <div className="user_display_container">
+            <UserSelectionPanel content={content} onChange={(newValue: SelectionContent) => setContent(newValue)} />
+            <Divider />
+            <div className="content_container">
+              {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
+              {content === SelectionContent.FRIENDS && <FriendsContent />}
+              {content === SelectionContent.COMMENTS && <CommentsContent />}
+            </div>
+            {isPopupOpen && (
+              <PopupCredit
+                open={isPopupOpen}
+                onSave={(creditToAdd) => handleAddCredit(creditToAdd)}
+                onClose={() => setIsPopupOpen(false)}
+              />
+            )}
+          </div>
+        </main>
+      )}
     </>
   )
-}
-
-// Enum para los tipos de contenidos a mostrar
-enum SelectionContent {
-  PURCHASED_TICKET,
-  FRIENDS,
-  COMMENTS,
 }

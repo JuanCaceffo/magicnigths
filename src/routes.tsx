@@ -7,7 +7,9 @@ import { Shop } from 'src/pages/Shop/Shop'
 import { NotFoundPage } from 'src/pages/NotFound/NotFound'
 import { Page } from 'src/pages/Page/Page'
 import { ShowDetails } from 'src/components/ShowDetails/ShowDetails'
+import { ProtectedRouter } from './components/RequireAuth/RequireAuth'
 
+//TODO: refactorizar page por anidamiento de ruta
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -15,11 +17,19 @@ export const router = createBrowserRouter([
   },
   {
     path: '/show/:id',
-    element: <Page content={<ShowDetails />} />,
+    element: (
+      <ProtectedRouter>
+        <Page content={<ShowDetails />} />
+      </ProtectedRouter>
+    ),
   },
   {
     path: '/admin_dashboard',
-    element: <Admin />,
+    element: (
+      <ProtectedRouter>
+        <Admin />
+      </ProtectedRouter>
+    ),
   },
   {
     path: '/login',
@@ -27,11 +37,19 @@ export const router = createBrowserRouter([
   },
   {
     path: '/user_profile',
-    element: <Profile />,
+    element: (
+      <ProtectedRouter>
+        <Page content={<Profile />} />,
+      </ProtectedRouter>
+    ),
   },
   {
     path: '/shop',
-    element: <Shop />,
+    element: (
+      <ProtectedRouter>
+        <Shop />
+      </ProtectedRouter>
+    ),
   },
   {
     path: '*',

@@ -25,7 +25,7 @@ const Comment: FC<CommentProps> = ({ className = '', comment, handleDelete }) =>
         </section>
         <section className="comment__state centered">
           <div className="comment__rating centered">
-            <i className="fa-solid fa-star"></i>
+            <i className="fa-solid fa-star fa--up text--strong" />
             <span>{comment.rating}</span>
           </div>
           {handleDelete && <i onClick={handleDelete} className="fa-solid fa-trash fa--hot button-trash" />}

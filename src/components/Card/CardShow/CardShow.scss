@@ -64,6 +64,7 @@
   &__friends {
     padding: var(--padding) 0;
     gap: var(--padding-xs);
+    line-height: 2.5rem;
 
     &--img {
       display: flex;

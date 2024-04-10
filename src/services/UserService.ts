@@ -47,8 +47,8 @@ class UserService {
 
   async addCreditToUser(creditToAdd: number) {
     // Actualización del crédito del back
-    await axios.put(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/add_credit`, {
-      credit: creditToAdd,
+    await axios.put(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/add_credit`, creditToAdd, {
+      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
     })
 
     // Actualización del crédito localmente
@@ -77,33 +77,6 @@ class UserService {
     const purchasedTickets: Show[] = response.data.map((purchasedTicketsData) => new Show(purchasedTicketsData))
 
     return purchasedTickets
-  }
-
-  async getReservedTickets(): Promise<Show[]> {
-    const showPropsList = await axios.get<ShowProps[]>(
-      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/reserved-tickets`,
-    )
-
-    return showPropsList.data.map((props) => new Show(props))
-  }
-
-  async pruchaseReservedTickets() {
-    return await axios.put(
-      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/purchase-reserved-tickets`,
-    )
-  }
-
-  async removeReservedTickets() {
-    return await axios.put(
-      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/remove-reserved-tickets`,
-    )
-  }
-
-  async reservedTicketsPrice(): Promise<number> {
-    const price = await axios.get<number>(
-      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/reserved-tickets-price`,
-    )
-    return price.data
   }
 
   async getComments(): Promise<CommentDTO[]> {

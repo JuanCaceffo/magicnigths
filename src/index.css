@@ -44,7 +44,7 @@
   
   /* Card Background Color */
   --gradient-primary: linear-gradient(to right, var(--color-primary) 20%, var(--color-secondary-darker) 80%);
-  --gradient-grey-vertical: linear-gradient(to bottom, var(--color-white) 15%, rgba(0, 0, 0, 0.05));
+  --gradient-grey-vertical: linear-gradient(to bottom, var(--color-white) 70%, rgba(0, 0, 0, 0.08));
   --user-info-background: linear-gradient(to bottom, var(--color-clear-medium), var(--color-white));
   /* Fonts */
   --typeface-primary: 'Mulish', 'Open Sans', 'Verdana', 'sans-serif';
