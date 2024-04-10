@@ -1,5 +1,4 @@
-import { Avatar, Divider, Input, ToggleButton, ToggleButtonGroup } from '@mui/material'
-import { Page } from 'src/pages/Page/Page'
+import { Divider } from '@mui/material'
 import './Profile.css'
 import { PurchasedTicketContent } from 'src/components/UserPurchasedTicketContent/PurchasedTicketContent'
 import { useEffect, useState } from 'react'

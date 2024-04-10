@@ -80,6 +80,7 @@ const CardShow = (props: CardShowProps) => {
       className="card text shadow shadow--big"
       onMouseEnter={() => setShowButton(true)}
       onMouseLeave={() => setShowButton(false)}
+      data-testid="card-show"
     >
       <header className="card__header">
         <img className="card__img" src={`/images/${show.showImg}`} />
