@@ -26,6 +26,11 @@ export class CDate implements CDateArgs {
     }
   }
 
+  static validateFutureDate = (date: string) => {
+    const selectedDate = new Date(date)
+    return selectedDate >= new Date()
+  }
+
   get toDate(): Date {
     const [day, month, year] = this.date.includes('-')
       ? this.date.split('-')

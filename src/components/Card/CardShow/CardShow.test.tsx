@@ -41,7 +41,7 @@ describe('CardShow Component', () => {
   })
 
   test('when passed a button promp, a buton is displayed in the left bottom to the card', () => {
-    renderResult.rerender(<CardShow show={showBase} button={{ content: 'lalala', whenclick: () => {} }} />)
+    renderResult.rerender(<CardShow show={showBase} button={{ content: 'lalala', onClick: () => {} }} />)
 
     expect(renderResult.queryByTestId('show-button')).toBeTruthy()
   })

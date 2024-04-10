@@ -17,9 +17,7 @@ export const DateTimeModal = (args: DateTimeModalArgs) => {
     register,
     handleSubmit,
     formState: { errors, isDirty, isValid },
-  } = useForm<CDateArgs>({
-    defaultValues: { date: '01/01/2015', time: '00:00:00' },
-  })
+  } = useForm<CDateArgs>()
 
   const onSubmit: SubmitHandler<CDateArgs> = (data) => {
     // const isoDate = new CDate(data as CDateArgs))
@@ -43,8 +41,22 @@ export const DateTimeModal = (args: DateTimeModalArgs) => {
           onSubmit={handleSubmit(onSubmit)}
           data-testid="date-form"
         >
-          <input className="field field--tall field--rounded field--large shadow--box animated" type="date" />
-          <input className="field field--tall field--rounded field--large shadow--box animated" type="time" />
+          <input
+            autoFocus={true}
+            {...register('date', {
+              required: 'Ingrese una fecha correcta, dd/MM/aaaa',
+              validate: (date) => CDate.validateFutureDate(date),
+            })}
+            className="field field--tall field--rounded field--large shadow--box animated"
+            type="date"
+          />
+          {errors.date && <span className="text text--error">{errors.date.message}</span>}
+          <input
+            {...register('time', { required: 'Ingrese un horario correcto, hh:mm:ss' })}
+            className="field field--tall field--rounded field--large shadow--box animated"
+            type="time"
+          />
+          {errors.time && <span className="text text--error">{errors.time.message}</span>}
           <DialogActions className="date-modal__actions">
             <button
               className="button button--secondary button--tall button--rounded text animated shadow shadow--box"
@@ -52,24 +64,16 @@ export const DateTimeModal = (args: DateTimeModalArgs) => {
             >
               CANCELAR
             </button>
-            <button
+            <input
+              value={'AGREGAR'}
+              disabled={!isDirty || !isValid}
               className="button button--primary button--tall button--rounded text text--clear animated shadow shadow--box"
               type="submit"
-            >
-              AGREGAR
-            </button>
+              data-testid="date-submit"
+            />
           </DialogActions>
         </form>
       </DialogContent>
     </Dialog>
-
-    // <div className={`modal ${isOpen ? 'open' : ''}`}>
-    //   <div className="modal-content">
-    //     <h2>Selecciona una fecha y una hora</h2>
-    //     <input type="date" value={selectedDate} onChange={handleDateChange} />
-    //     <input type="time" value={selectedTime} onChange={handleTimeChange} />
-    //     <button onClick={handleSubmit}>Guardar</button>
-    //   </div>
-    // </div>
   )
 }

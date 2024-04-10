@@ -30,7 +30,7 @@ export class CarouselController {
   }
 
   get step(): number {
-    return this.gap + this.cardWidth ?? 50
+    return this.cardWidth ? this.gap + this.cardWidth : 50
   }
 
   get containerDiff(): number {
