@@ -60,7 +60,3 @@
 .selection_panel.MuiToggleButton-root:hover {
   font-weight: bolder;
 }
-
-main {
-  max-height: 80vh;
-}

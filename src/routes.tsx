@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
     path: '/admin_dashboard',
     element: (
       <ProtectedRouter>
-        <Page header={<Header />} content={<Admin />} />,
+        <Page header={<Header />} content={<Admin />} />
       </ProtectedRouter>
     ),
   },
@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
     path: '/user_profile',
     element: (
       <ProtectedRouter>
-        <Page header={<Header />} content={<Profile />} />,
+        <Page header={<Header />} content={<Profile />} />
       </ProtectedRouter>
     ),
   },
@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
     path: '/shop',
     element: (
       <ProtectedRouter>
-        <Page header={<Header />} content={<Shop />} />,
+        <Page header={<Header />} content={<Shop />} />
       </ProtectedRouter>
     ),
   },
