@@ -18,11 +18,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/show/:id',
-    element: (
-      <ProtectedRouter>
-        <Page header={<Header />} content={<ShowDetails />} />
-      </ProtectedRouter>
-    ),
+    element: <Page header={<Header />} content={<ShowDetails />} />,
   },
   {
     path: '/admin_dashboard',
