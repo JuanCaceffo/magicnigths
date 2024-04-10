@@ -41,7 +41,7 @@ export const Shop = () => {
 
   const removeAllReservedTickets = async () => {
     await cartService.removeReservedTickets().then(() => {
-      console.log('Lanzar snackbar avisando que los tickets se removieron con exito')
+      enqueueSnackbar('La tickets del carrito fueron eliminados con exito', { variant: 'success' })
       fetchTicketData()
     })
   }
