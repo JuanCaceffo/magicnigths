@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react"
-import { Friend } from "src/data/model/Friend"
-import { FriendCard } from "../Friend/FriendCard"
+import { useEffect, useState } from 'react'
+import { Friend } from 'src/data/model/Friend'
+import { FriendCard } from '../Friend/FriendCard'
 import '../../styles/error.scss'
 import './FriendsContent.css'
-import { userService } from "src/services/UserService"
-import { isAxiosError } from "axios"
-
+import { userService } from 'src/services/UserService'
+import { AxiosError, isAxiosError } from 'axios'
+import { closeSnackbar, enqueueSnackbar } from 'notistack'
+import { errorHandler } from 'src/data/helpers/ErrorHandler'
+import { snackbarProfileOptions } from 'src/pages/Profile/Profile'
 
 export const FriendsContent = () => {
   const [friends, setFriends] = useState<Friend[]>([])
@@ -32,6 +34,9 @@ export const FriendsContent = () => {
     }
 
     fetchUserFriends()
+    return () => {
+      closeSnackbar()
+    }
   }, []) // Array vacío como segundo argumento para indicar que se ejecute solo una vez
 
   // Método para manejar la eliminacion de un amigo
@@ -39,9 +44,10 @@ export const FriendsContent = () => {
     try {
       await userService.deleteFriend(friendId) // Llamada al método deleteFriend del userService con el ID del amigo
       // Actualización la lista de amigos después de eliminar
-      setFriends(prevFriends => prevFriends.filter(friend => friend.id !== friendId))
+      setFriends((prevFriends) => prevFriends.filter((friend) => friend.id !== friendId))
+      enqueueSnackbar('Amigo eliminado con exito', { variant: 'success', ...snackbarProfileOptions })
     } catch (e) {
-      console.error("Error al eliminar amigo:", e)
+      enqueueSnackbar(errorHandler(e as AxiosError), snackbarProfileOptions)
     }
   }
 
@@ -50,9 +56,9 @@ export const FriendsContent = () => {
       {errorMessage ? (
         <p className="error-message error">{errorMessage}</p>
       ) : (
-        <div className='friends_container'>
+        <div className="friends_container">
           {friends.map((friend, index) => (
-            <FriendCard key={index} friend={friend} deleteFriend={handleDeleteFriend}/>
+            <FriendCard key={index} friend={friend} deleteFriend={handleDeleteFriend} />
           ))}
         </div>
       )}

@@ -4,6 +4,8 @@ import { Show } from 'src/data/model/Show'
 import './Shop.scss'
 import { AxiosError } from 'axios'
 import { cartService } from 'src/services/CartService'
+import { errorHandler } from 'src/data/helpers/ErrorHandler'
+import { enqueueSnackbar, closeSnackbar } from 'notistack'
 
 export const Shop = () => {
   const [ticketsShow, setTicketsShow] = useState<Show[]>([])
@@ -20,24 +22,26 @@ export const Shop = () => {
 
   useEffect(() => {
     fetchTicketData()
+    return () => {
+      closeSnackbar()
+    }
   }, [])
 
   const pruchaseTickets = async () => {
     cartService
       .pruchaseReservedTickets()
       .then(() => {
-        console.log('Lanzar snackbar felicitando la compra de tickets')
+        enqueueSnackbar('La compra fue realizada con exito', { variant: 'success' })
         fetchTicketData()
       })
       .catch((error: AxiosError) => {
-        console.log(error)
-        console.log('atrapar el error con componente de errores del back y lanzar snackbar')
+        enqueueSnackbar(errorHandler(error))
       })
   }
 
   const removeAllReservedTickets = async () => {
     await cartService.removeReservedTickets().then(() => {
-      console.log('Lanzar snackbar avisando que los tickets se removieron con exito')
+      enqueueSnackbar('La tickets del carrito fueron eliminados con exito', { variant: 'success' })
       fetchTicketData()
     })
   }
@@ -56,10 +60,10 @@ export const Shop = () => {
         <span className="text--md">TOTAL ${price}</span>
         <section className="shop__buttons">
           <button className="shop__button button" onClick={pruchaseTickets}>
-                Confirmar pediodo
+            Confirmar pediodo
           </button>
           <button className="shop__button button button__secondary" onClick={removeAllReservedTickets}>
-                Limpiar carrito
+            Limpiar carrito
           </button>
         </section>
       </footer>
