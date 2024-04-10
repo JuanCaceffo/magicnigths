@@ -8,7 +8,7 @@ export const Prices = ({ show }: PricesProps) => {
   return (
     <p data-testid="show-price">
       {show.isPurchaced()
-        ? `Valor:  $ ${show.price}`
+        ? `Valor:  $ ${Math.round(show.price)}`
         : `Desde ${show
             .reducedPrices()
             .map((price) => `$ ${price}`)
