@@ -10,8 +10,12 @@ import { PurchasedTicketContent } from 'src/components/UserPurchasedTicketConten
 import { FriendsContent } from 'src/components/UserFriendsContent/FriendsContent'
 import { CommentsContent } from 'src/components/UserTicketsContent/CommentsContent'
 import './Profile.css'
-import { closeSnackbar, enqueueSnackbar } from 'notistack'
+import { OptionsObject, closeSnackbar, enqueueSnackbar } from 'notistack'
 import { errorHandler } from 'src/data/helpers/ErrorHandler'
+
+export const snackbarProfileOptions: OptionsObject = {
+  anchorOrigin: { horizontal: 'left', vertical: 'top' },
+}
 
 export const Profile = () => {
   const [user, setUser] = useState(new User('', '', '', '', new Date(), 0))
@@ -91,7 +95,7 @@ export const Profile = () => {
     await userService
       .updateUser(user)
       .then(() => {
-        enqueueSnackbar('Datos guardados con exito', { variant: 'success' })
+        enqueueSnackbar('Datos guardados con exito', { variant: 'success', ...snackbarProfileOptions })
         fetchUserData()
       })
       .catch((error: AxiosError) => {
@@ -105,7 +109,7 @@ export const Profile = () => {
       setCredit(updatedCredit)
       enqueueSnackbar('Creditos agregados con exito', { variant: 'success' })
     } catch (error) {
-      enqueueSnackbar(errorHandler(error as AxiosError))
+      enqueueSnackbar(errorHandler(error as AxiosError), snackbarProfileOptions)
     }
   }
 
