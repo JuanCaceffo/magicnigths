@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { CardShowAdmin } from 'src/components/Card/CardShowAdmin/CardShowAdmin'
-import { FilterArgs } from 'src/components/Search/Search'
+import { FilterArgs, Search } from 'src/components/Search/Search'
 import { Show } from 'src/data/model/Show'
 import { useOnInit } from 'src/hooks/hooks'
 import { Page } from 'src/pages/Page/Page'
@@ -65,8 +65,8 @@ export const Admin = () => {
   const dateList = () => {
     return show
       ? show.dates.map((date) => (
-        <CardDate key={date.toDateString()} isDisable={date < new Date()} date={date} className="static" />
-      ))
+          <CardDate key={date.toDateString()} isDisable={date < new Date()} date={date} className="static" />
+        ))
       : []
   }
 
@@ -76,6 +76,7 @@ export const Admin = () => {
 
   return (
     <Page
+      search={<Search onSubmit={getAllShows} />}
       content={
         <article className="main__content admin">
           <section className="admin__shows">{cardList()}</section>
@@ -94,14 +95,14 @@ export const Admin = () => {
             </span>
           </section>
           <section className="admin__stats">
-            {stats && stats.length > 0 &&
-              <section className='admin__stats'>
-                <CardStats title={"Ventas"} info={`$ ${stats[0]['value']}`} color={stats[0]['color']} />
-                <CardStats title={"En Espera"} info={`${stats[1].value} Personas`} color={stats[1].color} />
-                <CardStats title={"Rentabilidad"} info={`${stats[2].value} %`} color={stats[2].color} />
-                <CardStats title={"Sold-Out"} info={`${stats[3].value} Funciones`} color={stats[3].color} />
+            {stats && stats.length > 0 && (
+              <section className="admin__stats">
+                <CardStats title={'Ventas'} info={`$ ${stats[0]['value']}`} color={stats[0]['color']} />
+                <CardStats title={'En Espera'} info={`${stats[1].value} Personas`} color={stats[1].color} />
+                <CardStats title={'Rentabilidad'} info={`${stats[2].value} %`} color={stats[2].color} />
+                <CardStats title={'Sold-Out'} info={`${stats[3].value} Funciones`} color={stats[3].color} />
               </section>
-            }
+            )}
           </section>
           {modalIsOpen && show && (
             <DateTimeModal

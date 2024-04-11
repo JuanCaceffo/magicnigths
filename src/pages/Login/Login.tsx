@@ -1,10 +1,11 @@
 import './Login.scss'
 import { Card } from '@mui/material'
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { userService } from 'src/services/UserService'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
 import { Input } from '@mui/material'
+import { useOnInit } from 'src/hooks/hooks'
 
 interface LoginData {
   username: string
@@ -16,7 +17,8 @@ export const Login = () => {
   const [errorMessage, setError] = useState<string | null>(null)
   const redirectTo = useLocation().state
   const navigate = useNavigate()
-  useEffect(() => {
+
+  useOnInit(() => {
     sessionStorage.clear()
   })
 

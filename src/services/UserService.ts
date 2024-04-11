@@ -94,6 +94,13 @@ class UserService {
   async addComment(comment: CommentCreateDTO) {
     return axios.put(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/create-comment`, comment)
   }
+
+  async isAdmin(): Promise<boolean> {
+    const isAdmin = (
+      await axios.get(`${REST_SERVER_URL}/user/validate`, { params: { userId: userSessionStorage.getUserId() } })
+    ).data
+    return isAdmin
+  }
 }
 
 export const userService = new UserService()

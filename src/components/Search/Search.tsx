@@ -1,5 +1,8 @@
+import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { useAuth } from 'src/context/AuthProvider'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
+import { useOnInit } from 'src/hooks/hooks'
 
 export type FilterArgs = {
   bandKeyword: string
@@ -12,6 +15,12 @@ interface SearchArgs {
 }
 
 export const Search = (onSubmit: SearchArgs) => {
+  const { isAdmin, checkAdminStatus } = useAuth()
+
+  useOnInit(async () => {
+    await checkAdminStatus()
+  })
+
   const { register, handleSubmit } = useForm<FilterArgs>({
     defaultValues: {
       bandKeyword: '',
@@ -28,6 +37,11 @@ export const Search = (onSubmit: SearchArgs) => {
     }
   }
 
+  const validateRenderConditions = () => {
+    console.log(isAdmin)
+    return !isAdmin && userSessionStorage.userIsLoged()
+  }
+
   return (
     <form className="main__search shadow--div" onSubmit={handleSubmit(handleFormSubmit)}>
       <input
@@ -40,7 +54,7 @@ export const Search = (onSubmit: SearchArgs) => {
         {...register('facilityKeyword')}
         placeholder={'Lugar'}
       />
-      {userSessionStorage.userIsLoged() && (
+      {validateRenderConditions() && (
         <span className="field__container">
           <input className="shadow--box" id="withFriends" type="checkbox" {...register('withFriends')} />{' '}
           <label className="text" htmlFor="withFriends">
