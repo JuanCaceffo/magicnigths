@@ -12,6 +12,9 @@
     align-items: start;
     justify-content: start;
     gap: var(--padding);
+    padding: 0 0 var(--padding) 0;
+    max-height: 34em;
+    overflow-y: auto;
   }
 
   &__dates {
@@ -32,6 +35,10 @@
   }
 
   &__stats {
+
+    display: flex;
+    gap: var(--padding);
+    justify-content: center;
   }
 
   @media (max-width: 800px) {
@@ -53,4 +60,20 @@
     transform: unset;
     box-shadow: unset;
   }
+}
+
+.clear{
+  background-color: var(--color-primary-background);
+}
+
+.red{
+  background-color: rgb(230, 36, 36);
+}
+
+.yellow{
+  background-color: hsl(51, 100%, 47%);
+}
+
+.green{
+  background-color: green;
 }

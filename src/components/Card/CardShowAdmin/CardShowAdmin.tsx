@@ -4,13 +4,20 @@ import { Prices } from '../Prices/Prices'
 
 interface CardShowAdminProps {
   show: Show
+  onSelect?: () => void
 }
 
 export const CardShowAdmin = (props: CardShowAdminProps) => {
-  const { show } = props
+  const { show, onSelect } = props
+
+  const handleClick = () => {
+    if (onSelect) {
+      onSelect()
+    }
+  }
 
   return (
-    <article className={`card-admin shadow shadow--box`}>
+    <article className={`card-admin shadow shadow--box`} onClick={handleClick}>
       <img className="card-admin__img" src={`/images/${show.showImg}`} />
       <section className="card-admin__info">
         <p className="card-admin__title">{`${show.bandName} - ${show.showName}`}</p>

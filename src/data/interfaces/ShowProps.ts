@@ -17,3 +17,10 @@ export interface ShowProps {
   quantity?: number
   canBeCommented?: boolean
 }
+
+export interface ShowStatsProps{
+  id: number
+  value: number
+  color: Colors
+}
+export type Colors = "red" | "yellow" | "green"

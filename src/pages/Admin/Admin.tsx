@@ -11,12 +11,14 @@ import { Carousel } from 'src/components/Carousel/Carousel'
 import { DateTimeModal } from 'src/components/Modal/DateTimeModal'
 import { SubmitHandler } from 'react-hook-form'
 import { CDate, CDateArgs } from 'src/data/model/CDate'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
+import { CardStats } from 'src/components/Card/CardStats/CardStats'
+import { ShowStat } from 'src/data/model/ShowStats'
 
 export const Admin = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [shows, setShows] = useState<Array<Show>>([])
+  const [shows, setShows] = useState<Show[]>([])
   const [show, setShow] = useState<Show>()
+  const [stats, setStats] = useState<ShowStat[]>([])
 
   const onSubmit: SubmitHandler<CDateArgs> = async (data) => {
     const date = new CDate(data).toDate
@@ -32,39 +34,45 @@ export const Admin = () => {
 
   const getAllShows = async (filter: FilterArgs) => {
     try {
-      const fetchedShows = await showService.getShows(filter)
+      const fetchedShows = await showService.getAdminShows(filter)
       setShows(fetchedShows)
-      await getShowById(fetchedShows[0].id)
+      setShow(fetchedShows[0])
+      await getShowStatsById(fetchedShows[0].id)
     } catch (error) {
       // ErrorHandler(error as AxiosError, setErrorMsg)
     }
   }
 
-  const getShowById = async (showId: number) => {
+  const getShowStatsById = async (showId: number) => {
     try {
-      setTimeout(async () => {
-        await showService.getShowById(showId).then((value) => {
-          setShow(value)
-        })
-      }, 450)
+      await showService.getShowStatsById(showId).then((value) => {
+        setStats([...value])
+      })
     } catch (err) {
       console.log(err)
     }
   }
 
+  const handleShowSelect = (show: Show) => {
+    setShow(show)
+    getShowStatsById(show.id)
+  }
+
   const cardList = () => {
-    return shows.map((show) => <CardShowAdmin key={show.id} show={show} />)
+    return shows.map((show) => <CardShowAdmin onSelect={() => handleShowSelect(show)} key={show.id} show={show} />)
   }
 
   const dateList = () => {
     return show
       ? show.dates.map((date) => (
-          <CardDate key={date.toDateString()} isDisable={date < new Date()} date={date} className="static" />
-        ))
+        <CardDate key={date.toDateString()} isDisable={date < new Date()} date={date} className="static" />
+      ))
       : []
   }
 
-  useOnInit(async () => await getAllShows({} as FilterArgs))
+  useOnInit(async () => {
+    await getAllShows({} as FilterArgs)
+  })
 
   return (
     <Page
@@ -85,7 +93,16 @@ export const Admin = () => {
               </a>
             </span>
           </section>
-          <section className="admin__stats"></section>
+          <section className="admin__stats">
+            {stats && stats.length > 0 &&
+              <section className='admin__stats'>
+                <CardStats title={"Ventas"} info={`$ ${stats[0]['value']}`} color={stats[0]['color']} />
+                <CardStats title={"En Espera"} info={`${stats[1].value} Personas`} color={stats[1].color} />
+                <CardStats title={"Rentabilidad"} info={`${stats[2].value} %`} color={stats[2].color} />
+                <CardStats title={"Sold-Out"} info={`${stats[3].value} Funciones`} color={stats[3].color} />
+              </section>
+            }
+          </section>
           {modalIsOpen && show && (
             <DateTimeModal
               isOpen={modalIsOpen}
