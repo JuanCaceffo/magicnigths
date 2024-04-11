@@ -10,7 +10,7 @@ interface CardDateProps {
   className?: string
 }
 
-const CardDate = forwardRef<HTMLDivElement, CardDateProps>((props: CardDateProps, ref) => {
+export const CardDate = forwardRef<HTMLDivElement, CardDateProps>((props: CardDateProps, ref) => {
   const { date, isSelected = false, isDisable = false, handleClick, className = '' } = props
 
   return (
@@ -28,5 +28,3 @@ const CardDate = forwardRef<HTMLDivElement, CardDateProps>((props: CardDateProps
     </article>
   )
 })
-
-export default CardDate

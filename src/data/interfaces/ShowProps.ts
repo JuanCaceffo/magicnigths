@@ -1,4 +1,4 @@
-import { CommentDTO } from "./CommentDTO"
+import { CommentDTO } from './CommentDTO'
 
 export interface ShowProps {
   id: number
@@ -16,11 +16,12 @@ export interface ShowProps {
   geolocation?: string
   quantity?: number
   canBeCommented?: boolean
+  stats?: { name: string; stat: string }[]
 }
 
-export interface ShowStatsProps{
+export interface ShowStatsProps {
   id: number
   value: number
   color: Colors
 }
-export type Colors = "red" | "yellow" | "green"
+export type Colors = 'red' | 'yellow' | 'green'

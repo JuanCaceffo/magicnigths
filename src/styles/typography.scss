@@ -4,6 +4,10 @@
   font-size: 1.2em;
   font-weight: 400;
 
+  &--unlisted {
+    list-style: none;
+  }
+
   &--secondary {
     font-family: var(--typeface-secondary);
   }

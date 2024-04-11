@@ -19,11 +19,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAdmin, setIsAdmin] = useState(false)
 
   const checkAdminStatus = async () => {
-    try {
-      setIsAdmin(await userService.isAdmin())
-    } catch (error) {
-      console.error('Error al verificar el estado de administrador:', error)
-    }
+    setIsAdmin(await userService.isAdmin())
   }
 
   return <AuthContext.Provider value={{ isAdmin, checkAdminStatus }}>{children}</AuthContext.Provider>

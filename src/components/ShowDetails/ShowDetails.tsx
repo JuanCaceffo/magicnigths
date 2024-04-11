@@ -1,23 +1,22 @@
 import './ShowDetails.scss'
-import { Box } from '@mui/material'
 import { useState } from 'react'
 import { showService } from 'src/services/ShowService'
 import { Show } from 'src/data/model/Show'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import CardDate from '../Card/CardDate/CardDate'
+import { useParams } from 'react-router-dom'
+import { CardDate } from '../Card/CardDate/CardDate'
 import { Seat } from 'src/data/model/Seat'
-import { SeatBox } from '../SeatBox/SeatBox'
 import { useOnInit } from 'src/hooks/hooks'
 import { Comment } from '../Comment/Comment'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
+import { ShowDetailsBase } from './ShowDetailsBase'
+import { useAuth } from 'src/context/AuthProvider'
+import { ShowDetailsAdmin } from './ShowDetailsAdmin'
 
 export const ShowDetails = () => {
   const { id } = useParams()
   const [show, setShow] = useState<Show>()
   const [seats, setSeats] = useState<Seat[]>([])
   const [dateSelected, setDateSelected] = useState<Date>()
-  const navigate = useNavigate()
-  const location = useLocation()
+  const { isAdmin, checkAdminStatus } = useAuth()
 
   const handleDateClick = (date: Date) => {
     setDateSelected(date)
@@ -50,6 +49,7 @@ export const ShowDetails = () => {
   }
 
   useOnInit(async () => {
+    checkAdminStatus()
     await getShowById()
   })
 
@@ -91,29 +91,16 @@ export const ShowDetails = () => {
                   />
                 ))}
               </div>
-              <Box className="show-details__seats">
-                {seats.map((seat) => (
-                  <SeatBox key={seat.seatType} isDisable={seat.disabled} seat={seat} handler={handlePickerUpdate} />
-                ))}
-              </Box>
-              <Box className="show-details__bottom">
-                <button
-                  className="button button--primary button--rounded button--tall button--large animated shadow--box text--strong text--spaced"
-                  onClick={() => {
-                    //Si no esta logeado te manda al login y le pasamos la locacion de la esta pagina
-                    !userSessionStorage.userIsLoged() && navigate('/login', { state: location })
-                    //si si esta logeado agregamos los shows al back
-                  }}
-                >
-                  AGREGAR AL CARRITO
-                </button>
-              </Box>
+              {seats && isAdmin ? (
+                <ShowDetailsAdmin show={show} />
+              ) : (
+                <ShowDetailsBase seats={seats} handlePickerUpdate={handlePickerUpdate} />
+              )}
             </section>
           </section>
           <section className="show-details__comments text">
-            {show.comments.map((comment) => (
-              <Comment className="show-details__comment" comment={comment} />
-            ))}
+            {!isAdmin &&
+              show.comments.map((comment) => <Comment className="show-details__comment" comment={comment} />)}
           </section>
         </article>
       )}

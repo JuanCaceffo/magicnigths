@@ -21,6 +21,7 @@ export class Show implements ShowProps {
   geolocation?: string
   canBeCommented: boolean
   showedImages: number = 0
+  stats: { name: string; stat: string }[]
 
   constructor(private props: ShowProps) {
     this.id = this.props.id ?? ''
@@ -38,6 +39,7 @@ export class Show implements ShowProps {
     this.geolocation = this.props.geolocation ?? ''
     this.quantity = this.props.quantity ?? 0
     this.canBeCommented = props.canBeCommented ?? false
+    this.stats = this.props.stats ?? []
   }
 
   get title() {
