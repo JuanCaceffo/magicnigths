@@ -5,6 +5,7 @@ import { Show } from 'src/data/model/Show'
 import { Seat, SeatArgs } from 'src/data/model/Seat'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 import { FilterArgs } from 'src/components/Search/Search'
+import { ShowStats } from 'src/data/model/ShowStats'
 
 class ShowService {
   async getShows(filter: FilterArgs) {
@@ -13,6 +14,13 @@ class ShowService {
         params: filter,
       })
     ).data
+    return data.map((show) => new Show(show))
+  }
+
+  async getAdminShows(filter: FilterArgs) {
+    const data = (
+      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/admin_dashboard/shows/`,{params: filter}))
+      .data
     return data.map((show) => new Show(show))
   }
 
@@ -43,6 +51,11 @@ class ShowService {
   addShowDate = async (showId: number, userId: number, newDate: Date) => {
     const isoDate = newDate.toISOString()
     await axios.post(`${REST_SERVER_URL}/show/${showId}/create-date/user/${userId}`, isoDate)
+  }
+
+  getShowStatsById = async (showId: number) => {
+    const showJson = await axios.get(`${REST_SERVER_URL}/admin_dashboard/shows/${showId}`)
+    return new ShowStats(showJson.data)
   }
 }
 

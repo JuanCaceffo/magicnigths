@@ -17,3 +17,12 @@ export interface ShowProps {
   quantity?: number
   canBeCommented?: boolean
 }
+
+export interface ShowStatsProps{
+  id: number
+  totalSales: number
+  pendingAttendees: number
+  rentability: number
+  soldOutDates: number
+  baseCost: number
+}

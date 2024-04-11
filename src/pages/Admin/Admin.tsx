@@ -9,11 +9,15 @@ import './Admin.scss'
 import CardDate from 'src/components/Card/CardDate/CardDate'
 import { Carousel } from 'src/components/Carousel/Carousel'
 import { DateTimeModal } from 'src/components/Modal/DateTimeModal'
+import { ShowStats } from 'src/data/model/ShowStats'
+import { CardStats } from 'src/components/Card/CardStats/CardStats'
+import { getColorForPending, getColorForRentability, getColorForSales, getColorForSoldOut } from 'src/data/helpers/getStatColor'
 
 export const Admin = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [shows, setShows] = useState<Array<Show>>([])
   const [show, setShow] = useState<Show>()
+  const [stats, setStats] = useState<ShowStats>()
 
   const openModal = () => {
     setModalIsOpen(true)
@@ -25,24 +29,28 @@ export const Admin = () => {
 
   const getAllShows = async (filter: FilterArgs) => {
     try {
-      const fetchedShows = await showService.getShows(filter)
+      const fetchedShows = await showService.getAdminShows(filter)
       setShows(fetchedShows)
-      await getShowById(fetchedShows[0].id)
+      setShow(fetchedShows[9])
+      await getShowStatsById(fetchedShows[9].id)
     } catch (error) {
       // ErrorHandler(error as AxiosError, setErrorMsg)
     }
   }
 
-  const getShowById = async (showId: number) => {
+  const getShowStatsById = async (showId: number) => {
     try {
-      setTimeout(async () => {
-        await showService.getShowById(showId).then((value) => {
-          setShow(value)
-        })
-      }, 450)
+      await showService.getShowStatsById(showId).then((value) => {
+        setStats(value)
+      })
     } catch (err) {
       console.log(err)
     }
+  }
+
+  const handleShowSelect = (show: Show) => {
+    setShow(show)
+    getShowStatsById(show.id)
   }
 
   const handleAddDate = () => {
@@ -59,14 +67,14 @@ export const Admin = () => {
   }
 
   const cardList = () => {
-    return shows.map((show) => <CardShowAdmin key={show.id} show={show} />)
+    return shows.map((show) => <CardShowAdmin onSelect={() => handleShowSelect(show)} key={show.id} show={show} />)
   }
 
   const dateList = () => {
     return show
       ? show.dates.map((date) => (
-          <CardDate key={date.toDateString()} isDisable={date < new Date()} date={date} className="static" />
-        ))
+        <CardDate key={date.toDateString()} isDisable={date < new Date()} date={date} className="static" />
+      ))
       : []
   }
 
@@ -88,7 +96,15 @@ export const Admin = () => {
               </a>
             </span>
           </section>
-          <section className="admin__stats"></section>
+          <section className="admin__stats">
+            {stats && show &&
+              <section className='admin__stats'>
+                <CardStats title="Ventas" info={`$ ${stats.totalSales}`} color={getColorForSales(stats.totalSales)} />
+                <CardStats title="Personas en espera" info={`${stats.pendingAttendees}`} color={getColorForPending(stats.pendingAttendees, Math.min(...show.prices), stats.baseCost)} />
+                <CardStats title="Rentabilidad" info={`${stats.rentability} %`} color={getColorForRentability(stats.rentability)} />
+                <CardStats title="Funciones Sold-Out" info={`${stats.soldOutDates}`} color={getColorForSoldOut(stats.soldOutDates, show?.dates.length)} />
+              </section>}
+          </section>
           {modalIsOpen && show && <DateTimeModal isOpen={modalIsOpen} handleClose={closeModal} show={show} />}
         </article>
       }
