@@ -3,18 +3,21 @@ import { Box, Button } from '@mui/material'
 import { useState } from 'react'
 import { showService } from 'src/services/ShowService'
 import { Show } from 'src/data/model/Show'
-import { useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import CardDate from '../Card/CardDate/CardDate'
 import { Seat } from 'src/data/model/Seat'
 import { SeatBox } from '../SeatBox/SeatBox'
 import { useOnInit } from 'src/hooks/hooks'
 import Comment from '../Comment/Comment'
+import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 
 export const ShowDetails = () => {
   const { id } = useParams()
   const [show, setShow] = useState<Show>()
   const [seats, setSeats] = useState<Seat[]>([])
   const [dateSelected, setDateSelected] = useState<Date>()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const handleDateClick = (date: Date) => {
     setDateSelected(date)
@@ -96,7 +99,16 @@ export const ShowDetails = () => {
                 ))}
               </Box>
               <Box className="show-details__bottom">
-                <Button className="show-details__button">Agregar al Carrito</Button>
+                <Button
+                  className="show-details__button"
+                  onClick={() => {
+                    //Si no esta logeado te manda al login y le pasamos la locacion de la esta pagina
+                    if (!userSessionStorage.userIsLoged()) navigate('/login', { state: location })
+                    //si si esta logeado agregamos los shows al back
+                  }}
+                >
+                  Agregar al Carritos
+                </Button>
               </Box>
             </section>
           </section>
