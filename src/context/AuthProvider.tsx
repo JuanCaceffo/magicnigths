@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, FC, ReactNode } from 'react'
+import { createContext, useState, useContext, ReactNode } from 'react'
 import { userService } from 'src/services/UserService'
 
 interface AuthContextType {

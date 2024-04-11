@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useAuth } from 'src/context/AuthProvider'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
