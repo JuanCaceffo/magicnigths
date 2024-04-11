@@ -59,7 +59,14 @@ export const Admin = () => {
   }
 
   const cardList = () => {
-    return shows.map((show) => <CardShowAdmin onSelect={() => handleShowSelect(show)} key={show.id} show={show} />)
+    return shows.map((card) => (
+      <CardShowAdmin
+        onSelect={() => handleShowSelect(card)}
+        key={card.id}
+        show={card}
+        isSelected={card.id === show!.id}
+      />
+    ))
   }
 
   const dateList = () => {

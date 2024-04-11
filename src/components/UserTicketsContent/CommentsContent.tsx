@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { CommentDTO } from 'src/data/interfaces/CommentDTO'
-import Comment from '../Comment/Comment'
+import { Comment } from '../Comment/Comment'
 import { userService } from 'src/services/UserService'
 import './CommentsContent.css'
 import { closeSnackbar, enqueueSnackbar } from 'notistack'

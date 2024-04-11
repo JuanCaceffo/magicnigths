@@ -8,7 +8,7 @@ import CardDate from '../Card/CardDate/CardDate'
 import { Seat } from 'src/data/model/Seat'
 import { SeatBox } from '../SeatBox/SeatBox'
 import { useOnInit } from 'src/hooks/hooks'
-import Comment from '../Comment/Comment'
+import { Comment } from '../Comment/Comment'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 
 export const ShowDetails = () => {

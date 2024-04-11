@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import './Comment.scss'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
@@ -10,7 +9,8 @@ interface CommentProps {
   className?: string
 }
 
-const Comment: FC<CommentProps> = ({ className = '', comment, handleDelete }) => {
+export const Comment = (args: CommentProps) => {
+  const { className = '', comment, handleDelete } = args
   return (
     <article className={`comment ${className}`}>
       <header className="comment__header centered">
@@ -35,5 +35,3 @@ const Comment: FC<CommentProps> = ({ className = '', comment, handleDelete }) =>
     </article>
   )
 }
-
-export default Comment
