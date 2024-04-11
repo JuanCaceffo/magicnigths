@@ -10,6 +10,9 @@ import { SeatBox } from '../SeatBox/SeatBox'
 import { useOnInit } from 'src/hooks/hooks'
 import { Comment } from '../Comment/Comment'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
+import { cartService } from 'src/services/CartService'
+import { Ticket } from 'src/data/model/Ticket'
+import { enqueueSnackbar } from 'notistack'
 
 export const ShowDetails = () => {
   const { id } = useParams()
@@ -26,6 +29,7 @@ export const ShowDetails = () => {
 
   const handlePickerUpdate = (seat: Seat) => {
     setSeats((prevSeats) => {
+      console.log(seats)
       return [...prevSeats.slice(0, seat.id), seat, ...prevSeats.slice(seat.id + 1)]
     })
   }
@@ -48,6 +52,31 @@ export const ShowDetails = () => {
       console.log(err)
     }
   }
+
+  const addToCart = async () => {
+    try {
+      if (userSessionStorage.userIsLoged()) {
+        if (show && dateSelected) {
+          seats.forEach(async (seat) => {
+            const ticketData = Ticket.toJson({
+              showId: show.id,
+              date: dateSelected,
+              seatPrice: seat.price,
+              seatTypeName: seat.seatType,
+              quantity: seat.reservedQuantity
+            })
+            await cartService.addReservedTicket(ticketData)
+          })
+          enqueueSnackbar('Carrito actualizado con éxito', { variant: 'success' })
+        }
+      } else {
+        navigate('/login', { state: location })
+      }
+    } catch (error) {
+      console.error('Error al agregar el espectáculo al carrito:', error)
+    }
+  }
+
 
   useOnInit(async () => {
     await getShowById()
@@ -103,6 +132,7 @@ export const ShowDetails = () => {
                     //Si no esta logeado te manda al login y le pasamos la locacion de la esta pagina
                     !userSessionStorage.userIsLoged() && navigate('/login', { state: location })
                     //si si esta logeado agregamos los shows al back
+                    addToCart()
                   }}
                 >
                   AGREGAR AL CARRITO
