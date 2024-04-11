@@ -4,6 +4,7 @@ import { userService } from 'src/services/UserService'
 interface AuthContextType {
   isAdmin: boolean
   checkAdminStatus: () => Promise<void>
+  logout: () => void
 }
 
 interface AuthProviderProps {
@@ -13,6 +14,7 @@ interface AuthProviderProps {
 export const AuthContext = createContext<AuthContextType>({
   isAdmin: false,
   checkAdminStatus: async () => {},
+  logout: () => {},
 })
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
@@ -22,7 +24,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsAdmin(await userService.isAdmin())
   }
 
-  return <AuthContext.Provider value={{ isAdmin, checkAdminStatus }}>{children}</AuthContext.Provider>
+  const logout = () => {
+    setIsAdmin(false)
+  }
+
+  return <AuthContext.Provider value={{ isAdmin, checkAdminStatus, logout }}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {

@@ -2,7 +2,7 @@ import './ShowDetails.scss'
 import { useState } from 'react'
 import { showService } from 'src/services/ShowService'
 import { Show } from 'src/data/model/Show'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { CardDate } from '../Card/CardDate/CardDate'
 import { Seat } from 'src/data/model/Seat'
 import { useOnInit } from 'src/hooks/hooks'
@@ -10,6 +10,10 @@ import { Comment } from '../Comment/Comment'
 import { ShowDetailsBase } from './ShowDetailsBase'
 import { useAuth } from 'src/context/AuthProvider'
 import { ShowDetailsAdmin } from './ShowDetailsAdmin'
+import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
+import { Ticket } from 'src/data/model/Ticket'
+import { enqueueSnackbar } from 'notistack'
+import { cartService } from 'src/services/CartService'
 
 export const ShowDetails = () => {
   const { id } = useParams()
@@ -17,6 +21,7 @@ export const ShowDetails = () => {
   const [seats, setSeats] = useState<Seat[]>([])
   const [dateSelected, setDateSelected] = useState<Date>()
   const { isAdmin, checkAdminStatus } = useAuth()
+  const navigate = useNavigate()
 
   const handleDateClick = (date: Date) => {
     setDateSelected(date)
@@ -25,6 +30,7 @@ export const ShowDetails = () => {
 
   const handlePickerUpdate = (seat: Seat) => {
     setSeats((prevSeats) => {
+      console.log(seats)
       return [...prevSeats.slice(0, seat.id), seat, ...prevSeats.slice(seat.id + 1)]
     })
   }
@@ -45,6 +51,30 @@ export const ShowDetails = () => {
       setSeats([...fetchedSeats])
     } catch (err) {
       console.log(err)
+    }
+  }
+
+  const addToCart = async () => {
+    try {
+      if (userSessionStorage.userIsLoged()) {
+        if (show && dateSelected) {
+          seats.forEach(async (seat) => {
+            const ticketData = Ticket.toJson({
+              showId: show.id,
+              date: dateSelected,
+              seatPrice: seat.price,
+              seatTypeName: seat.seatType,
+              quantity: seat.reservedQuantity,
+            })
+            await cartService.addReservedTicket(ticketData)
+          })
+          enqueueSnackbar('Carrito actualizado con éxito', { variant: 'success' })
+        }
+      } else {
+        navigate('/login', { state: location })
+      }
+    } catch (error) {
+      console.error('Error al agregar el espectáculo al carrito:', error)
     }
   }
 
@@ -94,7 +124,7 @@ export const ShowDetails = () => {
               {seats && isAdmin ? (
                 <ShowDetailsAdmin show={show} />
               ) : (
-                <ShowDetailsBase seats={seats} handlePickerUpdate={handlePickerUpdate} />
+                <ShowDetailsBase seats={seats} handlePickerUpdate={handlePickerUpdate} addToCart={addToCart} />
               )}
             </section>
           </section>

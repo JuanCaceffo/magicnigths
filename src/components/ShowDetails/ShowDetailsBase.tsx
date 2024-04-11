@@ -6,10 +6,11 @@ import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 interface ShowDetailsBaseArgs {
   seats: Seat[]
   handlePickerUpdate: (seat: Seat) => void
+  addToCart: () => void
 }
 
 export const ShowDetailsBase = (args: ShowDetailsBaseArgs) => {
-  const { seats = [], handlePickerUpdate } = args
+  const { seats = [], handlePickerUpdate, addToCart } = args
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -26,6 +27,7 @@ export const ShowDetailsBase = (args: ShowDetailsBaseArgs) => {
           onClick={() => {
             //Si no esta logeado te manda al login y le pasamos la locacion de la esta pagina
             !userSessionStorage.userIsLoged() && navigate('/login', { state: location })
+            addToCart
             //si si esta logeado agregamos los shows al back
           }}
         >

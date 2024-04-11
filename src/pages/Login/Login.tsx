@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
 import { Input } from '@mui/material'
 import { useOnInit } from 'src/hooks/hooks'
+import { useAuth } from 'src/context/AuthProvider'
 
 interface LoginData {
   username: string
@@ -17,6 +18,7 @@ export const Login = () => {
   const [errorMessage, setError] = useState<string | null>(null)
   const redirectTo = useLocation().state
   const navigate = useNavigate()
+  const { isAdmin, checkAdminStatus } = useAuth()
 
   useOnInit(() => {
     sessionStorage.clear()
@@ -25,8 +27,14 @@ export const Login = () => {
   const HandleLoginClick = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      await userService.postUserLogin(userLogin)
-      navigate(redirectTo ? `${redirectTo.pathname}${redirectTo.search}` : '/')
+      await userService
+        .postUserLogin(userLogin)
+        .then(() => checkAdminStatus())
+        .then(() =>
+          isAdmin
+            ? navigate('/admin_dashboard/')
+            : navigate(redirectTo ? `${redirectTo.pathname}${redirectTo.search}` : '/'),
+        )
     } catch (err) {
       setError((err as AxiosError).message)
     }
