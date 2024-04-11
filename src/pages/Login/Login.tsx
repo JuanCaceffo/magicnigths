@@ -1,8 +1,8 @@
 import './Login.scss'
 import { Card } from '@mui/material'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { userService } from 'src/services/UserService'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
 import { Input } from '@mui/material'
 
@@ -14,13 +14,18 @@ interface LoginData {
 export const Login = () => {
   const [userLogin, setUserLogin] = useState<LoginData>({ username: '', password: '' })
   const [errorMessage, setError] = useState<string | null>(null)
+  const redirectTo = useLocation().state
   const navigate = useNavigate()
+  useEffect(() => {
+    sessionStorage.clear()
+  })
 
   const HandleLoginClick = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       await userService.postUserLogin(userLogin)
-      navigate('/user_profile')
+      console.log(redirectTo.pathname, redirectTo.search)
+      navigate(redirectTo ? `${redirectTo.pathname}${redirectTo.search}` : '/home')
     } catch (err) {
       setError((err as AxiosError).message)
     }
