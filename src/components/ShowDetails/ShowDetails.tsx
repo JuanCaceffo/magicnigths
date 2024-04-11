@@ -30,7 +30,6 @@ export const ShowDetails = () => {
 
   const handlePickerUpdate = (seat: Seat) => {
     setSeats((prevSeats) => {
-      console.log(seats)
       return [...prevSeats.slice(0, seat.id), seat, ...prevSeats.slice(seat.id + 1)]
     })
   }
@@ -41,7 +40,7 @@ export const ShowDetails = () => {
       setShow(fetchedShow)
       await getShowSeatTypes(fetchedShow.dates[0])
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -50,7 +49,7 @@ export const ShowDetails = () => {
       const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(+id!, selectedDate!)
       setSeats([...fetchedSeats])
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 

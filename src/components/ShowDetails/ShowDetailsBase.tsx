@@ -27,7 +27,7 @@ export const ShowDetailsBase = (args: ShowDetailsBaseArgs) => {
           onClick={() => {
             //Si no esta logeado te manda al login y le pasamos la locacion de la esta pagina
             !userSessionStorage.userIsLoged() && navigate('/login', { state: location })
-            addToCart
+            addToCart()
             //si si esta logeado agregamos los shows al back
           }}
         >

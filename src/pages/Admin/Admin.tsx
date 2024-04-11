@@ -49,7 +49,7 @@ export const Admin = () => {
         setStats([...value])
       })
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 

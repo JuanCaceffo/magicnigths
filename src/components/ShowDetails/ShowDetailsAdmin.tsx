@@ -27,10 +27,10 @@ export const ShowDetailsAdmin = (args: ShowDetailsBaseArgs) => {
   return (
     <>
       <ul className="show-details__body-info">
-        {show.stats.map((stat) => (
+        {show.details.map((detail) => (
           <li className="show-details__text text--unlisted">
-            <span className="text text--md text--stronger ">{stat.name}: </span>
-            <span className="text text--md">{stat.stat}</span>
+            <span className="text text--md text--stronger ">{detail.title}: </span>
+            <span className="text text--md">{detail.description}</span>
           </li>
         ))}
       </ul>

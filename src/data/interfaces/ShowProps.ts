@@ -16,7 +16,7 @@ export interface ShowProps {
   geolocation?: string
   quantity?: number
   canBeCommented?: boolean
-  stats?: { name: string; stat: string }[]
+  details?: { title: string; description: string }[]
 }
 
 export interface ShowStatsProps {

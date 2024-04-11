@@ -38,7 +38,6 @@ export const Search = (onSubmit: SearchArgs) => {
   }
 
   const validateRenderConditions = () => {
-    console.log(isAdmin)
     return !isAdmin && userSessionStorage.userIsLoged()
   }
 

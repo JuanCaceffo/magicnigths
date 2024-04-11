@@ -27,14 +27,11 @@ export const Login = () => {
   const HandleLoginClick = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      await userService
-        .postUserLogin(userLogin)
-        .then(() => checkAdminStatus())
-        .then(() =>
-          isAdmin
-            ? navigate('/admin_dashboard/')
-            : navigate(redirectTo ? `${redirectTo.pathname}${redirectTo.search}` : '/'),
-        )
+      await userService.postUserLogin(userLogin)
+      checkAdminStatus()
+      isAdmin
+        ? navigate('/admin_dashboard/')
+        : navigate(redirectTo ? `${redirectTo.pathname}${redirectTo.search}` : '/')
     } catch (err) {
       setError((err as AxiosError).message)
     }

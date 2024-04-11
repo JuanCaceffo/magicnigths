@@ -57,7 +57,6 @@ export const PopupNewShow = ({
 
   const handleSave = () => {
     onSave(date)
-    console.log(date)
     handleClose()
   }
 

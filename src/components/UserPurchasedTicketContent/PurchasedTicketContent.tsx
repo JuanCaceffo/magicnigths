@@ -23,7 +23,6 @@ export const PurchasedTicketContent = () => {
       const userShows = await userService.getPurchasedTickets()
       setShows([...userShows])
     } catch (e) {
-      console.log(e)
       if (isAxiosError(e)) {
         if (e.message) {
           setErrorMessage(e.message)

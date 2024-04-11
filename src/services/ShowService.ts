@@ -21,8 +21,10 @@ class ShowService {
 
   async getAdminShows(filter: FilterArgs) {
     const data = (
-      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/admin_dashboard/shows/`,{params: {...filter, userId: this.userId}}))
-      .data
+      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/admin_dashboard/shows/`, {
+        params: { ...filter, userId: this.userId },
+      })
+    ).data
     return data.map((show) => new Show(show))
   }
 
@@ -57,9 +59,10 @@ class ShowService {
   }
 
   getShowStatsById = async (showId: number): Promise<ShowStat[]> => {
-    const showJson = (await axios.get(`${REST_SERVER_URL}/admin_dashboard/shows/${showId}`, {params: {userId: this.userId}})).data
-    return showJson.map((show: ShowStatsProps) => 
-      ShowStat.toJson(show))
+    const showJson = (
+      await axios.get(`${REST_SERVER_URL}/admin_dashboard/shows/${showId}`, { params: { userId: this.userId } })
+    ).data
+    return showJson.map((show: ShowStatsProps) => ShowStat.toJson(show))
   }
 }
 
