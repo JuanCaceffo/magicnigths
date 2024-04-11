@@ -4,13 +4,19 @@ import { PurchasedTicketContent } from 'src/components/UserPurchasedTicketConten
 import { useEffect, useState } from 'react'
 import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
-import { isAxiosError } from 'axios'
+import { AxiosError, isAxiosError } from 'axios'
 import { PopupCredit } from 'src/components/PopupCredit/PopupCredit'
 import { UserData } from 'src/components/UserData/UserData'
 import { SelectionContent, UserSelectionPanel } from 'src/components/UserSelectionPanel/UserSelectionPanel'
 import { FriendsContent } from 'src/components/UserFriendsContent/FriendsContent'
 import { CommentsContent } from 'src/components/UserTicketsContent/CommentsContent'
 import './Profile.css'
+import { OptionsObject, closeSnackbar, enqueueSnackbar } from 'notistack'
+import { errorHandler } from 'src/data/helpers/ErrorHandler'
+
+export const snackbarProfileOptions: OptionsObject = {
+  anchorOrigin: { horizontal: 'left', vertical: 'top' },
+}
 
 export const Profile = () => {
   const [user, setUser] = useState(new User('', '', '', '', new Date(), 0))
@@ -22,6 +28,9 @@ export const Profile = () => {
 
   useEffect(() => {
     fetchUserData()
+    return () => {
+      closeSnackbar()
+    }
   }, [])
 
   const fetchUserData = async () => {
@@ -84,15 +93,25 @@ export const Profile = () => {
   }
 
   const handleSaveClick = async () => {
-    await userService.updateUser(user).then(() => {
-      fetchUserData()
-    })
+    await userService
+      .updateUser(user)
+      .then(() => {
+        enqueueSnackbar('Datos guardados con exito', { variant: 'success', ...snackbarProfileOptions })
+        fetchUserData()
+      })
+      .catch((error: AxiosError) => {
+        enqueueSnackbar(errorHandler(error), snackbarProfileOptions)
+      })
   }
 
   const handleAddCredit = async (creditToAdd: number) => {
-    const updatedCredit = await userService.addCreditToUser(creditToAdd) // Hacer dinámico
-
-    setCredit(updatedCredit)
+    try {
+      const updatedCredit = await userService.addCreditToUser(creditToAdd)
+      setCredit(updatedCredit)
+      enqueueSnackbar('Creditos agregados con exito', { variant: 'success', ...snackbarProfileOptions })
+    } catch (error) {
+      enqueueSnackbar(errorHandler(error as AxiosError), snackbarProfileOptions)
+    }
   }
 
   const handleOpenPupup = async () => {

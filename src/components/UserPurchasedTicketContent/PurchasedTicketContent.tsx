@@ -2,11 +2,14 @@ import { useState } from 'react'
 import CardShow from '../Card/CardShow/CardShow'
 import { useEffect } from 'react'
 import { userService } from 'src/services/UserService'
-import { isAxiosError } from 'axios'
+import { AxiosError, isAxiosError } from 'axios'
 import { Show } from 'src/data/model/Show'
 
 import './PurchasedTicketContent.css'
 import { PopupComment } from '../PopupComment/PopupComment'
+import { closeSnackbar, enqueueSnackbar } from 'notistack'
+import { snackbarProfileOptions } from 'src/pages/Profile/Profile'
+import { errorHandler } from 'src/data/helpers/ErrorHandler'
 //TODO: refactorizar componente por una solucion mas mantenible
 export const PurchasedTicketContent = () => {
   const [shows, setShows] = useState<Show[]>([])
@@ -34,6 +37,9 @@ export const PurchasedTicketContent = () => {
   }
   useEffect(() => {
     fetchUserShows()
+    return () => {
+      closeSnackbar()
+    }
   }, [])
 
   const handleAddComment = (ticketId: number) => {
@@ -51,10 +57,10 @@ export const PurchasedTicketContent = () => {
       .then(() => {
         setIsPopupOpen(false)
         fetchUserShows()
+        enqueueSnackbar('Comentario realizado con exito', { variant: 'success', ...snackbarProfileOptions })
       })
-      .catch((error: unknown) => {
-        console.log(error)
-        //TODO: manejar error con componente de errores de back si sale mal
+      .catch((error: AxiosError) => {
+        enqueueSnackbar(errorHandler(error), snackbarProfileOptions)
       })
   }
 
