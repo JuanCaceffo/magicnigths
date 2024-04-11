@@ -24,7 +24,6 @@ export const Login = () => {
     e.preventDefault()
     try {
       await userService.postUserLogin(userLogin)
-      console.log(redirectTo)
       navigate(redirectTo ? `${redirectTo.pathname}${redirectTo.search}` : '/')
     } catch (err) {
       setError((err as AxiosError).message)
