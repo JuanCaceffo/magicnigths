@@ -8,7 +8,7 @@ describe('CDate Methods Tests', () => {
 
     // Arrange
     vi.clearAllTimers()
-    const date = new Date(2015, 6, 15)
+    const date = new Date(2015, 6, 6)
     vi.setSystemTime(date)
   })
 
@@ -19,12 +19,12 @@ describe('CDate Methods Tests', () => {
 
   it('Should fail if the date is lower than the current date', () => {
     //Assert
-    expect(CDate.validateFutureDate('2015-07-14')).toBeFalsy()
+    expect(CDate.validateFutureDate('2015-07-05')).toBeFalsy()
   })
 
   it('Should succeed if the date is greater than the current date', () => {
     //Assert
-    expect(CDate.validateFutureDate('2015-07-16')).toBeTruthy()
+    expect(CDate.validateFutureDate('2015-07-07')).toBeTruthy()
   })
 
   it('Should fail if the time is lower than the current time', () => {
