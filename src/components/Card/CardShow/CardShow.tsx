@@ -103,8 +103,8 @@ const CardShow = (props: CardShowProps) => {
             <p>{show.facilityName}</p>
           </span>
           <span className="card__text card__text--right ">
-            <p className="text--strong">Fechas: </p>
-            <p>{show.reducedDates}</p>
+            <p className="text--strong">Fechas desde: </p>
+            <p> {show.reducedDates} </p>
           </span>
         </div>
         {!!show.totalFriends ? friends() : <p className="card__friends centered">No asisten amigos</p>}

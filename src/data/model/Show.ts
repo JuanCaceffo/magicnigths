@@ -30,7 +30,7 @@ export class Show {
     this.bandName = this.props.data.bandName ?? ''
     this.facilityName = this.props.data.facilityName ?? ''
     this.prices = this.props.prices ?? []
-    this.dates = this.props.dates.map((date) => moment.utc(date).toDate())
+    this.dates = this.props.dates.map((date) => moment(date).toDate()) ?? []
     this.rating = this.props.rating ?? 0
     this.totalComments = this.props.totalComments ?? 0
     this.userImageNames = this.props.userImageNames ?? []
@@ -65,23 +65,15 @@ export class Show {
 
   isPurchaced = () => !!this.price
 
-  firstDate = () =>
-    new Date(
-      Math.min.apply(
-        null,
-        this.dates.map((date) => date.getTime()),
-      ),
-    )
+  get firstDate() {
+    return this.dates[0]
+  }
 
-  lastDate = () =>
-    new Date(
-      Math.max.apply(
-        null,
-        this.dates.map((date) => date.getTime()),
-      ),
-    )
+  get lastDate() {
+    return this.dates[this.dates.length - 1]
+  }
 
   get reducedDates(): string[] {
-    return this.dates ? [format(this.firstDate(), 'MM/dd'), format(this.lastDate(), 'MM/dd')] : []
+    return this.dates ? [format(this.firstDate, 'dd/MM'), ' al ', format(this.lastDate, 'dd/MM')] : []
   }
 }

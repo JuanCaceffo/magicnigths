@@ -24,7 +24,7 @@ export const CardDate = forwardRef<HTMLDivElement, CardDateProps>((props: CardDa
         <strong className="card-date__day">{format(date, 'eeee')}</strong>
         <strong className="card-date__day-month">{format(date, 'dd/MM')}</strong>
       </section>
-      <span className="card-date__hs">{format(date, 'k:m')}</span>
+      <span className="card-date__hs">{format(date, 'kk:mm')} hs.</span>
     </article>
   )
 })
