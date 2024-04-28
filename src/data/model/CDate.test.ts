@@ -2,6 +2,19 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { CDate } from './CDate'
 
 describe('CDate Methods Tests', () => {
+  vi.spyOn(globalThis.Intl, 'DateTimeFormat').mockImplementation(() => ({
+    resolvedOptions: () => ({
+      timeZone: 'America/New_York', // Your timezone, rest is irrelevant
+      calendar: 'gregory',
+      locale: 'en-US',
+      numberingSystem: 'latn',
+    }),
+    format: () => '1/1/2022',
+    formatRange: () => '1/1/2022 – 1/1/2023',
+    formatRangeToParts: () => [],
+    formatToParts: () => [],
+  }))
+
   beforeEach(() => {
     // Simulated timers
     vi.useFakeTimers()
