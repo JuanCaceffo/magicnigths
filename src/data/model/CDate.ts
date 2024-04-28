@@ -29,15 +29,9 @@ export class CDate implements CDateArgs {
   static validateFutureDate = (date: string) => CDate.onlyDate(date) >= CDate.onlyDate()
 
   static onlyDate = (date?: string) => {
-    const [day, month, year] = date
-      ? date
-          .split('-')
-          .reverse()
-          .map((n) => +n)
-      : new Date()
-          .toLocaleDateString()
-          .split('/')
-          .map((n) => +n)
+    !date ? (date = new Date().toISOString().split('T')[0]) : this.validateDate(date)
+
+    const [year, month, day] = date.split('-').map((n) => +n)
 
     return new Date(year, month - 1, day, 0, 0, 0, 0)
   }

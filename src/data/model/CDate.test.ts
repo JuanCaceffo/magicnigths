@@ -2,26 +2,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { CDate } from './CDate'
 
 describe('CDate Methods Tests', () => {
-  vi.spyOn(globalThis.Intl, 'DateTimeFormat').mockImplementation(() => ({
-    resolvedOptions: () => ({
-      timeZone: 'America/New_York', // Your timezone, rest is irrelevant
-      calendar: 'gregory',
-      locale: 'en-US',
-      numberingSystem: 'latn',
-    }),
-    format: () => '1/1/2022',
-    formatRange: () => '1/1/2022 – 1/1/2023',
-    formatRangeToParts: () => [],
-    formatToParts: () => [],
-  }))
-
   beforeEach(() => {
     // Simulated timers
     vi.useFakeTimers()
 
     // Arrange
-    vi.clearAllTimers()
-    const date = new Date(2015, 6, 6)
+    const date = new Date(2015, 1, 2).toISOString()
     vi.setSystemTime(date)
   })
 
@@ -32,12 +18,13 @@ describe('CDate Methods Tests', () => {
 
   it('Should fail if the date is lower than the current date', () => {
     //Assert
-    expect(CDate.validateFutureDate('2015-07-05')).toBeFalsy()
+
+    expect(CDate.validateFutureDate('2015-02-01')).toBeFalsy()
   })
 
   it('Should succeed if the date is greater than the current date', () => {
     //Assert
-    expect(CDate.validateFutureDate('2015-07-07')).toBeTruthy()
+    expect(CDate.validateFutureDate('2015-02-03')).toBeTruthy()
   })
 
   it('Should fail if the time is lower than the current time', () => {
