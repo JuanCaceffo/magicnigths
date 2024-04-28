@@ -7,6 +7,7 @@ describe('CDate Methods Tests', () => {
     vi.useFakeTimers()
 
     // Arrange
+    vi.clearAllTimers()
     const date = new Date(2015, 6, 15)
     vi.setSystemTime(date)
   })
