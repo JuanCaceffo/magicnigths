@@ -3,10 +3,10 @@ class UserSessionStorage {
 
   getUserId = () => {
     const idLogedUser = sessionStorage.getItem(this.USER_KEY_STORAGE)
-    return idLogedUser ? +idLogedUser : -1
+    return idLogedUser ? +idLogedUser : 0
   }
 
-  userIsLoged = () => this.getUserId() >= 0
+  userIsLoged = () => this.getUserId() > 0
 }
 
 export const userSessionStorage = new UserSessionStorage()

@@ -1,17 +1,21 @@
 import { CommentDTO } from './CommentDTO'
 
-export interface ShowProps {
+export interface ShowData {
   id: number
   showImg: string
   showName: string
   bandName: string
   facilityName: string
+}
+
+export interface ShowProps {
+  data: ShowData
   rating?: number
   totalComments?: number
+  userImageNames?: string[]
   price?: number
   prices?: number[]
   dates: Date[]
-  userImageNames?: string[]
   comments?: CommentDTO[]
   geolocation?: string
   quantity?: number

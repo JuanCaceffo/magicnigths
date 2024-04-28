@@ -10,10 +10,10 @@ import { ShowStat } from 'src/data/model/ShowStats'
 class ShowService {
   userId = userSessionStorage.getUserId()
 
-  async getShows(filter: FilterArgs) {
+  async getAllShows(filter: FilterArgs) {
     const data = (
-      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/shows?userId=${userSessionStorage.getUserId()}`, {
-        params: filter,
+      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/api/shows`, {
+        params: { userId: this.userId, ...filter },
       })
     ).data
     return data.map((show) => new Show(show))
@@ -21,16 +21,16 @@ class ShowService {
 
   async getAdminShows(filter: FilterArgs) {
     const data = (
-      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/admin_dashboard/shows/`, {
-        params: { ...filter, userId: this.userId },
+      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/api/admin_dashboard/shows`, {
+        params: { userId: this.userId, ...filter },
       })
     ).data
     return data.map((show) => new Show(show))
   }
 
-  getShowById = async (showId: number) => {
-    const showJson = await axios.get(`${REST_SERVER_URL}/show/${showId}`)
-    return new Show(showJson.data)
+  getShowById = async (id: number) => {
+    const data = (await axios.get(`${REST_SERVER_URL}/api/show/${id}`)).data
+    return new Show(data)
   }
 
   getSeatsByShowDate = async (showId: number, selectedDate: Date) => {

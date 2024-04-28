@@ -4,7 +4,7 @@ import { CommentDTO } from '../interfaces/CommentDTO'
 import { format } from 'date-fns'
 
 //TODO: when the imgs managment will finished in the backend change here if is necesary
-export class Show implements ShowProps {
+export class Show {
   id: number
   showImg: string
   showName: string
@@ -22,19 +22,20 @@ export class Show implements ShowProps {
   canBeCommented: boolean
   showedImages: number = 0
   details: { title: string; description: string }[]
+
   constructor(private props: ShowProps) {
-    this.id = this.props.id ?? ''
-    this.showImg = this.props.showImg ?? 'default.jpg'
-    this.showName = this.props.showName ?? ''
-    this.bandName = this.props.bandName ?? ''
-    this.facilityName = this.props.facilityName ?? ''
+    this.id = this.props.data.id ?? ''
+    this.showImg = this.props.data.showImg ?? 'default.jpg'
+    this.showName = this.props.data.showName ?? ''
+    this.bandName = this.props.data.bandName ?? ''
+    this.facilityName = this.props.data.facilityName ?? ''
+    this.prices = this.props.prices ?? []
+    this.dates = this.props.dates.map((date) => moment.utc(date).toDate())
     this.rating = this.props.rating ?? 0
     this.totalComments = this.props.totalComments ?? 0
-    this.price = this.props.price ?? 0
-    this.prices = this.props.prices ?? []
     this.userImageNames = this.props.userImageNames ?? []
+    this.price = this.props.price ?? 0
     this.comments = this.props.comments ?? []
-    this.dates = this.props.dates.map((date) => moment.utc(date).toDate())
     this.geolocation = this.props.geolocation ?? ''
     this.quantity = this.props.quantity ?? 0
     this.canBeCommented = props.canBeCommented ?? false

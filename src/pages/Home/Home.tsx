@@ -14,7 +14,7 @@ export const Home = () => {
 
   const getAllShows = async (filter: FilterArgs) => {
     try {
-      await showService.getShows(filter).then((value) => {
+      await showService.getAllShows(filter).then((value) => {
         setShows(value)
       })
     } catch (error) {
