@@ -6,6 +6,7 @@ import { Seat, SeatArgs } from 'src/data/model/Seat'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 import { FilterArgs } from 'src/components/Search/Search'
 import { ShowStat } from 'src/data/model/ShowStats'
+import { ShowDate } from 'src/data/model/ShowDate'
 
 class ShowService {
   userId = userSessionStorage.getUserId()
@@ -21,7 +22,7 @@ class ShowService {
 
   async getAdminShows(filter: FilterArgs) {
     const data = (
-      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/api/admin_dashboard/shows`, {
+      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/api/admin/shows`, {
         params: { userId: this.userId, ...filter },
       })
     ).data
@@ -33,20 +34,14 @@ class ShowService {
     return new Show(data)
   }
 
-  getSeatsByShowDate = async (showId: number, selectedDate: Date) => {
-    const date = selectedDate.toISOString()
-    const seatsJson = (
-      await axios.get<SeatArgs[]>(`${REST_SERVER_URL}/show_dates/${showId}`, {
-        params: {
-          date,
-        },
-      })
-    ).data
+  getSeatsByShowDate = async (showId: number, showDate: ShowDate) => {
+    const seatsJson = (await axios.get<SeatArgs[]>(`${REST_SERVER_URL}/api/show_dates/${showId}/date/${showDate.id}`))
+      .data
 
-    const seatsJsonWithIndex = seatsJson.map((seat, index) => ({
+    const seatsJsonWithIndex = seatsJson.map((seat) => ({
       ...seat,
-      id: index,
-      disabled: selectedDate < new Date(),
+      id: showDate.id,
+      disabled: showDate.date < new Date(),
     }))
 
     return seatsJsonWithIndex.map((seat) => Seat.fromJSON(seat))
@@ -55,12 +50,15 @@ class ShowService {
   addShowDate = async (show: Show, newDate: Date) => {
     const isoDate = newDate.toISOString()
 
-    await axios.post(`${REST_SERVER_URL}/show/${show.id}/create-show-date`, { userId: this.userId, date: isoDate })
+    await axios.post(`${REST_SERVER_URL}/api/admin/show/${show.id}/create-show-date`, {
+      userId: this.userId,
+      date: isoDate,
+    })
   }
 
   getShowStatsById = async (showId: number): Promise<ShowStat[]> => {
     const showJson = (
-      await axios.get(`${REST_SERVER_URL}/admin_dashboard/shows/${showId}`, { params: { userId: this.userId } })
+      await axios.get(`${REST_SERVER_URL}/api/admin/shows/${showId}`, { params: { userId: this.userId } })
     ).data
     return showJson.map((show: ShowStatsProps) => ShowStat.toJson(show))
   }

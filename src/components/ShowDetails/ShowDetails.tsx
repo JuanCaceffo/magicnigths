@@ -14,18 +14,19 @@ import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 import { Ticket } from 'src/data/model/Ticket'
 import { enqueueSnackbar } from 'notistack'
 import { cartService } from 'src/services/CartService'
+import { ShowDate } from 'src/data/model/ShowDate'
 
 export const ShowDetails = () => {
   const { id } = useParams()
   const [show, setShow] = useState<Show>()
   const [seats, setSeats] = useState<Seat[]>([])
-  const [dateSelected, setDateSelected] = useState<Date>()
+  const [dateSelected, setDateSelected] = useState<ShowDate>()
   const { isAdmin, checkAdminStatus } = useAuth()
   const navigate = useNavigate()
 
-  const handleDateClick = (date: Date) => {
-    setDateSelected(date)
-    getShowSeatTypes(date)
+  const handleDateClick = (showDate: ShowDate) => {
+    setDateSelected(showDate)
+    getShowSeatTypes(showDate)
   }
 
   const handlePickerUpdate = (seat: Seat) => {
@@ -44,7 +45,7 @@ export const ShowDetails = () => {
     }
   }
 
-  const getShowSeatTypes = async (selectedDate: Date) => {
+  const getShowSeatTypes = async (selectedDate: ShowDate) => {
     try {
       const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(+id!, selectedDate!)
       setSeats([...fetchedSeats])
@@ -60,7 +61,7 @@ export const ShowDetails = () => {
           seats.forEach(async (seat) => {
             const ticketData = Ticket.toJson({
               showId: show.id,
-              date: dateSelected,
+              date: dateSelected.date,
               seatPrice: seat.price,
               seatTypeName: seat.seatType,
               quantity: seat.reservedQuantity,
@@ -110,12 +111,12 @@ export const ShowDetails = () => {
             <img className="show-details__img" src={`/images/${show.showImg}`} />
             <section className="show-details__buybox">
               <div className="show-details__dates shadow shadow--line">
-                {show.dates.map((date, index) => (
+                {show.dates.map((showDate, index) => (
                   <CardDate
-                    key={date.toDateString()}
-                    isSelected={!dateSelected ? (index === 0 ? true : false) : date === dateSelected}
-                    isDisable={date < new Date()}
-                    date={date}
+                    key={showDate.date.toDateString()}
+                    isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
+                    isDisable={showDate.date < new Date()}
+                    showDate={showDate}
                     handleClick={handleDateClick}
                   />
                 ))}

@@ -1,3 +1,4 @@
+import { ShowDate } from '../model/ShowDate'
 import { CommentDTO } from './CommentDTO'
 
 export interface ShowData {
@@ -15,7 +16,7 @@ export interface ShowProps {
   userImageNames?: string[]
   price?: number
   prices?: number[]
-  dates: Date[]
+  dates: ShowDate[]
   comments?: CommentDTO[]
   geolocation?: string
   quantity?: number

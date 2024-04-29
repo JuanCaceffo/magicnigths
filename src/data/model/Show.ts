@@ -2,6 +2,7 @@ import moment from 'moment'
 import { ShowProps } from '../interfaces/ShowProps'
 import { CommentDTO } from '../interfaces/CommentDTO'
 import { format } from 'date-fns'
+import { ShowDate, ShowDateProps } from './ShowDate'
 
 //TODO: when the imgs managment will finished in the backend change here if is necesary
 export class Show {
@@ -16,7 +17,7 @@ export class Show {
   prices: number[]
   userImageNames: string[]
   comments: CommentDTO[]
-  dates!: Date[]
+  dates!: ShowDate[]
   quantity?: number
   geolocation?: string
   canBeCommented: boolean
@@ -30,7 +31,7 @@ export class Show {
     this.bandName = this.props.data.bandName ?? ''
     this.facilityName = this.props.data.facilityName ?? ''
     this.prices = this.props.prices ?? []
-    this.dates = this.props.dates.map((date) => moment(date).toDate()) ?? []
+    this.dates = this.props.dates.map((showDate) => new ShowDate({ id: showDate.id, date: showDate.date })) ?? []
     this.rating = this.props.rating ?? 0
     this.totalComments = this.props.totalComments ?? 0
     this.userImageNames = this.props.userImageNames ?? []
@@ -66,11 +67,11 @@ export class Show {
   isPurchaced = () => !!this.price
 
   get firstDate() {
-    return this.dates[0]
+    return this.dates[0].date
   }
 
   get lastDate() {
-    return this.dates[this.dates.length - 1]
+    return this.dates[this.dates.length - 1].date
   }
 
   get reducedDates(): string[] {
