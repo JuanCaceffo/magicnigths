@@ -1,8 +1,7 @@
-import moment from 'moment'
 import { ShowProps } from '../interfaces/ShowProps'
 import { CommentDTO } from '../interfaces/CommentDTO'
 import { format } from 'date-fns'
-import { ShowDate, ShowDateProps } from './ShowDate'
+import { ShowDate } from './ShowDate'
 
 //TODO: when the imgs managment will finished in the backend change here if is necesary
 export class Show {

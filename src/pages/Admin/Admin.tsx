@@ -71,8 +71,13 @@ export const Admin = () => {
 
   const dateList = () => {
     return show
-      ? show.dates.map((date) => (
-          <CardDate key={date.toDateString()} isDisable={date < new Date()} date={date} className="static" />
+      ? show.dates.map((showDate) => (
+          <CardDate
+            key={showDate.date.toDateString()}
+            isDisable={showDate.date < new Date()}
+            showDate={showDate}
+            className="static"
+          />
         ))
       : []
   }
