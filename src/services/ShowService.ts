@@ -17,16 +17,6 @@ class ShowService {
         params: { userId: this.userId, ...filter },
       })
     ).data
-    console.log(data)
-    return data.map((show) => new Show(show))
-  }
-
-  async getAdminShows(filter: FilterArgs) {
-    const data = (
-      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/api/admin/shows`, {
-        params: { userId: this.userId, ...filter },
-      })
-    ).data
     return data.map((show) => new Show(show))
   }
 

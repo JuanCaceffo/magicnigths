@@ -34,7 +34,7 @@ export const Admin = () => {
 
   const getAllShows = async (filter: FilterArgs) => {
     try {
-      const fetchedShows = await showService.getAdminShows(filter)
+      const fetchedShows = await showService.getAllShows(filter)
       setShows(fetchedShows)
       setShow(fetchedShows[0])
       await getShowStatsById(fetchedShows[0].id)
