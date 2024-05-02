@@ -2,6 +2,7 @@ import './CardShow.scss'
 import { useState } from 'react'
 import { Show } from 'src/data/model/Show'
 import { Prices } from '../Prices/Prices'
+import { FriendsDisplay } from './FriendsDisplay'
 
 interface buttonProps {
   content: string
@@ -16,14 +17,14 @@ interface CardShowProps {
 }
 
 const CardShow = (props: CardShowProps) => {
-  const { show, button, quantity = 0 } = props
+  const { show, button } = props
   const [showButton, setShowButton] = useState(false)
 
   const qty = () => {
     return (
-      quantity > 1 && (
+      show.quantity > 1 && (
         <p className="card__qty text text--md text--stronger text--clear shadow--text-over" data-testid="show-amount">
-          {`x${quantity}`}
+          {`x${show.quantity}`}
         </p>
       )
     )
@@ -44,20 +45,6 @@ const CardShow = (props: CardShowProps) => {
           </>
         )}
       </>
-    )
-  }
-
-  const friends = () => {
-    return (
-      <section className="card__friends centered">
-        <span className="text--strong">Asisten:</span>
-        <span className="card__friends--img">
-          {show.takeImages(3).map((path) => (
-            <img key={path} className="profile-img profile-img__small shadow--png" src={`/images/${path}`} />
-          ))}
-        </span>
-        {<span data-testid="more-friends">{!!show.restFriends ? `+ ${show.restFriends} amigos` : 'amigos'}</span>}
-      </section>
     )
   }
 
@@ -107,8 +94,7 @@ const CardShow = (props: CardShowProps) => {
             <p> {show.reducedDates} </p>
           </span>
         </div>
-        {!!show.totalFriends ? friends() : <p className="card__friends centered">No asisten amigos</p>}
-
+        <FriendsDisplay show={show} />
         <footer className="card__footer text--md text--strong centered">
           {showButton && button ? actionButton() : <Prices show={show} />}
         </footer>

@@ -2,44 +2,49 @@ import { ShowProps } from '../interfaces/ShowProps'
 import { CommentDTO } from '../interfaces/CommentDTO'
 import { format } from 'date-fns'
 import { ShowDate } from './ShowDate'
+import moment from 'moment'
 
 //TODO: when the imgs managment will finished in the backend change here if is necesary
 export class Show {
   id: number
+  ticketId: number
   showImg: string
   showName: string
   bandName: string
   facilityName: string
-  rating: number
-  totalComments: number
   price: number
   prices: number[]
+  rating: number
+  totalComments: number
+  date?: Date
+  dates: ShowDate[]
   userImageNames: string[]
   comments: CommentDTO[]
-  dates!: ShowDate[]
-  quantity?: number
-  geolocation?: string
+  geolocation: string
+  quantity: number
+  details: { title: string; description: string }[]
   canBeCommented: boolean
   showedImages: number = 0
-  details: { title: string; description: string }[]
 
-  constructor(private props: ShowProps) {
-    this.id = this.props.data.id ?? ''
-    this.showImg = this.props.data.showImg ?? 'default.jpg'
-    this.showName = this.props.data.showName ?? ''
-    this.bandName = this.props.data.bandName ?? ''
-    this.facilityName = this.props.data.facilityName ?? ''
-    this.prices = this.props.prices ?? []
-    this.dates = this.props.dates.map((showDate) => new ShowDate({ id: showDate.id, date: showDate.date })) ?? []
-    this.rating = this.props.showStats.rating ?? 0
-    this.totalComments = this.props.showStats.totalComments ?? 0
-    this.userImageNames = this.props.showStats.userImageNames ?? []
-    this.price = this.props.price ?? 0
-    this.comments = this.props.comments ?? []
-    this.geolocation = this.props.geolocation ?? ''
-    this.quantity = this.props.quantity ?? 0
-    this.canBeCommented = props.canBeCommented ?? false
-    this.details = this.props.details ?? []
+  constructor(props?: ShowProps) {
+    this.id = props?.data.id ?? 0
+    this.showImg = props?.data.showImg ?? 'default.jpg'
+    this.showName = props?.data.showName ?? ''
+    this.bandName = props?.data.bandName ?? ''
+    this.facilityName = props?.data.facilityName ?? ''
+    this.price = props?.price ?? 0
+    this.prices = props?.prices ?? []
+    this.rating = props?.showStats?.rating ?? 0
+    this.totalComments = props?.showStats?.totalComments ?? 0
+    this.date = props?.date ? moment(props.date).toDate() : undefined
+    this.dates = props?.dates?.map((showDate) => new ShowDate({ id: showDate.id, date: showDate.date })) ?? []
+    this.userImageNames = props?.showStats?.userImageNames ?? []
+    this.comments = props?.comments ?? []
+    this.geolocation = props?.geolocation ?? ''
+    this.quantity = props?.quantity ?? 0
+    this.details = props?.details ?? []
+    this.ticketId = props?.ticketId ?? 0
+    this.canBeCommented = props?.canBeCommented ?? false
   }
 
   get title() {
@@ -51,11 +56,11 @@ export class Show {
 
   takeImages = (amount: number = 1): string[] => {
     this.showedImages = amount
-    return this.userImageNames.slice(0, amount)
+    return this.userImageNames?.slice(0, amount) ?? []
   }
 
   get totalFriends() {
-    return this.userImageNames.length
+    return this.userImageNames?.length ?? 0
   }
 
   get restFriends() {
@@ -63,17 +68,17 @@ export class Show {
     return rest > 0 ? rest : 0
   }
 
-  isPurchaced = () => !!this.price
+  isPurchaced = () => this.price
 
   get firstDate() {
-    return this.dates[0].date
+    return this.dates?.length ? this.dates[0].date : ''
   }
 
   get lastDate() {
-    return this.dates[this.dates.length - 1].date
+    return this.dates?.length ? this.dates[this.dates.length - 1].date : ''
   }
 
   get reducedDates(): string[] {
-    return this.dates ? [format(this.firstDate, 'dd/MM'), ' al ', format(this.lastDate, 'dd/MM')] : []
+    return this.dates.length != 0 ? [format(this.firstDate, 'dd/MM'), ' al ', format(this.lastDate, 'dd/MM')] : []
   }
 }

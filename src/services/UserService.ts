@@ -43,7 +43,7 @@ class UserService {
 
   async getCredit() {
     return (
-      await axios.get(`${REST_SERVER_URL}/api/${pathPrefix.user}/${userSessionStorage.getUserId()}/credit`).then()
+      await axios.get(`${REST_SERVER_URL}/api/${pathPrefix.user}/${userSessionStorage.getUserId()}/balance`).then()
     ).data
   }
 
@@ -78,13 +78,13 @@ class UserService {
   }
 
   async getPurchasedTickets(): Promise<Show[]> {
-    const response = await axios.get<ShowProps[]>(
-      `${REST_SERVER_URL}/api/${pathPrefix.user}/${userSessionStorage.getUserId()}/purchased_tickets`,
-    )
+    const response = (
+      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/api/${pathPrefix.user}/purchased_tickets`, {
+        params: { userId: userSessionStorage.getUserId() },
+      })
+    ).data
 
-    const purchasedTickets: Show[] = response.data.map((purchasedTicketsData) => new Show(purchasedTicketsData))
-
-    return purchasedTickets
+    return response.map((data) => new Show(data))
   }
 
   async getComments(): Promise<CommentDTO[]> {

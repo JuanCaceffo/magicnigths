@@ -12,7 +12,7 @@ import { snackbarProfileOptions } from 'src/pages/Profile/Profile'
 import { errorHandler } from 'src/data/helpers/ErrorHandler'
 //TODO: refactorizar componente por una solucion mas mantenible
 export const PurchasedTicketContent = () => {
-  const [shows, setShows] = useState<Show[]>([])
+  const [shows, setShows] = useState<Array<Show>>([])
   const [errorMessage, setErrorMessage] = useState('')
   const [isPopupOpen, setIsPopupOpen] = useState(false) // Estado para controlar si el popup está abierto
   const [gorupTicketId, setGorupTicketId] = useState(-1)
@@ -34,6 +34,7 @@ export const PurchasedTicketContent = () => {
       }
     }
   }
+
   useEffect(() => {
     fetchUserShows()
     return () => {
@@ -73,7 +74,6 @@ export const PurchasedTicketContent = () => {
             <div key={index}>
               <CardShow
                 show={show}
-                quantity={show.quantity}
                 button={
                   show.canBeCommented
                     ? {

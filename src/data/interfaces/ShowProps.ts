@@ -17,10 +17,12 @@ interface ShowStats {
 
 export interface ShowProps {
   data: ShowData
-  showStats: ShowStats
+  showStats?: ShowStats
   price?: number
   prices?: number[]
-  dates: ShowDate[]
+  date?: Date
+  dates?: ShowDate[]
+  ticketId?: number
   comments?: CommentDTO[]
   geolocation?: string
   quantity?: number
