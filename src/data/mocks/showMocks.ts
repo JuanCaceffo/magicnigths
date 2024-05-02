@@ -1,4 +1,4 @@
-import { ShowData, ShowProps } from '../interfaces/ShowProps'
+import { ShowData, ShowProps, ShowStats } from '../interfaces/ShowProps'
 import { Show } from '../model/Show'
 import { ShowDate } from '../model/ShowDate'
 
@@ -10,14 +10,17 @@ const baseShowProps: ShowProps = {
     bandName: 'La Vela Puerca',
     facilityName: 'Buenos Aires',
   } as ShowData,
-  rating: 4,
-  totalComments: 150,
+  showStats: {
+    rating: 4,
+    totalComments: 150,
+    userImageNames: ['/images/pablito.jpeg', '/images/juan.jpeg', '/images/denise.jpeg'],
+  } as ShowStats,
   dates: [
     new ShowDate({ id: 1, date: new Date('2024-04-11T23:23:34.03791001') }),
     new ShowDate({ id: 2, date: new Date('2024-04-12T23:23:34.038422832') }),
   ],
-  userImageNames: ['/images/pablito.jpeg', '/images/juan.jpeg', '/images/denise.jpeg'],
   price: 23000,
+  quantity: 10,
 }
 
 export const showBase: Show = new Show(baseShowProps)
@@ -29,5 +32,8 @@ export const showUnPaid = new Show({
 
 export const showPassTheFriendLimits: Show = new Show({
   ...baseShowProps,
-  userImageNames: [...baseShowProps.userImageNames!, 'dsadsa'],
+  showStats: {
+    ...baseShowProps.showStats,
+    userImageNames: [...baseShowProps.showStats!!.userImageNames!!, 'dsadsa'],
+  },
 })

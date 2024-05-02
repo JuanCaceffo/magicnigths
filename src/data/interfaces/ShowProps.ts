@@ -9,7 +9,7 @@ export interface ShowData {
   facilityName: string
 }
 
-interface ShowStats {
+export interface ShowStats {
   rating?: number
   totalComments?: number
   userImageNames?: string[]
