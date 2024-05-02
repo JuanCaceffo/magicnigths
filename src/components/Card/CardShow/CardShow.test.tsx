@@ -1,8 +1,8 @@
-import { RenderResult, fireEvent, render, screen } from '@testing-library/react'
+import { RenderResult, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { beforeEach, describe, expect, test } from 'vitest'
 import CardShow from './CardShow'
-import { showBase, showPassTheFriendLimits, showUnPaid } from 'src/data/mocks/showMocks'
+import { showBase, showUnPaid } from 'src/data/mocks/showMocks'
 
 describe('CardShow Component', () => {
   let renderResult: RenderResult
