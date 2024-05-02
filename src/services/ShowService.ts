@@ -17,6 +17,7 @@ class ShowService {
         params: { userId: this.userId, ...filter },
       })
     ).data
+    console.log(data)
     return data.map((show) => new Show(show))
   }
 

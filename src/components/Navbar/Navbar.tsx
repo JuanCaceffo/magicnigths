@@ -4,7 +4,6 @@ import { Box } from '@mui/material'
 import { NodeItem, NodeItemProps } from './NodeItem'
 import { useNavigate } from 'react-router-dom'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-import { useAuth } from 'src/context/AuthProvider'
 
 interface NavbarProps {
   className?: string
@@ -12,7 +11,6 @@ interface NavbarProps {
 }
 
 export const Navbar = ({ ...props }: NavbarProps) => {
-  const { logout } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
   const nav = useNavigate()
 
@@ -22,7 +20,6 @@ export const Navbar = ({ ...props }: NavbarProps) => {
 
   const handleLogout = () => {
     sessionStorage.clear()
-    logout()
     nav('/')
   }
 

@@ -8,7 +8,6 @@ import { Seat } from 'src/data/model/Seat'
 import { useOnInit } from 'src/hooks/hooks'
 import { Comment } from '../Comment/Comment'
 import { ShowDetailsBase } from './ShowDetailsBase'
-import { useAuth } from 'src/context/AuthProvider'
 import { ShowDetailsAdmin } from './ShowDetailsAdmin'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 import { Ticket } from 'src/data/model/Ticket'
@@ -21,8 +20,8 @@ export const ShowDetails = () => {
   const [show, setShow] = useState<Show>()
   const [seats, setSeats] = useState<Seat[]>([])
   const [dateSelected, setDateSelected] = useState<ShowDate>()
-  const { isAdmin, checkAdminStatus } = useAuth()
   const navigate = useNavigate()
+  const isAdmin = userSessionStorage.userIsAdmin()
 
   const handleDateClick = (showDate: ShowDate) => {
     setDateSelected(showDate)
@@ -79,7 +78,6 @@ export const ShowDetails = () => {
   }
 
   useOnInit(async () => {
-    checkAdminStatus()
     await getShowById()
   })
 

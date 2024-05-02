@@ -1,7 +1,5 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { useAuth } from 'src/context/AuthProvider'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-import { useOnInit } from 'src/hooks/hooks'
 
 export type FilterArgs = {
   bandKeyword: string
@@ -14,12 +12,6 @@ interface SearchArgs {
 }
 
 export const Search = (onSubmit: SearchArgs) => {
-  const { isAdmin, checkAdminStatus } = useAuth()
-
-  useOnInit(async () => {
-    await checkAdminStatus()
-  })
-
   const { register, handleSubmit } = useForm<FilterArgs>({
     defaultValues: {
       bandKeyword: '',
@@ -37,7 +29,7 @@ export const Search = (onSubmit: SearchArgs) => {
   }
 
   const validateRenderConditions = () => {
-    return !isAdmin && userSessionStorage.userIsLoged()
+    return userSessionStorage.userIsAdmin() && userSessionStorage.userIsLoged()
   }
 
   return (

@@ -31,9 +31,9 @@ export class Show {
     this.facilityName = this.props.data.facilityName ?? ''
     this.prices = this.props.prices ?? []
     this.dates = this.props.dates.map((showDate) => new ShowDate({ id: showDate.id, date: showDate.date })) ?? []
-    this.rating = this.props.rating ?? 0
-    this.totalComments = this.props.totalComments ?? 0
-    this.userImageNames = this.props.userImageNames ?? []
+    this.rating = this.props.showStats.rating ?? 0
+    this.totalComments = this.props.showStats.totalComments ?? 0
+    this.userImageNames = this.props.showStats.userImageNames ?? []
     this.price = this.props.price ?? 0
     this.comments = this.props.comments ?? []
     this.geolocation = this.props.geolocation ?? ''

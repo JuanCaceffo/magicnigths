@@ -9,11 +9,15 @@ export interface ShowData {
   facilityName: string
 }
 
-export interface ShowProps {
-  data: ShowData
+interface ShowStats {
   rating?: number
   totalComments?: number
   userImageNames?: string[]
+}
+
+export interface ShowProps {
+  data: ShowData
+  showStats: ShowStats
   price?: number
   prices?: number[]
   dates: ShowDate[]
