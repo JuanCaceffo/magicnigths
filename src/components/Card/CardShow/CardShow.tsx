@@ -1,103 +1,105 @@
-import { FC, MouseEvent } from 'react'
-import './CardShow.css'
-import StarIcon from '@mui/icons-material/Star'
+import './CardShow.scss'
+import { useState } from 'react'
 import { Show } from 'src/data/model/Show'
-import { Button, ButtonProps } from '@mui/material'
-import { format } from 'date-fns'
+import { Prices } from '../Prices/Prices'
+import { FriendsDisplay } from './FriendsDisplay'
 
-interface extButtonProps {
+interface buttonProps {
   content: string
-  whenclick: (event?: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => void
-  //DOCU https://mui.com/material-ui/api/button/
-  muiBtnProps?: ButtonProps
+  onClick: (id: number) => void
+  className?: string
 }
 
 interface CardShowProps {
   show: Show
-  button?: extButtonProps
+  button?: buttonProps
   quantity?: number
 }
 
-const CardShow: FC<CardShowProps> = ({ show, button, quantity }) => {
-  const fomratedDates = () => show.dates.map((date) => format(date, 'MM/dd')).join(' - ')
+const CardShow = (props: CardShowProps) => {
+  const { show, button } = props
+  const [showButton, setShowButton] = useState(false)
+
+  const qty = () => {
+    return (
+      show.quantity > 1 && (
+        <p className="card__qty text text--md text--stronger text--clear shadow--text-over" data-testid="show-amount">
+          {`x${show.quantity}`}
+        </p>
+      )
+    )
+  }
+
+  const star = () => {
+    return (
+      <>
+        {show.rating < 1 ? (
+          <i className="fas fa-star fa--rp fa--low" />
+        ) : //
+        show.rating < 4 ? (
+          <i className="fas fa-star fa--rp fa--medium" />
+        ) : (
+          <>
+            <i className="fas fa-star fa--rp fa--up" />
+            <i className="fas fa-fire fa--rp fa--hot" />
+          </>
+        )}
+      </>
+    )
+  }
+
+  const actionButton = () => {
+    return (
+      button && (
+        <button
+          className={`button button--primary button--rounded button--tall button--medium animated text--strong text--spaced shadow--box ${button.className}`}
+          data-testid="show-button"
+          onClick={() => button.onClick(show.id)}
+        >
+          {button.content.toUpperCase()}
+        </button>
+      )
+    )
+  }
 
   return (
-    <>
-      <main className="card-show">
-        <header className="card-show__header">
-          <img className="card-show__img" src={`/images/${show.showImg}`} />
-          {quantity
-            ? quantity > 1 && (
-                <strong data-testid="show-amount" className="card-show__amount body">
-                  X{quantity}
-                </strong>
-              )
-            : undefined}
+    <main
+      className="card text shadow shadow--big"
+      onMouseEnter={() => setShowButton(true)}
+      onMouseLeave={() => setShowButton(false)}
+      data-testid="card-show"
+    >
+      <header className="card__header">
+        <img className="card__img" src={`/images/${show.showImg}`} />
+        <span className="card__rating text--stronger">
+          {star()}
+          {`${show.rating} (${show.totalComments})`}
+        </span>
+        {qty()}
+      </header>
+      <section className="card__content">
+        <header className="card__content-header text--stronger centered">
+          <span>{`${show.bandName.toUpperCase()}`}</span>
+          <span>|</span>
+          <span>{`${show.showName}`}</span>
         </header>
-        <section className="card-show__cont card-show--flex">
-          <header className="card-show--flex subtitle2">
-            <span className="card-show__fileld">
-              {show.showName}
-              {show.bandName}
-            </span>
-            <article className="card-show__fileld">
-              <StarIcon fontSize="small"></StarIcon>
-              <b>{show.rating}</b>
-              <span>({show.totalComments})</span>
-            </article>
-          </header>
-          <div className="card-show--flex body">
-            <article className="card-show__fileld">
-              <span>
-                <b>Ubicacion: </b>
-                {show.facilityName}
-              </span>
-            </article>
-            <span className="card-show__fileld">{`fechas ${fomratedDates()}`}</span>
-          </div>
-          <div className="card-show--flex body">
-            {!!show.userImageNames.length ? (
-              <article className="card-show__friends card-show--flex">
-                <span>Tambien van a asistir</span>
-                <div className="card-show__user-img-cnt">
-                  {show.getLimitedUserImgs().map((path) => (
-                    <img key={path} className="card-show__user-img" src={`/images/${path}`}></img>
-                  ))}
-                </div>
-                {show.pasedLimitFriends() && <span data-testid="more-friends">+ {show.restFriends()} amigos</span>}
-              </article>
-            ) : (
-              'No asisten amigos'
-            )}
-          </div>
-          <footer className="card-show--flex body">
-            <strong data-testid="show-price" className="card-show__fileld card-show__price">
-              {show.wasPricePaid()
-                ? `Precio pagado  $${show.price}`
-                : show.prices &&
-                  `Desde ${show
-                    .getMinMaxPrices()
-                    .map((price) => `$${price}`)
-                    .join(' a ')}`}
-            </strong>
-            {button && (
-              <Button
-                color="primary"
-                variant="contained"
-                size="small"
-                {...button.muiBtnProps}
-                className={`card-show__button button-primary ${button.muiBtnProps?.className}`}
-                data-testid="show-button"
-                children={button.content}
-                onClick={(event) => {
-                  button.whenclick(event)
-                }}
-              />
-            )}
-          </footer>
-        </section>
-      </main>
-    </>
+
+        <div className="card__content-body">
+          <span className="card__text">
+            <p className="text--strong">Ubicación: </p>
+            <p>{show.facilityName}</p>
+          </span>
+          <span className="card__text card__text--right ">
+            <p className="text--strong">Fechas desde: </p>
+            <p> {show.reducedDates} </p>
+          </span>
+        </div>
+        <FriendsDisplay show={show} />
+        <footer className="card__footer text--md text--strong centered">
+          {showButton && button ? actionButton() : <Prices show={show} />}
+        </footer>
+      </section>
+    </main>
   )
 }
 

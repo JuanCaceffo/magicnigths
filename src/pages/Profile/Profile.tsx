@@ -1,4 +1,6 @@
 import { Divider } from '@mui/material'
+import './Profile.css'
+import { PurchasedTicketContent } from 'src/components/UserPurchasedTicketContent/PurchasedTicketContent'
 import { useEffect, useState } from 'react'
 import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
@@ -6,7 +8,6 @@ import { AxiosError, isAxiosError } from 'axios'
 import { PopupCredit } from 'src/components/PopupCredit/PopupCredit'
 import { UserData } from 'src/components/UserData/UserData'
 import { SelectionContent, UserSelectionPanel } from 'src/components/UserSelectionPanel/UserSelectionPanel'
-import { PurchasedTicketContent } from 'src/components/UserPurchasedTicketContent/PurchasedTicketContent'
 import { FriendsContent } from 'src/components/UserFriendsContent/FriendsContent'
 import { CommentsContent } from 'src/components/UserTicketsContent/CommentsContent'
 import './Profile.css'
@@ -129,7 +130,10 @@ export const Profile = () => {
               <h3 className="text--md tx-aling-center credit" data-testid="credit">
                 Crédito ${credit}
               </h3>
-              <button className="button add_credit-user-button" onClick={handleOpenPupup}>
+              <button
+                className="add_credit-user-button button button--primary button--rounded animated text--spaced text--strong shadow--box"
+                onClick={handleOpenPupup}
+              >
                 Sumar crédito
               </button>
             </div>

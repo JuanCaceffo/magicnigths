@@ -6,7 +6,6 @@ import { Profile } from 'src/pages/Profile/Profile'
 import { Shop } from 'src/pages/Shop/Shop'
 import { NotFoundPage } from 'src/pages/NotFound/NotFound'
 import { Page } from 'src/pages/Page/Page'
-import { Header } from 'src/components/Header/Header'
 import { ShowDetails } from 'src/components/ShowDetails/ShowDetails'
 import { ProtectedRouter } from './components/RequireAuth/RequireAuth'
 
@@ -18,13 +17,21 @@ export const router = createBrowserRouter([
   },
   {
     path: '/show/:id',
-    element: <Page header={<Header />} content={<ShowDetails />} />,
+    element: <Page content={<ShowDetails />} />,
   },
   {
     path: '/admin_dashboard',
     element: (
       <ProtectedRouter>
-        <Page header={<Header />} content={<Admin />} />
+        <Admin />
+      </ProtectedRouter>
+    ),
+  },
+  {
+    path: '/admin_dashboard/show/:id',
+    element: (
+      <ProtectedRouter>
+        <Page content={<ShowDetails />} />
       </ProtectedRouter>
     ),
   },
@@ -36,7 +43,7 @@ export const router = createBrowserRouter([
     path: '/user_profile',
     element: (
       <ProtectedRouter>
-        <Page header={<Header />} content={<Profile />} />
+        <Page content={<Profile />} />
       </ProtectedRouter>
     ),
   },
@@ -44,7 +51,7 @@ export const router = createBrowserRouter([
     path: '/shop',
     element: (
       <ProtectedRouter>
-        <Page header={<Header />} content={<Shop />} />
+        <Shop />
       </ProtectedRouter>
     ),
   },

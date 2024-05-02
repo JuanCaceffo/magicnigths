@@ -1,32 +1,26 @@
+import { SeatTypes } from "../interfaces/SeatTypes"
 
+interface TicketProps {
+  showId: number
+  date: Date
+  seatPrice: number
+  seatTypeName: SeatTypes
+  quantity: number
+}
+export class Ticket implements TicketProps {
+  showId: number
+  date: Date
+  seatPrice: number
+  seatTypeName: SeatTypes
+  quantity: number
 
-// export interface SeatArgs {
-//   id: number
-//   seatType: SeatTypes
-//   price: number
-//   maxToSell: number
-//   reservedQuantity: number
-//   disabled: boolean
-// }
+  constructor (data: TicketProps) {
+    this.showId = data.showId ?? -1
+    this.date = data.date ?? -1
+    this.seatPrice = data.seatPrice ?? 0
+    this.seatTypeName = data.seatTypeName ?? ''
+    this.quantity = data.quantity ?? 0
+  }
 
-// export class Ticket implements TicketArgs {
-//   id: number
-//   seatType: SeatTypes
-//   price: number
-//   maxToSell: number
-//   reservedQuantity: number
-//   disabled: boolean
-
-//   constructor(data: SeatArgs) {
-//     this.id = data.id ?? -1
-//     this.seatType = (data.seatType as SeatTypes) ?? 'undefined'
-//     this.price = data.price ?? 0
-//     this.maxToSell = data.maxToSell ?? 10
-//     this.reservedQuantity = data.reservedQuantity ?? 0
-//     this.disabled = data.disabled ?? false
-//   }
-
-//   static fromJSON(data: SeatArgs): Seat {
-//     return new Seat(data)
-//   }
-// }
+  static toJson = (data: TicketProps) => new Ticket(data)
+}

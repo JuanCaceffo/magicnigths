@@ -1,15 +1,20 @@
+import { useLocation } from 'react-router-dom'
 import { Footer } from 'src/components/Footer/Footer'
+import { Header } from 'src/components/Header/Header'
 
 interface PageProps {
-  header?: React.ReactNode
   search?: React.ReactNode
   content: React.ReactNode
 }
 
-export const Page = ({ header, search, content }: PageProps) => {
+export const Page = ({ search, content }: PageProps) => {
+  const location = useLocation()
+
+  const inLoginPage = () => location.pathname == '/login'
+
   return (
-    <main className={`main ${search ? 'main--search' : header ? 'main--header' : ''}`}>
-      {header}
+    <main className={`main ${search ? 'main--search' : !inLoginPage() ? 'main--header' : ''}`}>
+      {!inLoginPage() && <Header />}
       {search}
       {content}
       <Footer />

@@ -1,27 +1,31 @@
 import './ShowDetails.scss'
-import { Box, Button } from '@mui/material'
 import { useState } from 'react'
 import { showService } from 'src/services/ShowService'
 import { Show } from 'src/data/model/Show'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import CardDate from '../Card/CardDate/CardDate'
+import { useNavigate, useParams } from 'react-router-dom'
+import { CardDate } from '../Card/CardDate/CardDate'
 import { Seat } from 'src/data/model/Seat'
-import { SeatBox } from '../SeatBox/SeatBox'
 import { useOnInit } from 'src/hooks/hooks'
-import Comment from '../Comment/Comment'
+import { Comment } from '../Comment/Comment'
+import { ShowDetailsBase } from './ShowDetailsBase'
+import { ShowDetailsAdmin } from './ShowDetailsAdmin'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
+import { Ticket } from 'src/data/model/Ticket'
+import { enqueueSnackbar } from 'notistack'
+import { cartService } from 'src/services/CartService'
+import { ShowDate } from 'src/data/model/ShowDate'
 
 export const ShowDetails = () => {
   const { id } = useParams()
   const [show, setShow] = useState<Show>()
   const [seats, setSeats] = useState<Seat[]>([])
-  const [dateSelected, setDateSelected] = useState<Date>()
+  const [dateSelected, setDateSelected] = useState<ShowDate>()
   const navigate = useNavigate()
-  const location = useLocation()
+  const isAdmin = userSessionStorage.userIsAdmin()
 
-  const handleDateClick = (date: Date) => {
-    setDateSelected(date)
-    getShowSeatTypes(date)
+  const handleDateClick = (showDate: ShowDate) => {
+    setDateSelected(showDate)
+    getShowSeatTypes(showDate)
   }
 
   const handlePickerUpdate = (seat: Seat) => {
@@ -30,34 +34,58 @@ export const ShowDetails = () => {
     })
   }
 
-  const getAllShows = async () => {
+  const getShowById = async () => {
     try {
       const fetchedShow = await showService.getShowById(+id!)
       setShow(fetchedShow)
       await getShowSeatTypes(fetchedShow.dates[0])
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
-  const getShowSeatTypes = async (selectedDate: Date) => {
+  const getShowSeatTypes = async (selectedDate: ShowDate) => {
     try {
       const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(+id!, selectedDate!)
       setSeats([...fetchedSeats])
     } catch (err) {
-      console.log(err)
+      console.error(err)
+    }
+  }
+
+  const addToCart = async () => {
+    try {
+      if (userSessionStorage.userIsLoged()) {
+        if (show && dateSelected) {
+          seats.forEach(async (seat) => {
+            const ticketData = Ticket.toJson({
+              showId: show.id,
+              date: dateSelected.date,
+              seatPrice: seat.price,
+              seatTypeName: seat.seatType,
+              quantity: seat.reservedQuantity,
+            })
+            await cartService.addReservedTicket(ticketData)
+          })
+          enqueueSnackbar('Carrito actualizado con éxito', { variant: 'success' })
+        }
+      } else {
+        navigate('/login', { state: location })
+      }
+    } catch (error) {
+      console.error('Error al agregar el espectáculo al carrito:', error)
     }
   }
 
   useOnInit(async () => {
-    await getAllShows()
+    await getShowById()
   })
 
   return (
     <>
       {show && (
         <article className="show-details">
-          <section className="show-details__header text shadow shadow--box">
+          <header className="show-details__header text shadow shadow--div">
             <div className="show-details__name">
               <span className="text--stronger">{`${show.bandName} - `}</span>
               <span>{show.showName}</span>
@@ -65,57 +93,42 @@ export const ShowDetails = () => {
             <div className="show-details__info text text--md">
               <div className="show-details__info-item">
                 <span className="text--stronger">
-                  <i className="fas fa-star fa-rp" />
+                  <i className="fas fa-star fa--rp fa--up" />
                   {`${show.rating} Puntos - `}
                 </span>
                 <span>{`${show.totalComments} Opiniones`}</span>
               </div>
               <span className="show-details__info-item text--stronger">
-                <i className="fas fa-compass fa-rp" />
-                {show.facilityName}
+                <i className="fas fa-compass fa--rp" />
+                <span>{show.facilityName}</span>
               </span>
               <span className="show-details__info-item">{show.geolocation}</span>
             </div>
-          </section>
+          </header>
           <section className="show-details__body">
-            <section className="show-details__img">
-              <img src={`/images/${show.showImg}`} />
-            </section>
+            <img className="show-details__img" src={`/images/${show.showImg}`} />
             <section className="show-details__buybox">
               <div className="show-details__dates shadow shadow--line">
-                {show.dates.map((date, index) => (
+                {show.dates.map((showDate, index) => (
                   <CardDate
-                    key={date.toDateString()}
-                    isSelected={!dateSelected ? (index === 0 ? true : false) : date === dateSelected}
-                    isDisable={date < new Date()}
-                    date={date}
+                    key={showDate.date.toDateString()}
+                    isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
+                    isDisable={showDate.date < new Date()}
+                    showDate={showDate}
                     handleClick={handleDateClick}
                   />
                 ))}
               </div>
-              <Box className="show-details__seats">
-                {seats.map((seat) => (
-                  <SeatBox key={seat.seatType} isDisable={seat.disabled} seat={seat} handler={handlePickerUpdate} />
-                ))}
-              </Box>
-              <Box className="show-details__bottom">
-                <Button
-                  className="show-details__button"
-                  onClick={() => {
-                    //Si no esta logeado te manda al login y le pasamos la locacion de la esta pagina
-                    if (!userSessionStorage.userIsLoged()) navigate('/login', { state: location })
-                    //si si esta logeado agregamos los shows al back
-                  }}
-                >
-                  Agregar al Carritos
-                </Button>
-              </Box>
+              {seats && isAdmin ? (
+                <ShowDetailsAdmin show={show} />
+              ) : (
+                <ShowDetailsBase seats={seats} handlePickerUpdate={handlePickerUpdate} addToCart={addToCart} />
+              )}
             </section>
           </section>
           <section className="show-details__comments text">
-            {show.comments.map((comment) => (
-              <Comment className="show-details__comment" comment={comment} />
-            ))}
+            {!isAdmin &&
+              show.comments.map((comment) => <Comment className="show-details__comment" comment={comment} />)}
           </section>
         </article>
       )}

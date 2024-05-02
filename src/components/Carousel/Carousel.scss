@@ -1,0 +1,62 @@
+$arrow-size: 2em;
+
+.carousel {
+  justify-content: space-around;
+  max-width: 100%;
+  height: fit-content;
+  gap: var(--padding);
+
+  &__mask {
+    max-width: 100%;
+    height: max-content;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__container {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    transition: transform 1s ease;
+  }
+
+  &__button {
+    opacity: 0.7;
+    cursor: pointer;
+
+    &--animated {
+      transition: all 0.5s ease;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &--arrow {
+      width: 0;
+      height: 0;
+      border-top: $arrow-size solid transparent;
+      border-bottom: $arrow-size solid transparent;
+    }
+
+    &--arrow-left {
+      border-right: $arrow-size solid var(--color-secondary);
+
+      &.button--animated:hover {
+        transform: translateX(-9%);
+      }
+    }
+
+    &--arrow-right {
+      border-left: $arrow-size solid var(--color-secondary);
+
+      &.button--animated:hover {
+        transform: translateX(9%);
+      }
+    }
+
+    &--shadowed {
+      filter: drop-shadow(0.2rem 0.4rem 0.4rem rgba(0, 0, 0, 0.2));
+    }
+  }
+}

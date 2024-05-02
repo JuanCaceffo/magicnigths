@@ -7,17 +7,14 @@ export const PopupNewShow = ({
   open,
   onSave,
   onClose,
-  show: {
-    band,
-    showName
-  }
+  show: { band, showName },
 }: {
   open: boolean
   onSave: (date: Date) => void
   onClose: () => void
   show: {
-    band: string;
-    showName: string;
+    band: string
+    showName: string
   }
 }) => {
   const [date, setDate] = useState<Date>(new Date())
@@ -51,18 +48,15 @@ export const PopupNewShow = ({
   }
 
   useEffect(() => {
-    if( date < new Date()) {
-      setErrorMessage("La fecha del show no puede ser previa a la fecha actual")
-    }
-    else {
+    if (date < new Date()) {
+      setErrorMessage('La fecha del show no puede ser previa a la fecha actual')
+    } else {
       setErrorMessage('')
     }
-
-  }, [date]) 
+  }, [date])
 
   const handleSave = () => {
     onSave(date)
-    console.log(date)
     handleClose()
   }
 
@@ -76,12 +70,12 @@ export const PopupNewShow = ({
       title={`Agregar función a ${band} - ${showName}`}
       onSave={handleSave}
       onClose={handleClose}
-      buttonDisabled={date<new Date()}
+      buttonDisabled={date < new Date()}
       content={
         <>
-          <div className='input_new_show_container'>
+          <div className="input_new_show_container">
             <input
-              className='field field__rounded field__large text shadow--it'
+              className="field field--rounded field--large text shadow"
               type="date"
               min={moment(new Date()).format('YYYY-MM-DD')}
               value={moment(date).format('YYYY-MM-DD')}
@@ -89,13 +83,12 @@ export const PopupNewShow = ({
             />
 
             <input
-              className='field field__rounded field__large text shadow--it'
+              className="field field--rounded field--large text shadow"
               type="time"
               value={`${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`} // Hora y minutos en el formato HH:mm
               onChange={handleInputTimeChange}
             />
           </div>
-          
 
           {errorMessage}
         </>

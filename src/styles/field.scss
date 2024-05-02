@@ -1,22 +1,28 @@
 .field {
-  max-height: var(--element-height);
+  height: var(--element-height);
   width: 100%;
   padding: var(--padding-xs);
+
+  font-family: var(--typeface-primary);
+
   border: 1px solid var(--color-primary);
-  background-color: var(--color-clear);
+  background-color: var(--color-white);
   outline: none;
-  transition: border var(--transition-time) ease;
 
   &__label {
     margin-top: 0.8em;
   }
 
-  &__rounded {
+  &--rounded {
     border-radius: var(--border-radius-sm);
   }
 
-  &__large {
+  &--large {
     max-width: 20vw;
+  }
+
+  &--tall {
+    height: 4.2rem;
   }
 
   &__container {
@@ -25,15 +31,16 @@
     gap: 0.5em;
   }
 
+  &.animated:hover {
+    border: 1px solid var(--color-primary-lighter);
+  }
+
   &:focus {
-    border: 1px solid var(--color-focus);
+    border: 1px solid var(--color-primary-lighter);
   }
 
   &::placeholder {
-    color: var(--text-color-2lighter);
-  }
-
-  @media (min-width: 768px) {
+    color: var(--typeface-color-lighter);
   }
 }
 

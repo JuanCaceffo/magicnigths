@@ -1,0 +1,49 @@
+.card-admin {
+  display: flex;
+  height: 10em;
+  transition: all var(--transition-slow) ease;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--color-white);
+  cursor: pointer;
+
+  &__img {
+    height: 100%;
+    object-fit: cover;
+    max-width: 13em;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 1.2em;
+    padding: var(--padding-xs) var(--padding);
+    position: relative;
+  }
+
+  &__title {
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+
+  &__text {
+    color: hsla(0, 0%, 22%, 0.8);
+  }
+
+  &--active {
+    transform: translateY(var(--translateY));
+    box-shadow: 0rem 2rem 1.8rem -1.4rem rgba(0, 0, 0, 0.3);
+  }
+
+  &__button {
+    position: absolute;
+    bottom: var(--padding-xs);
+    right: var(--padding-xs);
+  }
+
+  &:hover {
+    transform: translateY(var(--translateY));
+    box-shadow: 0rem 2rem 1.8rem -1.4rem rgba(0, 0, 0, 0.3);
+  }
+}

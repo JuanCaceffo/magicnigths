@@ -10,7 +10,7 @@ interface LogoProps {
 export const Logo = ({ ...props }: LogoProps) => {
   return (
     <Link to="/" className={`logo ${props.className ?? ''}`}>
-      <img src={props.imgUrl} alt={props.alt} />
+      <img className="shadow shadow--png" src={props.imgUrl} alt={props.alt} />
     </Link>
   )
 }

@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import './Comment.scss'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
@@ -10,11 +9,12 @@ interface CommentProps {
   className?: string
 }
 
-const Comment: FC<CommentProps> = ({ className = "", comment, handleDelete }) => {
+export const Comment = (args: CommentProps) => {
+  const { className = '', comment, handleDelete } = args
   return (
     <article className={`comment ${className}`}>
-      <header className="comment__header comment--flex">
-        <section className="comment__description comment--flex">
+      <header className="comment__header centered">
+        <section className="comment__description centered">
           <div className="comment__img-container">
             <img className="comment__img" src={`/images/${comment.imgPath}`} />
           </div>
@@ -23,17 +23,15 @@ const Comment: FC<CommentProps> = ({ className = "", comment, handleDelete }) =>
             <span>{format(comment.date, 'MMMM yyyy', { locale: es })}</span>
           </div>
         </section>
-        <section className="comment__state comment--flex">
-          <div className="comment__rating comment--flex">
-            <i className="fa-solid fa-star"></i>
+        <section className="comment__state centered">
+          <div className="comment__rating centered">
+            <i className="fa-solid fa-star fa--up text--strong" />
             <span>{comment.rating}</span>
           </div>
-          {handleDelete && <i onClick={handleDelete} className="fa-solid fa-trash button-trash" />}
+          {handleDelete && <i onClick={handleDelete} className="fa-solid fa-trash fa--hot button-trash" />}
         </section>
       </header>
       <section>{comment.text}</section>
     </article>
   )
 }
-
-export default Comment

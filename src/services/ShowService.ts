@@ -1,44 +1,57 @@
 import axios from 'axios'
-import { ShowProps } from 'src/data/interfaces/ShowProps'
+import { ShowProps, ShowStatsProps } from 'src/data/interfaces/ShowProps'
 import { REST_SERVER_URL } from './contants'
 import { Show } from 'src/data/model/Show'
 import { Seat, SeatArgs } from 'src/data/model/Seat'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 import { FilterArgs } from 'src/components/Search/Search'
+import { ShowStat } from 'src/data/model/ShowStats'
+import { ShowDate } from 'src/data/model/ShowDate'
 
 class ShowService {
+  userId = userSessionStorage.getUserId()
 
-  async getShows(filter: FilterArgs) {
-    console.log(filter)
-    const data = (await axios.get<ShowProps[]>(`${REST_SERVER_URL}/shows?userId=${userSessionStorage.getUserId()}`, {params: filter}))
-      .data
+  async getAllShows(filter: FilterArgs) {
+    const data = (
+      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/api/shows`, {
+        params: { userId: this.userId, ...filter },
+      })
+    ).data
     return data.map((show) => new Show(show))
   }
 
-  getShowById = async (showId: number) => {
-    const showJson = await axios.get(`${REST_SERVER_URL}/show/${showId}`)
-    return new Show(showJson.data)
+  getShowById = async (id: number) => {
+    const data = (await axios.get(`${REST_SERVER_URL}/api/show/${id}`)).data
+    return new Show(data)
   }
 
-  getSeatsByShowDate = async (showId: number, selectedDate: Date) => {
-    const date = selectedDate.toISOString()
-    const seatsJson = (
-      await axios.get<SeatArgs[]>(`${REST_SERVER_URL}/show_dates/${showId}`, {
-        params: {
-          date,
-        },
-      })
-    ).data
+  getSeatsByShowDate = async (showId: number, showDate: ShowDate) => {
+    const seatsJson = (await axios.get<SeatArgs[]>(`${REST_SERVER_URL}/api/show_dates/${showId}/date/${showDate.id}`))
+      .data
 
-    const seatsJsonWithIndex = seatsJson.map((seat, index) => ({
+    const seatsJsonWithIndex = seatsJson.map((seat) => ({
       ...seat,
-      id: index,
-      disabled: selectedDate < new Date(),
+      id: showDate.id,
+      disabled: showDate.date < new Date(),
     }))
 
-    console.log(seatsJsonWithIndex)
-
     return seatsJsonWithIndex.map((seat) => Seat.fromJSON(seat))
+  }
+
+  addShowDate = async (show: Show, newDate: Date) => {
+    const isoDate = newDate.toISOString()
+
+    await axios.post(`${REST_SERVER_URL}/api/admin/show/${show.id}/create-show-date`, {
+      userId: this.userId,
+      date: isoDate,
+    })
+  }
+
+  getShowStatsById = async (showId: number): Promise<ShowStat[]> => {
+    const showJson = (
+      await axios.get(`${REST_SERVER_URL}/api/admin/shows/${showId}`, { params: { userId: this.userId } })
+    ).data
+    return showJson.map((show: ShowStatsProps) => ShowStat.toJson(show))
   }
 }
 

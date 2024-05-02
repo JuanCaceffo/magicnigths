@@ -24,11 +24,12 @@
 .tx-aling-center {
   text-align: center;
 }
+
 .user_data_container {
   width: 25%;
   padding: 1em;
 }
 
-.field__large {
+.field--large {
   max-width: 25vw;
 }

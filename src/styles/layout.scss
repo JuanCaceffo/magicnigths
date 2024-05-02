@@ -18,7 +18,8 @@
 
     padding: var(--padding) 3rem;
 
-    background-image: var(--gradient-primary);
+    // background-image: var(--gradient-primary);
+    background-image: url('/images/header.png');
   }
 
   &__search {
@@ -32,13 +33,13 @@
     z-index: 1;
 
     gap: var(--padding);
-    background-color: var(--color-clear);
+    background-color: var(--color-white-variant);
   }
 
   &__content {
     padding: inherit;
     grid-area: content;
-    background-color: var(--color-clear-variant);
+    background-color: var(--color-white);
 
     &--login {
       display: flex;
@@ -49,11 +50,10 @@
     &--grid {
       display: grid;
       justify-content: center;
-      grid-template-columns: repeat(auto-fit, 25rem);
-      grid-template-rows: repeat(auto-fit, 28rem);
-      gap: 5em;
-      padding: 3em;
-      background-color: var(--color-clear);
+      grid-template-columns: repeat(auto-fit, 28rem);
+      grid-template-rows: repeat(auto-fit, minmax(24rem, 34rem));
+      gap: 4rem;
+      padding: calc(2 * var(--padding));
     }
   }
 

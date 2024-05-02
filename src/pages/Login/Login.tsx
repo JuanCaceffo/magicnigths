@@ -1,10 +1,12 @@
 import './Login.scss'
 import { Card } from '@mui/material'
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { userService } from 'src/services/UserService'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
 import { Input } from '@mui/material'
+import { useOnInit } from 'src/hooks/hooks'
+import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 
 interface LoginData {
   username: string
@@ -16,7 +18,8 @@ export const Login = () => {
   const [errorMessage, setError] = useState<string | null>(null)
   const redirectTo = useLocation().state
   const navigate = useNavigate()
-  useEffect(() => {
+
+  useOnInit(() => {
     sessionStorage.clear()
   })
 
@@ -24,7 +27,10 @@ export const Login = () => {
     e.preventDefault()
     try {
       await userService.postUserLogin(userLogin)
-      navigate(redirectTo ? `${redirectTo.pathname}${redirectTo.search}` : '/')
+
+      userSessionStorage.userIsAdmin()
+        ? navigate('/admin_dashboard/')
+        : navigate(redirectTo ? `${redirectTo.pathname}${redirectTo.search}` : '/')
     } catch (err) {
       setError((err as AxiosError).message)
     }
@@ -42,25 +48,28 @@ export const Login = () => {
 
   return (
     <section className="main__content main__content--login">
-      <Card className="card shadow shadow--big">
-        <img className="card__logo" src="/images/logo.png" alt="Noches Magicas" />
-        <form className="card__form" onSubmit={HandleLoginClick}>
-          <div className="card__input">
+      <Card className="login shadow shadow--big">
+        <img className="login__logo" src="/images/logo.png" alt="Noches Magicas" />
+        <form className="login__form" onSubmit={HandleLoginClick}>
+          <div className="login__input">
             <label className="text text--light">Usuario</label>
-            <Input className="card__field" name="username" value={userLogin.username} onChange={handleInputChange} />
+            <Input className="login__field" name="username" value={userLogin.username} onChange={handleInputChange} />
           </div>
-          <div className="card__input">
+          <div className="login__input">
             <label className="text text--light">Contraseña</label>
             <Input
-              className="card__field"
+              className="login__field"
               type="password"
               name="password"
               value={userLogin.password}
               onChange={handleInputChange}
             />
           </div>
-          {errorMessage && <span className="card__error">{errorMessage}</span>}
-          <button className="button button--tall shadow--box" type="submit">
+          {errorMessage && <span className="login__error">{errorMessage}</span>}
+          <button
+            className="button button--primary button--tall button--rounded text--md text--strong text--spaced animated shadow--box"
+            type="submit"
+          >
             Ingresar
           </button>
         </form>

@@ -4,6 +4,7 @@ import { Show } from 'src/data/model/Show'
 import './Shop.scss'
 import { AxiosError } from 'axios'
 import { cartService } from 'src/services/CartService'
+import { Page } from '../Page/Page'
 import { errorHandler } from 'src/data/helpers/ErrorHandler'
 import { enqueueSnackbar, closeSnackbar } from 'notistack'
 
@@ -47,26 +48,36 @@ export const Shop = () => {
   }
 
   return (
-    <main className="main__content shop">
-      <article className="shop__content">
-        <header className="text--xl">Carrito de compras</header>
-        <section className="main__content--grid">
-          {ticketsShow.map((show) => (
-            <CardShow show={show} quantity={show.quantity} />
-          ))}
-        </section>
-      </article>
-      <footer className="shop__footer">
-        <span className="text--md">TOTAL ${price}</span>
-        <section className="shop__buttons">
-          <button className="shop__button button" onClick={pruchaseTickets}>
-            Confirmar pediodo
-          </button>
-          <button className="shop__button button button__secondary" onClick={removeAllReservedTickets}>
-            Limpiar carrito
-          </button>
-        </section>
-      </footer>
-    </main>
+    <Page
+      content={
+        <main className="main__content shop">
+          <article className="shop__content">
+            <header className="text--xl">Carrito de compras</header>
+            <section className="main__content--grid">
+              {ticketsShow.map((show) => (
+                <CardShow show={show} quantity={show.quantity} />
+              ))}
+            </section>
+          </article>
+          <footer className="shop__footer">
+            <span className="text--md">TOTAL ${price}</span>
+            <section className="shop__buttons">
+              <button
+                className="shop__button button button--primary button--tall button--rounded animated shadow shadow--box"
+                onClick={pruchaseTickets}
+              >
+                Confirmar pedido
+              </button>
+              <button
+                className="shop__button button button--secondary button--tall button--rounded animated shadow shadow--box"
+                onClick={removeAllReservedTickets}
+              >
+                Limpiar carrito
+              </button>
+            </section>
+          </footer>
+        </main>
+      }
+    />
   )
 }

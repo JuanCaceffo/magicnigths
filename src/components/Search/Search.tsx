@@ -4,7 +4,7 @@ import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 export type FilterArgs = {
   bandKeyword: string
   facilityKeyword: string
-  withFriends: boolean
+  withFriends?: boolean
 }
 
 interface SearchArgs {
@@ -14,10 +14,10 @@ interface SearchArgs {
 export const Search = (onSubmit: SearchArgs) => {
   const { register, handleSubmit } = useForm<FilterArgs>({
     defaultValues: {
-      bandKeyword: "",
-      facilityKeyword: "",
-      withFriends: false
-    }
+      bandKeyword: '',
+      facilityKeyword: '',
+      withFriends: false,
+    },
   })
 
   const handleFormSubmit: SubmitHandler<FilterArgs> = async (data) => {
@@ -28,26 +28,31 @@ export const Search = (onSubmit: SearchArgs) => {
     }
   }
 
+  const validateRenderConditions = () => {
+    return !userSessionStorage.userIsAdmin() && userSessionStorage.userIsLoged()
+  }
+
   return (
-    <form className="main__search shadow--large" onSubmit={handleSubmit(handleFormSubmit)}>
+    <form className="main__search shadow--div" onSubmit={handleSubmit(handleFormSubmit)}>
       <input
-        className="field field__rounded field__large text shadow--item"
+        className="field field--rounded field--large shadow--box animated"
         {...register('bandKeyword')}
         placeholder={'Artista'}
       />
       <input
-        className="field field__rounded field__large text shadow--item"
+        className="field field--rounded field--large shadow--box animated"
         {...register('facilityKeyword')}
         placeholder={'Lugar'}
       />
-      {userSessionStorage.userIsLoged() &&
+      {validateRenderConditions() && (
         <span className="field__container">
-          <input className="shadow--item" id="withFriends" type="checkbox" {...register('withFriends')} />{' '}
+          <input className="shadow--box" id="withFriends" type="checkbox" {...register('withFriends')} />{' '}
           <label className="text" htmlFor="withFriends">
             Con amigos
           </label>
-        </span>}
-      <button className="button button__secondary button__small text shadow--item" type="submit">
+        </span>
+      )}
+      <button className="button button--primary button--small button--rounded animated  shadow--box" type="submit">
         Buscar
       </button>
     </form>

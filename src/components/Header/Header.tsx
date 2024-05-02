@@ -5,7 +5,6 @@ import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 import { userService } from 'src/services/UserService'
 import { useEffect, useState } from 'react'
 import { User } from 'src/data/model/User'
-import './Header.scss'
 
 export const Header = () => {
   const [user, setUser] = useState({} as User)
@@ -21,33 +20,33 @@ export const Header = () => {
   const loginOrProfile = () => {
     return userSessionStorage.userIsLoged()
       ? {
-        node: (
-          <section className="proflie-item">
-            <img className="profile-picture" src={`/images/${user.profileImg}`} />{' '}
-            {`${user.name} ${user.surname}`}
-          </section>
-        ),
-        link: '/user_profile',
-      }
+          node: (
+            <section className="centered centered--spaced">
+              <img className="profile-img" src={`/images/${user.profileImg}`} />
+              <span>{`${user.username}`}</span>
+            </section>
+          ),
+          link: '/user_profile',
+        }
       : {
-        node: (
-          <>
-            <i className="fas fa-user" /> Login
-          </>
-        ),
-        link: '/login',
-      }
+          node: (
+            <>
+              <i className="fas fa-user fa-rp" /> Login
+            </>
+          ),
+          link: '/login',
+        }
   }
 
   const navbar = {
-    className: 'text text--xl text--clear text--strong text--spaced shadow--item',
+    className: 'text text--xl text--clear text--stronger text--spaced-sm shadow--text',
     nodes: [
       {
         node: <>Home</>,
         link: '/',
       },
       {
-        node: <i className="fas fa-store" />,
+        node: <i className="fas fa-basket-shopping" />,
         link: '/shop',
       },
       loginOrProfile(),
@@ -55,8 +54,8 @@ export const Header = () => {
   }
 
   return (
-    <header className="main__header shadow">
-      <Logo className="shadow--item" imgUrl={'/images/logominimal.png'} alt={'Noches Mágicas'} />
+    <header className="main__header shadow--div">
+      <Logo imgUrl={'/images/logominimal.png'} alt={'Noches Mágicas'} />
       <Navbar className={navbar.className} nodes={navbar.nodes} />
     </header>
   )

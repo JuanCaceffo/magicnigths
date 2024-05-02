@@ -3,32 +3,32 @@ import { User } from 'src/data/model/User'
 import './UserData.css'
 
 interface UserDataProps {
-    user: User
-    handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-    handleSaveClick: () => void
-    age: number
-  }
+  user: User
+  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleSaveClick: () => void
+  age: number
+}
 
 export const UserData: React.FC<UserDataProps> = ({ user, handleInputChange, handleSaveClick, age }) => {
   return (
     <div className="user_data user-flex">
       <Avatar className="user_profile_photo" src={`/images/${user.profileImg}`} />
       <div className="input_container">
-        <label className="text text--light">Nombre</label>
+        <label className="text text--strong text--md">Nombre</label>
         <input
-          className="field field__rounded field__large text shadow--it"
+          className="field field--rounded field--large animated text shadow--box"
           name="name"
           data-testid="name"
           placeholder="Nombre"
           value={user.name}
           onChange={handleInputChange}
-          style={{ width: '100%' }} 
+          style={{ width: '100%' }}
         />
       </div>
       <div className="input_container">
-        <label className="text text--light">Apellidos</label>
+        <label className="text text--strong text--md">Apellidos</label>
         <input
-          className="field field__rounded field__large text shadow--it"
+          className="field field--rounded field--large animated text shadow--box"
           name="surname"
           data-testid="surname"
           placeholder="Apellidos"
@@ -37,9 +37,9 @@ export const UserData: React.FC<UserDataProps> = ({ user, handleInputChange, han
         />
       </div>
       <div className="input_container">
-        <label className="text text--light">Fecha de nacimiento</label>
+        <label className="text text--strong text--md">Fecha de nacimiento</label>
         <input
-          className="field field__rounded field__large text shadow--it"
+          className="field field--rounded field--large animated text shadow--box"
           placeholder="Fecha de nacimiento"
           name="birthday"
           data-testid="birthday"
@@ -49,12 +49,12 @@ export const UserData: React.FC<UserDataProps> = ({ user, handleInputChange, han
         />
       </div>
       <h3 className="user__age tx-aling-center user-flex text--strong" data-testid="age">
-          Edad: {age} años
+        Edad: {age} años
       </h3>
       <div className="input_container">
-        <label className="text text--light">DNI</label>
+        <label className="text text--strong text--md">DNI</label>
         <input
-          className="field field__rounded field__large text shadow--it"
+          className="field field--rounded field--large animated text shadow--box"
           placeholder="DNI"
           name="dni"
           data-testid="dni"
@@ -63,8 +63,11 @@ export const UserData: React.FC<UserDataProps> = ({ user, handleInputChange, han
           disabled
         />
       </div>
-      <button className="button save-user-data-button" onClick={handleSaveClick}>
-          Guardar
+      <button
+        className="save-user-data-button button button--primary button--rounded animated text--spaced text--strong shadow--box"
+        onClick={handleSaveClick}
+      >
+        Guardar
       </button>
     </div>
   )

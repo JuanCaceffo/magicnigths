@@ -19,7 +19,6 @@ export const FriendsContent = () => {
         const userFriends = await userService.getFriends() //Datos del usuario del backend
         setFriends(userFriends)
       } catch (e) {
-        console.log(e)
         // Mensaje de error en caso de que lo haya
         if (isAxiosError(e)) {
           if (e.message) {

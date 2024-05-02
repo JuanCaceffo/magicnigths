@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider } from 'react-router-dom'
@@ -7,15 +6,13 @@ import { StyledEngineProvider } from '@mui/material'
 import { SnackbarProvider } from 'notistack'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-      <RouterProvider router={router} />
-      <SnackbarProvider
-        className="snackbar"
-        variant="error"
-        autoHideDuration={4000}
-        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-      />
-    </StyledEngineProvider>
-  </React.StrictMode>,
+  <StyledEngineProvider injectFirst>
+    <RouterProvider router={router} />
+    <SnackbarProvider
+      className="snackbar"
+      variant="error"
+      autoHideDuration={4000}
+      anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+    />
+  </StyledEngineProvider>,
 )

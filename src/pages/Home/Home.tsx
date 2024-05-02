@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Header } from 'src/components/Header/Header'
 import { FilterArgs, Search } from 'src/components/Search/Search'
 import { Page } from 'src/pages/Page/Page'
 import CardShow from 'src/components/Card/CardShow/CardShow'
@@ -13,9 +12,9 @@ export const Home = () => {
   const [shows, setShows] = useState<Array<Show>>([])
   const navigate = useNavigate()
 
-  const onSubmit = async (filter: FilterArgs) => {
+  const getAllShows = async (filter: FilterArgs) => {
     try {
-      await showService.getShows(filter).then((value) => {
+      await showService.getAllShows(filter).then((value) => {
         setShows(value)
       })
     } catch (error) {
@@ -23,16 +22,15 @@ export const Home = () => {
     }
   }
 
-  useOnInit(() => onSubmit({} as FilterArgs))
+  useOnInit(() => getAllShows({} as FilterArgs))
 
-  const handleClick = (showId: number) => {
-    navigate(`/show/${showId}`, { state: { showId: showId } })
+  const handleClick = (id: number) => {
+    navigate(`/show/${id}`)
   }
 
   return (
     <Page
-      header={<Header />}
-      search={<Search onSubmit={onSubmit} />}
+      search={<Search onSubmit={getAllShows} />}
       content={
         <article className="main__content main__content--grid">
           {shows.map((show) => (
@@ -41,9 +39,7 @@ export const Home = () => {
               show={show}
               button={{
                 content: 'comprar',
-                whenclick: () => {
-                  handleClick(show.id)
-                },
+                onClick: handleClick,
               }}
             ></CardShow>
           ))}
