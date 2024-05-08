@@ -13,7 +13,7 @@ class CartService {
     return showPropsList.data.map((props) => new Show(props))
   }
 
-  async pruchaseReservedTickets() {
+  async buyReservedTickets() {
     return await axios.patch(`${this.cartPathPrefix()}/buy-reserved-tickets`)
   }
 
