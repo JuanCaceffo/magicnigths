@@ -30,7 +30,7 @@ export const ShowDetails = () => {
 
   const handlePickerUpdate = (seat: Seat) => {
     setSeats((prevSeats) => {
-      return [...prevSeats.slice(0, seat.id), seat, ...prevSeats.slice(seat.id + 1)]
+      return [...prevSeats.slice(0, seat.id - 1), seat, ...prevSeats.slice(seat.id + 1)]
     })
   }
 

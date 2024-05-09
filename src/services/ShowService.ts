@@ -30,10 +30,10 @@ class ShowService {
 
     const seatsJsonWithIndex = seatsJson.map((seat) => ({
       ...seat,
-      id: showDate.id,
+      showDateid: showDate.id,
       disabled: showDate.date < new Date(),
     }))
-
+    console.log("acaaaaaaaaaaaaaaaaaa", seatsJsonWithIndex)
     return seatsJsonWithIndex.map((seat) => Seat.fromJSON(seat))
   }
 
