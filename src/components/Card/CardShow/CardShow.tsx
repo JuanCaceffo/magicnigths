@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Show } from 'src/data/model/Show'
 import { Prices } from '../Prices/Prices'
 import { FriendsDisplay } from './FriendsDisplay'
+import { format } from 'date-fns'
 
 interface buttonProps {
   content: string
@@ -36,14 +37,14 @@ const CardShow = (props: CardShowProps) => {
         {show.rating < 1 ? (
           <i className="fas fa-star fa--rp fa--low" />
         ) : //
-        show.rating < 4 ? (
-          <i className="fas fa-star fa--rp fa--medium" />
-        ) : (
-          <>
-            <i className="fas fa-star fa--rp fa--up" />
-            <i className="fas fa-fire fa--rp fa--hot" />
-          </>
-        )}
+          show.rating < 4 ? (
+            <i className="fas fa-star fa--rp fa--medium" />
+          ) : (
+            <>
+              <i className="fas fa-star fa--rp fa--up" />
+              <i className="fas fa-fire fa--rp fa--hot" />
+            </>
+          )}
       </>
     )
   }
@@ -90,8 +91,17 @@ const CardShow = (props: CardShowProps) => {
             <p>{show.facilityName}</p>
           </span>
           <span className="card__text card__text--right ">
-            <p className="text--strong">Fechas desde: </p>
-            <p> {show.reducedDates} </p>
+            {show.date ? (
+              <>
+                <p>Fecha: </p>
+                <p> {format(show.date, 'dd/MM/yyyy')} </p>
+              </>
+            ) : (
+              <>
+                <p className="text--strong">Fechas desde: </p>
+                <p> {show.reducedDates} </p>
+              </>
+            )}
           </span>
         </div>
         <FriendsDisplay show={show} />

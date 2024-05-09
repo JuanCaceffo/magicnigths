@@ -30,7 +30,7 @@ export const Shop = () => {
 
   const pruchaseTickets = async () => {
     cartService
-      .pruchaseReservedTickets()
+      .buyReservedTickets()
       .then(() => {
         enqueueSnackbar('La compra fue realizada con exito', { variant: 'success' })
         fetchTicketData()

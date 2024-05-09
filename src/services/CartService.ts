@@ -6,47 +6,27 @@ import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 import { Ticket } from 'src/data/model/Ticket'
 
 class CartService {
+  cartPathPrefix = () => `${REST_SERVER_URL}/${pathPrefix.cart}/${pathPrefix.user}/${userSessionStorage.getUserId()}`
+
   async getReservedTickets(): Promise<Show[]> {
-    const showPropsList = await axios.get<ShowProps[]>(
-      `${REST_SERVER_URL}/${pathPrefix.cart}/${pathPrefix.user}/${userSessionStorage.getUserId()}/reserved-tickets`,
-    )
+    const showPropsList = await axios.get<ShowProps[]>(`${this.cartPathPrefix()}/reserved-tickets`)
     return showPropsList.data.map((props) => new Show(props))
   }
 
-  async pruchaseReservedTickets() {
-    return await axios.put(
-      `${REST_SERVER_URL}/${pathPrefix.cart}/${pathPrefix.user}/${userSessionStorage.getUserId()}/purchase-reserved-tickets`,
-    )
+  async buyReservedTickets() {
+    return await axios.patch(`${this.cartPathPrefix()}/buy-reserved-tickets`)
   }
 
   async addReservedTicket(ticketData: Ticket) {
-    try {
-      const response = await axios.put(
-        `${REST_SERVER_URL}/${pathPrefix.cart}/${pathPrefix.user}/${userSessionStorage.getUserId()}/reserve-tickets`,
-        ticketData
-      )
-      if (response.status === 200) {
-        return true
-      } else {
-        console.error('Error al reservar el ticket:', response.status)
-        return false
-      }
-    } catch (error) {
-      console.error('Error al reservar el ticket:', error)
-      return false
-    }
-  } 
+    return await axios.patch(`${this.cartPathPrefix()}/reserve-tickets`, ticketData)
+  }
 
   async removeReservedTickets() {
-    return await axios.put(
-      `${REST_SERVER_URL}/${pathPrefix.cart}/${pathPrefix.user}/${userSessionStorage.getUserId()}/remove-reserved-tickets`,
-    )
+    return await axios.delete(`${this.cartPathPrefix()}/remove-reserved-tickets`)
   }
 
   async reservedTicketsPrice(): Promise<number> {
-    const price = await axios.get<number>(
-      `${REST_SERVER_URL}/${pathPrefix.cart}/${pathPrefix.user}/${userSessionStorage.getUserId()}/reserved-tickets-price`,
-    )
+    const price = await axios.get<number>(`${this.cartPathPrefix()}/reserved-tickets-price`)
     return price.data
   }
 }

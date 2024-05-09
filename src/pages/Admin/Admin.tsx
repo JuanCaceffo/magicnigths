@@ -72,13 +72,13 @@ export const Admin = () => {
   const dateList = () => {
     return show
       ? show.dates.map((showDate) => (
-          <CardDate
-            key={showDate.date.toDateString()}
-            isDisable={showDate.date < new Date()}
-            showDate={showDate}
-            className="static"
-          />
-        ))
+        <CardDate
+          key={showDate.date.toDateString()}
+          isDisable={showDate.date < new Date()}
+          showDate={showDate}
+          className="static"
+        />
+      ))
       : []
   }
 
@@ -95,7 +95,7 @@ export const Admin = () => {
           <section className="admin__dates">
             <span className="admin__date-item centered" /> {/*wrapper item no borrar*/}
             <span className="admin__date-center-item flex">
-              <Carousel elements={dateList()} maxElements={3} />
+              <Carousel elements={dateList()} maxElements={5} />
             </span>
             <span className="admin__date-item centered">
               <a

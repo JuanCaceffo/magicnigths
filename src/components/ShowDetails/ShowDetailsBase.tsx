@@ -18,7 +18,7 @@ export const ShowDetailsBase = (args: ShowDetailsBaseArgs) => {
     <>
       <div className="show-details__body-info">
         {seats.map((seat) => (
-          <SeatBox key={seat.seatType} isDisable={seat.disabled} seat={seat} handler={handlePickerUpdate} />
+          <SeatBox key={seat.id} isDisable={seat.disabled} seat={seat} handler={handlePickerUpdate} />
         ))}
       </div>
       <div className="show-details__bottom">
