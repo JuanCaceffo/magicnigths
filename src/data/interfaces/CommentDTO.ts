@@ -1,6 +1,9 @@
 export interface CommentDTO {
-  imgPath: string
-  title: string
+  id: number
+  userId: number
+  showId: number
+  imgSrc: string
+  name: string
   text: string
   rating: number
   date: Date

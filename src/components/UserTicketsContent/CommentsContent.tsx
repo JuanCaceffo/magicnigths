@@ -38,11 +38,11 @@ export const CommentsContent = () => {
 
   return (
     <main className="comment-container">
-      {comments.map((comment, index) => (
+      {comments.map((comment) => (
         <Comment
           comment={comment}
           handleDelete={() => {
-            handleDelete(index)
+            handleDelete(comment.id)
           }}
           key={comment.text}
         />
