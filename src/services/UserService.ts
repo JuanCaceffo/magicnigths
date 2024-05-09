@@ -10,14 +10,14 @@ import { CommentCreateDTO, CommentDTO } from 'src/data/interfaces/CommentDTO'
 
 class UserService {
   async postUserLogin(userLogin: UserLogin) {
-    const idUsuario = await axios.post<UserLoginProps>(`${REST_SERVER_URL}/api/${pathPrefix.user}/login`, userLogin)
+    const idUsuario = await axios.post<UserLoginProps>(`${REST_SERVER_URL}/${pathPrefix.user}/login`, userLogin)
     sessionStorage.setItem(userSessionStorage.USER_KEY_STORAGE, idUsuario.data.id.toString())
     sessionStorage.setItem(userSessionStorage.USER_ADMIN_STATUS, idUsuario.data.adminStatus.toString())
   }
 
   async getUser() {
     const userData = (
-      await axios.get(`${REST_SERVER_URL}/api/${pathPrefix.user}/${userSessionStorage.getUserId()}/data`).then()
+      await axios.get(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/data`).then()
     ).data
 
     return new User(
@@ -42,9 +42,8 @@ class UserService {
   }
 
   async getCredit() {
-    return (
-      await axios.get(`${REST_SERVER_URL}/api/${pathPrefix.user}/${userSessionStorage.getUserId()}/balance`).then()
-    ).data
+    return (await axios.get(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/balance`).then())
+      .data
   }
 
   async addCreditToUser(creditToAdd: number) {
@@ -63,9 +62,7 @@ class UserService {
   }
 
   async getFriends(): Promise<Friend[]> {
-    const response = await axios.get(
-      `${REST_SERVER_URL}/api/${pathPrefix.user}/${userSessionStorage.getUserId()}/friends`,
-    )
+    const response = await axios.get(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/friends`)
     const friends = response.data
 
     return friends
@@ -79,7 +76,7 @@ class UserService {
 
   async getPurchasedTickets(): Promise<Show[]> {
     const response = (
-      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/api/${pathPrefix.user}/purchased_tickets`, {
+      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/${pathPrefix.user}/purchased_tickets`, {
         params: { userId: userSessionStorage.getUserId() },
       })
     ).data
@@ -89,28 +86,23 @@ class UserService {
 
   async getComments(): Promise<CommentDTO[]> {
     return (
-      await axios.get<CommentDTO[]>(
-        `${REST_SERVER_URL}/api/${pathPrefix.user}/${userSessionStorage.getUserId()}/comments`,
-      )
+      await axios.get<CommentDTO[]>(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/comments`)
     ).data
   }
 
   async removeComment(commentId: number) {
     return await axios.delete(
-      `${REST_SERVER_URL}/api/${pathPrefix.user}/${userSessionStorage.getUserId()}/delete-comment/${commentId}`,
+      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/delete-comment/${commentId}`,
     )
   }
 
   async addComment(comment: CommentCreateDTO) {
-    return axios.put(
-      `${REST_SERVER_URL}/api/${pathPrefix.user}/${userSessionStorage.getUserId()}/create-comment`,
-      comment,
-    )
+    return axios.put(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/create-comment`, comment)
   }
 
   async isAdmin(): Promise<boolean> {
     const isAdmin = (
-      await axios.get(`${REST_SERVER_URL}/api/user/validate`, { params: { userId: userSessionStorage.getUserId() } })
+      await axios.get(`${REST_SERVER_URL}/user/validate`, { params: { userId: userSessionStorage.getUserId() } })
     ).data
     return isAdmin
   }

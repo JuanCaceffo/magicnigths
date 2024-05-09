@@ -13,7 +13,7 @@ class ShowService {
 
   async getAllShows(filter: FilterArgs) {
     const data = (
-      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/api/shows`, {
+      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/shows`, {
         params: { userId: this.userId, ...filter },
       })
     ).data
@@ -21,13 +21,12 @@ class ShowService {
   }
 
   getShowById = async (id: number) => {
-    const data = (await axios.get(`${REST_SERVER_URL}/api/show/${id}`)).data
+    const data = (await axios.get(`${REST_SERVER_URL}/show/${id}`)).data
     return new Show(data)
   }
 
   getSeatsByShowDate = async (showId: number, showDate: ShowDate) => {
-    const seatsJson = (await axios.get<SeatArgs[]>(`${REST_SERVER_URL}/api/show_dates/${showId}/date/${showDate.id}`))
-      .data
+    const seatsJson = (await axios.get<SeatArgs[]>(`${REST_SERVER_URL}/show_dates/${showId}/date/${showDate.id}`)).data
 
     const seatsJsonWithIndex = seatsJson.map((seat) => ({
       ...seat,
@@ -41,16 +40,15 @@ class ShowService {
   addShowDate = async (show: Show, newDate: Date) => {
     const isoDate = newDate.toISOString()
 
-    await axios.post(`${REST_SERVER_URL}/api/admin/show/${show.id}/create-show-date`, {
+    await axios.post(`${REST_SERVER_URL}/admin/show/${show.id}/create-show-date`, {
       userId: this.userId,
       date: isoDate,
     })
   }
 
   getShowStatsById = async (showId: number): Promise<ShowStat[]> => {
-    const showJson = (
-      await axios.get(`${REST_SERVER_URL}/api/admin/shows/${showId}`, { params: { userId: this.userId } })
-    ).data
+    const showJson = (await axios.get(`${REST_SERVER_URL}/admin/shows/${showId}`, { params: { userId: this.userId } }))
+      .data
     return showJson.map((show: ShowStatsProps) => ShowStat.toJson(show))
   }
 }
