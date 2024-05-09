@@ -49,7 +49,7 @@ class ShowService {
 
   getShowStatsById = async (showId: number): Promise<ShowStat[]> => {
     const showJson = (
-      await axios.get(`${REST_SERVER_URL}/api/admin/shows/${showId}`, { params: { userId: this.userId } })
+      await axios.get(`${REST_SERVER_URL}/api/admin/show/${showId}/stats`, { params: { userId: this.userId } })
     ).data
     return showJson.map((show: ShowStatsProps) => ShowStat.toJson(show))
   }

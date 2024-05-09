@@ -5,7 +5,7 @@ export interface NodeItemProps {
   link: string
   className?: string
   do?: () => void
-  newTab?: Boolean
+  newTab?: boolean
 }
 
 export const NodeItem = ({ ...props }: NodeItemProps) => {
