@@ -14,6 +14,7 @@ import { Ticket } from 'src/data/model/Ticket'
 import { enqueueSnackbar } from 'notistack'
 import { cartService } from 'src/services/CartService'
 import { ShowDate } from 'src/data/model/ShowDate'
+import { Carousel } from '../Carousel/Carousel'
 
 export const ShowDetails = () => {
   const { id } = useParams()
@@ -39,6 +40,7 @@ export const ShowDetails = () => {
       const fetchedShow = await showService.getShowById(+id!)
       setShow(fetchedShow)
       await getShowSeatTypes(fetchedShow.dates[0])
+      setDateSelected(show!.dates[0])
     } catch (err) {
       console.error(err)
     }
@@ -77,6 +79,20 @@ export const ShowDetails = () => {
     }
   }
 
+  const datelist = () => {
+    return show
+      ? show.dates.map((showDate, index) => (
+        <CardDate
+          key={showDate.date.toDateString()}
+          isDisable={showDate.date < new Date()}
+          showDate={showDate}
+          isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
+          handleClick={handleDateClick}
+        />
+      ))
+      : []
+  }
+
   useOnInit(async () => {
     await getShowById()
   })
@@ -109,7 +125,7 @@ export const ShowDetails = () => {
             <img className="show-details__img" src={`/images/${show.showImg}`} />
             <section className="show-details__buybox">
               <div className="show-details__dates shadow shadow--line">
-                {show.dates.map((showDate, index) => (
+                {/* {show.dates.map((showDate, index) => (
                   <CardDate
                     key={showDate.date.toDateString()}
                     isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
@@ -117,7 +133,8 @@ export const ShowDetails = () => {
                     showDate={showDate}
                     handleClick={handleDateClick}
                   />
-                ))}
+                ))} */}
+                <Carousel elements={datelist()} maxElements={4} />
               </div>
               {seats && isAdmin ? (
                 <ShowDetailsAdmin show={show} />
