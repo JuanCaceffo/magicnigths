@@ -5,14 +5,13 @@ import { useEffect, useState } from 'react'
 import { User } from 'src/data/model/User'
 import { userService } from 'src/services/UserService'
 import { AxiosError, isAxiosError } from 'axios'
-import { PopupCredit } from 'src/components/PopupCredit/PopupCredit'
 import { UserData } from 'src/components/UserData/UserData'
 import { SelectionContent, UserSelectionPanel } from 'src/components/UserSelectionPanel/UserSelectionPanel'
 import { FriendsContent } from 'src/components/UserFriendsContent/FriendsContent'
 import { CommentsContent } from 'src/components/UserTicketsContent/CommentsContent'
-import './Profile.css'
 import { OptionsObject, closeSnackbar, enqueueSnackbar } from 'notistack'
 import { errorHandler } from 'src/data/helpers/ErrorHandler'
+import { ModalCredit, creditValue } from 'src/components/Modal/ModalCredit'
 
 export const snackbarProfileOptions: OptionsObject = {
   anchorOrigin: { horizontal: 'left', vertical: 'top' },
@@ -24,7 +23,7 @@ export const Profile = () => {
   const [age, setAge] = useState(0)
   const [content, setContent] = useState(SelectionContent.PURCHASED_TICKET)
   const [errorMessage, setError] = useState('')
-  const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     fetchUserData()
@@ -104,9 +103,10 @@ export const Profile = () => {
       })
   }
 
-  const handleAddCredit = async (creditToAdd: number) => {
+  const handleAddCredit = async (data: creditValue) => {
     try {
-      const updatedCredit = await userService.addCreditToUser(creditToAdd)
+      const updatedCredit = await userService.addCreditToUser(data.credit)
+      setIsModalOpen(false)
       setCredit(updatedCredit)
       enqueueSnackbar('Creditos agregados con exito', { variant: 'success', ...snackbarProfileOptions })
     } catch (error) {
@@ -114,8 +114,8 @@ export const Profile = () => {
     }
   }
 
-  const handleOpenPupup = async () => {
-    setIsPopupOpen(true)
+  const handleOpenModel = () => {
+    setIsModalOpen(true)
   }
 
   return (
@@ -132,7 +132,7 @@ export const Profile = () => {
               </h3>
               <button
                 className="add_credit-user-button button button--primary button--rounded animated text--spaced text--strong shadow--box"
-                onClick={handleOpenPupup}
+                onClick={handleOpenModel}
               >
                 Sumar crédito
               </button>
@@ -146,12 +146,12 @@ export const Profile = () => {
               {content === SelectionContent.FRIENDS && <FriendsContent />}
               {content === SelectionContent.COMMENTS && <CommentsContent />}
             </div>
-            {isPopupOpen && (
-              <PopupCredit
-                open={isPopupOpen}
-                onSave={(creditToAdd) => handleAddCredit(creditToAdd)}
-                onClose={() => setIsPopupOpen(false)}
-              />
+            {isModalOpen && (
+              <ModalCredit
+                isOpen={isModalOpen}
+                handleClose={() => setIsModalOpen(false)}
+                onSubmit={handleAddCredit}
+                errorMessage={null} />
             )}
           </div>
         </main>
