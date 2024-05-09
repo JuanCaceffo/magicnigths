@@ -31,7 +31,7 @@ class UserService {
   }
 
   async updateUser(user: User) {
-    await axios.put(`${REST_SERVER_URL}/api/${pathPrefix.user}/${userSessionStorage.getUserId()}/update`, {
+    await axios.patch(`${REST_SERVER_URL}/api/${pathPrefix.user}/${userSessionStorage.getUserId()}/update`, {
       profileImg: user.profileImg,
       name: user.name,
       surname: user.surname,
@@ -49,8 +49,8 @@ class UserService {
 
   async addCreditToUser(creditToAdd: number) {
     // Actualización del crédito del back
-    await axios.put(
-      `${REST_SERVER_URL}/api/${pathPrefix.user}/${userSessionStorage.getUserId()}/add_credit`,
+    await axios.patch(
+      `${REST_SERVER_URL}/api/${pathPrefix.user}/${userSessionStorage.getUserId()}/modify_balance`,
       creditToAdd,
       {
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },

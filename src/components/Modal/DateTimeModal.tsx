@@ -2,7 +2,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material
 import { useForm } from 'react-hook-form'
 import { CDate, CDateArgs } from 'src/data/model/CDate'
 import { Show } from 'src/data/model/Show'
-import './DateTimeModal.scss'
+import './Modal.scss'
 
 interface DateTimeModalArgs {
   show: Show
@@ -32,8 +32,8 @@ export const DateTimeModal = (args: DateTimeModalArgs) => {
   }
 
   return (
-    <Dialog className="date-modal" open={isOpen} onClose={handleClose}>
-      <DialogTitle className="date-modal__header centered centered--column">
+    <Dialog className="modal" open={isOpen} onClose={handleClose}>
+      <DialogTitle className="modal__header centered centered--column">
         <h3 className="text text--xl text--stronger">Agregar Función a</h3>
         <p className="text text--strong centered centered--spaced">
           <span>{`${show.bandName.toUpperCase()}`}</span>
@@ -41,9 +41,9 @@ export const DateTimeModal = (args: DateTimeModalArgs) => {
           <span>{`${show.showName}`}</span>
         </p>
       </DialogTitle>
-      <DialogContent className="date-modal__content">
+      <DialogContent className="modal__content">
         <form
-          className="date-modal__form centered centered--column centered--spaced"
+          className="modal__form centered centered--column centered--spaced"
           onSubmit={handleSubmit(onSubmit)}
           data-testid="date-form"
         >
@@ -68,7 +68,7 @@ export const DateTimeModal = (args: DateTimeModalArgs) => {
             type="time"
           />
           {errors.time && <span className="text text--error">{errors.time.message}</span>}
-          <DialogActions className="date-modal__actions">
+          <DialogActions className="modal__actions">
             <button
               className="button button--secondary button--tall button--rounded text animated shadow shadow--box"
               onClick={handleClose}

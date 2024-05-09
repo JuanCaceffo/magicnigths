@@ -50,7 +50,7 @@ export const Carousel = (args: CarouselArgs) => {
         {controller.showArrows && (
           <div
             className="carousel__button carousel__button--arrow carousel__button--arrow-left carousel__button--animated carousel__button--shadowed"
-            onClick={moveLeft}
+            onClick={moveRight}
           />
         )}
 
@@ -70,7 +70,7 @@ export const Carousel = (args: CarouselArgs) => {
         {controller.showArrows && (
           <div
             className="carousel__button carousel__button--arrow carousel__button--arrow-right carousel__button--animated carousel__button--shadowed"
-            onClick={moveRight}
+            onClick={moveLeft}
           />
         )}
       </section>
