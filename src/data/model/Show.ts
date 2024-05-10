@@ -2,7 +2,6 @@ import { ShowProps } from '../interfaces/ShowProps'
 import { CommentDTO } from '../interfaces/CommentDTO'
 import { format } from 'date-fns'
 import { ShowDate } from './ShowDate'
-import moment from 'moment'
 
 //TODO: when the imgs managment will finished in the backend change here if is necesary
 export class Show {
@@ -16,7 +15,7 @@ export class Show {
   prices: number[]
   rating: number
   totalComments: number
-  date?: Date
+  date?: ShowDate
   dates: ShowDate[]
   userImageNames: string[]
   comments: CommentDTO[]
@@ -36,8 +35,8 @@ export class Show {
     this.prices = props?.prices ?? []
     this.rating = props?.showStats?.rating ?? 0
     this.totalComments = props?.showStats?.totalComments ?? 0
-    this.date = props?.date ? moment(props.date).toDate() : undefined
-    this.dates = props?.dates?.map((showDate) => new ShowDate({ id: showDate.id, date: showDate.date })) ?? []
+    this.date = props?.date ? new ShowDate(props.date) : undefined
+    this.dates = props?.dates?.map((showDate) => new ShowDate(showDate)) ?? []
     this.userImageNames = props?.showStats?.userImageNames ?? []
     this.comments = props?.comments ?? []
     this.geolocation = props?.geolocation ?? ''
