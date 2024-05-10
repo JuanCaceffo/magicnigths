@@ -86,13 +86,15 @@ class UserService {
 
   async getComments(): Promise<CommentDTO[]> {
     return (
-      await axios.get<CommentDTO[]>(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/comments`)
+      await axios.get<CommentDTO[]>(
+        `${REST_SERVER_URL}/${pathPrefix.comments}/user?userId=${userSessionStorage.getUserId()}`,
+      )
     ).data
   }
 
   async removeComment(commentId: number) {
     return await axios.delete(
-      `${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/delete-comment/${commentId}`,
+      `${REST_SERVER_URL}/${pathPrefix.comments}/${commentId}/delete?userId=${userSessionStorage.getUserId()}`,
     )
   }
 

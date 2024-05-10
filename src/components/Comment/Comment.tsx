@@ -16,10 +16,10 @@ export const Comment = (args: CommentProps) => {
       <header className="comment__header centered">
         <section className="comment__description centered">
           <div className="comment__img-container">
-            <img className="comment__img" src={`/images/${comment.imgPath}`} />
+            <img className="comment__img" src={`/images/${comment.imgSrc}`} />
           </div>
           <div>
-            <h2 className="text--md">{comment.title}</h2>
+            <h2 className="text--md">{comment.name}</h2>
             <span>{format(comment.date, 'MMMM yyyy', { locale: es })}</span>
           </div>
         </section>
