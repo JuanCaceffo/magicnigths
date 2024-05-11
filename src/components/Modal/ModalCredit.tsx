@@ -57,7 +57,6 @@ export const ModalCredit = (props: ModalCreditProps) => {
               <input
                 value={'AGREGAR'}
                 disabled={isSubmitting}
-                // disabled={!isDirty || !isValid} // estas lineas pueden ser útiles en caso de no querer permitir el uso del botón
                 className="button button--primary button--tall button--rounded text text--clear animated shadow shadow--box"
                 type="submit"
                 data-testid="credit-submit"

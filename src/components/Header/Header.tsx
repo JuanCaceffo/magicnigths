@@ -8,6 +8,7 @@ import { User } from 'src/data/model/User'
 
 export const Header = () => {
   const [user, setUser] = useState({} as User)
+  const isAdmin = userSessionStorage.userIsAdmin()
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -20,27 +21,31 @@ export const Header = () => {
   const loginOrProfile = () => {
     return userSessionStorage.userIsLoged()
       ? {
-          node: (
-            <section className="centered centered--spaced">
-              <img className="profile-img" src={`/images/${user.profileImg}`} />
-              <span>{`${user.username}`}</span>
-            </section>
-          ),
-          link: '/user_profile',
-        }
+        node: (
+          <section className="centered centered--spaced">
+            <img className="profile-img" src={`/images/${user.profileImg}`} />
+            <span>{`${user.username}`}</span>
+          </section>
+        ),
+        link: '/user_profile',
+      }
       : {
-          node: (
-            <>
-              <i className="fas fa-user fa-rp" /> Login
-            </>
-          ),
-          link: '/login',
-        }
+        node: (
+          <>
+            <i className="fas fa-user fa-rp" /> Login
+          </>
+        ),
+        link: '/login',
+      }
   }
 
   const navbar = {
     className: 'text text--xl text--clear text--stronger text--spaced-sm shadow--text',
     nodes: [
+      isAdmin ? {
+        node: <>Admin</>,
+        link: '/admin_dashboard',
+      } : null,
       {
         node: <>Home</>,
         link: '/',
@@ -50,7 +55,7 @@ export const Header = () => {
         link: '/shop',
       },
       loginOrProfile(),
-    ],
+    ].flatMap(item => item ? [{ node: item.node, link: item.link }] : []),
   }
 
   return (
