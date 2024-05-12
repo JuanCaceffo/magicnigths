@@ -105,6 +105,10 @@ export const ShowDetails = () => {
     await getShowById()
   })
 
+  const isSoldOut = () => {
+    return false // TODO: Cambiar cuandó esté desarrollada la logica que devuelve esto desde el back
+  }
+
   return (
     <>
       {show && (
@@ -147,7 +151,7 @@ export const ShowDetails = () => {
               {seats && isAdmin ? (
                 <ShowDetailsAdmin show={show} />
               ) : (
-                <ShowDetailsBase seats={seats} handlePickerUpdate={handlePickerUpdate} addToCart={addToCart} dateSelected={dateSelected}/>
+                <ShowDetailsBase seats={seats} handlePickerUpdate={handlePickerUpdate} addToCart={addToCart} dateSelected={dateSelected} isSoldOut={isSoldOut()}/>
               )}
             </section>
           </section>
