@@ -10,7 +10,9 @@ export interface CommentDTO {
 }
 
 export interface CommentCreateDTO {
-  groupTicketId: number
-  text: string
-  rating: number
+  userId: number
+  showId: number
+  showDateId: number
+  text?: string
+  rating?: number
 }

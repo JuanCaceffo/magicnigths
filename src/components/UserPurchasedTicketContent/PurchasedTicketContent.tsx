@@ -10,12 +10,14 @@ import { PopupComment } from '../PopupComment/PopupComment'
 import { closeSnackbar, enqueueSnackbar } from 'notistack'
 import { snackbarProfileOptions } from 'src/pages/Profile/Profile'
 import { errorHandler } from 'src/data/helpers/ErrorHandler'
+import { CommentCreateDTO } from 'src/data/interfaces/CommentDTO'
+import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 //TODO: refactorizar componente por una solucion mas mantenible
 export const PurchasedTicketContent = () => {
   const [shows, setShows] = useState<Array<Show>>([])
   const [errorMessage, setErrorMessage] = useState('')
   const [isPopupOpen, setIsPopupOpen] = useState(false) // Estado para controlar si el popup está abierto
-  const [gorupTicketId, setGorupTicketId] = useState(-1)
+  const [commentCreate, setCommentCreat] = useState<CommentCreateDTO>({} as CommentCreateDTO)
 
   //TODO: cuando el componente de manejo de errores del back este listo aplicarlo aca
   const fetchUserShows = async () => {
@@ -42,8 +44,8 @@ export const PurchasedTicketContent = () => {
     }
   }, [])
 
-  const handleAddComment = (ticketId: number) => {
-    setGorupTicketId(ticketId)
+  const handleAddComment = (userId: number, showId: number, showDateId: number) => {
+    setCommentCreat({ userId, showId, showDateId })
     setIsPopupOpen(true) // Abre el popup cuando se hace clic en el botón
   }
 
@@ -53,7 +55,7 @@ export const PurchasedTicketContent = () => {
 
   const handleSaveComment = async (comment: string, rating: number) => {
     userService
-      .addComment({ groupTicketId: gorupTicketId, text: comment, rating })
+      .addComment({ ...commentCreate, text: comment, rating })
       .then(() => {
         setIsPopupOpen(false)
         fetchUserShows()
@@ -78,7 +80,9 @@ export const PurchasedTicketContent = () => {
                   show.canBeCommented
                     ? {
                         content: 'Calificar artista',
-                        onClick: handleAddComment, //TODO: cuando tengamos el id de los tickets y groupTickets cambiar
+                        onClick: () => {
+                          handleAddComment(userSessionStorage.getUserId(), show.id, show.date!.id)
+                        },
                       }
                     : undefined
                 }
