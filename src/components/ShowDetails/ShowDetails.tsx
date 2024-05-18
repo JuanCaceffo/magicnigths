@@ -40,7 +40,7 @@ export const ShowDetails = () => {
       const fetchedShow = await showService.getShowById(+id!)
       setShow(fetchedShow)
       await getShowSeatTypes(fetchedShow.dates[0])
-      setDateSelected(show!.dates[0])
+      setDateSelected(fetchedShow.dates[0])
     } catch (err) {
       console.error(err)
     }
@@ -48,7 +48,7 @@ export const ShowDetails = () => {
 
   const getShowSeatTypes = async (selectedDate: ShowDate) => {
     try {
-      const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(+id!, selectedDate!)
+      const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(selectedDate.id, selectedDate!)
       setSeats([...fetchedSeats])
     } catch (err) {
       console.error(err)
@@ -56,11 +56,11 @@ export const ShowDetails = () => {
   }
 
   const addToCart = async () => {
-    
+
     try {
       if (userSessionStorage.userIsLoged()) {
         if (show && dateSelected) {
-          if(seats.some(seat => seat.reservedQuantity > 0)) { // Se seleccionó al menos un ticket
+          if (seats.some(seat => seat.reservedQuantity > 0)) { // Se seleccionó al menos un ticket
             seats.forEach(async (seat) => {
               const ticketData = Ticket.toJson({
                 showId: show.id,
@@ -69,7 +69,7 @@ export const ShowDetails = () => {
                 seatTypeName: seat.seatType,
                 quantity: seat.reservedQuantity,
               })
-              if(ticketData.quantity > 0) {
+              if (ticketData.quantity > 0) {
                 await cartService.addReservedTicket(ticketData)
               }
             })
@@ -151,7 +151,7 @@ export const ShowDetails = () => {
               {seats && isAdmin ? (
                 <ShowDetailsAdmin show={show} />
               ) : (
-                <ShowDetailsBase seats={seats} handlePickerUpdate={handlePickerUpdate} addToCart={addToCart} dateSelected={dateSelected} isSoldOut={isSoldOut()}/>
+                <ShowDetailsBase seats={seats} handlePickerUpdate={handlePickerUpdate} addToCart={addToCart} dateSelected={dateSelected} isSoldOut={isSoldOut()} />
               )}
             </section>
           </section>

@@ -15,7 +15,6 @@ class ShowService {
         params: { userId: userSessionStorage.getUserId(), ...filter },
       })
     ).data
-    console.log("acaaaaaaaaaaa", data)
     return data.map((show) => new Show(show))
   }
 
@@ -24,8 +23,8 @@ class ShowService {
     return new Show(data)
   }
 
-  getSeatsByShowDate = async (showId: number, showDate: ShowDate) => {
-    const seatsJson = (await axios.get<SeatArgs[]>(`${REST_SERVER_URL}/show_dates/${showId}/date/${showDate.id}`)).data
+  getSeatsByShowDate = async (showDateId: number, showDate: ShowDate) => {
+    const seatsJson = (await axios.get<SeatArgs[]>(`${REST_SERVER_URL}/showdate/${showDateId}/seats`)).data
 
     const seatsJsonWithIndex = seatsJson.map((seat) => ({
       ...seat,
