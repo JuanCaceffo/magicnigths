@@ -56,20 +56,28 @@ export const ShowDetails = () => {
   }
 
   const addToCart = async () => {
+    
     try {
       if (userSessionStorage.userIsLoged()) {
         if (show && dateSelected) {
-          seats.forEach(async (seat) => {
-            const ticketData = Ticket.toJson({
-              showId: show.id,
-              date: dateSelected.date,
-              seatPrice: seat.price,
-              seatTypeName: seat.seatType,
-              quantity: seat.reservedQuantity,
+          if(seats.some(seat => seat.reservedQuantity > 0)) { // Se seleccionó al menos un ticket
+            seats.forEach(async (seat) => {
+              const ticketData = Ticket.toJson({
+                showId: show.id,
+                date: dateSelected.date,
+                seatPrice: seat.price,
+                seatTypeName: seat.seatType,
+                quantity: seat.reservedQuantity,
+              })
+              if(ticketData.quantity > 0) {
+                await cartService.addReservedTicket(ticketData)
+              }
             })
-            await cartService.addReservedTicket(ticketData)
-          })
-          enqueueSnackbar('Carrito actualizado con éxito', { variant: 'success' })
+            enqueueSnackbar('Carrito actualizado con éxito', { variant: 'success' })
+          }
+          else { // No se seleccionó ningún ticket
+            enqueueSnackbar('No se seleccionó ningún ticket', { variant: 'warning' })
+          }
         }
       } else {
         navigate('/login', { state: location })
@@ -96,6 +104,10 @@ export const ShowDetails = () => {
   useOnInit(async () => {
     await getShowById()
   })
+
+  const isSoldOut = () => {
+    return false // TODO: Cambiar cuandó esté desarrollada la logica que devuelve esto desde el back
+  }
 
   return (
     <>
@@ -139,7 +151,7 @@ export const ShowDetails = () => {
               {seats && isAdmin ? (
                 <ShowDetailsAdmin show={show} />
               ) : (
-                <ShowDetailsBase seats={seats} handlePickerUpdate={handlePickerUpdate} addToCart={addToCart} />
+                <ShowDetailsBase seats={seats} handlePickerUpdate={handlePickerUpdate} addToCart={addToCart} dateSelected={dateSelected} isSoldOut={isSoldOut()}/>
               )}
             </section>
           </section>

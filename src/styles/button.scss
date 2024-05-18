@@ -60,4 +60,9 @@
   &--tall {
     height: 4.2rem;
   }
+
+  &--disabled {
+    border-style: dashed;
+    filter: opacity(50%);
+  }
 }
