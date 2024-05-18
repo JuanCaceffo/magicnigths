@@ -37,14 +37,14 @@ const CardShow = (props: CardShowProps) => {
         {show.rating < 1 ? (
           <i className="fas fa-star fa--rp fa--low" />
         ) : //
-        show.rating < 4 ? (
-          <i className="fas fa-star fa--rp fa--medium" />
-        ) : (
-          <>
-            <i className="fas fa-star fa--rp fa--up" />
-            <i className="fas fa-fire fa--rp fa--hot" />
-          </>
-        )}
+          show.rating < 4 ? (
+            <i className="fas fa-star fa--rp fa--medium" />
+          ) : (
+            <>
+              <i className="fas fa-star fa--rp fa--up" />
+              <i className="fas fa-fire fa--rp fa--hot" />
+            </>
+          )}
       </>
     )
   }

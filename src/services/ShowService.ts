@@ -11,10 +11,11 @@ import { ShowDate } from 'src/data/model/ShowDate'
 class ShowService {
   async getAllShows(filter: FilterArgs) {
     const data = (
-      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/shows`, {
+      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/show`, {
         params: { userId: userSessionStorage.getUserId(), ...filter },
       })
     ).data
+    console.log("acaaaaaaaaaaa", data)
     return data.map((show) => new Show(show))
   }
 
@@ -31,7 +32,6 @@ class ShowService {
       showDateid: showDate.id,
       disabled: showDate.date < new Date(),
     }))
-    console.log('acaaaaaaaaaaaaaaaaaa', seatsJsonWithIndex)
     return seatsJsonWithIndex.map((seat) => Seat.fromJSON(seat))
   }
 

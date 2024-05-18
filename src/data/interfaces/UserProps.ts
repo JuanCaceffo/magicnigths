@@ -1,4 +1,8 @@
-interface UserLoginProps {
+export interface UserLoginProps {
   id: number
-  adminStatus: boolean
+  role: UserRole
+}
+
+enum UserRole {
+  ADMIN, USER
 }

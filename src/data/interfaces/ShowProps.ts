@@ -12,12 +12,19 @@ export interface ShowData {
 export interface ShowStats {
   rating?: number
   totalComments?: number
-  userImageNames?: string[]
+  friendsImgs?: string[]
 }
 
 export interface ShowProps {
-  data: ShowData
-  showStats?: ShowStats
+  id: number
+  showImg: string
+  showName: string
+  bandName: string
+  facilityName: string
+  rating?: number
+  totalComments?: number
+  friendsImgs?: string[]
+  totalFriendsAttending?: number
   price?: number
   prices?: number[]
   date?: ShowDate

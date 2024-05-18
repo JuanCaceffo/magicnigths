@@ -7,17 +7,18 @@ import { Show } from 'src/data/model/Show'
 import { ShowProps } from 'src/data/interfaces/ShowProps'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 import { CommentCreateDTO, CommentDTO } from 'src/data/interfaces/CommentDTO'
+import { UserLoginProps } from 'src/data/interfaces/UserProps'
 
 class UserService {
   async postUserLogin(userLogin: UserLogin) {
     const idUsuario = await axios.post<UserLoginProps>(`${REST_SERVER_URL}/${pathPrefix.user}/login`, userLogin)
     sessionStorage.setItem(userSessionStorage.USER_KEY_STORAGE, idUsuario.data.id.toString())
-    sessionStorage.setItem(userSessionStorage.USER_ADMIN_STATUS, idUsuario.data.adminStatus.toString())
+    sessionStorage.setItem(userSessionStorage.USER_ADMIN_STATUS, idUsuario.data.role.toString())
   }
 
   async getUser() {
     const userData = (
-      await axios.get(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/data`).then()
+      await axios.get(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}`).then()
     ).data
 
     return new User(
@@ -76,9 +77,7 @@ class UserService {
 
   async getPurchasedTickets(): Promise<Show[]> {
     const response = (
-      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/${pathPrefix.user}/purchased_tickets`, {
-        params: { userId: userSessionStorage.getUserId() },
-      })
+      await axios.get<ShowProps[]>(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/bought_tickets`)
     ).data
 
     return response.map((data) => new Show(data))
