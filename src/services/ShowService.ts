@@ -50,6 +50,7 @@ class ShowService {
         params: { userId: userSessionStorage.getUserId() },
       })
     ).data
+
     return showJson.map((show: ShowStatsProps) => ShowStat.toJson(show))
   }
 }
