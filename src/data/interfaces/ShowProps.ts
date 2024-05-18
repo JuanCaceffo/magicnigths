@@ -20,7 +20,7 @@ export interface ShowProps {
   showStats?: ShowStats
   price?: number
   prices?: number[]
-  date?: Date
+  date?: ShowDate
   dates?: ShowDate[]
   ticketId?: number
   comments?: CommentDTO[]
