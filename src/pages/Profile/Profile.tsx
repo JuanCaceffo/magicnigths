@@ -12,15 +12,15 @@ import { CommentsContent } from 'components/UserTicketsContent/CommentsContent'
 import { OptionsObject, closeSnackbar, enqueueSnackbar } from 'notistack'
 import { errorHandler } from 'models/helpers/ErrorHandler'
 import { ModalCredit, creditValue } from 'components/Modal/ModalCredit'
+import { UserUpdateProps } from 'models/interfaces/UserProps'
 
 export const snackbarProfileOptions: OptionsObject = {
   anchorOrigin: { horizontal: 'left', vertical: 'top' },
 }
 
 export const Profile = () => {
-  const [user, setUser] = useState(new User('', '', '', '', new Date(), 0))
+  const [user, setUser] = useState<User>(new User())
   const [credit, setCredit] = useState(0)
-  const [age, setAge] = useState(0)
   const [content, setContent] = useState(SelectionContent.PURCHASED_TICKET)
   const [errorMessage, setError] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -36,7 +36,6 @@ export const Profile = () => {
     try {
       const userData = await userService.getUser()
       setUser(userData)
-      setAge(userData.getAge())
       try {
         const userCredit = await userService.getCredit()
         setCredit(userCredit)
@@ -61,37 +60,26 @@ export const Profile = () => {
     }
   }
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target
+  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = event.target
+  //   setUser((prevUser: User) => {
+  //     const updatesUser = new User({
+  //       ...prevUser, [name]: value
+  //     })
+  //     return updatesUser
+  //   })
+  // }
 
+  const handleUpdateUser = async (data: UserUpdateProps) => {
+
+    console.log("sisisi")
     setUser((prevUser: User) => {
-      const prevUserData: {
-        profileImg: string
-        name: string
-        surname: string
-        username: string
-        birthday: Date
-        dni: number
-      } = { ...prevUser }
-
-      if (name === 'name' || name === 'surname') {
-        prevUserData[name] = value
-      }
-
-      const updatedUser = new User(
-        prevUserData.profileImg,
-        prevUserData.name,
-        prevUserData.surname,
-        prevUserData.username,
-        prevUserData.birthday,
-        prevUserData.dni,
-      )
-
-      return updatedUser
+      const updatesUser = new User({
+        ...prevUser, firstName: data.firstName, lastName: data.lastName
+      })
+      return updatesUser
     })
-  }
 
-  const handleSaveClick = async () => {
     await userService
       .updateUser(user)
       .then(() => {
@@ -125,7 +113,7 @@ export const Profile = () => {
       ) : (
         <main className="main__content_user">
           <div className="user_data_container user-flex">
-            <UserData user={user} handleInputChange={handleInputChange} age={age} handleSaveClick={handleSaveClick} />
+            <UserData user={user} onSubmit={handleUpdateUser} />
             <div className="user_credit_container">
               <h3 className="text--md tx-aling-center credit" data-testid="credit">
                 Crédito ${credit}

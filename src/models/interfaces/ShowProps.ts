@@ -1,4 +1,4 @@
-import { ShowDate } from '../model/ShowDate'
+import { ShowDate } from 'models/ShowDate'
 import { CommentDTO } from './CommentDTO'
 
 export interface ShowData {

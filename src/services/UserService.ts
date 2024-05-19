@@ -18,22 +18,14 @@ class UserService {
 
   async getUser() {
     const userData = (await axios.get(`${REST_SERVER_URL}/${PATH.USER}/${userSessionStorage.getUserId()}`).then()).data
-
-    return new User(
-      userData.profileImg,
-      userData.name,
-      userData.surname,
-      userData.username,
-      new Date(userData.birthday),
-      userData.dni,
-    )
+    return new User(userData)
   }
 
   async updateUser(user: User) {
-    await axios.patch(`${REST_SERVER_URL}/api/${PATH.USER}/${userSessionStorage.getUserId()}/update`, {
-      profileImg: user.profileImg,
-      name: user.name,
-      surname: user.surname,
+    await axios.patch(`${REST_SERVER_URL}/${PATH.USER}/${userSessionStorage.getUserId()}/update`, {
+      profileImg: user.profileImgUrl,
+      name: user.firstName,
+      surname: user.lastName,
       username: user.username,
       birthday: user.birthday.toISOString(), // Fecha a un formato compatible con el servidor
       dni: user.dni,

@@ -1,5 +1,5 @@
-import { ShowProps } from '../interfaces/ShowProps'
-import { CommentDTO } from '../interfaces/CommentDTO'
+import { ShowProps } from 'models/interfaces/ShowProps'
+import { CommentDTO } from 'models/interfaces/CommentDTO'
 import { format } from 'date-fns'
 import { ShowDate } from './ShowDate'
 

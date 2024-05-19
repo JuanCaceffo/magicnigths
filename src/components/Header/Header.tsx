@@ -7,7 +7,7 @@ import { userService } from 'services/UserService'
 import { useEffect, useState } from 'react'
 
 export const Header = () => {
-  const [user, setUser] = useState({} as User)
+  const [user, setUser] = useState<User>(new User())
   const isAdmin = userSessionStorage.userIsAdmin()
 
   useEffect(() => {
@@ -21,22 +21,22 @@ export const Header = () => {
   const loginOrProfile = () => {
     return userSessionStorage.userIsLoged()
       ? {
-          node: (
-            <section className="centered centered--spaced">
-              <img className="profile-img" src={`/images/${user.profileImg}`} />
-              <span>{`${user.username}`}</span>
-            </section>
-          ),
-          link: '/user_profile',
-        }
+        node: (
+          <section className="centered centered--spaced">
+            <img className="profile-img" src={`/images/${user.profileImgUrl}`} />
+            <span>{`${user.username}`}</span>
+          </section>
+        ),
+        link: '/user_profile',
+      }
       : {
-          node: (
-            <>
-              <i className="fas fa-user fa-rp" /> Login
-            </>
-          ),
-          link: '/login',
-        }
+        node: (
+          <>
+            <i className="fas fa-user fa-rp" /> Login
+          </>
+        ),
+        link: '/login',
+      }
   }
 
   const navbar = {
@@ -44,9 +44,9 @@ export const Header = () => {
     nodes: [
       isAdmin
         ? {
-            node: <>Admin</>,
-            link: '/admin_dashboard',
-          }
+          node: <>Admin</>,
+          link: '/admin_dashboard',
+        }
         : null,
       {
         node: <>Home</>,

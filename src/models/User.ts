@@ -1,16 +1,27 @@
 import { differenceInYears } from 'date-fns'
+import { UserProps } from 'models/interfaces/UserProps'
+import moment from 'moment'
 
 export class User {
-  constructor(
-    public profileImg: string,
-    public name: string,
-    public surname: string,
-    public username: string,
-    public birthday: Date,
-    public dni: number,
-  ) {}
+  id: number
+  profileImgUrl: string
+  firstName: string
+  lastName: string
+  username: string
+  birthday: Date
+  dni: number
 
-  getAge(): number {
+  constructor(props?: UserProps) {
+    this.id = props?.id ?? 0
+    this.profileImgUrl = props?.profileImgUrl ?? 'default.jpg'
+    this.firstName = props?.firstName ?? ''
+    this.lastName = props?.lastName ?? ''
+    this.username = props?.username ?? ''
+    this.birthday = moment(props?.birthday).toDate() ?? new Date()
+    this.dni = props?.dni ?? 0
+  }
+
+  get age() {
     return differenceInYears(new Date(), this.birthday)
   }
 }
