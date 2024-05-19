@@ -34,16 +34,13 @@ class UserService {
   }
 
   async addCreditToUser(creditToAdd: number) {
-    // Actualización del crédito del back
     await axios.patch(
-      `${REST_SERVER_URL}/api/${PATH.USER}/${userSessionStorage.getUserId()}/modify_balance`,
+      `${REST_SERVER_URL}/${PATH.USER}/${userSessionStorage.getUserId()}/modify_balance`,
       creditToAdd,
       {
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
       },
     )
-
-    // Actualización del crédito localmente
     const credit = await this.getCredit()
     return credit
   }
