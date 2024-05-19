@@ -21,7 +21,7 @@ export const SeatBox = (args: SeatBoxArgs) => {
     <section className={`seat-box ${isDisable && 'seat-box--disabled'}`}>
       <span className="seat-box__seat-type text--stronger">{seat.seatType}</span>
       <span>{`$ ${Math.round(seat.price)}`}</span>
-      <span>{<NumPicker value={seat.reservedQuantity} handler={handleOnPicker} max={seat.maxToSell} min={0} />}</span>
+      <span>{<NumPicker value={seat.reservedQuantity} handler={handleOnPicker} max={seat.available} min={0} />}</span>
     </section>
   )
 }

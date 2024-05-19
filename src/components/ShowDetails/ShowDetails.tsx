@@ -48,7 +48,7 @@ export const ShowDetails = () => {
 
   const getShowSeatTypes = async (selectedDate: ShowDate) => {
     try {
-      const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(selectedDate.id, selectedDate!)
+      const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(selectedDate!)
       setSeats([...fetchedSeats])
     } catch (err) {
       console.error(err)
