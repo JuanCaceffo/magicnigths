@@ -1,8 +1,9 @@
+import './UserData.css'
 import { Avatar } from '@mui/material'
 import { User } from 'models/User'
-import './UserData.css'
 import { useForm } from 'react-hook-form'
 import { UserUpdateProps } from 'models/interfaces/UserProps'
+import { useEffect } from 'react'
 
 type UserDataProps = {
   user: User
@@ -15,38 +16,46 @@ export const UserData = (data: UserDataProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting }
-  } = useForm<UserUpdateProps>()
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<UserUpdateProps>({
+    defaultValues: {
+      firstName: user.firstName,
+      lastName: user.lastName,
+    },
+  })
+
+  useEffect(() => {
+    reset({
+      firstName: user.firstName,
+      lastName: user.lastName,
+    })
+  }, [user, reset])
 
   return (
-    <div className="user_data user-flex">
-      <Avatar className="user_profile_photo" src={`/images/${user.profileImgUrl}`} />
+    <div className="user__data user-flex">
+      <Avatar className="user__profile-photo" src={`/images/${user.profileImgUrl}`} />
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        data-testid="credit-form"
-      >
-        <div className="input_container">
+      <form onSubmit={handleSubmit(onSubmit)} data-testid="credit-form">
+        <div className="input__container">
           <label className="text text--strong text--md">Nombre</label>
           <input
-            value={user.firstName}
             {...register('firstName')}
             className="field field--rounded field--large animated text shadow--box"
             type="text"
           />
           {errors.firstName && <span className="text text--error">{errors.firstName.message}</span>}
         </div>
-        <div className="input_container">
+        <div className="input__container">
           <label className="text text--strong text--md">Apellido</label>
           <input
-            value={user.lastName}
             {...register('lastName')}
             className="field field--rounded field--large animated text shadow--box"
             type="text"
           />
           {errors.lastName && <span className="text text--error">{errors.lastName.message}</span>}
         </div>
-        <div className="input_container">
+        <div className="input__container">
           <label className="text text--strong text--md">Fecha de nacimiento</label>
           <input
             className="field field--rounded field--large animated text shadow--box"
@@ -60,7 +69,7 @@ export const UserData = (data: UserDataProps) => {
         <h3 className="user__age tx-aling-center user-flex text--strong" data-testid="age">
           Edad: {user.age} años
         </h3>
-        <div className="input_container">
+        <div className="input__container">
           <label className="text text--strong text--md">DNI</label>
           <input
             className="field field--rounded field--large animated text shadow--box"

@@ -1,17 +1,17 @@
-.user_data {
+.user__data {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
 }
 
-.user_profile_photo {
+.user__profile-photo {
   width: 15rem;
   height: 15rem;
   margin-left: auto; /* Mueve el objeto hacia la derecha */
   margin-right: auto;
 }
 
-.input_container {
+.input__container {
   margin: 0.5em 0em;
   display: flex;
   flex-direction: column;

@@ -7,7 +7,7 @@ import { Show } from 'models/Show'
 import { ShowProps } from 'models/interfaces/ShowProps'
 import { userSessionStorage } from 'models/helpers/userSessionStorage'
 import { CommentCreateDTO, CommentDTO } from 'models/interfaces/CommentDTO'
-import { UserLoginProps } from 'models/interfaces/UserProps'
+import { UserLoginProps, UserUpdateProps } from 'models/interfaces/UserProps'
 
 class UserService {
   async postUserLogin(userLogin: UserLogin) {
@@ -21,15 +21,12 @@ class UserService {
     return new User(userData)
   }
 
-  async updateUser(user: User) {
-    await axios.patch(`${REST_SERVER_URL}/${PATH.USER}/${userSessionStorage.getUserId()}/update`, {
-      profileImg: user.profileImgUrl,
-      name: user.firstName,
-      surname: user.lastName,
-      username: user.username,
-      birthday: user.birthday.toISOString(), // Fecha a un formato compatible con el servidor
-      dni: user.dni,
-    })
+  async updateUser(userUpdate: UserUpdateProps) {
+    console.log(userUpdate)
+    await axios.patch<UserUpdateProps>(
+      `${REST_SERVER_URL}/${PATH.USER}/${userSessionStorage.getUserId()}/update`,
+      userUpdate,
+    )
   }
 
   async getCredit() {

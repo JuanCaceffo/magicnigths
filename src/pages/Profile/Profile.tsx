@@ -60,35 +60,21 @@ export const Profile = () => {
     }
   }
 
-  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = event.target
-  //   setUser((prevUser: User) => {
-  //     const updatesUser = new User({
-  //       ...prevUser, [name]: value
-  //     })
-  //     return updatesUser
-  //   })
-  // }
-
   const handleUpdateUser = async (data: UserUpdateProps) => {
-
-    console.log("sisisi")
-    setUser((prevUser: User) => {
-      const updatesUser = new User({
-        ...prevUser, firstName: data.firstName, lastName: data.lastName
-      })
-      return updatesUser
+    const updatedUser = new User({
+      ...user,
+      firstName: data.firstName,
+      lastName: data.lastName,
     })
 
-    await userService
-      .updateUser(user)
-      .then(() => {
-        enqueueSnackbar('Datos guardados con exito', { variant: 'success', ...snackbarProfileOptions })
-        fetchUserData()
-      })
-      .catch((error: AxiosError) => {
-        enqueueSnackbar(errorHandler(error), snackbarProfileOptions)
-      })
+    try {
+      await userService.updateUser(updatedUser)
+      setUser(updatedUser)
+      enqueueSnackbar('Datos guardados con éxito', { variant: 'success', ...snackbarProfileOptions })
+      fetchUserData()
+    } catch (error) {
+      enqueueSnackbar(errorHandler(error as AxiosError), snackbarProfileOptions)
+    }
   }
 
   const handleAddCredit = async (data: creditValue) => {
@@ -111,7 +97,7 @@ export const Profile = () => {
       {errorMessage ? (
         <p className="error-message error">{errorMessage}</p>
       ) : (
-        <main className="main__content_user">
+        <main className="main__content-user">
           <div className="user_data_container user-flex">
             <UserData user={user} onSubmit={handleUpdateUser} />
             <div className="user_credit_container">
