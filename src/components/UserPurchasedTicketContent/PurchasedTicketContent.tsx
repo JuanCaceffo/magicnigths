@@ -22,7 +22,7 @@ export const PurchasedTicketContent = () => {
   //TODO: cuando el componente de manejo de errores del back este listo aplicarlo aca
   const fetchUserShows = async () => {
     try {
-      const userShows = await userService.getPurchasedTickets()
+      const userShows = await userService.getBoughtTickets()
       setShows([...userShows])
     } catch (e) {
       if (isAxiosError(e)) {
@@ -79,11 +79,11 @@ export const PurchasedTicketContent = () => {
                 button={
                   show.canBeCommented
                     ? {
-                        content: 'Calificar artista',
-                        onClick: () => {
-                          handleAddComment(userSessionStorage.getUserId(), show.id, show.date!.id)
-                        },
-                      }
+                      content: 'Calificar artista',
+                      onClick: () => {
+                        handleAddComment(userSessionStorage.getUserId(), show.id, show.date!.id)
+                      },
+                    }
                     : undefined
                 }
               />

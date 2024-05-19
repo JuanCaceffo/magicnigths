@@ -75,11 +75,10 @@ class UserService {
     )
   }
 
-  async getPurchasedTickets(): Promise<Show[]> {
+  async getBoughtTickets(): Promise<Show[]> {
     const response = (
       await axios.get<ShowProps[]>(`${REST_SERVER_URL}/${pathPrefix.user}/${userSessionStorage.getUserId()}/bought_tickets`)
     ).data
-
     return response.map((data) => new Show(data))
   }
 
