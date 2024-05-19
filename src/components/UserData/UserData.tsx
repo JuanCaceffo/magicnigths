@@ -1,5 +1,5 @@
 import { Avatar } from '@mui/material'
-import { User } from 'src/data/model/User'
+import { User } from 'models/User'
 import './UserData.css'
 
 interface UserDataProps {

@@ -1,5 +1,5 @@
-import { Show } from 'src/data/model/Show'
 import './CardShowAdmin.scss'
+import { Show } from 'models/Show'
 import { Prices } from '../Prices/Prices'
 import { useNavigate } from 'react-router'
 

@@ -1,20 +1,20 @@
 import './ShowDetails.scss'
 import { useState } from 'react'
-import { showService } from 'src/services/ShowService'
-import { Show } from 'src/data/model/Show'
+import { showService } from 'services/ShowService'
+import { Show } from 'models/Show'
+import { Seat } from 'models/Seat'
+import { Ticket } from 'models/Ticket'
+import { ShowDate } from 'models/ShowDate'
+import { useOnInit } from 'hooks/hooks'
 import { useNavigate, useParams } from 'react-router-dom'
-import { CardDate } from '../Card/CardDate/CardDate'
-import { Seat } from 'src/data/model/Seat'
-import { useOnInit } from 'src/hooks/hooks'
-import { Comment } from '../Comment/Comment'
+import { CardDate } from 'components/Card/CardDate/CardDate'
+import { Carousel } from 'components/Carousel/Carousel'
+import { Comment } from 'components/Comment/Comment'
 import { ShowDetailsBase } from './ShowDetailsBase'
 import { ShowDetailsAdmin } from './ShowDetailsAdmin'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-import { Ticket } from 'src/data/model/Ticket'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
 import { enqueueSnackbar } from 'notistack'
-import { cartService } from 'src/services/CartService'
-import { ShowDate } from 'src/data/model/ShowDate'
-import { Carousel } from '../Carousel/Carousel'
+import { cartService } from 'services/CartService'
 
 export const ShowDetails = () => {
   const { id } = useParams()
@@ -31,7 +31,7 @@ export const ShowDetails = () => {
 
   const handlePickerUpdate = (seat: Seat) => {
     setSeats((prevSeats) => {
-      return prevSeats.map((s) => s.id === seat.id ? seat : s)
+      return prevSeats.map((s) => (s.id === seat.id ? seat : s))
     })
   }
 
@@ -56,11 +56,11 @@ export const ShowDetails = () => {
   }
 
   const addToCart = async () => {
-
     try {
       if (userSessionStorage.userIsLoged()) {
         if (show && dateSelected) {
-          if (seats.some(seat => seat.reservedQuantity > 0)) { // Se seleccionó al menos un ticket
+          if (seats.some((seat) => seat.reservedQuantity > 0)) {
+            // Se seleccionó al menos un ticket
             seats.forEach(async (seat) => {
               const ticketData = Ticket.toJson({
                 showId: show.id,
@@ -74,8 +74,8 @@ export const ShowDetails = () => {
               }
             })
             enqueueSnackbar('Carrito actualizado con éxito', { variant: 'success' })
-          }
-          else { // No se seleccionó ningún ticket
+          } else {
+            // No se seleccionó ningún ticket
             enqueueSnackbar('No se seleccionó ningún ticket', { variant: 'warning' })
           }
         }
@@ -90,14 +90,14 @@ export const ShowDetails = () => {
   const datelist = () => {
     return show
       ? show.dates.map((showDate, index) => (
-        <CardDate
-          key={showDate.date.toDateString()}
-          isDisable={showDate.date < new Date()}
-          showDate={showDate}
-          isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
-          handleClick={handleDateClick}
-        />
-      ))
+          <CardDate
+            key={showDate.date.toDateString()}
+            isDisable={showDate.date < new Date()}
+            showDate={showDate}
+            isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
+            handleClick={handleDateClick}
+          />
+        ))
       : []
   }
 
@@ -151,7 +151,13 @@ export const ShowDetails = () => {
               {seats && isAdmin ? (
                 <ShowDetailsAdmin show={show} />
               ) : (
-                <ShowDetailsBase seats={seats} handlePickerUpdate={handlePickerUpdate} addToCart={addToCart} dateSelected={dateSelected} isSoldOut={isSoldOut()} />
+                <ShowDetailsBase
+                  seats={seats}
+                  handlePickerUpdate={handlePickerUpdate}
+                  addToCart={addToCart}
+                  dateSelected={dateSelected}
+                  isSoldOut={isSoldOut()}
+                />
               )}
             </section>
           </section>

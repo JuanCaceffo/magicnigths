@@ -1,4 +1,4 @@
-import { Show } from 'src/data/model/Show'
+import { Show } from 'models/Show'
 
 interface PricesProps {
   show: Show

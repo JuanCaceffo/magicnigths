@@ -1,4 +1,4 @@
-import { Seat } from 'src/data/model/Seat'
+import { Seat } from 'models/Seat'
 import './SeatBox.scss'
 import { NumPicker } from '../NumPicker/NumPicker'
 

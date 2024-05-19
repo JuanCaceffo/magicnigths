@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
-import CardShow from 'src/components/Card/CardShow/CardShow'
-import { Show } from 'src/data/model/Show'
 import './Shop.scss'
+import { useEffect, useState } from 'react'
+import { CardShow } from 'components/Card/CardShow/CardShow'
+import { Show } from 'models/Show'
 import { AxiosError } from 'axios'
-import { cartService } from 'src/services/CartService'
+import { cartService } from 'services/CartService'
 import { Page } from '../Page/Page'
-import { errorHandler } from 'src/data/helpers/ErrorHandler'
+import { errorHandler } from 'models/helpers/ErrorHandler'
 import { enqueueSnackbar, closeSnackbar } from 'notistack'
 
 export const Shop = () => {

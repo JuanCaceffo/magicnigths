@@ -1,17 +1,16 @@
-import { useState } from 'react'
-import CardShow from '../Card/CardShow/CardShow'
-import { useEffect } from 'react'
-import { userService } from 'src/services/UserService'
-import { AxiosError, isAxiosError } from 'axios'
-import { Show } from 'src/data/model/Show'
-
 import './PurchasedTicketContent.css'
-import { PopupComment } from '../PopupComment/PopupComment'
+import { CardShow } from 'components/Card/CardShow/CardShow'
+import { PopupComment } from 'components/PopupComment/PopupComment'
+import { userService } from 'services/UserService'
+import { snackbarProfileOptions } from 'pages/Profile/Profile'
+import { Show } from 'models/Show'
+import { errorHandler } from 'models/helpers/ErrorHandler'
+import { CommentCreateDTO } from 'models/interfaces/CommentDTO'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
+import { AxiosError, isAxiosError } from 'axios'
 import { closeSnackbar, enqueueSnackbar } from 'notistack'
-import { snackbarProfileOptions } from 'src/pages/Profile/Profile'
-import { errorHandler } from 'src/data/helpers/ErrorHandler'
-import { CommentCreateDTO } from 'src/data/interfaces/CommentDTO'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
+import { useState, useEffect } from 'react'
+
 //TODO: refactorizar componente por una solucion mas mantenible
 export const PurchasedTicketContent = () => {
   const [shows, setShows] = useState<Array<Show>>([])
@@ -79,11 +78,11 @@ export const PurchasedTicketContent = () => {
                 button={
                   show.canBeCommented
                     ? {
-                      content: 'Calificar artista',
-                      onClick: () => {
-                        handleAddComment(userSessionStorage.getUserId(), show.id, show.date!.id)
-                      },
-                    }
+                        content: 'Calificar artista',
+                        onClick: () => {
+                          handleAddComment(userSessionStorage.getUserId(), show.id, show.date!.id)
+                        },
+                      }
                     : undefined
                 }
               />

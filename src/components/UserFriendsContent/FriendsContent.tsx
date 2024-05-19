@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
-import { Friend } from 'src/data/interfaces/Friend'
-import { FriendCard } from '../Friend/FriendCard'
-import '../../styles/error.scss'
 import './FriendsContent.css'
-import { userService } from 'src/services/UserService'
+
+import { useEffect, useState } from 'react'
+import { Friend } from 'models/interfaces/Friend'
+import { FriendCard } from '../Card/Friend/FriendCard'
+import { userService } from 'services/UserService'
 import { AxiosError, isAxiosError } from 'axios'
 import { closeSnackbar, enqueueSnackbar } from 'notistack'
-import { errorHandler } from 'src/data/helpers/ErrorHandler'
-import { snackbarProfileOptions } from 'src/pages/Profile/Profile'
+import { errorHandler } from 'models/helpers/ErrorHandler'
+import { snackbarProfileOptions } from 'pages/Profile/Profile'
 
 export const FriendsContent = () => {
   const [friends, setFriends] = useState<Friend[]>([])

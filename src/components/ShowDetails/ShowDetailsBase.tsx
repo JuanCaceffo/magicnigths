@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Seat } from 'src/data/model/Seat'
+import { Seat } from 'models/Seat'
 import { SeatBox } from '../SeatBox/SeatBox'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-import { ShowDate } from 'src/data/model/ShowDate'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
+import { ShowDate } from '/models/ShowDate'
 import { enqueueSnackbar } from 'notistack'
 
 interface ShowDetailsBaseArgs {
@@ -26,7 +26,6 @@ export const ShowDetailsBase = (args: ShowDetailsBaseArgs) => {
   const notifyNewShowDate = () => {
     enqueueSnackbar('Se notificará cuando se agregue una nueva función ', { variant: 'success' })
   }
-  
 
   return (
     <>
@@ -60,7 +59,7 @@ export const ShowDetailsBase = (args: ShowDetailsBaseArgs) => {
               //si si esta logeado agregamos los shows al back
             }}
           >
-          NOTIFICAR NUEVA FUNCIÓN
+            NOTIFICAR NUEVA FUNCIÓN
           </button>
         )}
       </div>

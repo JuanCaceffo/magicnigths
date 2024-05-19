@@ -1,4 +1,4 @@
-import { SeatTypes } from '../interfaces/SeatTypes'
+import { SeatTypes } from 'models/interfaces/SeatTypes'
 
 export interface SeatArgs {
   id: number
@@ -18,7 +18,7 @@ export class Seat implements SeatArgs {
   disabled: boolean
 
   constructor(data: SeatArgs) {
-    this.id = data.id ?? -1
+    this.id = data.id ?? 0
     this.seatType = (data.seatType as SeatTypes) ?? 'undefined'
     this.price = data.price ?? 0
     this.available = data.available ?? 0

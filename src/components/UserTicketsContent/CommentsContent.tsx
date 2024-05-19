@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
-import { CommentDTO } from 'src/data/interfaces/CommentDTO'
-import { Comment } from '../Comment/Comment'
-import { userService } from 'src/services/UserService'
 import './CommentsContent.css'
-import { closeSnackbar, enqueueSnackbar } from 'notistack'
-import { snackbarProfileOptions } from 'src/pages/Profile/Profile'
-import { errorHandler } from 'src/data/helpers/ErrorHandler'
+import { CommentDTO } from 'models/interfaces/CommentDTO'
+import { Comment } from 'components/Comment/Comment'
+import { userService } from 'services/UserService'
+import { snackbarProfileOptions } from 'pages/Profile/Profile'
+import { errorHandler } from 'models/helpers/ErrorHandler'
 import { AxiosError } from 'axios'
+import { closeSnackbar, enqueueSnackbar } from 'notistack'
+import { useEffect, useState } from 'react'
 
 export const CommentsContent = () => {
   const [comments, setComments] = useState<CommentDTO[]>([])

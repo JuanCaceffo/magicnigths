@@ -1,10 +1,9 @@
 import axios from 'axios'
 import { REST_SERVER_URL, PATH } from './contants'
-import { ShowProps } from 'src/data/interfaces/ShowProps'
-import { Show } from 'src/data/model/Show'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-import { Ticket } from 'src/data/model/Ticket'
-
+import { ShowProps } from 'models/interfaces/ShowProps'
+import { Show } from 'models/Show'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
+import { Ticket } from 'models/Ticket'
 class CartService {
   cartPathPrefix = () => `${REST_SERVER_URL}/${PATH.CART}/${PATH.USER}/${userSessionStorage.getUserId()}`
 

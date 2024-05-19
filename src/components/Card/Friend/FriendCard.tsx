@@ -1,9 +1,11 @@
 import { Avatar } from '@mui/material'
 import { FC, useState } from 'react'
-import { Friend } from 'src/data/interfaces/Friend'
-import '../../styles/typography.scss'
+
+import 'styles/typography.scss'
 import './FriendCard.css'
-import { ModalDelete } from '../Modal/DeleteModal'
+
+import { Friend } from 'models/interfaces/Friend'
+import { ModalDelete } from 'components/Modal/DeleteModal'
 
 interface FriendCardProps {
   friend: Friend

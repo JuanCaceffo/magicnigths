@@ -1,5 +1,5 @@
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-import { Show } from 'src/data/model/Show'
+import { Show } from 'models/Show'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
 
 type Props = {
   show: Show

@@ -1,17 +1,17 @@
-import { Divider } from '@mui/material'
 import './Profile.css'
-import { PurchasedTicketContent } from 'src/components/UserPurchasedTicketContent/PurchasedTicketContent'
+import { Divider } from '@mui/material'
+import { PurchasedTicketContent } from 'components/UserPurchasedTicketContent/PurchasedTicketContent'
 import { useEffect, useState } from 'react'
-import { User } from 'src/data/model/User'
-import { userService } from 'src/services/UserService'
+import { User } from 'models/User'
+import { userService } from 'services/UserService'
 import { AxiosError, isAxiosError } from 'axios'
-import { UserData } from 'src/components/UserData/UserData'
-import { SelectionContent, UserSelectionPanel } from 'src/components/UserSelectionPanel/UserSelectionPanel'
-import { FriendsContent } from 'src/components/UserFriendsContent/FriendsContent'
-import { CommentsContent } from 'src/components/UserTicketsContent/CommentsContent'
+import { UserData } from 'components/UserData/UserData'
+import { SelectionContent, UserSelectionPanel } from 'components/UserSelectionPanel/UserSelectionPanel'
+import { FriendsContent } from 'components/UserFriendsContent/FriendsContent'
+import { CommentsContent } from 'components/UserTicketsContent/CommentsContent'
 import { OptionsObject, closeSnackbar, enqueueSnackbar } from 'notistack'
-import { errorHandler } from 'src/data/helpers/ErrorHandler'
-import { ModalCredit, creditValue } from 'src/components/Modal/ModalCredit'
+import { errorHandler } from 'models/helpers/ErrorHandler'
+import { ModalCredit, creditValue } from 'components/Modal/ModalCredit'
 
 export const snackbarProfileOptions: OptionsObject = {
   anchorOrigin: { horizontal: 'left', vertical: 'top' },
@@ -151,7 +151,8 @@ export const Profile = () => {
                 isOpen={isModalOpen}
                 handleClose={() => setIsModalOpen(false)}
                 onSubmit={handleAddCredit}
-                errorMessage={null} />
+                errorMessage={null}
+              />
             )}
           </div>
         </main>

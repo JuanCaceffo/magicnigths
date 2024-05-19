@@ -1,13 +1,13 @@
 import axios from 'axios'
 import { REST_SERVER_URL, PATH } from './contants'
-import { UserLogin } from 'src/data/model/UserLogin'
-import { User } from 'src/data/model/User'
-import { Friend } from 'src/data/interfaces/Friend'
-import { Show } from 'src/data/model/Show'
-import { ShowProps } from 'src/data/interfaces/ShowProps'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-import { CommentCreateDTO, CommentDTO } from 'src/data/interfaces/CommentDTO'
-import { UserLoginProps } from 'src/data/interfaces/UserProps'
+import { UserLogin } from 'models/UserLogin'
+import { User } from 'models/User'
+import { Friend } from 'models/interfaces/Friend'
+import { Show } from 'models/Show'
+import { ShowProps } from 'models/interfaces/ShowProps'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
+import { CommentCreateDTO, CommentDTO } from 'models/interfaces/CommentDTO'
+import { UserLoginProps } from 'models/interfaces/UserProps'
 
 class UserService {
   async postUserLogin(userLogin: UserLogin) {

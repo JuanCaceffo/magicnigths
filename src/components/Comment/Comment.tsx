@@ -1,7 +1,7 @@
 import './Comment.scss'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { CommentDTO } from 'src/data/interfaces/CommentDTO'
+import { CommentDTO } from 'models/interfaces/CommentDTO'
 
 interface CommentProps {
   comment: CommentDTO

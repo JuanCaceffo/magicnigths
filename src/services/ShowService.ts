@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { ShowProps, ShowStatsProps } from 'src/data/interfaces/ShowProps'
+import { ShowProps, ShowStatsProps } from 'models/interfaces/ShowProps'
 import { REST_SERVER_URL } from './contants'
-import { Show } from 'src/data/model/Show'
-import { Seat, SeatArgs } from 'src/data/model/Seat'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-import { FilterArgs } from 'src/components/Search/Search'
-import { ShowStat } from 'src/data/model/ShowStats'
-import { ShowDate } from 'src/data/model/ShowDate'
+import { Show } from 'models/Show'
+import { Seat, SeatArgs } from 'models/Seat'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
+import { FilterArgs } from 'components/Search/Search'
+import { ShowStat } from 'models/ShowStats'
+import { ShowDate } from 'models/ShowDate'
 
 class ShowService {
   async getAllShows(filter: FilterArgs) {

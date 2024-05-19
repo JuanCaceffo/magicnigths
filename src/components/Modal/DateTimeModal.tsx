@@ -1,9 +1,8 @@
+import './Modal.scss'
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { CDate, CDateArgs } from 'src/data/model/CDate'
-import { Show } from 'src/data/model/Show'
-import './Modal.scss'
-
+import { CDate, CDateArgs } from 'models/CDate'
+import { Show } from 'models/Show'
 interface DateTimeModalArgs {
   show: Show
   isOpen: boolean

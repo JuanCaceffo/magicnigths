@@ -1,10 +1,9 @@
-import { Show } from 'src/data/model/Show'
 import { DateTimeModal } from '../Modal/DateTimeModal'
 import { SubmitHandler } from 'react-hook-form'
-import { CDate, CDateArgs } from 'src/data/model/CDate'
-import { showService } from 'src/services/ShowService'
+import { CDate, CDateArgs } from 'models/CDate'
+import { Show } from 'models/Show'
+import { showService } from 'services/ShowService'
 import { useState } from 'react'
-
 interface ShowDetailsBaseArgs {
   show: Show
 }

@@ -1,18 +1,18 @@
-import { useState } from 'react'
-import { CardShowAdmin } from 'src/components/Card/CardShowAdmin/CardShowAdmin'
-import { FilterArgs, Search } from 'src/components/Search/Search'
-import { Show } from 'src/data/model/Show'
-import { useOnInit } from 'src/hooks/hooks'
-import { Page } from 'src/pages/Page/Page'
-import { showService } from 'src/services/ShowService'
 import './Admin.scss'
-import { CardDate } from 'src/components/Card/CardDate/CardDate'
-import { Carousel } from 'src/components/Carousel/Carousel'
-import { DateTimeModal } from 'src/components/Modal/DateTimeModal'
+import { useState } from 'react'
+import { CardShowAdmin } from 'components/Card/CardShowAdmin/CardShowAdmin'
+import { FilterArgs, Search } from 'components/Search/Search'
+import { Show } from 'models/Show'
+import { ShowStat } from 'models/ShowStats'
+import { CDate, CDateArgs } from 'models/CDate'
+import { useOnInit } from 'hooks/hooks'
+import { Page } from 'pages/Page/Page'
+import { showService } from 'services/ShowService'
+import { CardDate } from 'components/Card/CardDate/CardDate'
+import { Carousel } from 'components/Carousel/Carousel'
+import { DateTimeModal } from 'components/Modal/DateTimeModal'
 import { SubmitHandler } from 'react-hook-form'
-import { CDate, CDateArgs } from 'src/data/model/CDate'
-import { CardStats } from 'src/components/Card/CardStats/CardStats'
-import { ShowStat } from 'src/data/model/ShowStats'
+import { CardStats } from 'components/Card/CardStats/CardStats'
 
 export const Admin = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -72,13 +72,13 @@ export const Admin = () => {
   const dateList = () => {
     return show
       ? show.dates.map((showDate) => (
-        <CardDate
-          key={showDate.date.toDateString()}
-          isDisable={showDate.date < new Date()}
-          showDate={showDate}
-          className="static"
-        />
-      ))
+          <CardDate
+            key={showDate.date.toDateString()}
+            isDisable={showDate.date < new Date()}
+            showDate={showDate}
+            className="static"
+          />
+        ))
       : []
   }
 

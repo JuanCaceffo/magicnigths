@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { FC, PropsWithChildren } from 'react'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
 
 export const ProtectedRouter: FC<PropsWithChildren> = ({ children }) => {
   const location = useLocation()
