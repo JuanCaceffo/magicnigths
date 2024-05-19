@@ -1,8 +1,9 @@
 import { Avatar } from '@mui/material'
-import { FC } from 'react'
-import { Friend } from 'src/data/model/Friend'
+import { FC, useState } from 'react'
+import { Friend } from 'src/data/interfaces/Friend'
 import '../../styles/typography.scss'
 import './FriendCard.css'
+import { ModalDelete } from '../Modal/DeleteModal'
 
 interface FriendCardProps {
   friend: Friend
@@ -10,20 +11,28 @@ interface FriendCardProps {
 }
 
 export const FriendCard: FC<FriendCardProps> = ({ friend, deleteFriend }) => {
-  const handleDeleteFriend = () => {
-    deleteFriend(friend.id)
-  }
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
     <>
       <div className="friend__container">
-        <Avatar className="friend__photo" src={friend.img} />
+        <Avatar
+          className="friend__photo"
+          alt={`${friend.firstName} ${friend.lastName}`}
+          src={`/images/${friend.profileImgUrl}`}
+        />
         <div className="text text--strong">
-          {friend.name} {friend.surname}
+          {friend.firstName} {friend.lastName}
         </div>
-        <button className="delete__button" onClick={handleDeleteFriend}>
+        <button className="delete__button" onClick={() => setIsModalOpen(true)}>
           <i className="fas fa-trash fa--hot" />
         </button>
+        <ModalDelete
+          isOpen={isModalOpen}
+          handleClose={() => setIsModalOpen(false)}
+          onSubmit={() => deleteFriend(friend.id)}
+          elementName={friend.firstName}
+        />
       </div>
     </>
   )

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Friend } from 'src/data/model/Friend'
+import { Friend } from 'src/data/interfaces/Friend'
 import { FriendCard } from '../Friend/FriendCard'
 import '../../styles/error.scss'
 import './FriendsContent.css'
@@ -55,7 +55,7 @@ export const FriendsContent = () => {
       {errorMessage ? (
         <p className="error-message error">{errorMessage}</p>
       ) : (
-        <div className="friends_container">
+        <div className="friends__container">
           {friends.map((friend, index) => (
             <FriendCard key={index} friend={friend} deleteFriend={handleDeleteFriend} />
           ))}

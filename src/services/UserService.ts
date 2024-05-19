@@ -2,7 +2,7 @@ import axios from 'axios'
 import { REST_SERVER_URL, PATH } from './contants'
 import { UserLogin } from 'src/data/model/UserLogin'
 import { User } from 'src/data/model/User'
-import { Friend } from 'src/data/model/Friend'
+import { Friend } from 'src/data/interfaces/Friend'
 import { Show } from 'src/data/model/Show'
 import { ShowProps } from 'src/data/interfaces/ShowProps'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
@@ -67,7 +67,7 @@ class UserService {
   }
 
   async deleteFriend(friendId: number) {
-    await axios.delete(`${REST_SERVER_URL}/${PATH.USER}/${userSessionStorage.getUserId()}/remove-friend/${friendId}`)
+    await axios.delete(`${REST_SERVER_URL}/${PATH.USER}/${userSessionStorage.getUserId()}/friend/${friendId}`)
   }
 
   async getBoughtTickets(): Promise<Show[]> {
