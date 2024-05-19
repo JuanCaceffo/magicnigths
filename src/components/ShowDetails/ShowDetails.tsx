@@ -137,15 +137,6 @@ export const ShowDetails = () => {
             <img className="show-details__img" src={`/images/${show.showImg}`} />
             <section className="show-details__buybox">
               <div className="show-details__dates shadow shadow--line">
-                {/* {show.dates.map((showDate, index) => (
-                  <CardDate
-                    key={showDate.date.toDateString()}
-                    isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
-                    isDisable={showDate.date < new Date()}
-                    showDate={showDate}
-                    handleClick={handleDateClick}
-                  />
-                ))} */}
                 <Carousel elements={datelist()} maxElements={4} />
               </div>
               {seats && isAdmin ? (

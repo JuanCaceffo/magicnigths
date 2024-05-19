@@ -23,7 +23,7 @@ export const FriendCard: FC<FriendCardProps> = ({ friend, deleteFriend }) => {
           alt={`${friend.firstName} ${friend.lastName}`}
           src={`/images/${friend.profileImgUrl}`}
         />
-        <div className="text text--strong">
+        <div className="text text--md text--strong">
           {friend.firstName} {friend.lastName}
         </div>
         <button className="delete__button" onClick={() => setIsModalOpen(true)}>

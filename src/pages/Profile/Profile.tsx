@@ -1,4 +1,4 @@
-import './Profile.css'
+import './Profile.scss'
 import { Divider } from '@mui/material'
 import { PurchasedTicketContent } from 'components/UserPurchasedTicketContent/PurchasedTicketContent'
 import { useEffect, useState } from 'react'
@@ -8,7 +8,7 @@ import { AxiosError, isAxiosError } from 'axios'
 import { UserData } from 'components/UserData/UserData'
 import { SelectionContent, UserSelectionPanel } from 'components/UserSelectionPanel/UserSelectionPanel'
 import { FriendsContent } from 'components/UserFriendsContent/FriendsContent'
-import { CommentsContent } from 'components/UserTicketsContent/CommentsContent'
+import { CommentsContent } from 'components/UserCommentsContent/CommentsContent'
 import { OptionsObject, closeSnackbar, enqueueSnackbar } from 'notistack'
 import { errorHandler } from 'models/helpers/ErrorHandler'
 import { ModalCredit, creditValue } from 'components/Modal/ModalCredit'
@@ -97,38 +97,39 @@ export const Profile = () => {
       {errorMessage ? (
         <p className="error-message error">{errorMessage}</p>
       ) : (
-        <main className="main__content-user">
-          <div className="user_data_container user-flex">
-            <UserData user={user} onSubmit={handleUpdateUser} />
-            <div className="user_credit_container">
-              <h3 className="text--md tx-aling-center credit" data-testid="credit">
-                Crédito ${credit}
+        <main className="main__content main__content--profile">
+          <article className="profile centered">
+            <section className="profile profile--sidebar">
+              <UserData user={user} onSubmit={handleUpdateUser} />
+              <h3 className="credit text--md" data-testid="credit">
+                <span>Crédito Actual:</span>
+                <span>${credit}</span>
               </h3>
               <button
-                className="add_credit-user-button button button--primary button--rounded animated text--spaced text--strong shadow--box"
+                className="button button--primary button--tall button--rounded animated text--spaced text--strong shadow--box"
                 onClick={handleOpenModel}
               >
-                Sumar crédito
+                SUMAR CREDITO
               </button>
-            </div>
-          </div>
-          <div className="user_display_container">
-            <UserSelectionPanel content={content} onChange={(newValue: SelectionContent) => setContent(newValue)} />
-            <Divider />
-            <div className="content_container">
-              {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
-              {content === SelectionContent.FRIENDS && <FriendsContent />}
-              {content === SelectionContent.COMMENTS && <CommentsContent />}
-            </div>
-            {isModalOpen && (
-              <ModalCredit
-                isOpen={isModalOpen}
-                handleClose={() => setIsModalOpen(false)}
-                onSubmit={handleAddCredit}
-                errorMessage={null}
-              />
-            )}
-          </div>
+            </section>
+            <section className="profile profile--content">
+              <UserSelectionPanel content={content} onChange={(newValue: SelectionContent) => setContent(newValue)} />
+              <Divider />
+              <div className="profile__content">
+                {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
+                {content === SelectionContent.FRIENDS && <FriendsContent />}
+                {content === SelectionContent.COMMENTS && <CommentsContent />}
+              </div>
+              {isModalOpen && (
+                <ModalCredit
+                  isOpen={isModalOpen}
+                  handleClose={() => setIsModalOpen(false)}
+                  onSubmit={handleAddCredit}
+                  errorMessage={null}
+                />
+              )}
+            </section>
+          </article>
         </main>
       )}
     </>
