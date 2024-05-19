@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { REST_SERVER_URL, pathPrefix } from './contants'
+import { REST_SERVER_URL, PATH } from './contants'
 import { ShowProps } from 'src/data/interfaces/ShowProps'
 import { Show } from 'src/data/model/Show'
 import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
 import { Ticket } from 'src/data/model/Ticket'
 
 class CartService {
-  cartPathPrefix = () => `${REST_SERVER_URL}/${pathPrefix.cart}/${pathPrefix.user}/${userSessionStorage.getUserId()}`
+  cartPathPrefix = () => `${REST_SERVER_URL}/${PATH.CART}/${PATH.USER}/${userSessionStorage.getUserId()}`
 
   async getReservedTickets(): Promise<Show[]> {
     const showPropsList = await axios.get<ShowProps[]>(`${this.cartPathPrefix()}/reserved-tickets`)
