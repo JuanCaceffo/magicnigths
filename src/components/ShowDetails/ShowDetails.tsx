@@ -15,6 +15,7 @@ import { ShowDetailsAdmin } from './ShowDetailsAdmin'
 import { userSessionStorage } from 'models/helpers/userSessionStorage'
 import { enqueueSnackbar } from 'notistack'
 import { cartService } from 'services/CartService'
+import { TicketBuyProps } from 'models/interfaces/ticketBuy'
 
 export const ShowDetails = () => {
   const { id } = useParams()
@@ -57,30 +58,22 @@ export const ShowDetails = () => {
 
   const addToCart = async () => {
     try {
-      if (userSessionStorage.userIsLoged()) {
-        if (show && dateSelected) {
-          if (seats.some((seat) => seat.reservedQuantity > 0)) {
-            // Se seleccionó al menos un ticket
-            seats.forEach(async (seat) => {
-              const ticketData = Ticket.toJson({
-                showId: show.id,
-                date: dateSelected.date,
-                seatPrice: seat.price,
-                seatTypeName: seat.seatType,
-                quantity: seat.reservedQuantity,
-              })
-              if (ticketData.quantity > 0) {
-                await cartService.addReservedTicket(ticketData)
-              }
-            })
-            enqueueSnackbar('Carrito actualizado con éxito', { variant: 'success' })
-          } else {
-            // No se seleccionó ningún ticket
-            enqueueSnackbar('No se seleccionó ningún ticket', { variant: 'warning' })
-          }
+      if (show && dateSelected) {
+        if (seats.some((seat) => seat.reservedQuantity > 0)) {
+          const tickets = seats.map((seat) => {
+            return {
+              showDateId: dateSelected.id,
+              seatId: seat.id,
+              quantity: seat.reservedQuantity,
+            } as TicketBuyProps
+          })
+          cartService.reserve(tickets)
+
+          enqueueSnackbar('Carrito actualizado con éxito', { variant: 'success' })
+        } else {
+          // No se seleccionó ningún ticket
+          enqueueSnackbar('No se seleccionó ningún ticket', { variant: 'warning' })
         }
-      } else {
-        navigate('/login', { state: location })
       }
     } catch (error) {
       console.error('Error al agregar el espectáculo al carrito:', error)
