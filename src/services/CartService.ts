@@ -18,7 +18,7 @@ class CartService {
   }
 
   buy = async () => {
-    return await axios.patch(`${this.cartPathPrefix}/buy`)
+    return await axios.post(`${this.cartPathPrefix}/buy`)
   }
 
   reserve = async (tickets: TicketBuyProps[]) => {
