@@ -34,6 +34,18 @@ export const ShowDetails = () => {
     })
   }
 
+  const addPendingAttendee = async () => {
+    console.log("si")
+    try {
+      if (show) {
+        await showService.addPendingAttendee(show.id)
+        enqueueSnackbar('Se notificará cuando se agregue una nueva función ', { variant: 'success' })
+      }
+    } catch {
+      enqueueSnackbar('No se pudo agregar a la lista de pendientes', { variant: 'warning' })
+    }
+  }
+
   const getShowById = async () => {
     try {
       const fetchedShow = await showService.getShowById(+id!)
@@ -48,6 +60,9 @@ export const ShowDetails = () => {
   const getShowSeatTypes = async (selectedDate: ShowDate) => {
     try {
       const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(selectedDate!)
+      fetchedSeats.forEach((seat) => {
+        seat.disabled = seat.available <= 0
+      })
       setSeats([...fetchedSeats])
     } catch (err) {
       console.error(err)
@@ -64,7 +79,8 @@ export const ShowDetails = () => {
               seatId: seat.id,
               quantity: seat.reservedQuantity,
             } as TicketBuyProps
-          })
+          }
+          )
           cartService.reserve(tickets)
 
           enqueueSnackbar('Carrito actualizado con éxito', { variant: 'success' })
@@ -81,24 +97,20 @@ export const ShowDetails = () => {
   const datelist = () => {
     return show
       ? show.dates.map((showDate, index) => (
-          <CardDate
-            key={showDate.date.toDateString()}
-            isDisable={showDate.date < new Date()}
-            showDate={showDate}
-            isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
-            handleClick={handleDateClick}
-          />
-        ))
+        <CardDate
+          key={showDate.date.toDateString()}
+          isDisable={showDate.date < new Date()}
+          showDate={showDate}
+          isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
+          handleClick={handleDateClick}
+        />
+      ))
       : []
   }
 
   useOnInit(async () => {
     await getShowById()
   })
-
-  const isSoldOut = () => {
-    return false // TODO: Cambiar cuandó esté desarrollada la logica que devuelve esto desde el back
-  }
 
   return (
     <>
@@ -138,7 +150,8 @@ export const ShowDetails = () => {
                   handlePickerUpdate={handlePickerUpdate}
                   addToCart={addToCart}
                   dateSelected={dateSelected}
-                  isSoldOut={isSoldOut()}
+                  isSoldOut={show.isSoldOut}
+                  addPendingAttendee={addPendingAttendee}
                 />
               )}
             </section>

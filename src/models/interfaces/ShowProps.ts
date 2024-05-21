@@ -36,6 +36,7 @@ export interface ShowProps {
   quantity?: number
   canBeCommented?: boolean
   adminSummary?: { title: string; value: number }[]
+  isSoldOut: boolean
 }
 
 export interface ShowStatsProps {

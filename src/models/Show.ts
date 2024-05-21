@@ -24,6 +24,7 @@ export class Show {
   adminSummary: { title: string; value: number }[]
   canBeCommented: boolean
   showedImages: number = 0
+  isSoldOut: boolean
 
   constructor(props?: ShowProps) {
     this.id = props?.id ?? 0
@@ -45,6 +46,7 @@ export class Show {
     this.adminSummary = props?.adminSummary ?? []
     this.ticketId = props?.ticketId ?? 0
     this.canBeCommented = props?.canBeCommented ?? false
+    this.isSoldOut = props?.isSoldOut ?? false
   }
 
   get title() {

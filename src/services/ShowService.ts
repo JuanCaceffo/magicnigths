@@ -9,13 +9,10 @@ import { ShowStat } from 'models/ShowStats'
 import { ShowDate } from 'models/ShowDate'
 
 class ShowService {
-  isAdmin = userSessionStorage.userIsAdmin()
-  userId = userSessionStorage.getUserId()
-
   async getAllShows(filter: FilterArgs) {
     const data = (
       await axios.get<ShowProps[]>(`${REST_SERVER_URL}/show`, {
-        params: { userId: this.userId, ...filter },
+        params: { userId: userSessionStorage.getUserId(), ...filter },
       })
     ).data
     return data.map((show) => new Show(show))
@@ -23,8 +20,8 @@ class ShowService {
 
   getShowById = async (id: number) => {
     const data = (
-      this.isAdmin
-        ? await axios.get(`${REST_SERVER_URL}/show/${id}/user/${this.userId}`)
+      userSessionStorage.userIsAdmin()
+        ? await axios.get(`${REST_SERVER_URL}/show/${id}/user/${userSessionStorage.getUserId()}`)
         : await axios.get(`${REST_SERVER_URL}/show/${id}`)
     ).data
     console.log(data)
@@ -36,7 +33,7 @@ class ShowService {
     const seatsJsonWithIndex = seatsJson.map((seat) => ({
       ...seat,
       showDateid: showDate.id,
-      disabled: showDate.date < new Date(),
+      disabled: showDate.date < new Date() && false,
     }))
     return seatsJsonWithIndex.map((seat) => Seat.fromJSON(seat))
   }
@@ -56,6 +53,17 @@ class ShowService {
     console.log(showJson)
     return showJson.map((show: ShowStatsProps) => ShowStat.toJson(show))
   }
+
+  async addPendingAttendee(showId: number) {
+    await axios.patch<number>(
+      `${REST_SERVER_URL}/show/${showId}/add_pending`
+      // { userId: userSessionStorage.getUserId() },
+    )
+  }
+
+  // addPendingAttendee = async (showId: number) => {
+  //   await axios.patch(`${REST_SERVER_URL}/show/${showId}/add_pending`,{ userId: userSessionStorage.getUserId() },)
+  // }
 }
 
 export const showService = new ShowService()
