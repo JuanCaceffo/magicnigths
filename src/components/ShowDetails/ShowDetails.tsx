@@ -3,10 +3,9 @@ import { useState } from 'react'
 import { showService } from 'services/ShowService'
 import { Show } from 'models/Show'
 import { Seat } from 'models/Seat'
-import { Ticket } from 'models/Ticket'
 import { ShowDate } from 'models/ShowDate'
 import { useOnInit } from 'hooks/hooks'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { CardDate } from 'components/Card/CardDate/CardDate'
 import { Carousel } from 'components/Carousel/Carousel'
 import { Comment } from 'components/Comment/Comment'
@@ -22,7 +21,6 @@ export const ShowDetails = () => {
   const [show, setShow] = useState<Show>()
   const [seats, setSeats] = useState<Seat[]>([])
   const [dateSelected, setDateSelected] = useState<ShowDate>()
-  const navigate = useNavigate()
   const isAdmin = userSessionStorage.userIsAdmin()
 
   const handleDateClick = (showDate: ShowDate) => {

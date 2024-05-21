@@ -9,17 +9,25 @@ import { ShowStat } from 'models/ShowStats'
 import { ShowDate } from 'models/ShowDate'
 
 class ShowService {
+  isAdmin = userSessionStorage.userIsAdmin()
+  userId = userSessionStorage.getUserId()
+
   async getAllShows(filter: FilterArgs) {
     const data = (
       await axios.get<ShowProps[]>(`${REST_SERVER_URL}/show`, {
-        params: { userId: userSessionStorage.getUserId(), ...filter },
+        params: { userId: this.userId, ...filter },
       })
     ).data
     return data.map((show) => new Show(show))
   }
 
   getShowById = async (id: number) => {
-    const data = (await axios.get(`${REST_SERVER_URL}/show/${id}`)).data
+    const data = (
+      this.isAdmin
+        ? await axios.get(`${REST_SERVER_URL}/show/${id}/user/${this.userId}`)
+        : await axios.get(`${REST_SERVER_URL}/show/${id}`)
+    ).data
+    console.log(data)
     return new Show(data)
   }
 
@@ -43,9 +51,8 @@ class ShowService {
   }
 
   getShowStatsById = async (showId: number): Promise<ShowStat[]> => {
-    const showJson = (
-      await axios.get(`${REST_SERVER_URL}/show/${showId}/kpi`)
-    ).data
+    const showJson = (await axios.get(`${REST_SERVER_URL}/show/${showId}/user/${userSessionStorage.getUserId()}/kpi`))
+      .data
     console.log(showJson)
     return showJson.map((show: ShowStatsProps) => ShowStat.toJson(show))
   }

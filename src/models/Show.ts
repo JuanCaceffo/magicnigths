@@ -21,7 +21,7 @@ export class Show {
   comments: CommentDTO[]
   geolocation: string
   quantity: number
-  details: { title: string; description: string }[]
+  adminSummary: { title: string; value: number }[]
   canBeCommented: boolean
   showedImages: number = 0
 
@@ -42,7 +42,7 @@ export class Show {
     this.comments = props?.comments ?? []
     this.geolocation = props?.geolocation ?? ''
     this.quantity = props?.quantity ?? 0
-    this.details = props?.details ?? []
+    this.adminSummary = props?.adminSummary ?? []
     this.ticketId = props?.ticketId ?? 0
     this.canBeCommented = props?.canBeCommented ?? false
   }
@@ -54,9 +54,8 @@ export class Show {
   reducedPrices = (decimals: number = 0) =>
     this.prices ? [Math.min(...this.prices).toFixed(decimals), Math.max(...this.prices).toFixed(decimals)] : []
 
-
   get totalFriends() {
-    return (this.totalFriendsAttending - this.friendsImgs?.length)
+    return this.totalFriendsAttending - this.friendsImgs?.length
   }
 
   get restFriends() {

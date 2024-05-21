@@ -26,10 +26,10 @@ export const ShowDetailsAdmin = (args: ShowDetailsBaseArgs) => {
   return (
     <>
       <ul className="show-details__body-info">
-        {show.details.map((detail) => (
-          <li className="show-details__text text--unlisted">
-            <span className="text text--md text--stronger ">{detail.title}: </span>
-            <span className="text text--md">{detail.description}</span>
+        {show.adminSummary.map((summary, index) => (
+          <li key={index} className="show-details__text text--unlisted">
+            <span className="text text--md text--stronger ">{summary.title}: </span>
+            <span className="text text--md">{summary.value}</span>
           </li>
         ))}
       </ul>

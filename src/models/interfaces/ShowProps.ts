@@ -35,7 +35,7 @@ export interface ShowProps {
   geolocation?: string
   quantity?: number
   canBeCommented?: boolean
-  details?: { title: string; description: string }[]
+  adminSummary?: { title: string; value: number }[]
 }
 
 export interface ShowStatsProps {
