@@ -44,11 +44,9 @@ class ShowService {
 
   getShowStatsById = async (showId: number): Promise<ShowStat[]> => {
     const showJson = (
-      await axios.get(`${REST_SERVER_URL}/admin/shows/${showId}`, {
-        params: { userId: userSessionStorage.getUserId() },
-      })
+      await axios.get(`${REST_SERVER_URL}/show/${showId}/kpi`)
     ).data
-
+    console.log(showJson)
     return showJson.map((show: ShowStatsProps) => ShowStat.toJson(show))
   }
 }

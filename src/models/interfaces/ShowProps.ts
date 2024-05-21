@@ -1,5 +1,6 @@
 import { ShowDate } from 'models/ShowDate'
 import { CommentDTO } from './CommentDTO'
+import { UUID } from 'crypto'
 
 export interface ShowData {
   id: number
@@ -38,8 +39,8 @@ export interface ShowProps {
 }
 
 export interface ShowStatsProps {
-  id: number
+  id: UUID
   value: number
   color: Colors
 }
-export type Colors = 'red' | 'yellow' | 'green'
+export type Colors = 'RED' | 'YELLOW' | 'GREEN'

@@ -72,13 +72,13 @@ export const Admin = () => {
   const dateList = () => {
     return show
       ? show.dates.map((showDate) => (
-          <CardDate
-            key={showDate.date.toDateString()}
-            isDisable={showDate.date < new Date()}
-            showDate={showDate}
-            className="static"
-          />
-        ))
+        <CardDate
+          key={showDate.date.toDateString()}
+          isDisable={showDate.date < new Date()}
+          showDate={showDate}
+          className="static"
+        />
+      ))
       : []
   }
 
@@ -109,9 +109,9 @@ export const Admin = () => {
           <section className="admin__stats">
             {stats && stats.length > 0 && (
               <section className="admin__stats">
-                <CardStats title={'Ventas'} info={`$ ${stats[0]['value']}`} color={stats[0]['color']} />
+                <CardStats title={'Ventas'} info={`$ ${parseFloat(stats[0].value.toFixed(2))}`} color={stats[0].color} />
                 <CardStats title={'En Espera'} info={`${stats[1].value} Personas`} color={stats[1].color} />
-                <CardStats title={'Rentabilidad'} info={`${stats[2].value} %`} color={stats[2].color} />
+                <CardStats title={'Rentabilidad'} info={`${parseFloat(stats[2].value.toFixed(2))} %`} color={stats[2].color} />
                 <CardStats title={'Sold-Out'} info={`${stats[3].value} Funciones`} color={stats[3].color} />
               </section>
             )}
