@@ -41,7 +41,7 @@ class ShowService {
   addShowDate = async (show: Show, newDate: Date) => {
     const isoDate = newDate.toISOString()
 
-    await axios.post(`${REST_SERVER_URL}/admin/show/${show.id}/create-show-date`, {
+    await axios.post(`${REST_SERVER_URL}/show/${show.id}/create-show-date`, {
       userId: userSessionStorage.getUserId(),
       date: isoDate,
     })
@@ -57,13 +57,8 @@ class ShowService {
   async addPendingAttendee(showId: number) {
     await axios.patch<number>(
       `${REST_SERVER_URL}/show/${showId}/add_pending`
-      // { userId: userSessionStorage.getUserId() },
     )
   }
-
-  // addPendingAttendee = async (showId: number) => {
-  //   await axios.patch(`${REST_SERVER_URL}/show/${showId}/add_pending`,{ userId: userSessionStorage.getUserId() },)
-  // }
 }
 
 export const showService = new ShowService()

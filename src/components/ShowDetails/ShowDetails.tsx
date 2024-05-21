@@ -35,7 +35,6 @@ export const ShowDetails = () => {
   }
 
   const addPendingAttendee = async () => {
-    console.log("si")
     try {
       if (show) {
         await showService.addPendingAttendee(show.id)
