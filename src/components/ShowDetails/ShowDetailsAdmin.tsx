@@ -28,8 +28,8 @@ export const ShowDetailsAdmin = (args: ShowDetailsBaseArgs) => {
       <ul className="show-details__body-info">
         {show.adminSummary.map((summary, index) => (
           <li key={index} className="show-details__text text--unlisted">
-            <span className="text text--md text--stronger ">{summary.title}: </span>
-            <span className="text text--md">{summary.value}</span>
+            <span className="text text--md text--stronger ">{summary.title} </span>
+            <span className="text text--md">{parseFloat(summary.value.toFixed(2))}</span>
           </li>
         ))}
       </ul>
