@@ -41,23 +41,21 @@ class ShowService {
   addShowDate = async (show: Show, newDate: Date) => {
     const isoDate = newDate.toISOString()
 
-    await axios.post(`${REST_SERVER_URL}/show/${show.id}/create-show-date`, {
-      userId: userSessionStorage.getUserId(),
+    await axios.post(`${REST_SERVER_URL}/show/new-show-date`, {
       date: isoDate,
+      userId: userSessionStorage.getUserId(),
+      showId: show.id,
     })
   }
 
   getShowStatsById = async (showId: number): Promise<ShowStat[]> => {
     const showJson = (await axios.get(`${REST_SERVER_URL}/show/${showId}/user/${userSessionStorage.getUserId()}/kpi`))
       .data
-    console.log(showJson)
     return showJson.map((show: ShowStatsProps) => ShowStat.toJson(show))
   }
 
   async addPendingAttendee(showId: number) {
-    await axios.patch<number>(
-      `${REST_SERVER_URL}/show/${showId}/add_pending`
-    )
+    await axios.patch<number>(`${REST_SERVER_URL}/show/${showId}/add_pending`)
   }
 }
 

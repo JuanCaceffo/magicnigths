@@ -22,7 +22,6 @@ class UserService {
   }
 
   async updateUser(userUpdate: UserUpdateProps) {
-    console.log(userUpdate)
     await axios.patch<UserUpdateProps>(
       `${REST_SERVER_URL}/${PATH.USER}/${userSessionStorage.getUserId()}/update`,
       userUpdate,
@@ -34,13 +33,9 @@ class UserService {
   }
 
   async addCreditToUser(creditToAdd: number) {
-    await axios.patch(
-      `${REST_SERVER_URL}/${PATH.USER}/${userSessionStorage.getUserId()}/modify_balance`,
-      creditToAdd,
-      {
-        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-      },
-    )
+    await axios.patch(`${REST_SERVER_URL}/${PATH.USER}/${userSessionStorage.getUserId()}/modify_balance`, creditToAdd, {
+      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+    })
     const credit = await this.getCredit()
     return credit
   }
