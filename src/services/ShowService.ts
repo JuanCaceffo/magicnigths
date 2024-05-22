@@ -41,7 +41,6 @@ class ShowService {
 
   addShowDate = async (show: Show, newDate: Date) => {
     const isoDate = newDate.toISOString()
-
     await axios.post(`${REST_SERVER_URL}/show/new-show-date`, {
       date: isoDate,
       userId: userSessionStorage.getUserId(),

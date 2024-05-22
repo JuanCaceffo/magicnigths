@@ -4,6 +4,9 @@ import { CDate, CDateArgs } from 'models/CDate'
 import { Show } from 'models/Show'
 import { showService } from 'services/ShowService'
 import { useState } from 'react'
+import { enqueueSnackbar } from 'notistack'
+import { AxiosError } from 'axios'
+import { errorHandler } from 'models/helpers/ErrorHandler'
 interface ShowDetailsBaseArgs {
   show: Show
 }
@@ -18,8 +21,7 @@ export const ShowDetailsAdmin = (args: ShowDetailsBaseArgs) => {
       show && (await showService.addShowDate(show, date))
       setModalIsOpen(false)
     } catch (err) {
-      // handle error
-      TODO: console.error(err)
+      enqueueSnackbar(errorHandler(err as AxiosError), { variant: 'error' })
     }
   }
 

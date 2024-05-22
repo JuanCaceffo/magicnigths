@@ -61,7 +61,7 @@ export const ShowDetails = () => {
     try {
       const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(selectedDate)
       fetchedSeats.forEach((seat) => {
-        seat.disabled = seat.available <= 0
+        seat.disabled = (seat.available <= 0)
       })
       setSeats([...fetchedSeats])
     } catch (err) {
@@ -81,7 +81,7 @@ export const ShowDetails = () => {
             } as TicketBuyProps
           })
           cartService.reserve(tickets)
-          getShowSeatTypes(dateSelected)
+          getShowById()
           enqueueSnackbar('Carrito actualizado con éxito', { variant: 'success' })
         } else {
           // No se seleccionó ningún ticket
@@ -96,14 +96,14 @@ export const ShowDetails = () => {
   const datelist = () => {
     return show
       ? show.dates.map((showDate, index) => (
-          <CardDate
-            key={showDate.date.toDateString()}
-            isDisable={showDate.date < new Date()}
-            showDate={showDate}
-            isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
-            handleClick={handleDateClick}
-          />
-        ))
+        <CardDate
+          key={showDate.date.toDateString()}
+          isDisable={showDate.date < new Date()}
+          showDate={showDate}
+          isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
+          handleClick={handleDateClick}
+        />
+      ))
       : []
   }
 

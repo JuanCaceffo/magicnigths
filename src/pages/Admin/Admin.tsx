@@ -13,6 +13,9 @@ import { Carousel } from 'components/Carousel/Carousel'
 import { DateTimeModal } from 'components/Modal/DateTimeModal'
 import { SubmitHandler } from 'react-hook-form'
 import { CardStats } from 'components/Card/CardStats/CardStats'
+import { enqueueSnackbar } from 'notistack'
+import { errorHandler } from 'models/helpers/ErrorHandler'
+import { AxiosError } from 'axios'
 
 export const Admin = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -27,8 +30,7 @@ export const Admin = () => {
       getAllShows({} as FilterArgs)
       setModalIsOpen(false)
     } catch (err) {
-      // handle error
-      TODO: console.error(err)
+      enqueueSnackbar(errorHandler(err as AxiosError), { variant: 'error' })
     }
   }
 

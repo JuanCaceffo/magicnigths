@@ -33,7 +33,7 @@ export const DateTimeModal = (args: DateTimeModalArgs) => {
   return (
     <Dialog className="modal" open={isOpen} onClose={handleClose}>
       <DialogTitle className="modal__header centered centered--column">
-        <h3 className="text text--xl text--stronger">Agregar Función a</h3>
+        <label className="text text--xl text--stronger">Agregar Función a</label>
         <p className="text text--strong centered centered--spaced">
           <span>{`${show.bandName.toUpperCase()}`}</span>
           <span>|</span>
