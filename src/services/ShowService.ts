@@ -30,6 +30,7 @@ class ShowService {
 
   getSeatsByShowDate = async (showDate: ShowDate) => {
     const seatsJson = (await axios.get<SeatArgs[]>(`${REST_SERVER_URL}/showdate/${showDate.id}/seats`)).data
+    console.log(seatsJson)
     const seatsJsonWithIndex = seatsJson.map((seat) => ({
       ...seat,
       showDateid: showDate.id,

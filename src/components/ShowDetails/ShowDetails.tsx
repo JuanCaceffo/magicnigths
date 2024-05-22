@@ -23,6 +23,18 @@ export const ShowDetails = () => {
   const [dateSelected, setDateSelected] = useState<ShowDate>()
   const isAdmin = userSessionStorage.userIsAdmin()
 
+  // Loads show from backend
+  const getShowById = async () => {
+    try {
+      const fetchedShow = await showService.getShowById(+id!)
+      setShow(fetchedShow)
+      await getShowSeatTypes(fetchedShow.dates[0])
+      setDateSelected(fetchedShow.dates[0])
+    } catch (err) {
+      enqueueSnackbar(`${err}`, { variant: 'error' })
+    }
+  }
+
   const handleDateClick = (showDate: ShowDate) => {
     setDateSelected(showDate)
     getShowSeatTypes(showDate)
@@ -45,20 +57,9 @@ export const ShowDetails = () => {
     }
   }
 
-  const getShowById = async () => {
-    try {
-      const fetchedShow = await showService.getShowById(+id!)
-      setShow(fetchedShow)
-      await getShowSeatTypes(fetchedShow.dates[0])
-      setDateSelected(fetchedShow.dates[0])
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
   const getShowSeatTypes = async (selectedDate: ShowDate) => {
     try {
-      const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(selectedDate!)
+      const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(selectedDate)
       fetchedSeats.forEach((seat) => {
         seat.disabled = seat.available <= 0
       })
@@ -78,10 +79,9 @@ export const ShowDetails = () => {
               seatId: seat.id,
               quantity: seat.reservedQuantity,
             } as TicketBuyProps
-          }
-          )
+          })
           cartService.reserve(tickets)
-
+          getShowSeatTypes(dateSelected)
           enqueueSnackbar('Carrito actualizado con éxito', { variant: 'success' })
         } else {
           // No se seleccionó ningún ticket
@@ -96,17 +96,18 @@ export const ShowDetails = () => {
   const datelist = () => {
     return show
       ? show.dates.map((showDate, index) => (
-        <CardDate
-          key={showDate.date.toDateString()}
-          isDisable={showDate.date < new Date()}
-          showDate={showDate}
-          isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
-          handleClick={handleDateClick}
-        />
-      ))
+          <CardDate
+            key={showDate.date.toDateString()}
+            isDisable={showDate.date < new Date()}
+            showDate={showDate}
+            isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
+            handleClick={handleDateClick}
+          />
+        ))
       : []
   }
 
+  // Hook callbacks
   useOnInit(async () => {
     await getShowById()
   })
