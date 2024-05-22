@@ -10,7 +10,6 @@ export class Show {
   showName: string
   bandName: string
   facilityName: string
-  price: number
   prices: number[]
   rating: number
   totalComments: number
@@ -32,7 +31,6 @@ export class Show {
     this.showName = props?.showName ?? ''
     this.bandName = props?.bandName ?? ''
     this.facilityName = props?.facilityName ?? ''
-    this.price = Math.round(props?.price ?? 0)
     this.prices = props?.prices ?? []
     this.rating = props?.rating ?? 0
     this.totalComments = props?.totalComments ?? 0
@@ -65,7 +63,7 @@ export class Show {
     return rest > 0 ? rest : 0
   }
 
-  isPurchaced = () => this.price
+  isPurchaced = () => this.prices.length == 1
 
   get firstDate() {
     return this.dates?.length ? this.dates[0].date : ''

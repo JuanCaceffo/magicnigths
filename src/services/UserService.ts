@@ -70,7 +70,7 @@ class UserService {
   }
 
   async addComment(comment: CommentCreateDTO) {
-    return axios.post(`${REST_SERVER_URL}/${PATH.COMMENT}/add-user-comment`, comment)
+    return axios.post(`${REST_SERVER_URL}/${PATH.COMMENT}/add`, comment)
   }
 
   async isAdmin(): Promise<boolean> {

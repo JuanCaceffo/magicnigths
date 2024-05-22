@@ -158,7 +158,7 @@ export const ShowDetails = () => {
           </section>
           <section className="show-details__comments text">
             {!isAdmin &&
-              show.comments.map((comment) => <Comment className="show-details__comment" comment={comment} />)}
+              show.comments.map((comment) => <Comment key={comment.id} className="show-details__comment" comment={comment} />)}
           </section>
         </article>
       )}

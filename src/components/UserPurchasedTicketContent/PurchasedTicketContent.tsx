@@ -43,13 +43,13 @@ export const PurchasedTicketContent = () => {
     }
   }, [])
 
-  const handleAddComment = (userId: number, showId: number, showDateId: number) => {
-    setCommentCreat({ userId, showId, showDateId })
-    setIsPopupOpen(true) // Abre el popup cuando se hace clic en el botón
+  const handleAddComment = (userId: number, ticketId: number) => {
+    setCommentCreat({ userId, ticketId, })
+    setIsPopupOpen(true)
   }
 
   const handleClosePopup = () => {
-    setIsPopupOpen(false) // Cierra el popup
+    setIsPopupOpen(false)
   }
 
   const handleSaveComment = async (comment: string, rating: number) => {
@@ -78,11 +78,11 @@ export const PurchasedTicketContent = () => {
                 button={
                   show.canBeCommented
                     ? {
-                        content: 'Calificar artista',
-                        onClick: () => {
-                          handleAddComment(userSessionStorage.getUserId(), show.id, show.date!.id)
-                        },
-                      }
+                      content: 'Comentar',
+                      onClick: () => {
+                        handleAddComment(userSessionStorage.getUserId(), show.id)
+                      },
+                    }
                     : undefined
                 }
               />
