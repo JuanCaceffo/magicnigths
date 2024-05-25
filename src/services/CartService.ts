@@ -3,8 +3,7 @@ import { REST_SERVER_URL, PATH } from './contants'
 import { ShowProps } from 'models/interfaces/ShowProps'
 import { Show } from 'models/Show'
 import { userSessionStorage } from 'models/helpers/userSessionStorage'
-import { Ticket } from 'models/Ticket'
-import { TicketBuyProps } from 'models/interfaces/ticketBuy'
+import { TicketBuyProps } from 'models/interfaces/TicketBuy'
 class CartService {
   cartPathPrefix = `${REST_SERVER_URL}/${PATH.CART}/${PATH.USER}/${userSessionStorage.getUserId()}`
 

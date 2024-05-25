@@ -14,7 +14,7 @@ import { ShowDetailsAdmin } from './ShowDetailsAdmin'
 import { userSessionStorage } from 'models/helpers/userSessionStorage'
 import { enqueueSnackbar } from 'notistack'
 import { cartService } from 'services/CartService'
-import { TicketBuyProps } from 'models/interfaces/ticketBuy'
+import { TicketBuyProps } from 'models/interfaces/TicketBuy'
 
 export const ShowDetails = () => {
   const { id } = useParams()
@@ -61,7 +61,7 @@ export const ShowDetails = () => {
     try {
       const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(selectedDate)
       fetchedSeats.forEach((seat) => {
-        seat.disabled = (seat.available <= 0)
+        seat.disabled = seat.available <= 0
       })
       setSeats([...fetchedSeats])
     } catch (err) {
@@ -96,14 +96,14 @@ export const ShowDetails = () => {
   const datelist = () => {
     return show
       ? show.dates.map((showDate, index) => (
-        <CardDate
-          key={showDate.date.toDateString()}
-          isDisable={showDate.date < new Date()}
-          showDate={showDate}
-          isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
-          handleClick={handleDateClick}
-        />
-      ))
+          <CardDate
+            key={showDate.date.toDateString()}
+            isDisable={showDate.date < new Date()}
+            showDate={showDate}
+            isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
+            handleClick={handleDateClick}
+          />
+        ))
       : []
   }
 
@@ -158,7 +158,9 @@ export const ShowDetails = () => {
           </section>
           <section className="show-details__comments text">
             {!isAdmin &&
-              show.comments.map((comment) => <Comment key={comment.id} className="show-details__comment" comment={comment} />)}
+              show.comments.map((comment) => (
+                <Comment key={comment.id} className="show-details__comment" comment={comment} />
+              ))}
           </section>
         </article>
       )}
