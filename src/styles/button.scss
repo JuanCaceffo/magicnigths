@@ -6,7 +6,7 @@
   width: 100%;
   height: var(--element-height);
 
-  font-family: var(--typeface-secondary);
+  font-family: var(--typeface-primary);
   cursor: pointer;
 
   border: 1px solid;
@@ -22,8 +22,9 @@
   }
 
   &--circle {
-    width: 1.2em;
-    height: 1.2em;
+    font-family: var(--typeface-secondary);
+    width: 1.5em;
+    height: 1.5em;
     font-size: 3.5em;
     color: var(--color-white);
     border-radius: 50%;

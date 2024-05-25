@@ -9,7 +9,7 @@ class UserSessionStorage {
 
   userIsLoged = () => this.getUserId() > 0
 
-  userIsAdmin = () => sessionStorage.getItem(this.USER_ADMIN_STATUS) === 'true'
+  userIsAdmin = () => sessionStorage.getItem(this.USER_ADMIN_STATUS) === 'ADMIN'
 }
 
 export const userSessionStorage = new UserSessionStorage()

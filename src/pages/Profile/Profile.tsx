@@ -1,26 +1,26 @@
+import './Profile.scss'
 import { Divider } from '@mui/material'
-import './Profile.css'
-import { PurchasedTicketContent } from 'src/components/UserPurchasedTicketContent/PurchasedTicketContent'
+import { PurchasedTicketContent } from 'components/UserPurchasedTicketContent/PurchasedTicketContent'
 import { useEffect, useState } from 'react'
-import { User } from 'src/data/model/User'
-import { userService } from 'src/services/UserService'
+import { User } from 'models/User'
+import { userService } from 'services/UserService'
 import { AxiosError, isAxiosError } from 'axios'
-import { UserData } from 'src/components/UserData/UserData'
-import { SelectionContent, UserSelectionPanel } from 'src/components/UserSelectionPanel/UserSelectionPanel'
-import { FriendsContent } from 'src/components/UserFriendsContent/FriendsContent'
-import { CommentsContent } from 'src/components/UserTicketsContent/CommentsContent'
+import { UserData } from 'components/UserData/UserData'
+import { SelectionContent, UserSelectionPanel } from 'components/UserSelectionPanel/UserSelectionPanel'
+import { FriendsContent } from 'components/UserFriendsContent/FriendsContent'
+import { CommentsContent } from 'components/UserCommentsContent/CommentsContent'
 import { OptionsObject, closeSnackbar, enqueueSnackbar } from 'notistack'
-import { errorHandler } from 'src/data/helpers/ErrorHandler'
-import { ModalCredit, creditValue } from 'src/components/Modal/ModalCredit'
+import { errorHandler } from 'models/helpers/ErrorHandler'
+import { ModalCredit, creditValue } from 'components/Modal/ModalCredit'
+import { UserUpdateProps } from 'models/interfaces/UserProps'
 
 export const snackbarProfileOptions: OptionsObject = {
   anchorOrigin: { horizontal: 'left', vertical: 'top' },
 }
 
 export const Profile = () => {
-  const [user, setUser] = useState(new User('', '', '', '', new Date(), 0))
+  const [user, setUser] = useState<User>(new User())
   const [credit, setCredit] = useState(0)
-  const [age, setAge] = useState(0)
   const [content, setContent] = useState(SelectionContent.PURCHASED_TICKET)
   const [errorMessage, setError] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -36,7 +36,6 @@ export const Profile = () => {
     try {
       const userData = await userService.getUser()
       setUser(userData)
-      setAge(userData.getAge())
       try {
         const userCredit = await userService.getCredit()
         setCredit(userCredit)
@@ -61,46 +60,21 @@ export const Profile = () => {
     }
   }
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target
-
-    setUser((prevUser: User) => {
-      const prevUserData: {
-        profileImg: string
-        name: string
-        surname: string
-        username: string
-        birthday: Date
-        dni: number
-      } = { ...prevUser }
-
-      if (name === 'name' || name === 'surname') {
-        prevUserData[name] = value
-      }
-
-      const updatedUser = new User(
-        prevUserData.profileImg,
-        prevUserData.name,
-        prevUserData.surname,
-        prevUserData.username,
-        prevUserData.birthday,
-        prevUserData.dni,
-      )
-
-      return updatedUser
+  const handleUpdateUser = async (data: UserUpdateProps) => {
+    const updatedUser = new User({
+      ...user,
+      firstName: data.firstName,
+      lastName: data.lastName,
     })
-  }
 
-  const handleSaveClick = async () => {
-    await userService
-      .updateUser(user)
-      .then(() => {
-        enqueueSnackbar('Datos guardados con exito', { variant: 'success', ...snackbarProfileOptions })
-        fetchUserData()
-      })
-      .catch((error: AxiosError) => {
-        enqueueSnackbar(errorHandler(error), snackbarProfileOptions)
-      })
+    try {
+      await userService.updateUser(updatedUser)
+      setUser(updatedUser)
+      enqueueSnackbar('Datos guardados con éxito', { variant: 'success', ...snackbarProfileOptions })
+      fetchUserData()
+    } catch (error) {
+      enqueueSnackbar(errorHandler(error as AxiosError), snackbarProfileOptions)
+    }
   }
 
   const handleAddCredit = async (data: creditValue) => {
@@ -123,37 +97,39 @@ export const Profile = () => {
       {errorMessage ? (
         <p className="error-message error">{errorMessage}</p>
       ) : (
-        <main className="main__content_user">
-          <div className="user_data_container user-flex">
-            <UserData user={user} handleInputChange={handleInputChange} age={age} handleSaveClick={handleSaveClick} />
-            <div className="user_credit_container">
-              <h3 className="text--md tx-aling-center credit" data-testid="credit">
-                Crédito ${credit}
+        <main className="main__content main__content--profile">
+          <article className="profile centered">
+            <section className="profile profile--sidebar">
+              <UserData user={user} onSubmit={handleUpdateUser} />
+              <h3 className="credit text--md" data-testid="credit">
+                <span>Crédito Actual:</span>
+                <span>${credit}</span>
               </h3>
               <button
-                className="add_credit-user-button button button--primary button--rounded animated text--spaced text--strong shadow--box"
+                className="button button--primary button--tall button--rounded animated text--spaced text--strong shadow--box"
                 onClick={handleOpenModel}
               >
-                Sumar crédito
+                SUMAR CREDITO
               </button>
-            </div>
-          </div>
-          <div className="user_display_container">
-            <UserSelectionPanel content={content} onChange={(newValue: SelectionContent) => setContent(newValue)} />
-            <Divider />
-            <div className="content_container">
-              {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
-              {content === SelectionContent.FRIENDS && <FriendsContent />}
-              {content === SelectionContent.COMMENTS && <CommentsContent />}
-            </div>
-            {isModalOpen && (
-              <ModalCredit
-                isOpen={isModalOpen}
-                handleClose={() => setIsModalOpen(false)}
-                onSubmit={handleAddCredit}
-                errorMessage={null} />
-            )}
-          </div>
+            </section>
+            <section className="profile profile--content">
+              <UserSelectionPanel content={content} onChange={(newValue: SelectionContent) => setContent(newValue)} />
+              <Divider />
+              <div className="profile__content">
+                {content === SelectionContent.PURCHASED_TICKET && <PurchasedTicketContent />}
+                {content === SelectionContent.FRIENDS && <FriendsContent />}
+                {content === SelectionContent.COMMENTS && <CommentsContent />}
+              </div>
+              {isModalOpen && (
+                <ModalCredit
+                  isOpen={isModalOpen}
+                  handleClose={() => setIsModalOpen(false)}
+                  onSubmit={handleAddCredit}
+                  errorMessage={null}
+                />
+              )}
+            </section>
+          </article>
         </main>
       )}
     </>

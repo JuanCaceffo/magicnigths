@@ -1,5 +1,5 @@
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-import { Show } from 'src/data/model/Show'
+import { Show } from 'models/Show'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
 
 type Props = {
   show: Show
@@ -8,14 +8,14 @@ type Props = {
 export const FriendsDisplay = ({ show }: Props) => {
   const defaultMessage = !userSessionStorage.getUserId() ? '' : 'No asisten amigos'
 
-  if (!userSessionStorage.getUserId() || !show.totalFriends)
-    return <p className="card__friends centered">{defaultMessage}</p>
+  if (!userSessionStorage.getUserId() || !show.totalFriendsAttending)
+    return <p className="card__friends centered">{defaultMessage} </p>
 
   return (
     <section className="card__friends centered">
       <span className="text--strong">Asisten:</span>
       <span className="card__friends--img">
-        {show.takeImages(3).map((path) => (
+        {show.friendsImgs.map((path) => (
           <img key={path} className="profile-img profile-img__small shadow--png" src={`/images/${path}`} />
         ))}
       </span>

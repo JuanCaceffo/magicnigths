@@ -1,13 +1,12 @@
 import './Login.scss'
 import { Card } from '@mui/material'
 import { FormEvent, useState } from 'react'
-import { userService } from 'src/services/UserService'
+import { userService } from 'services/UserService'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
 import { Input } from '@mui/material'
-import { useOnInit } from 'src/hooks/hooks'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-
+import { useOnInit } from 'hooks/hooks'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
 interface LoginData {
   username: string
   password: string

@@ -1,29 +1,37 @@
 .comment {
   min-width: 20em;
   height: fit-content;
+  padding: 2em;
+  border-radius: var(--border-radius);
 
-  .comment__header {
+  &__header {
     justify-content: space-between;
-    padding-bottom: 0.5em;
-    .comment__description {
-      gap: 1em;
-    }
-    .comment__img-container {
-      height: 5em;
-      width: 5em;
-      overflow: hidden;
-      border-radius: 50%;
-    }
-    .comment__img {
-      height: 100%;
-    }
-    .comment__state {
-      gap: 1em;
-    }
-    .comment__rating {
-      gap: 0.3em;
-    }
   }
+
+  &__description {
+    gap: 1.2em;
+  }
+
+  &__img {
+    height: 5em;
+    width: 5em;
+    overflow: hidden;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__state {
+    gap: 1.2em;
+  }
+
+  &__rating {
+    gap: 0.3em;
+  }
+
+  &__text {
+    padding-top: 1em;
+  }
+
   .button-trash {
     cursor: pointer;
   }

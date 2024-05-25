@@ -1,9 +1,9 @@
 import './CardShow.scss'
 import { useState } from 'react'
-import { Show } from 'src/data/model/Show'
-import { Prices } from '../Prices/Prices'
+import { Show } from 'models/Show'
 import { FriendsDisplay } from './FriendsDisplay'
 import { format } from 'date-fns'
+import { Prices } from '../Prices/Prices'
 
 interface buttonProps {
   content: string
@@ -17,7 +17,7 @@ interface CardShowProps {
   quantity?: number
 }
 
-const CardShow = (props: CardShowProps) => {
+export const CardShow = (props: CardShowProps) => {
   const { show, button } = props
   const [showButton, setShowButton] = useState(false)
 
@@ -36,15 +36,15 @@ const CardShow = (props: CardShowProps) => {
       <>
         {show.rating < 1 ? (
           <i className="fas fa-star fa--rp fa--low" />
-        ) : //
-        show.rating < 4 ? (
-          <i className="fas fa-star fa--rp fa--medium" />
-        ) : (
-          <>
-            <i className="fas fa-star fa--rp fa--up" />
-            <i className="fas fa-fire fa--rp fa--hot" />
-          </>
-        )}
+        ) :
+          show.rating < 4 ? (
+            <i className="fas fa-star fa--rp fa--medium" />
+          ) : (
+            <>
+              <i className="fas fa-star fa--rp fa--up" />
+              <i className="fas fa-fire fa--rp fa--hot" />
+            </>
+          )}
       </>
     )
   }
@@ -112,5 +112,3 @@ const CardShow = (props: CardShowProps) => {
     </main>
   )
 }
-
-export default CardShow

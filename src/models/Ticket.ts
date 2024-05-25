@@ -1,4 +1,4 @@
-import { SeatTypes } from "../interfaces/SeatTypes"
+import { SeatTypes } from 'models/interfaces/SeatTypes'
 
 interface TicketProps {
   showId: number
@@ -7,6 +7,7 @@ interface TicketProps {
   seatTypeName: SeatTypes
   quantity: number
 }
+
 export class Ticket implements TicketProps {
   showId: number
   date: Date
@@ -14,7 +15,7 @@ export class Ticket implements TicketProps {
   seatTypeName: SeatTypes
   quantity: number
 
-  constructor (data: TicketProps) {
+  constructor(data: TicketProps) {
     this.showId = data.showId ?? -1
     this.date = data.date ?? -1
     this.seatPrice = data.seatPrice ?? 0

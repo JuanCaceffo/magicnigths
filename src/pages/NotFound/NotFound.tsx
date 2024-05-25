@@ -1,4 +1,4 @@
-import { ErrorPage } from 'src/components/ErrorPage/ErrorPage'
+import { ErrorPage } from 'components/ErrorPage/ErrorPage'
 
 export const NotFoundPage = () => {
   return (

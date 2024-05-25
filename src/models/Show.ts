@@ -1,9 +1,8 @@
-import { ShowProps } from '../interfaces/ShowProps'
-import { CommentDTO } from '../interfaces/CommentDTO'
+import { ShowProps } from 'models/interfaces/ShowProps'
+import { CommentDTO } from 'models/interfaces/CommentDTO'
 import { format } from 'date-fns'
 import { ShowDate } from './ShowDate'
 
-//TODO: when the imgs managment will finished in the backend change here if is necesary
 export class Show {
   id: number
   ticketId: number
@@ -11,39 +10,41 @@ export class Show {
   showName: string
   bandName: string
   facilityName: string
-  price: number
   prices: number[]
   rating: number
   totalComments: number
   date?: ShowDate
   dates: ShowDate[]
-  userImageNames: string[]
+  friendsImgs: string[]
+  totalFriendsAttending: number
   comments: CommentDTO[]
   geolocation: string
   quantity: number
-  details: { title: string; description: string }[]
+  adminSummary: { title: string; value: number }[]
   canBeCommented: boolean
   showedImages: number = 0
+  isSoldOut: boolean
 
   constructor(props?: ShowProps) {
-    this.id = props?.data.id ?? 0
-    this.showImg = props?.data.showImg ?? 'default.jpg'
-    this.showName = props?.data.showName ?? ''
-    this.bandName = props?.data.bandName ?? ''
-    this.facilityName = props?.data.facilityName ?? ''
-    this.price = props?.price ?? 0
+    this.id = props?.id ?? 0
+    this.showImg = props?.showImg ?? 'default.jpg'
+    this.showName = props?.showName ?? ''
+    this.bandName = props?.bandName ?? ''
+    this.facilityName = props?.facilityName ?? ''
     this.prices = props?.prices ?? []
-    this.rating = props?.showStats?.rating ?? 0
-    this.totalComments = props?.showStats?.totalComments ?? 0
+    this.rating = props?.rating ?? 0
+    this.totalComments = props?.totalComments ?? 0
     this.date = props?.date ? new ShowDate(props.date) : undefined
     this.dates = props?.dates?.map((showDate) => new ShowDate(showDate)) ?? []
-    this.userImageNames = props?.showStats?.userImageNames ?? []
+    this.friendsImgs = props?.friendsImgs ?? []
+    this.totalFriendsAttending = props?.totalFriendsAttending ?? 0
     this.comments = props?.comments ?? []
     this.geolocation = props?.geolocation ?? ''
     this.quantity = props?.quantity ?? 0
-    this.details = props?.details ?? []
+    this.adminSummary = props?.adminSummary ?? []
     this.ticketId = props?.ticketId ?? 0
     this.canBeCommented = props?.canBeCommented ?? false
+    this.isSoldOut = props?.isSoldOut ?? false
   }
 
   get title() {
@@ -53,13 +54,8 @@ export class Show {
   reducedPrices = (decimals: number = 0) =>
     this.prices ? [Math.min(...this.prices).toFixed(decimals), Math.max(...this.prices).toFixed(decimals)] : []
 
-  takeImages = (amount: number = 1): string[] => {
-    this.showedImages = amount
-    return this.userImageNames?.slice(0, amount) ?? []
-  }
-
   get totalFriends() {
-    return this.userImageNames?.length ?? 0
+    return this.totalFriendsAttending - this.friendsImgs?.length
   }
 
   get restFriends() {
@@ -67,7 +63,7 @@ export class Show {
     return rest > 0 ? rest : 0
   }
 
-  isPurchaced = () => this.price
+  isPurchaced = () => this.prices.length == 1
 
   get firstDate() {
     return this.dates?.length ? this.dates[0].date : ''

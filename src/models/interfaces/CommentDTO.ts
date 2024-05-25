@@ -11,8 +11,7 @@ export interface CommentDTO {
 
 export interface CommentCreateDTO {
   userId: number
-  showId: number
-  showDateId: number
+  ticketId: number
   text?: string
   rating?: number
 }

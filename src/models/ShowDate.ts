@@ -9,8 +9,8 @@ export class ShowDate {
   id: number
   date: Date
 
-  constructor(private props: ShowDateProps) {
-    this.id = this.props.id ?? 0
-    this.date = moment(this.props.date).toDate() ?? new Date()
+  constructor(private props?: ShowDateProps) {
+    this.id = this.props?.id ?? 0
+    this.date = moment(this.props?.date).toDate() ?? new Date()
   }
 }

@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import './CardDate.scss'
 import { format } from 'date-fns'
-import { ShowDate } from 'src/data/model/ShowDate'
+import { ShowDate } from 'models/ShowDate'
 
 interface CardDateProps {
   showDate: ShowDate

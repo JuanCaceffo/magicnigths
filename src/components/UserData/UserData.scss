@@ -1,0 +1,24 @@
+.user-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--padding-xs);
+
+  &__profile-photo {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  &__form {
+    display: inherit;
+    flex-direction: inherit;
+    width: 100%;
+    gap: inherit;
+  }
+
+  &__input {
+    display: inherit;
+    flex-direction: inherit;
+    gap: 0.4em;
+  }
+}

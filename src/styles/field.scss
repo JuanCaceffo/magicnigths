@@ -25,6 +25,10 @@
     height: 4.2rem;
   }
 
+  &:disabled {
+    opacity: 50%;
+  }
+
   &__container {
     display: flex;
     align-items: center;

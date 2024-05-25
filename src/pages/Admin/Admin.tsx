@@ -1,18 +1,21 @@
-import { useState } from 'react'
-import { CardShowAdmin } from 'src/components/Card/CardShowAdmin/CardShowAdmin'
-import { FilterArgs, Search } from 'src/components/Search/Search'
-import { Show } from 'src/data/model/Show'
-import { useOnInit } from 'src/hooks/hooks'
-import { Page } from 'src/pages/Page/Page'
-import { showService } from 'src/services/ShowService'
 import './Admin.scss'
-import { CardDate } from 'src/components/Card/CardDate/CardDate'
-import { Carousel } from 'src/components/Carousel/Carousel'
-import { DateTimeModal } from 'src/components/Modal/DateTimeModal'
+import { useState } from 'react'
+import { CardShowAdmin } from 'components/Card/CardShowAdmin/CardShowAdmin'
+import { FilterArgs, Search } from 'components/Search/Search'
+import { Show } from 'models/Show'
+import { ShowStat } from 'models/ShowStats'
+import { CDate, CDateArgs } from 'models/CDate'
+import { useOnInit } from 'hooks/hooks'
+import { Page } from 'pages/Page/Page'
+import { showService } from 'services/ShowService'
+import { CardDate } from 'components/Card/CardDate/CardDate'
+import { Carousel } from 'components/Carousel/Carousel'
+import { DateTimeModal } from 'components/Modal/DateTimeModal'
 import { SubmitHandler } from 'react-hook-form'
-import { CDate, CDateArgs } from 'src/data/model/CDate'
-import { CardStats } from 'src/components/Card/CardStats/CardStats'
-import { ShowStat } from 'src/data/model/ShowStats'
+import { CardStats } from 'components/Card/CardStats/CardStats'
+import { enqueueSnackbar } from 'notistack'
+import { errorHandler } from 'models/helpers/ErrorHandler'
+import { AxiosError } from 'axios'
 
 export const Admin = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -27,8 +30,7 @@ export const Admin = () => {
       getAllShows({} as FilterArgs)
       setModalIsOpen(false)
     } catch (err) {
-      // handle error
-      TODO: console.error(err)
+      enqueueSnackbar(errorHandler(err as AxiosError), { variant: 'error' })
     }
   }
 
@@ -109,9 +111,9 @@ export const Admin = () => {
           <section className="admin__stats">
             {stats && stats.length > 0 && (
               <section className="admin__stats">
-                <CardStats title={'Ventas'} info={`$ ${stats[0]['value']}`} color={stats[0]['color']} />
+                <CardStats title={'Ventas'} info={`$ ${parseFloat(stats[0].value.toFixed(2))}`} color={stats[0].color} />
                 <CardStats title={'En Espera'} info={`${stats[1].value} Personas`} color={stats[1].color} />
-                <CardStats title={'Rentabilidad'} info={`${stats[2].value} %`} color={stats[2].color} />
+                <CardStats title={'Rentabilidad'} info={`${parseFloat(stats[2].value.toFixed(2))} %`} color={stats[2].color} />
                 <CardStats title={'Sold-Out'} info={`${stats[3].value} Funciones`} color={stats[3].color} />
               </section>
             )}

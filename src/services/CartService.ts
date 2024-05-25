@@ -1,32 +1,31 @@
 import axios from 'axios'
-import { REST_SERVER_URL, pathPrefix } from './contants'
-import { ShowProps } from 'src/data/interfaces/ShowProps'
-import { Show } from 'src/data/model/Show'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-import { Ticket } from 'src/data/model/Ticket'
-
+import { REST_SERVER_URL, PATH } from './contants'
+import { ShowProps } from 'models/interfaces/ShowProps'
+import { Show } from 'models/Show'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
+import { TicketBuyProps } from 'models/interfaces/TicketBuy'
 class CartService {
-  cartPathPrefix = () => `${REST_SERVER_URL}/${pathPrefix.cart}/${pathPrefix.user}/${userSessionStorage.getUserId()}`
+  cartPathPrefix = `${REST_SERVER_URL}/${PATH.CART}/${PATH.USER}/${userSessionStorage.getUserId()}`
 
-  async getReservedTickets(): Promise<Show[]> {
-    const showPropsList = await axios.get<ShowProps[]>(`${this.cartPathPrefix()}/reserved-tickets`)
-    return showPropsList.data.map((props) => new Show(props))
+  getUserCart = async () => {
+    const ticketsJson = await axios.get<ShowProps[]>(this.cartPathPrefix)
+    return ticketsJson.data.map((props) => new Show(props))
   }
 
-  async buyReservedTickets() {
-    return await axios.patch(`${this.cartPathPrefix()}/buy-reserved-tickets`)
+  clearCart = async () => {
+    return await axios.delete(`${this.cartPathPrefix}/clear`)
   }
 
-  async addReservedTicket(ticketData: Ticket) {
-    return await axios.patch(`${this.cartPathPrefix()}/reserve-tickets`, ticketData)
+  buy = async () => {
+    return await axios.post(`${this.cartPathPrefix}/buy`)
   }
 
-  async removeReservedTickets() {
-    return await axios.delete(`${this.cartPathPrefix()}/remove-reserved-tickets`)
+  reserve = async (tickets: TicketBuyProps[]) => {
+    return await axios.post(`${this.cartPathPrefix}/add`, tickets)
   }
 
-  async reservedTicketsPrice(): Promise<number> {
-    const price = await axios.get<number>(`${this.cartPathPrefix()}/reserved-tickets-price`)
+  getTotal = async () => {
+    const price = await axios.get<number>(`${this.cartPathPrefix}/total_price`)
     return price.data
   }
 }

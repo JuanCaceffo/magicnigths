@@ -1,9 +1,0 @@
-.selection_panel {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-}
-
-.selection_button {
-  margin: 0 2em 0 0;
-}

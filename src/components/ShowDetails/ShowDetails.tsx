@@ -1,28 +1,39 @@
 import './ShowDetails.scss'
 import { useState } from 'react'
-import { showService } from 'src/services/ShowService'
-import { Show } from 'src/data/model/Show'
-import { useNavigate, useParams } from 'react-router-dom'
-import { CardDate } from '../Card/CardDate/CardDate'
-import { Seat } from 'src/data/model/Seat'
-import { useOnInit } from 'src/hooks/hooks'
-import { Comment } from '../Comment/Comment'
+import { showService } from 'services/ShowService'
+import { Show } from 'models/Show'
+import { Seat } from 'models/Seat'
+import { ShowDate } from 'models/ShowDate'
+import { useOnInit } from 'hooks/hooks'
+import { useParams } from 'react-router-dom'
+import { CardDate } from 'components/Card/CardDate/CardDate'
+import { Carousel } from 'components/Carousel/Carousel'
+import { Comment } from 'components/Comment/Comment'
 import { ShowDetailsBase } from './ShowDetailsBase'
 import { ShowDetailsAdmin } from './ShowDetailsAdmin'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-import { Ticket } from 'src/data/model/Ticket'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
 import { enqueueSnackbar } from 'notistack'
-import { cartService } from 'src/services/CartService'
-import { ShowDate } from 'src/data/model/ShowDate'
-import { Carousel } from '../Carousel/Carousel'
+import { cartService } from 'services/CartService'
+import { TicketBuyProps } from 'models/interfaces/TicketBuy'
 
 export const ShowDetails = () => {
   const { id } = useParams()
   const [show, setShow] = useState<Show>()
   const [seats, setSeats] = useState<Seat[]>([])
   const [dateSelected, setDateSelected] = useState<ShowDate>()
-  const navigate = useNavigate()
   const isAdmin = userSessionStorage.userIsAdmin()
+
+  // Loads show from backend
+  const getShowById = async () => {
+    try {
+      const fetchedShow = await showService.getShowById(+id!)
+      setShow(fetchedShow)
+      await getShowSeatTypes(fetchedShow.dates[0])
+      setDateSelected(fetchedShow.dates[0])
+    } catch (err) {
+      enqueueSnackbar(`${err}`, { variant: 'error' })
+    }
+  }
 
   const handleDateClick = (showDate: ShowDate) => {
     setDateSelected(showDate)
@@ -31,24 +42,27 @@ export const ShowDetails = () => {
 
   const handlePickerUpdate = (seat: Seat) => {
     setSeats((prevSeats) => {
-      return prevSeats.map((s) => s.id === seat.id ? seat : s)
+      return prevSeats.map((s) => (s.id === seat.id ? seat : s))
     })
   }
 
-  const getShowById = async () => {
+  const addPendingAttendee = async () => {
     try {
-      const fetchedShow = await showService.getShowById(+id!)
-      setShow(fetchedShow)
-      await getShowSeatTypes(fetchedShow.dates[0])
-      setDateSelected(show!.dates[0])
-    } catch (err) {
-      console.error(err)
+      if (show) {
+        await showService.addPendingAttendee(show.id)
+        enqueueSnackbar('Se notificará cuando se agregue una nueva función ', { variant: 'success' })
+      }
+    } catch {
+      enqueueSnackbar('No se pudo agregar a la lista de pendientes', { variant: 'warning' })
     }
   }
 
   const getShowSeatTypes = async (selectedDate: ShowDate) => {
     try {
-      const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(+id!, selectedDate!)
+      const fetchedSeats: Seat[] = await showService.getSeatsByShowDate(selectedDate)
+      fetchedSeats.forEach((seat) => {
+        seat.disabled = seat.available <= 0
+      })
       setSeats([...fetchedSeats])
     } catch (err) {
       console.error(err)
@@ -56,31 +70,23 @@ export const ShowDetails = () => {
   }
 
   const addToCart = async () => {
-    
     try {
-      if (userSessionStorage.userIsLoged()) {
-        if (show && dateSelected) {
-          if(seats.some(seat => seat.reservedQuantity > 0)) { // Se seleccionó al menos un ticket
-            seats.forEach(async (seat) => {
-              const ticketData = Ticket.toJson({
-                showId: show.id,
-                date: dateSelected.date,
-                seatPrice: seat.price,
-                seatTypeName: seat.seatType,
-                quantity: seat.reservedQuantity,
-              })
-              if(ticketData.quantity > 0) {
-                await cartService.addReservedTicket(ticketData)
-              }
-            })
-            enqueueSnackbar('Carrito actualizado con éxito', { variant: 'success' })
-          }
-          else { // No se seleccionó ningún ticket
-            enqueueSnackbar('No se seleccionó ningún ticket', { variant: 'warning' })
-          }
+      if (show && dateSelected) {
+        if (seats.some((seat) => seat.reservedQuantity > 0)) {
+          const tickets = seats.map((seat) => {
+            return {
+              showDateId: dateSelected.id,
+              seatId: seat.id,
+              quantity: seat.reservedQuantity,
+            } as TicketBuyProps
+          })
+          cartService.reserve(tickets)
+          getShowById()
+          enqueueSnackbar('Carrito actualizado con éxito', { variant: 'success' })
+        } else {
+          // No se seleccionó ningún ticket
+          enqueueSnackbar('No se seleccionó ningún ticket', { variant: 'warning' })
         }
-      } else {
-        navigate('/login', { state: location })
       }
     } catch (error) {
       console.error('Error al agregar el espectáculo al carrito:', error)
@@ -90,24 +96,21 @@ export const ShowDetails = () => {
   const datelist = () => {
     return show
       ? show.dates.map((showDate, index) => (
-        <CardDate
-          key={showDate.date.toDateString()}
-          isDisable={showDate.date < new Date()}
-          showDate={showDate}
-          isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
-          handleClick={handleDateClick}
-        />
-      ))
+          <CardDate
+            key={showDate.date.toDateString()}
+            isDisable={showDate.date < new Date()}
+            showDate={showDate}
+            isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
+            handleClick={handleDateClick}
+          />
+        ))
       : []
   }
 
+  // Hook callbacks
   useOnInit(async () => {
     await getShowById()
   })
-
-  const isSoldOut = () => {
-    return false // TODO: Cambiar cuandó esté desarrollada la logica que devuelve esto desde el back
-  }
 
   return (
     <>
@@ -137,27 +140,27 @@ export const ShowDetails = () => {
             <img className="show-details__img" src={`/images/${show.showImg}`} />
             <section className="show-details__buybox">
               <div className="show-details__dates shadow shadow--line">
-                {/* {show.dates.map((showDate, index) => (
-                  <CardDate
-                    key={showDate.date.toDateString()}
-                    isSelected={!dateSelected ? (index === 0 ? true : false) : showDate === dateSelected}
-                    isDisable={showDate.date < new Date()}
-                    showDate={showDate}
-                    handleClick={handleDateClick}
-                  />
-                ))} */}
                 <Carousel elements={datelist()} maxElements={4} />
               </div>
               {seats && isAdmin ? (
                 <ShowDetailsAdmin show={show} />
               ) : (
-                <ShowDetailsBase seats={seats} handlePickerUpdate={handlePickerUpdate} addToCart={addToCart} dateSelected={dateSelected} isSoldOut={isSoldOut()}/>
+                <ShowDetailsBase
+                  seats={seats}
+                  handlePickerUpdate={handlePickerUpdate}
+                  addToCart={addToCart}
+                  dateSelected={dateSelected}
+                  isSoldOut={show.isSoldOut}
+                  addPendingAttendee={addPendingAttendee}
+                />
               )}
             </section>
           </section>
           <section className="show-details__comments text">
             {!isAdmin &&
-              show.comments.map((comment) => <Comment className="show-details__comment" comment={comment} />)}
+              show.comments.map((comment) => (
+                <Comment key={comment.id} className="show-details__comment" comment={comment} />
+              ))}
           </section>
         </article>
       )}

@@ -1,10 +1,12 @@
-import { Show } from 'src/data/model/Show'
 import { DateTimeModal } from '../Modal/DateTimeModal'
 import { SubmitHandler } from 'react-hook-form'
-import { CDate, CDateArgs } from 'src/data/model/CDate'
-import { showService } from 'src/services/ShowService'
+import { CDate, CDateArgs } from 'models/CDate'
+import { Show } from 'models/Show'
+import { showService } from 'services/ShowService'
 import { useState } from 'react'
-
+import { enqueueSnackbar } from 'notistack'
+import { AxiosError } from 'axios'
+import { errorHandler } from 'models/helpers/ErrorHandler'
 interface ShowDetailsBaseArgs {
   show: Show
 }
@@ -19,18 +21,17 @@ export const ShowDetailsAdmin = (args: ShowDetailsBaseArgs) => {
       show && (await showService.addShowDate(show, date))
       setModalIsOpen(false)
     } catch (err) {
-      // handle error
-      TODO: console.error(err)
+      enqueueSnackbar(errorHandler(err as AxiosError), { variant: 'error' })
     }
   }
 
   return (
     <>
       <ul className="show-details__body-info">
-        {show.details.map((detail) => (
-          <li className="show-details__text text--unlisted">
-            <span className="text text--md text--stronger ">{detail.title}: </span>
-            <span className="text text--md">{detail.description}</span>
+        {show.adminSummary.map((summary, index) => (
+          <li key={index} className="show-details__text text--unlisted">
+            <span className="text text--md text--stronger ">{summary.title} </span>
+            <span className="text text--md">{parseFloat(summary.value.toFixed(2))}</span>
           </li>
         ))}
       </ul>

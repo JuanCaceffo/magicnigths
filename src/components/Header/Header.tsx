@@ -1,13 +1,13 @@
 /* eslint-disable indent */
-import { Navbar } from 'src/components/Navbar/Navbar'
-import { Logo } from 'src/components/Logo/Logo'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-import { userService } from 'src/services/UserService'
+import { User } from 'models/User'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
+import { Navbar } from 'components/Navbar/Navbar'
+import { Logo } from 'components/Logo/Logo'
+import { userService } from 'services/UserService'
 import { useEffect, useState } from 'react'
-import { User } from 'src/data/model/User'
 
 export const Header = () => {
-  const [user, setUser] = useState({} as User)
+  const [user, setUser] = useState<User>(new User())
   const isAdmin = userSessionStorage.userIsAdmin()
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const Header = () => {
       ? {
         node: (
           <section className="centered centered--spaced">
-            <img className="profile-img" src={`/images/${user.profileImg}`} />
+            <img className="profile-img" src={`/images/${user.profileImgUrl}`} />
             <span>{`${user.username}`}</span>
           </section>
         ),
@@ -42,10 +42,12 @@ export const Header = () => {
   const navbar = {
     className: 'text text--xl text--clear text--stronger text--spaced-sm shadow--text',
     nodes: [
-      isAdmin ? {
-        node: <>Admin</>,
-        link: '/admin_dashboard',
-      } : null,
+      isAdmin
+        ? {
+          node: <>Admin</>,
+          link: '/admin_dashboard',
+        }
+        : null,
       {
         node: <>Home</>,
         link: '/',
@@ -55,7 +57,7 @@ export const Header = () => {
         link: '/shop',
       },
       loginOrProfile(),
-    ].flatMap(item => item ? [{ node: item.node, link: item.link }] : []),
+    ].flatMap((item) => (item ? [{ node: item.node, link: item.link }] : [])),
   }
 
   return (

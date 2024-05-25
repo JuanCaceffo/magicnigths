@@ -1,20 +1,20 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Seat } from 'src/data/model/Seat'
+import { Seat } from 'models/Seat'
 import { SeatBox } from '../SeatBox/SeatBox'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-import { ShowDate } from 'src/data/model/ShowDate'
-import { enqueueSnackbar } from 'notistack'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
+import { ShowDate } from '/models/ShowDate'
 
 interface ShowDetailsBaseArgs {
   seats: Seat[]
   handlePickerUpdate: (seat: Seat) => void
   addToCart: () => void
+  addPendingAttendee: () => void
   dateSelected?: ShowDate
   isSoldOut: boolean
 }
 
 export const ShowDetailsBase = (args: ShowDetailsBaseArgs) => {
-  const { seats = [], handlePickerUpdate, addToCart } = args
+  const { seats = [], handlePickerUpdate, addToCart, addPendingAttendee } = args
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -22,11 +22,6 @@ export const ShowDetailsBase = (args: ShowDetailsBaseArgs) => {
     // La fecha seleccionada no pasó
     return args.dateSelected && args.dateSelected.date >= new Date()
   }
-
-  const notifyNewShowDate = () => {
-    enqueueSnackbar('Se notificará cuando se agregue una nueva función ', { variant: 'success' })
-  }
-  
 
   return (
     <>
@@ -54,13 +49,11 @@ export const ShowDetailsBase = (args: ShowDetailsBaseArgs) => {
           <button
             className="button button--primary button--rounded button--tall button--large animated shadow--box text--strong text--spaced>"
             onClick={() => {
-              //Si no esta logeado te manda al login y le pasamos la locacion de la esta pagina
               !userSessionStorage.userIsLoged() && navigate('/login', { state: location })
-              notifyNewShowDate()
-              //si si esta logeado agregamos los shows al back
+              addPendingAttendee()
             }}
           >
-          NOTIFICAR NUEVA FUNCIÓN
+            Notificarme Nueva Función
           </button>
         )}
       </div>

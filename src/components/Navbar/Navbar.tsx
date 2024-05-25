@@ -1,10 +1,9 @@
-import { useState } from 'react'
 import './Navbar.scss'
-import { Box } from '@mui/material'
 import { NodeItem, NodeItemProps } from './NodeItem'
+import { userSessionStorage } from 'models/helpers/userSessionStorage'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { userSessionStorage } from 'src/data/helpers/userSessionStorage'
-
+import { Box } from '@mui/material'
 interface NavbarProps {
   className?: string
   nodes: NodeItemProps[]

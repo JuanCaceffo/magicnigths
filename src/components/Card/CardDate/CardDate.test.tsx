@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test } from 'vitest'
 import { CardDate } from './CardDate'
 import { RenderResult, render } from '@testing-library/react'
-import { ShowDate } from 'src/data/model/ShowDate'
+import { ShowDate } from 'models/ShowDate'
 
 describe('card date tests', () => {
   let renderResult: RenderResult
