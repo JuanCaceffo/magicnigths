@@ -1,0 +1,11 @@
+.icon {
+  color: var(--color-white);
+
+  &--dark {
+    color: var(--color-text);
+  }
+
+  &--rounded {
+    border-radius: 50%;
+  }
+}

@@ -1,0 +1,23 @@
+.friend__container {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-xs);  
+}
+
+.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-i4bv87-MuiSvgIcon-root {
+  color: var(--text-color-medium);
+}
+
+.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-i4bv87-MuiSvgIcon-root:hover {
+  color: var(--color-highligthed);
+}
+
+.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-i4bv87-MuiSvgIcon-root:active {
+  color: var(--text-color-medium);
+}
+
+.delete__button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}

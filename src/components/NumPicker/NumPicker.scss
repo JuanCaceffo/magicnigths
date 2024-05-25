@@ -1,0 +1,40 @@
+.numeric-picker {
+  font-family: var(--typeface-secondary);
+  display: flex;
+  align-items: center;
+  height: 1.8em;
+  border-radius: 9999px;
+  overflow: hidden;
+
+  background-color: var(--color-white);
+
+  & * {
+    transition: all var(--transition-fast) ease;
+  }
+
+  &__number {
+    min-width: 1.3em;
+    color: var(--text-color-medium);
+    height: 100%;
+    font-size: 1.1em;
+    text-align: center;
+    border: none;
+    outline: none;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.7em;
+    height: 100%;
+    background-color: var(--color-primary);
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background-color: var(--color-primary-lighter);
+    }
+  }
+}

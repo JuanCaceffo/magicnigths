@@ -1,0 +1,38 @@
+.comment {
+  min-width: 20em;
+  height: fit-content;
+  padding: 2em;
+  border-radius: var(--border-radius);
+
+  &__header {
+    justify-content: space-between;
+  }
+
+  &__description {
+    gap: 1.2em;
+  }
+
+  &__img {
+    height: 5em;
+    width: 5em;
+    overflow: hidden;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__state {
+    gap: 1.2em;
+  }
+
+  &__rating {
+    gap: 0.3em;
+  }
+
+  &__text {
+    padding-top: 1em;
+  }
+
+  .button-trash {
+    cursor: pointer;
+  }
+}

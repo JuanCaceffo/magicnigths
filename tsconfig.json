@@ -1,7 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -32,10 +31,45 @@
     /* Linting */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    /* Aliases */
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "./src/*"
+      ],
+      "@/assets": [
+        "./src/assets/*"
+      ],
+      "@/components": [
+        "./src/components/*"
+      ],
+      "@/services/*": [
+        "./src/services/*"
+      ],
+      "@/models/*": [
+        "./src/models/*"
+      ],
+      "@/pages": [
+        "./src/pages/*"
+      ],
+      "@/interfaces": [
+        "./src/models/interfaces/*"
+      ],
+      "@/helpers": [
+        "./src/models/helpers/*"
+      ],
+      "@/styles": [
+        "./src/styles/*"
+      ],
+      "@/hooks": [
+        "./src/hooks/*"
+      ]
+    }
   },
   "include": [
-    "src"
+    "src",
+    "setupTest.ts"
   ],
   "references": [
     {
