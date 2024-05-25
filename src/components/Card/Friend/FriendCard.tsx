@@ -15,6 +15,11 @@ interface FriendCardProps {
 export const FriendCard: FC<FriendCardProps> = ({ friend, deleteFriend }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  const handleOnSubmint = () => {
+    setIsModalOpen(false)
+    deleteFriend(friend.id)
+  }
+
   return (
     <>
       <div className="friend__container">
@@ -32,7 +37,7 @@ export const FriendCard: FC<FriendCardProps> = ({ friend, deleteFriend }) => {
         <ModalDelete
           isOpen={isModalOpen}
           handleClose={() => setIsModalOpen(false)}
-          onSubmit={() => deleteFriend(friend.id)}
+          onSubmit={handleOnSubmint}
           elementName={friend.firstName}
         />
       </div>
