@@ -5,27 +5,27 @@ import { Show } from 'models/Show'
 import { userSessionStorage } from 'models/helpers/userSessionStorage'
 import { TicketBuyProps } from 'models/interfaces/TicketBuy'
 class CartService {
-  cartPathPrefix = `${REST_SERVER_URL}/${PATH.CART}/${PATH.USER}/${userSessionStorage.getUserId()}`
+  cartPathPrefix = () => `${REST_SERVER_URL}/${PATH.CART}/${PATH.USER}/${userSessionStorage.getUserId()}`
 
   getUserCart = async () => {
-    const ticketsJson = await axios.get<ShowProps[]>(this.cartPathPrefix)
+    const ticketsJson = await axios.get<ShowProps[]>(this.cartPathPrefix())
     return ticketsJson.data.map((props) => new Show(props))
   }
 
   clearCart = async () => {
-    return await axios.delete(`${this.cartPathPrefix}/clear`)
+    return await axios.delete(`${this.cartPathPrefix()}/clear`)
   }
 
   buy = async () => {
-    return await axios.post(`${this.cartPathPrefix}/buy`)
+    return await axios.post(`${this.cartPathPrefix()}/buy`)
   }
 
   reserve = async (tickets: TicketBuyProps[]) => {
-    return await axios.post(`${this.cartPathPrefix}/add`, tickets)
+    return await axios.post(`${this.cartPathPrefix()}/add`, tickets)
   }
 
   getTotal = async () => {
-    const price = await axios.get<number>(`${this.cartPathPrefix}/total_price`)
+    const price = await axios.get<number>(`${this.cartPathPrefix()}/total_price`)
     return price.data
   }
 }
